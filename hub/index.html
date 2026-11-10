@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude creations · samilososami</title>
+<meta name="description" content="Webs y proyectos que he construido con Claude a partir de un prompt, con el modelo, el tiempo y los tokens que costó cada uno.">
+<meta name="theme-color" content="#f1ece2">
+<meta property="og:title" content="Claude creations">
+<meta property="og:description" content="Webs y proyectos construidos con Claude a partir de un prompt.">
+<meta property="og:image" content="https://www.samilososami.com/claude/sonya6700/img/cam-hero.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d2603a'/%3E%3Cpath d='M32 10v44M10 32h44M16.5 16.5l31 31M47.5 16.5l-31 31' stroke='%23f1ece2' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+<style>
+:root{
+  --paper:#f1ece2;
+  --paper-2:#e8e1d3;
+  --ink:#191714;
+  --muted:rgba(25,23,20,.74);
+  --line:rgba(25,23,20,.15);
+  --clay:#d2603a;
+  --clay-deep:#b0461f;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(20px,5vw,80px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--clay);color:var(--paper)}
+:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+.wrap{width:min(1280px,100% - 2 * var(--pad));margin-inline:auto}
+.label{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:.8em}
+.label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--clay)}
+
+/* ambient field */
+#field{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,footer,.top{position:relative;z-index:1}
+
+/* top bar */
+.top{position:fixed;left:0;right:0;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px var(--pad);font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;mix-blend-mode:multiply}
+.top a{padding:8px 0;position:relative}
+.top a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.top a:hover::after{transform:scaleX(1);transform-origin:left}
+.top nav{display:flex;gap:clamp(16px,3vw,36px)}
+.mark{display:inline-flex;align-items:center;gap:10px}
+.mark svg{width:18px;height:18px;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* hero */
+.hero{min-height:100vh;min-height:100svh;display:grid;align-content:end;padding:140px 0 clamp(56px,10vh,110px)}
+.hero h1{font:400 clamp(3.6rem,13.5vw,13.5rem)/.84 var(--serif);letter-spacing:-.035em;margin:26px 0 clamp(28px,5vh,56px)}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}
+.hero h1 .ln > span{display:inline-block;will-change:transform}
+.hero h1 em{color:var(--clay);font-style:italic}
+.hero-row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,6vw,100px);align-items:end;border-top:1px solid var(--ink);padding-top:26px}
+.hero-row p{font-size:clamp(1.1rem,1.7vw,1.45rem);line-height:1.4;max-width:26em}
+.hero-meta{display:flex;justify-content:flex-end;gap:clamp(20px,4vw,56px);font:500 11px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hero-meta b{display:block;font:400 clamp(2rem,3.6vw,3.2rem)/1 var(--serif);letter-spacing:-.02em;color:var(--ink);text-transform:none;margin-bottom:6px}
+
+/* about */
+.about{padding:clamp(90px,16vh,190px) 0}
+.about-grid{display:grid;grid-template-columns:minmax(0,.5fr) minmax(0,1.5fr);gap:clamp(24px,5vw,80px)}
+.about-text{font:400 clamp(1.7rem,4vw,3.6rem)/1.08 var(--serif);letter-spacing:-.02em;text-wrap:balance}
+.about-text em{color:var(--clay)}
+.about-text .w{display:inline-block}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:clamp(50px,9vh,100px);border-top:1px solid var(--line)}
+.steps li{padding:26px clamp(14px,2vw,28px) 6px 0;border-right:1px solid var(--line);display:grid;gap:12px;align-content:start}
+.steps li + li{padding-left:clamp(14px,2vw,28px)}
+.steps li:last-child{border-right:0}
+.steps i{font:500 11px/1 var(--mono);font-style:normal;letter-spacing:.14em;color:var(--clay-deep)}
+.steps h3{font:400 clamp(1.5rem,2.4vw,2.1rem)/1 var(--serif);letter-spacing:-.01em}
+.steps p{color:var(--muted);font-size:1rem}
+.steps kbd{font:500 .8em/1 var(--mono);border:1px solid var(--ink);border-radius:50%;width:1.7em;height:1.7em;display:inline-grid;place-items:center;font-style:italic;vertical-align:middle;color:var(--ink)}
+
+/* projects */
+.projects{padding:0 0 clamp(90px,14vh,170px)}
+.projects-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;border-bottom:1px solid var(--ink);padding-bottom:18px;margin-bottom:clamp(26px,5vh,50px)}
+.projects-head h2{font:400 clamp(2.8rem,8vw,7rem)/.9 var(--serif);letter-spacing:-.03em}
+.projects-head span{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.card{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(20px,4vw,60px);align-items:stretch;padding-bottom:clamp(26px,5vh,50px);border-bottom:1px solid var(--line)}
+.card-media{position:relative;overflow:hidden;border-radius:6px;background:#0a0a0b;aspect-ratio:16/10}
+.card-media img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;transition:scale 1.2s var(--ease);will-change:transform}
+.card:hover .card-media img,.card:focus-visible .card-media img{scale:1.06}
+.card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55));pointer-events:none}
+.card-tag{position:absolute;left:16px;bottom:14px;z-index:2;color:#f3f1ec;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.card-go{position:absolute;right:16px;top:16px;z-index:2;width:54px;height:54px;border-radius:50%;background:var(--clay);color:var(--paper);display:grid;place-items:center;font-size:22px;transform:scale(0) rotate(-45deg);transition:transform .6s var(--ease)}
+.card:hover .card-go,.card:focus-visible .card-go{transform:scale(1) rotate(0)}
+.card-body{display:grid;align-content:space-between;gap:26px;padding:4px 0}
+.card-n{font:500 11px/1 var(--mono);letter-spacing:.14em;color:var(--clay-deep)}
+.card h3{font:400 clamp(2.4rem,5vw,4.6rem)/.9 var(--serif);letter-spacing:-.03em;margin:14px 0 18px}
+.card h3 em{color:var(--clay)}
+.card p{color:var(--muted);max-width:26em}
+.card dl{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:8px clamp(18px,2.6vw,38px);border-top:1px solid var(--line);padding-top:18px}
+.card dt{font:500 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.card dd{font:500 .98rem/1.1 var(--sans)}
+.card-cta{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px}
+.card-cta span{display:inline-block;transition:transform .5s var(--ease)}
+.card:hover .card-cta span{transform:translateX(8px)}
+.soon{margin-top:clamp(26px,5vh,50px);border:1px dashed var(--line);border-radius:6px;padding:clamp(26px,5vw,56px);text-align:center;color:var(--muted);font:italic 400 clamp(1.3rem,2.4vw,2rem)/1.2 var(--serif)}
+
+/* footer */
+footer{background:var(--ink);color:var(--paper);padding:clamp(60px,10vh,120px) 0 40px}
+.foot-big{font:400 clamp(3rem,11vw,11rem)/.86 var(--serif);letter-spacing:-.035em}
+.foot-big em{color:var(--clay)}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:clamp(40px,8vh,90px);padding-top:22px;border-top:1px solid rgba(241,236,226,.2);font:500 11px/1.6 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(241,236,226,.6)}
+.foot-row a{color:var(--paper);border-bottom:1px solid rgba(241,236,226,.3);transition:border-color .3s,color .3s}
+.foot-row a:hover{color:var(--clay);border-color:var(--clay)}
+.foot-row nav{display:flex;gap:26px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero-row,.about-grid,.card{grid-template-columns:1fr}
+  .hero-meta{justify-content:flex-start}
+  .steps{grid-template-columns:1fr}
+  .steps li,.steps li + li{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .card-go{transform:scale(1) rotate(0);width:44px;height:44px;font-size:18px}
+  .top nav a:first-child{display:none}
+}
+@media (prefers-reduced-motion:reduce){.mark svg{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<canvas id="field" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a class="mark" href="/claude/" aria-label="Claude creations, inicio">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg>
+    Claude creations
+  </a>
+  <nav>
+    <a href="#idea">De qué va</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="https://github.com/samilososami/claude-creations" target="_blank" rel="noopener">GitHub ↗</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="label rv">samilososami.com / claude</span>
+      <h1 aria-label="Cosas hechas con Claude.">
+        <span class="ln"><span>Cosas hechas</span></span>
+        <span class="ln"><span>con <em>Claude.</em></span></span>
+      </h1>
+      <div class="hero-row">
+        <p class="rv">Las webs y proyectos que he construido hablando con una IA y que me han parecido demasiado buenos para dejarlos en una carpeta.</p>
+        <div class="hero-meta rv">
+          <span><b>1</b>Proyecto</span>
+          <span><b>1</b>Prompt cada uno</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="idea">
+    <div class="wrap">
+      <div class="about-grid">
+        <span class="label rv">De qué va</span>
+        <div>
+          <p class="about-text" id="aboutText">Escribo lo que quiero, <em>tal cual me sale</em>. Claude decide el diseño, busca las imágenes, programa la web y la deja funcionando. Aquí solo guardo lo que queda <em>realmente bien</em>, sin retocarlo a mano.</p>
+          <ol class="steps">
+            <li class="rv"><i>01</i><h3>Un prompt</h3><p>La idea en un mensaje, sin pulir y con sus faltas de ortografía. Nada de especificaciones.</p></li>
+            <li class="rv"><i>02</i><h3>Claude construye</h3><p>Diseño, código, contenido y despliegue salen de la misma conversación.</p></li>
+            <li class="rv"><i>03</i><h3>Todo a la vista</h3><p>Cada proyecto lleva un botón <kbd>i</kbd> con el prompt exacto, el modelo, el tiempo y los tokens que costó.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="proyectos">
+    <div class="wrap">
+      <div class="projects-head">
+        <h2 class="rv">Proyectos</h2>
+        <span class="rv">01 publicado</span>
+      </div>
+
+      <!-- Para añadir un proyecto: copia este bloque <a class="card">, cambia enlace, imagen y textos. -->
+      <a class="card rv" href="/claude/sonya6700/">
+        <div class="card-media">
+          <img src="/claude/sonya6700/img/cam-hero.jpg" alt="Sony α6700 sobre fondo oscuro de estudio" width="1920" height="1280">
+          <span class="card-tag">Web de producto · scroll interactivo</span>
+          <span class="card-go" aria-hidden="true">↗</span>
+        </div>
+        <div class="card-body">
+          <div>
+            <span class="card-n">01</span>
+            <h3>Sony <em>α</em>6700</h3>
+            <p>Un recorrido visual por la cámara: diseño, sensor, enfoque con IA, vídeo y una galería de 36 fotos reales hechas con ella.</p>
+          </div>
+          <div style="display:grid;gap:22px">
+            <dl>
+              <div><dt>Modelo</dt><dd>Fable 5.2</dd></div>
+              <div><dt>Tiempo</dt><dd>21 min</dd></div>
+              <div><dt>Fecha</dt><dd>Nov 2026</dd></div>
+            </dl>
+            <span class="card-cta">Ver la web <span>→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <p class="soon rv">El siguiente llegará cuando salga uno que lo merezca.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-big">Un prompt.<br>Una <em>web.</em></p>
+    <div class="foot-row">
+      <span>Hecho con Claude · samilososami</span>
+      <nav>
+        <a href="https://github.com/samilososami/claude-creations" target="_blank" rel="noopener">Código en GitHub</a>
+        <a href="https://www.samilososami.com/">samilososami.com</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Ambient field: slow drifting sparks that lean away from the pointer */
+(() => {
+  const c = $('#field'), x = c.getContext('2d');
+  let W, H, d, pts = [], mx = -9999, my = -9999;
+  function size() {
+    d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+    c.width = W * d; c.height = H * d; x.setTransform(d, 0, 0, d, 0, 0);
+    const n = Math.round(Math.min(70, W * H / 22000));
+    pts = Array.from({length: n}, () => ({x: Math.random() * W, y: Math.random() * H, r: 2 + Math.random() * 5, a: Math.random() * Math.PI, s: (Math.random() - .5) * .004, vx: (Math.random() - .5) * .16, vy: -.05 - Math.random() * .14, clay: Math.random() < .28}));
+  }
+  function spark(p) {
+    x.save(); x.translate(p.x, p.y); x.rotate(p.a);
+    x.strokeStyle = p.clay ? 'rgba(210,96,58,.55)' : 'rgba(25,23,20,.16)'; x.lineWidth = 1.2; x.lineCap = 'round';
+    x.beginPath();
+    for (let i = 0; i < 4; i++) { const t = i * Math.PI / 4; x.moveTo(-Math.cos(t) * p.r, -Math.sin(t) * p.r); x.lineTo(Math.cos(t) * p.r, Math.sin(t) * p.r); }
+    x.stroke(); x.restore();
+  }
+  function frame() {
+    x.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      const dx = p.x - mx, dy = p.y - my, q = dx * dx + dy * dy;
+      if (q < 22500) { const f = (1 - q / 22500) * .9; p.x += dx / Math.sqrt(q + 1) * f; p.y += dy / Math.sqrt(q + 1) * f; }
+      p.x += p.vx; p.y += p.vy; p.a += p.s;
+      if (p.y < -12) { p.y = H + 12; p.x = Math.random() * W; }
+      if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12;
+      spark(p);
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  addEventListener('resize', size);
+  addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, {passive: true});
+  size(); frame();
+})();
+
+if (!(window.gsap && window.ScrollTrigger)) return;   // sin GSAP la página queda estática y legible
+gsap.registerPlugin(ScrollTrigger);
+
+/* Hero */
+gsap.from('.hero h1 .ln > span', {yPercent: 110, duration: 1.4, ease: 'expo.out', stagger: .12, delay: .1});
+gsap.from('.hero .rv', {opacity: 0, y: 30, duration: 1.1, ease: 'expo.out', stagger: .1, delay: .55});
+gsap.from('.top', {opacity: 0, y: -16, duration: .9, delay: .3});
+gsap.to('.hero h1', {yPercent: -12, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
+
+/* About: the sentence inks in as you scroll */
+(() => {
+  const el = $('#aboutText'), out = [];
+  [...el.childNodes].forEach(n => {
+    if (n.nodeType !== 3) { n.classList.add('w'); out.push(n); return; }
+    n.textContent.split(/(\s+)/).forEach(w => {
+      if (!w) return;
+      if (/^\s+$/.test(w)) return out.push(document.createTextNode(' '));
+      const s = document.createElement('span'); s.className = 'w'; s.textContent = w; out.push(s);
+    });
+  });
+  el.replaceChildren(...out);
+  gsap.fromTo('#aboutText .w', {opacity: .14}, {opacity: 1, ease: 'none', stagger: .08,
+    scrollTrigger: {trigger: el, start: 'top 82%', end: 'bottom 55%', scrub: .4}});
+})();
+
+/* Reveals + card parallax */
+const rv = $$('.rv').filter(e => !e.closest('.hero'));
+gsap.set(rv, {opacity: 0, y: 40});
+ScrollTrigger.batch(rv, {start: 'top 90%', once: true,
+  onEnter: b => gsap.to(b, {opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: .09})});
+$$('.card-media img').forEach(img => gsap.fromTo(img, {yPercent: -5}, {yPercent: 5, ease: 'none',
+  scrollTrigger: {trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true}}));
+gsap.from('.foot-big', {yPercent: 30, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: {trigger: 'footer', start: 'top 80%'}});
+addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

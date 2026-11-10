@@ -1,0 +1,639 @@
+{
+ "cam-hero": {
+  "title": "Sony A6700 by Henry Söderlund.jpg",
+  "artist": "Henry Söderlund",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sony_A6700_by_Henry_S%C3%B6derlund.jpg",
+  "w": 1920,
+  "h": 1280
+ },
+ "cam-t16": {
+  "title": "Sony Alpha 6700 (DSC 7816).jpg",
+  "artist": "Tsungam",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7816).jpg",
+  "w": 1920,
+  "h": 1383
+ },
+ "cam-t18": {
+  "title": "Sony Alpha 6700 (DSC 7818).jpg",
+  "artist": "Tsungam",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7818).jpg",
+  "w": 1920,
+  "h": 1769
+ },
+ "cam-t23": {
+  "title": "Sony Alpha 6700 (DSC 7823).jpg",
+  "artist": "Tsungam",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7823).jpg",
+  "w": 1920,
+  "h": 1488
+ },
+ "cam-t24": {
+  "title": "Sony Alpha 6700 (DSC 7824).jpg",
+  "artist": "Tsungam",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7824).jpg",
+  "w": 1920,
+  "h": 1418
+ },
+ "cam-jb": {
+  "title": "Sony ILCE-6700 19 aug 2023b.jpg",
+  "artist": "昼落ち",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023b.jpg",
+  "w": 1920,
+  "h": 1244
+ },
+ "g-robin": {
+  "title": "Rotkehlchen (53660622341).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Rotkehlchen_(53660622341).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/1600",
+   "f": "63/10",
+   "iso": 6400,
+   "fl": "600/1",
+   "lens": "FE 200-600mm F5.6-6.3 G OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-heron": {
+  "title": "Graureiher beim Fischfang (53747693933).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Graureiher_beim_Fischfang_(53747693933).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/640",
+   "f": "63/10",
+   "iso": 640,
+   "fl": "6000/10",
+   "lens": "FE 200-600mm F5.6-6.3 G OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-butterfly": {
+  "title": "Admiral butterfly (53884298773).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Admiral_butterfly_(53884298773).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/80",
+   "f": "10/1",
+   "iso": 200,
+   "fl": "1550/10",
+   "lens": "FE 70-200mm F4 Macro G OSS II + 1.4X Teleconverter",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-parrots": {
+  "title": "Pair of parrots (54385959873).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Pair_of_parrots_(54385959873).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/640",
+   "f": "4/1",
+   "iso": 125,
+   "fl": "700/10",
+   "lens": "FE 70-200mm F4 Macro G OSS II",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-bee": {
+  "title": "Biene im Anflug (53876324859).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Biene_im_Anflug_(53876324859).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/160",
+   "f": "9/1",
+   "iso": 200,
+   "fl": "2800/10",
+   "lens": "FE 70-200mm F4 Macro G OSS II + 1.4X Teleconverter",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-deer": {
+  "title": "Rehbock (53685214294).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Rehbock_(53685214294).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/1250",
+   "f": "4/1",
+   "iso": 640,
+   "fl": "6000/10",
+   "lens": "FE 600mm F4 GM OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-dandelion": {
+  "title": "Pusteblume (53682323088).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Pusteblume_(53682323088).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/250",
+   "f": "28/10",
+   "iso": 100,
+   "fl": "900/10",
+   "lens": "FE 90mm F2.8 Macro G OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-ladybug": {
+  "title": "Marienkäfer (53702628639).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Marienk%C3%A4fer_(53702628639).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/250",
+   "f": "8/1",
+   "iso": 500,
+   "fl": "5600/10",
+   "lens": "FE 100-400mm F4.5-5.6 GM OSS + 1.4X Teleconverter",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-peacock": {
+  "title": "Tagpfauenauge (53975556728).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Tagpfauenauge_(53975556728).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/100",
+   "f": "10/1",
+   "iso": 320,
+   "fl": "2340/10",
+   "lens": "FE 70-200mm F4 Macro G OSS II + 1.4X Teleconverter",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-wren": {
+  "title": "Zaunkönig (54319039803).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Zaunk%C3%B6nig_(54319039803).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/1600",
+   "f": "63/10",
+   "iso": 12800,
+   "fl": "6000/10",
+   "lens": "FE 200-600mm F5.6-6.3 G OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-dragonfly": {
+  "title": "Keilfleck Mosaikjungfer (53745213939).jpg",
+  "artist": "Ralf Hüsges",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Keilfleck_Mosaikjungfer_(53745213939).jpg",
+  "w": 1280,
+  "h": 720,
+  "exif": {
+   "t": "1/500",
+   "f": "63/10",
+   "iso": 250,
+   "fl": "6000/10",
+   "lens": "FE 200-600mm F5.6-6.3 G OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-acropolis": {
+  "title": "Athens Acropolis at Daybreak.jpg",
+  "artist": "Andrew Parlette",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Athens_Acropolis_at_Daybreak.jpg",
+  "w": 1920,
+  "h": 1080,
+  "exif": {
+   "t": "1/50",
+   "f": "28/10",
+   "iso": 1250,
+   "fl": "280/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-orvieto": {
+  "title": "Dawn from the Fortezza, Orvieto.jpg",
+  "artist": "Andrew Parlette",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Dawn_from_the_Fortezza,_Orvieto.jpg",
+  "w": 1920,
+  "h": 1280,
+  "exif": {
+   "t": "1/40",
+   "f": "16/1",
+   "iso": 100,
+   "fl": "200/10",
+   "lens": "E 20mm F2.8",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-siena": {
+  "title": "Siena Streets at Night.jpg",
+  "artist": "Andrew Parlette",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Siena_Streets_at_Night.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "20/1",
+   "f": "14/1",
+   "iso": 400,
+   "fl": "350/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-campo": {
+  "title": "Piazza del Campo from Above.jpg",
+  "artist": "Andrew Parlette",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Piazza_del_Campo_from_Above.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/125",
+   "f": "11/1",
+   "iso": 100,
+   "fl": "230/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-lightning": {
+  "title": "Lightning over the Atlantic - Flickr - aparlette.jpg",
+  "artist": "Andrew Parlette from Elkridge,MD, US",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Lightning_over_the_Atlantic_-_Flickr_-_aparlette.jpg",
+  "w": 1280,
+  "h": 1920,
+  "exif": {
+   "t": "2/1",
+   "f": "28/10",
+   "iso": 100,
+   "fl": "390/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-basilica": {
+  "title": "Basilica of Saint Francis, Through the Arch.jpg",
+  "artist": "Andrew Parlette",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Basilica_of_Saint_Francis,_Through_the_Arch.jpg",
+  "w": 1280,
+  "h": 1920,
+  "exif": {
+   "t": "1/60",
+   "f": "8/1",
+   "iso": 100,
+   "fl": "350/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-assisi": {
+  "title": "Terrace Dinner in Assisi.jpg",
+  "artist": "Andrew Parlette",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Terrace_Dinner_in_Assisi.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/30",
+   "f": "14/1",
+   "iso": 100,
+   "fl": "170/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-pano": {
+  "title": "Morning Light Over Orvieto’s Edge (Italy) (54589714303).jpg",
+  "artist": "Andrew Parlette from Elkridge,MD, US",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Morning_Light_Over_Orvieto%E2%80%99s_Edge_(Italy)_(54589714303).jpg",
+  "w": 1920,
+  "h": 768,
+  "exif": {
+   "t": "1/40",
+   "f": "11/1",
+   "iso": 125,
+   "fl": "200/10",
+   "lens": "E 20mm F2.8",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-towers": {
+  "title": "Two Towers - Cape Henlopen - Delaware (55008241793).jpg",
+  "artist": "Andrew Parlette from Elkridge,MD, US",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Two_Towers_-_Cape_Henlopen_-_Delaware_(55008241793).jpg",
+  "w": 1280,
+  "h": 1920,
+  "exif": {
+   "t": "1/640",
+   "f": "9/1",
+   "iso": 160,
+   "fl": "814/10",
+   "lens": "70-200mm F2.8 DG DN OS | Sports 023",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-minneapolis": {
+  "title": "Thank You for Today - Minneapolis Reflections - Flickr - aparlette.jpg",
+  "artist": "Andrew Parlette from Elkridge,MD, US",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Thank_You_for_Today_-_Minneapolis_Reflections_-_Flickr_-_aparlette.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "6/10",
+   "f": "14/1",
+   "iso": 100,
+   "fl": "200/10",
+   "lens": "E 20mm F2.8",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-athena": {
+  "title": "Across the Hill to Athena's Temple.jpg",
+  "artist": "Andrew Parlette",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Across_the_Hill_to_Athena%27s_Temple.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/80",
+   "f": "18/1",
+   "iso": 100,
+   "fl": "490/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-neon": {
+  "title": "Burritos and Tacos neon sign Camden High Street 2024-02-08.jpg",
+  "artist": "Tom Page",
+  "license": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Burritos_and_Tacos_neon_sign_Camden_High_Street_2024-02-08.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/160",
+   "f": "28/10",
+   "iso": 100,
+   "fl": "58/1",
+   "lens": "Helios 44M",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-ghosts": {
+  "title": "Liverpool Street Elizabeth line bench ghosts 2024-03-10.jpg",
+  "artist": "Tom Page",
+  "license": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Liverpool_Street_Elizabeth_line_bench_ghosts_2024-03-10.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/100",
+   "f": "71/10",
+   "iso": 3200,
+   "fl": "240/10",
+   "lens": "SAMYANG AF 24mm F2.8",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-bridge": {
+  "title": "London Millennium Bridge underside 2024-01-11.jpg",
+  "artist": "Tom Page",
+  "license": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:London_Millennium_Bridge_underside_2024-01-11.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/640",
+   "f": "8/1",
+   "iso": 400,
+   "fl": "390/10",
+   "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-risotto": {
+  "title": "Wild Mushroom Risotto Borough Market 2024-01-11.jpg",
+  "artist": "Tom Page",
+  "license": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Wild_Mushroom_Risotto_Borough_Market_2024-01-11.jpg",
+  "w": 1280,
+  "h": 720,
+  "exif": {
+   "t": "1/30",
+   "f": "56/10",
+   "iso": 1000,
+   "fl": "280/10",
+   "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-cat": {
+  "title": "Cat, Walthamstow Wetlands detail 2024-02-01.jpg",
+  "artist": "Tom Page",
+  "license": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Cat,_Walthamstow_Wetlands_detail_2024-02-01.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/1600",
+   "f": "10/1",
+   "iso": 3200,
+   "fl": "2860/10",
+   "lens": "E 18-300mm F3.5-6.3 B061",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-station": {
+  "title": "Liverpool Street station 2024-02-28.jpg",
+  "artist": "Tom Page",
+  "license": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Liverpool_Street_station_2024-02-28.jpg",
+  "w": 1280,
+  "h": 1920,
+  "exif": {
+   "t": "1/100",
+   "f": "45/10",
+   "iso": 1000,
+   "fl": "240/10",
+   "lens": "SAMYANG AF 24mm F2.8",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-alishan": {
+  "title": "20240917 - Alishan - 13 (54379634495).jpg",
+  "artist": "eugene_o",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:20240917_-_Alishan_-_13_(54379634495).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/60",
+   "f": "28/10",
+   "iso": 640,
+   "fl": "335/10",
+   "lens": "18-50mm F2.8 DC DN | Contemporary 021",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-railway": {
+  "title": "20240917 - Alishan Forest Railway - 1 (54379443144).jpg",
+  "artist": "eugene_o",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:20240917_-_Alishan_Forest_Railway_-_1_(54379443144).jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/40",
+   "f": "28/10",
+   "iso": 100,
+   "fl": "215/10",
+   "lens": "18-50mm F2.8 DC DN | Contemporary 021",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-forth": {
+  "title": "River Forth (Explored 07-03-24) - Flickr - jkiscycling.jpg",
+  "artist": "John Knight from Clackmannanshire, Scotland",
+  "license": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:River_Forth_(Explored_07-03-24)_-_Flickr_-_jkiscycling.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/125",
+   "f": "8/1",
+   "iso": 100,
+   "fl": "240/10",
+   "lens": "E 24mm F2.8 F051",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-vasco": {
+  "title": "Vasco da Gama bridge.jpg",
+  "artist": "Niko0193",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Vasco_da_Gama_bridge.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/2000",
+   "f": "56/10",
+   "iso": 100,
+   "fl": "500/10",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-dome": {
+  "title": "Dome interior - National Pantheon - Lisbon - Portugal.jpg",
+  "artist": "NorbertNagel",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Dome_interior_-_National_Pantheon_-_Lisbon_-_Portugal.jpg",
+  "w": 1280,
+  "h": 894,
+  "exif": {
+   "t": "1/125",
+   "f": "71/10",
+   "iso": 6400,
+   "fl": "170/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-lrt": {
+  "title": "RapidKL LRT Kelana Jaya Line Train Departing KL Sentral.jpg",
+  "artist": "Kaerumy",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:RapidKL_LRT_Kelana_Jaya_Line_Train_Departing_KL_Sentral.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/100",
+   "f": "56/10",
+   "iso": 200,
+   "fl": "620/10",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-concert": {
+  "title": "Woody & the Woulds.jpg",
+  "artist": "Jax T.",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Woody_%26_the_Woulds.jpg",
+  "w": 1280,
+  "h": 851,
+  "exif": {
+   "t": "1/50",
+   "f": "4/1",
+   "iso": 800,
+   "fl": "21/1",
+   "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-festival": {
+  "title": "LescoStijntjesFestibal2023-20.jpg",
+  "artist": "Yalte",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:LescoStijntjesFestibal2023-20.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/250",
+   "f": "4/1",
+   "iso": 10000,
+   "fl": "240/10",
+   "lens": "E 17-70mm F2.8 B070",
+   "model": "ILCE-6700"
+  }
+ },
+ "g-foot2": {
+  "title": "J1League-Football-2026-2027---YokohamaFM-and-Kashima---2026-08-07 00200.jpg",
+  "artist": "RuinDig/Yuki Uchida",
+  "license": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:J1League-Football-2026-2027---YokohamaFM-and-Kashima---2026-08-07_00200.jpg",
+  "w": 1280,
+  "h": 853,
+  "exif": {
+   "t": "1/800",
+   "f": "63/10",
+   "iso": 6400,
+   "fl": "2270/10",
+   "model": "ILCE-6700"
+  }
+ }
+}

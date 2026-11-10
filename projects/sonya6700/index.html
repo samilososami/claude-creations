@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sony α6700 · Showcase no oficial</title>
+<meta name="description" content="Un recorrido visual por la Sony α6700: diseño, sensor, enfoque con IA, vídeo 4K 120p y una galería de fotos reales hechas con ella.">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0b'/%3E%3Ctext x='32' y='46' font-size='44' text-anchor='middle' font-family='Georgia,serif' font-style='italic' fill='%23ff6a1a'%3E%CE%B1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/cam-hero.jpg">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous"></script>
+<style>
+/* ───────────── Tokens ───────────── */
+:root{
+  --ink:#0a0a0b;
+  --ink-2:#121214;
+  --ink-3:#1b1b1f;
+  --paper:#eceae4;
+  --text:#f3f1ec;
+  --muted:rgba(243,241,236,.56);
+  --line:rgba(243,241,236,.14);
+  --alpha:#ff6a1a;
+  --alpha-deep:#d94e06;
+  --lock:#3dff7a;
+  --rec:#ff3b30;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --serif:'EB Garamond',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(20px,5.2vw,84px);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --bar:clamp(8vh,calc((100vh - 100vw / 2.39) / 2),21vh);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:var(--ink)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{
+  background:var(--ink);color:var(--text);
+  font-family:var(--display);font-size:17px;line-height:1.55;
+  font-stretch:100%;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:clip;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--alpha);color:var(--ink)}
+:focus-visible{outline:2px solid var(--alpha);outline-offset:3px}
+
+.wrap{width:min(1360px,100% - 2 * var(--pad));margin-inline:auto}
+.kicker{
+  display:inline-flex;align-items:center;gap:.8em;
+  font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+.kicker::before{content:"";width:8px;height:8px;background:var(--alpha)}
+h2{
+  font-family:var(--display);font-weight:800;font-stretch:112%;
+  font-size:clamp(2.5rem,7.4vw,7.2rem);line-height:.9;letter-spacing:-.025em;text-transform:uppercase;
+}
+h2 em,.serif{
+  font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;
+  letter-spacing:-.02em;color:var(--alpha);font-size:1.14em;line-height:.8;
+}
+.sec-head{display:grid;gap:26px;margin-bottom:clamp(48px,9vh,110px)}
+.lead{font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.5;color:var(--muted);max-width:34em}
+.lead strong{color:var(--text);font-weight:500}
+
+/* bracket corners (cursor, AF, hero focus) */
+.brk{position:absolute;inset:0}
+.brk i{position:absolute;width:30%;height:30%;border:2px solid currentColor}
+.brk i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}
+.brk i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.brk i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}
+.brk i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+
+/* ───────────── Loader ───────────── */
+.loader{position:fixed;inset:0;z-index:200;pointer-events:none}
+.loader-half{position:absolute;left:0;right:0;height:50.5%;background:#050505}
+.loader-half.t{top:0}.loader-half.b{bottom:0}
+.loader-mid{
+  position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;
+  font:500 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+}
+.loader-a{font:italic 400 92px/1 var(--serif);color:var(--alpha);letter-spacing:0;text-transform:none}
+.loader-n{font-size:13px;color:var(--text)}
+.no-gsap .loader{display:none}
+
+/* ───────────── Grain + cursor ───────────── */
+.grain{
+  position:fixed;inset:-80px;z-index:55;pointer-events:none;opacity:.07;
+  background-size:160px 160px;animation:grain 1.1s steps(7) infinite;
+}
+@keyframes grain{
+  0%{transform:translate(0,0)}15%{transform:translate(-34px,22px)}30%{transform:translate(26px,-40px)}
+  45%{transform:translate(-18px,48px)}60%{transform:translate(44px,12px)}75%{transform:translate(-46px,-26px)}
+  100%{transform:translate(18px,36px)}
+}
+.cursor{
+  position:fixed;left:0;top:0;z-index:150;pointer-events:none;
+  width:38px;height:38px;margin:-19px 0 0 -19px;color:#fff;mix-blend-mode:difference;
+  opacity:0;
+}
+.cursor .brk{transition:transform .35s var(--ease),color .2s}
+.cursor .brk i{border-width:1.5px}
+.cursor::after{content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;margin:-1.5px;background:currentColor}
+.cursor.is-lock{color:var(--lock)}
+.cursor.is-lock .brk{transform:scale(.62)}
+.cursor.is-view .brk{transform:scale(1.7)}
+.cursor b{
+  position:absolute;left:50%;top:calc(100% + 16px);transform:translateX(-50%);
+  font:500 9.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
+  opacity:0;transition:opacity .2s;
+}
+.cursor.is-view b{opacity:1}
+@media (hover:hover) and (pointer:fine){
+  .has-cursor,.has-cursor a,.has-cursor button,.has-cursor summary{cursor:none}
+}
+
+/* ───────────── HUD (viewfinder overlay + nav) ───────────── */
+.hud{
+  position:fixed;inset:0;z-index:60;pointer-events:none;color:#fff;mix-blend-mode:difference;
+  font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+}
+.hud .c{position:absolute;width:20px;height:20px;border:1.5px solid #fff}
+.hud .c.tl{left:14px;top:14px;border-right:0;border-bottom:0}
+.hud .c.tr{right:14px;top:14px;border-left:0;border-bottom:0}
+.hud .c.bl{left:14px;bottom:14px;border-right:0;border-top:0}
+.hud .c.br{right:14px;bottom:14px;border-left:0;border-top:0}
+.hud-top,.hud-bot{position:absolute;left:44px;right:44px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
+.hud-top{top:24px}
+.hud-bot{bottom:24px;align-items:end}
+.hud a,.hud button{pointer-events:auto}
+.brand{font:800 15px/1 var(--display);font-stretch:118%;letter-spacing:.02em;display:inline-flex;align-items:baseline;gap:1px;justify-self:start}
+.brand i{font:italic 500 21px/0.6 var(--serif);text-transform:none}
+.nav{display:flex;gap:clamp(14px,2.2vw,34px)}
+.nav a{position:relative;padding:6px 0;opacity:.72;transition:opacity .25s}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:#fff;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.nav a:hover{opacity:1}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.hud-status{justify-self:end;display:flex;align-items:center;gap:14px}
+.batt{width:24px;height:11px;border:1.5px solid #fff;position:relative;padding:1.5px}
+.batt::after{content:"";position:absolute;right:-4.5px;top:2px;width:2px;height:4px;background:#fff}
+.batt i{display:block;height:100%;width:78%;background:#fff}
+.hud-exp{display:flex;align-items:center;gap:16px;justify-self:start;white-space:nowrap}
+.hud-exp .mode{border:1.5px solid #fff;padding:4px 5px 3px;letter-spacing:0}
+.hud-exp span{display:inline-block}
+.meter{display:flex;align-items:flex-end;gap:5px;position:relative;padding-top:12px}
+.meter s{display:block;width:1.5px;height:5px;background:#fff;opacity:.6;text-decoration:none}
+.meter s.M{height:10px;opacity:1}
+.meter .needle{position:absolute;left:50%;top:0;margin-left:-4px;border:4px solid transparent;border-top:6px solid #fff;border-bottom:0}
+.hud-sec{justify-self:end;display:flex;gap:16px;white-space:nowrap}
+.hud-sec .frame{opacity:.7}
+@media (max-width:980px){
+  .nav{display:none}
+  .hud-top,.hud-bot{grid-template-columns:1fr auto;left:38px;right:38px}
+  .meter{display:none}
+  .hud-status .raw{display:none}
+}
+@media (max-width:560px){
+  .hud{font-size:9.5px;letter-spacing:.08em}
+  .hud-exp{gap:10px}
+  .hud-sec .frame{display:none}
+}
+.lb-open .hud,.lb-open .cursor b{opacity:0}
+
+/* ───────────── Hero ───────────── */
+.hero{position:relative;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(70% 46% at 50% 50%,#1b222c 0%,#0b0d11 58%,#050505 100%)}
+.hero-stage{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start;overflow:hidden}
+.hero-media{
+  flex:none;position:relative;width:min(122vh,128vw);margin-top:25vh;aspect-ratio:3/2;
+  transform-origin:50% 60.5%;will-change:transform,clip-path;
+  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 52%,#000 68%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 52%,#000 68%,transparent 100%);
+}
+.hero-media img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.hero-focus{position:absolute;left:50%;top:60.5%;width:13%;aspect-ratio:1;translate:-50% -50%;color:#fff;transition:color .15s}
+.hero-focus.is-locked{color:var(--lock)}
+.hero-focus .brk i{border-width:1.5px;width:24%;height:24%}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.35) 0%,rgba(5,5,6,0) 30%,rgba(5,5,6,0) 70%,rgba(5,5,6,.8) 100%);pointer-events:none}
+.hero-copy{position:absolute;left:0;right:0;top:clamp(74px,11vh,120px);text-align:center;display:grid;justify-items:center;gap:clamp(4px,1.2vh,14px);padding-inline:var(--pad)}
+.hero-title{
+  --wdth:125;
+  font-family:var(--display);font-weight:800;font-variation-settings:"wdth" var(--wdth);
+  font-size:min(20.5vw,35vh);line-height:.82;letter-spacing:-.045em;white-space:nowrap;
+  display:flex;align-items:baseline;justify-content:center;overflow:hidden;padding:.06em .06em .02em;
+  will-change:transform,opacity;
+}
+.hero-title span{display:inline-block;will-change:transform}
+.hero-title .a{font:italic 400 1.06em/0.7 var(--serif);color:var(--alpha);letter-spacing:0;margin-right:.02em}
+.hero-bottom{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(58px,9vh,96px);display:flex;justify-content:space-between;align-items:flex-end;gap:28px}
+.hero-tag{font-weight:600;font-stretch:110%;font-size:clamp(1.15rem,2.3vw,2.1rem);line-height:1.05;letter-spacing:-.01em;text-transform:uppercase;max-width:13em}
+.hero-tag em{font:italic 400 1.2em/0.8 var(--serif);text-transform:none;color:var(--alpha)}
+.hero-stats{list-style:none;display:flex;gap:clamp(18px,3vw,46px);font:500 11px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:left}
+.hero-stats b{display:block;font:700 clamp(1.3rem,2.2vw,2rem)/1 var(--display);font-stretch:112%;letter-spacing:-.01em;color:var(--text);margin-bottom:7px}
+.hero-scroll{position:absolute;left:50%;bottom:clamp(22px,3.4vh,34px);translate:-50% 0;font:500 10px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.hero-scroll span{display:flex;align-items:center;gap:12px}
+.hero-scroll span::before,.hero-scroll span::after{content:"";width:34px;height:1px;background:currentColor;animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scaleX(.3);opacity:.4}50%{transform:scaleX(1);opacity:1}}
+@media (max-aspect-ratio:1/1){
+  .hero-media{margin-top:21vh}
+  .hero-title{font-size:23vw}
+  .hero-bottom{flex-direction:column;align-items:flex-start;gap:20px}
+  .hero-stats{gap:18px;flex-wrap:wrap}
+}
+
+/* ───────────── Manifesto ───────────── */
+.manifesto{padding:clamp(120px,26vh,300px) 0 clamp(120px,24vh,280px)}
+.manifesto .kicker{margin-bottom:38px}
+.manifesto-text{
+  font-weight:600;font-stretch:104%;font-size:clamp(1.7rem,4.5vw,4.5rem);line-height:1.06;letter-spacing:-.025em;
+  max-width:19em;text-wrap:balance;
+}
+.manifesto-text em{font:italic 400 1.1em/0.9 var(--serif);color:var(--alpha);letter-spacing:-.01em}
+.manifesto-text .w{display:inline-block;will-change:opacity}
+
+/* ───────────── Journey (pinned, light) ───────────── */
+.journey{position:relative}
+.journey-pin{height:100vh;height:100svh;position:relative}
+.journey-inner{
+  position:absolute;inset:0;background:var(--paper);color:var(--ink);overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:clamp(20px,4vw,70px);
+  padding:clamp(84px,12vh,130px) var(--pad) clamp(70px,10vh,110px);
+  will-change:clip-path;
+}
+.journey-inner::before{ /* studio seamless paper glow */
+  content:"";position:absolute;left:-10%;top:-20%;width:85%;height:140%;
+  background:radial-gradient(closest-side,#fff 0%,rgba(255,255,255,0) 100%);pointer-events:none;
+}
+.j-head{position:absolute;left:var(--pad);top:clamp(64px,9vh,96px);display:flex;align-items:baseline;gap:18px;z-index:3}
+.j-head .kicker{color:rgba(10,10,11,.6)}
+.j-count{font:800 clamp(2.4rem,5vw,4.6rem)/.8 var(--display);font-stretch:125%;letter-spacing:-.04em}
+.j-count small{font:500 11px/1 var(--mono);letter-spacing:.14em;color:rgba(10,10,11,.5);margin-left:8px}
+.j-stage{position:relative;min-height:0;--mh:62vh}
+.j-view{
+  position:absolute;left:50%;top:52%;translate:-50% -50%;
+  width:min(100%,calc(var(--mh) * var(--r)));aspect-ratio:var(--r);will-change:transform,opacity;
+}
+.j-view img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;filter:brightness(1.13) contrast(1.05);
+  -webkit-mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000 78%,transparent 100%);mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000 78%,transparent 100%)}
+.spot{position:absolute;left:var(--x);top:var(--y);width:0;height:0;z-index:2}
+.spot i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--alpha);box-shadow:0 0 0 3px rgba(255,255,255,.92)}
+.spot i::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1.5px solid var(--alpha);animation:ping 2s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+.spot em{
+  position:absolute;top:0;left:20px;translate:0 -50%;white-space:nowrap;
+  font:500 10.5px/1 var(--mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;
+  background:#fff;color:var(--ink);padding:7px 9px 6px;border-radius:2px;box-shadow:0 6px 22px rgba(10,10,11,.16);
+}
+.spot.l em{left:auto;right:20px}
+.spot.b em{left:0;top:18px;translate:-50% 0}
+.j-texts{position:relative;min-height:0}
+.j-text{position:absolute;left:0;right:0;top:50%;translate:0 -50%;display:grid;gap:clamp(14px,2.4vh,26px);will-change:transform,opacity}
+.j-text .kicker{color:rgba(10,10,11,.55)}
+.j-text h2{font-size:clamp(2rem,4.3vw,4.4rem)}
+.j-text h2 em{color:var(--alpha-deep)}
+.j-text p{font-size:clamp(.95rem,1.25vw,1.12rem);color:rgba(10,10,11,.72);max-width:30em}
+.j-text dl{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:clamp(16px,2.4vw,36px);border-top:1px solid rgba(10,10,11,.16);padding-top:clamp(12px,2vh,22px)}
+.j-text dt{font:800 clamp(1.15rem,1.9vw,1.8rem)/1 var(--display);font-stretch:114%;letter-spacing:-.02em;white-space:nowrap}
+.j-text dd{font:500 10px/1.35 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(10,10,11,.55);margin-top:7px}
+.j-progress{position:absolute;right:calc(var(--pad) * .45);top:26vh;bottom:26vh;width:2px;background:rgba(10,10,11,.12)}
+.j-progress i{position:absolute;inset:0;background:var(--alpha-deep);transform-origin:top;transform:scaleY(0)}
+@media (max-width:900px){
+  .journey-inner{grid-template-columns:1fr;grid-template-rows:minmax(0,46fr) minmax(0,54fr);gap:8px;padding:118px var(--pad) 64px}
+  .j-stage{--mh:34vh}
+  .j-view{top:50%}
+  .j-text{top:0;translate:none;gap:11px}
+  .j-text p{font-size:.92rem;line-height:1.45}
+  .j-text dl{gap:14px}
+  .spot em{font-size:8.5px;padding:5px 6px 4px}
+  .j-progress{top:auto;bottom:40px;left:var(--pad);right:var(--pad);width:auto;height:2px}
+  .j-progress i{transform-origin:left}
+}
+.no-gsap .journey-pin{height:auto}
+.no-gsap .journey-inner{position:relative;display:block}
+.no-gsap .j-stage,.no-gsap .j-texts{height:auto}
+.no-gsap .j-view,.no-gsap .j-text{position:relative;left:auto;top:auto;translate:none;margin:40px auto}
+
+/* ───────────── Sensor ───────────── */
+.sensor{padding:clamp(110px,20vh,240px) 0 clamp(90px,14vh,170px)}
+.sensor-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,6vw,100px);align-items:start}
+.sensor-visual{position:sticky;top:13vh}
+.sensor-frame{position:relative;aspect-ratio:3/2.2;overflow:hidden;border-radius:6px;background:var(--ink-2)}
+.sensor-zoom{position:absolute;inset:0;transform-origin:62% 49.5%;will-change:transform}
+.sensor-zoom img{width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.sensor-box{position:absolute;left:53.5%;top:39%;width:18.5%;height:21%;border:1.5px solid var(--alpha);box-shadow:0 0 30px rgba(255,106,26,.5),inset 0 0 22px rgba(255,106,26,.28)}
+.sensor-box::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--alpha);box-shadow:0 0 12px var(--alpha);animation:scan 2.6s ease-in-out infinite}
+@keyframes scan{0%,100%{top:0}50%{top:calc(100% - 2px)}}
+.sensor-tag{position:absolute;left:14px;bottom:14px;font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;background:rgba(10,10,11,.72);backdrop-filter:blur(8px);padding:8px 10px;border-radius:2px}
+.sensor-tag b{color:var(--alpha);font-weight:500}
+.stat{padding:clamp(28px,6vh,62px) 0;border-top:1px solid var(--line);display:grid;gap:14px}
+.stat:last-child{border-bottom:1px solid var(--line)}
+.stat b{font:800 clamp(3.6rem,9.5vw,9rem)/.8 var(--display);font-stretch:118%;letter-spacing:-.05em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.12em}
+.stat b small{font:italic 400 .36em/1 var(--serif);letter-spacing:0;color:var(--alpha)}
+.stat span{color:var(--muted);max-width:26em;font-size:1rem}
+.stat span strong{color:var(--text);font-weight:500}
+.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,26px);margin-top:clamp(70px,12vh,140px)}
+.chip-card{position:relative;background:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:clamp(24px,3vw,44px);display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,40px);align-items:center;overflow:hidden}
+.chip{position:relative;width:clamp(86px,10vw,132px);aspect-ratio:1;background:linear-gradient(145deg,#26262b,#101012);border-radius:8px;display:grid;place-items:center;font:800 clamp(.72rem,1.05vw,.95rem)/1 var(--display);font-stretch:118%;letter-spacing:.04em;text-align:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 0 0 6px var(--ink-2),0 0 46px rgba(255,106,26,.16)}
+.chip::before,.chip::after{content:"";position:absolute;background:repeating-linear-gradient(90deg,rgba(243,241,236,.5) 0 3px,transparent 3px 9px)}
+.chip::before{left:10%;right:10%;top:-13px;height:7px}
+.chip::after{left:10%;right:10%;bottom:-13px;height:7px}
+.chip.ai{color:var(--ink);background:linear-gradient(145deg,#ff8a45,#e2500a);animation:chipglow 2.8s ease-in-out infinite}
+@keyframes chipglow{0%,100%{box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 0 0 6px var(--ink-2),0 0 28px rgba(255,106,26,.25)}50%{box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 0 0 6px var(--ink-2),0 0 70px rgba(255,106,26,.6)}}
+.chip-card h3{font:700 clamp(1.15rem,1.9vw,1.6rem)/1.05 var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:10px}
+.chip-card p{color:var(--muted);font-size:.98rem}
+@media (max-width:900px){
+  .sensor-grid{grid-template-columns:1fr}
+  .sensor-visual{position:relative;top:0}
+  .chips{grid-template-columns:1fr}
+}
+
+/* ───────────── Autofocus ───────────── */
+.af{padding:clamp(90px,16vh,200px) 0;background:linear-gradient(180deg,var(--ink) 0%,#0c100d 50%,var(--ink) 100%)}
+.af-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
+.af-view{position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:4px;background:var(--ink-2);box-shadow:0 40px 120px rgba(0,0,0,.6)}
+.af-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .6s ease,transform 1.4s var(--ease)}
+.af-img.is-on{opacity:1;transform:scale(1)}
+.af-points{position:absolute;inset:0;width:100%;height:100%}
+.af-box{position:absolute;left:50%;top:50%;width:26%;aspect-ratio:1;translate:-50% -50%;color:#fff;transition:color .12s;filter:drop-shadow(0 0 3px rgba(0,0,0,.6))}
+.af-box.is-locked{color:var(--lock);animation:lockpulse .5s ease-out}
+@keyframes lockpulse{0%{scale:1.25}100%{scale:1}}
+.af-box .brk i{width:26%;height:26%}
+.af-osd{position:absolute;left:16px;right:16px;top:14px;display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.af-osd .st{color:var(--lock)}
+.af-exif{position:absolute;left:16px;right:16px;bottom:14px;display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+.af-exif span:last-child{opacity:.7;text-align:right}
+.af-side{display:grid;gap:clamp(22px,3.4vh,38px)}
+.af-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:11px 15px 10px;color:var(--muted);transition:color .25s,border-color .25s,background .25s}
+.pill:hover{color:var(--text);border-color:rgba(243,241,236,.5)}
+.pill.is-on{background:var(--text);color:var(--ink);border-color:var(--text)}
+.af .pill.is-on{background:var(--lock);border-color:var(--lock)}
+.af-note{font:500 10.5px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.af-stats{list-style:none;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.af-stats li{padding:18px 0;border-bottom:1px solid var(--line);font:500 10px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.af-stats b{display:block;font:800 clamp(1.6rem,3vw,2.7rem)/1 var(--display);font-stretch:116%;letter-spacing:-.03em;color:var(--text);margin-bottom:6px}
+@media (max-width:980px){.af-layout{grid-template-columns:1fr}}
+
+/* ───────────── Video (pinned) ───────────── */
+.video-pin{position:relative;height:100vh;height:100svh;overflow:hidden;background:#000}
+.video-frame{position:absolute;inset:0}
+.video-frame img{width:100%;height:100%;object-fit:cover;will-change:transform;transition:filter .7s ease}
+.video-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.1) 55%,rgba(0,0,0,.35) 100%)}
+.bar{position:absolute;left:0;right:0;height:var(--bar);background:#000;z-index:2;will-change:transform}
+.bar.t{top:0;transform-origin:top}.bar.b{bottom:0;transform-origin:bottom}
+.video-osd{position:absolute;z-index:3;left:var(--pad);right:var(--pad);top:calc(var(--bar) + 18px);display:flex;justify-content:space-between;gap:16px;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.rec{color:var(--rec);display:inline-flex;align-items:center;gap:8px}
+.rec::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--rec);animation:blink 1.1s steps(2,jump-none) infinite}
+@keyframes blink{0%{opacity:1}100%{opacity:.15}}
+.tc{font-variant-numeric:tabular-nums}
+.video-title{position:absolute;z-index:3;left:var(--pad);bottom:calc(var(--bar) + clamp(18px,4vh,46px));display:grid;gap:20px;max-width:min(92vw,900px)}
+.video-big{position:absolute;z-index:1;right:calc(var(--pad) * .6);top:50%;translate:0 -50%;font:800 clamp(5rem,23vw,24rem)/.74 var(--display);font-stretch:125%;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(243,241,236,.5);text-align:right;pointer-events:none}
+.video-big small{display:block;font:italic 400 .3em/1 var(--serif);letter-spacing:0;-webkit-text-stroke:0;color:var(--alpha);margin-top:.12em}
+.profiles{position:absolute;z-index:3;right:var(--pad);bottom:calc(var(--bar) + clamp(18px,4vh,46px));display:grid;justify-items:end;gap:10px}
+.profiles > span{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.profiles div{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.profiles .pill{background:rgba(10,10,11,.5);backdrop-filter:blur(10px);color:var(--text)}
+.profiles .pill.is-on{background:var(--text);color:var(--ink)}
+.video-feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);margin-top:clamp(70px,12vh,130px);margin-bottom:clamp(90px,16vh,190px)}
+.feat{padding:clamp(24px,3.4vw,46px) clamp(16px,2.4vw,34px) clamp(28px,4vw,54px);border-bottom:1px solid var(--line);border-right:1px solid var(--line);display:grid;gap:14px;align-content:start;transition:background .4s}
+.feat:nth-child(3n){border-right:0}
+.feat:hover{background:var(--ink-2)}
+.feat i{font:500 10.5px/1 var(--mono);font-style:normal;letter-spacing:.14em;color:var(--alpha)}
+.feat h3{font:700 clamp(1.1rem,1.75vw,1.55rem)/1.05 var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:-.01em}
+.feat p{color:var(--muted);font-size:.97rem}
+@media (max-width:900px){
+  .video-feats{grid-template-columns:1fr}
+  .feat{border-right:0}
+  .profiles{left:var(--pad);right:auto;justify-items:start;bottom:calc(var(--bar) + 14px)}
+  .profiles div{justify-content:flex-start}
+  .video-title{bottom:calc(var(--bar) + 108px)}
+  .video-big{top:38%;opacity:.7}
+}
+
+/* ───────────── Panorama (pinned horizontal pan) ───────────── */
+.pano-pin{position:relative;height:100vh;height:100svh;overflow:hidden;background:#000}
+.pano-img{position:absolute;left:0;top:0;height:100%;width:250vh;min-width:125vw;max-width:none;object-fit:cover;will-change:transform}
+.pano-pin::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0) 40%,rgba(0,0,0,.55));pointer-events:none}
+.pano-copy{position:absolute;z-index:2;left:var(--pad);top:clamp(86px,15vh,170px);display:grid;gap:22px}
+.pano-copy h2{text-shadow:0 4px 40px rgba(0,0,0,.4)}
+.pano-copy h2 em{color:#fff}
+.pano-cap{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:clamp(58px,9vh,90px);display:flex;justify-content:space-between;gap:20px;font:500 10.5px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+
+/* ───────────── Gallery mosaic ───────────── */
+.gallery{padding:clamp(80px,13vh,160px) 0 clamp(70px,10vh,130px)}
+.gallery-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:end;margin-bottom:clamp(30px,6vh,60px)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filters .pill sup{font-size:.8em;opacity:.6;margin-left:5px}
+.mosaic{
+  --cols:6;--gap:10px;
+  display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));grid-auto-rows:11.2vw;grid-auto-flow:dense;gap:var(--gap);
+  padding-inline:clamp(10px,1.6vw,26px);
+}
+.tile{position:relative;overflow:hidden;border-radius:3px;background:var(--ink-2);display:block;width:100%;height:100%;text-align:left;will-change:transform,opacity}
+.tile.big{grid-column:span 2;grid-row:span 2}
+.tile.wide{grid-column:span 2}
+.tile.tall{grid-row:span 2}
+.tile.is-hidden{display:none}
+.tile img{position:absolute;left:0;top:-9%;width:100%;height:118%;object-fit:cover;transition:scale 1.1s var(--ease),filter .5s;will-change:transform}
+.tile:hover img,.tile:focus-visible img{scale:1.07}
+.tile-cap{position:absolute;inset:auto 0 0 0;padding:44px 14px 13px;background:linear-gradient(transparent,rgba(5,5,6,.9));display:grid;gap:6px;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .55s var(--ease)}
+.tile:hover .tile-cap,.tile:focus-visible .tile-cap{opacity:1;transform:none}
+.tile-cap b{font:700 .95rem/1.1 var(--display);font-stretch:108%;text-transform:uppercase;letter-spacing:-.005em}
+.tile-cap span{font:500 9.5px/1.35 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(243,241,236,.75)}
+.tile-n{position:absolute;left:10px;top:10px;font:500 9.5px/1 var(--mono);letter-spacing:.12em;color:#fff;mix-blend-mode:difference;opacity:.85}
+.gallery-foot{margin-top:26px;font:500 10.5px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:1100px){.mosaic{--cols:4;grid-auto-rows:17vw}}
+@media (max-width:640px){.mosaic{--cols:2;--gap:7px;grid-auto-rows:33vw}.gallery-head{grid-template-columns:1fr}}
+@media (max-width:900px){.gallery-head{grid-template-columns:1fr}}
+@media (hover:none){.tile-cap{opacity:1;transform:none;padding-top:30px}.tile-cap span{display:none}.tile:not(.big):not(.wide) .tile-cap b{font-size:.72rem}}
+
+/* ───────────── Lightbox ───────────── */
+.lb{position:fixed;inset:0;z-index:120;background:rgba(5,5,6,.96);display:grid;grid-template-rows:minmax(0,1fr) auto;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.lb.is-open{opacity:1;visibility:visible}
+.lb figure{display:contents}
+.lb-imgwrap{position:relative;display:grid;place-items:center;padding:clamp(54px,8vh,80px) clamp(14px,6vw,90px) 14px;min-height:0}
+.lb-imgwrap img{max-width:100%;max-height:calc(100vh - 200px);max-height:calc(100svh - 200px);width:auto;height:auto;object-fit:contain;border-radius:2px;box-shadow:0 30px 120px rgba(0,0,0,.7)}
+.lb figcaption{display:grid;grid-template-columns:1fr auto;gap:8px 30px;align-items:end;padding:14px clamp(18px,6vw,90px) clamp(18px,3.4vh,34px)}
+.lb figcaption b{font:700 clamp(1.1rem,2vw,1.7rem)/1.05 var(--display);font-stretch:110%;text-transform:uppercase}
+.lb-exif{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--alpha);grid-column:1}
+.lb-credit{font:500 10.5px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);grid-column:2;grid-row:1 / span 2;text-align:right}
+.lb-credit a{color:var(--text);border-bottom:1px solid var(--line)}
+.lb-btn{position:absolute;z-index:2;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:14px;color:var(--text);opacity:.75;transition:opacity .2s}
+.lb-btn:hover{opacity:1}
+.lb-close{right:clamp(10px,3vw,40px);top:clamp(10px,2vh,24px)}
+.lb-prev{left:clamp(4px,1.6vw,26px);top:50%;translate:0 -50%;font-size:22px}
+.lb-next{right:clamp(4px,1.6vw,26px);top:50%;translate:0 -50%;font-size:22px}
+.lb-count{position:absolute;left:clamp(18px,6vw,90px);top:clamp(22px,3.4vh,38px);font:500 11px/1 var(--mono);letter-spacing:.14em;color:var(--muted)}
+@media (max-width:640px){.lb figcaption{grid-template-columns:1fr}.lb-credit{grid-column:1;grid-row:auto;text-align:left}}
+
+/* ───────────── Specs ───────────── */
+.specs{padding:clamp(90px,16vh,200px) 0;background:var(--ink-2);border-top:1px solid var(--line)}
+.spec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(34px,6vh,70px) clamp(30px,6vw,110px)}
+.spec-group h3{display:flex;justify-content:space-between;align-items:baseline;font:800 clamp(1.3rem,2.3vw,2rem)/1 var(--display);font-stretch:114%;text-transform:uppercase;letter-spacing:-.015em;padding-bottom:16px;border-bottom:2px solid var(--text)}
+.spec-group h3 small{font:500 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--alpha)}
+.spec-row{display:grid;grid-template-columns:minmax(96px,.42fr) 1fr;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);transition:padding .4s var(--ease),background .3s}
+.spec-row:hover{padding-inline:10px;background:rgba(243,241,236,.04)}
+.spec-row dt{font:500 10.5px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.spec-row dd{font-size:.97rem;line-height:1.4}
+@media (max-width:820px){.spec-grid{grid-template-columns:1fr}}
+
+/* ───────────── Footer ───────────── */
+.foot{position:relative;padding:clamp(70px,12vh,150px) 0 clamp(64px,9vh,100px);overflow:hidden}
+.foot-big{
+  --wdth:62;
+  font-family:var(--display);font-weight:800;font-variation-settings:"wdth" var(--wdth);
+  font-size:23.5vw;line-height:.78;letter-spacing:-.045em;white-space:nowrap;text-align:center;
+  display:flex;justify-content:center;align-items:baseline;margin-bottom:clamp(40px,8vh,90px);
+}
+.foot-big .a{font:italic 400 1.06em/0.7 var(--serif);color:var(--alpha);letter-spacing:0}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(28px,6vw,100px);align-items:start}
+.foot-grid p{color:var(--muted);font-size:.96rem;max-width:32em}
+.foot-grid p + p{margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:12px;margin-top:28px;font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--text);border-radius:999px;padding:16px 22px 15px;transition:background .3s,color .3s;will-change:transform}
+.btn:hover{background:var(--text);color:var(--ink)}
+.credits summary{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;padding:0 0 16px;border-bottom:1px solid var(--line);list-style:none;display:flex;justify-content:space-between}
+.credits summary::-webkit-details-marker{display:none}
+.credits summary::after{content:"+";color:var(--alpha)}
+.credits[open] summary::after{content:"–"}
+.credits ul{list-style:none;columns:2;column-gap:30px;padding-top:16px;font:400 10.5px/1.5 var(--mono);letter-spacing:.02em;color:var(--muted)}
+.credits li{break-inside:avoid;padding:4px 0}
+.credits a{color:var(--text);border-bottom:1px solid var(--line)}
+.credits a:hover{border-color:var(--alpha)}
+@media (max-width:820px){.foot-grid{grid-template-columns:1fr}.credits ul{columns:1}}
+
+/* ───────────── Info popover: how this page was made ───────────── */
+.info-btn{width:26px;height:26px;border:1.5px solid #fff;border-radius:50%;display:grid;place-items:center;font:italic 500 16px/1 var(--serif);text-transform:none;letter-spacing:0;color:#fff;transition:background .25s,color .25s;margin-left:2px}
+.info-btn:hover,.info-btn[aria-expanded="true"]{background:#fff;color:#000}
+.info-scrim{position:fixed;inset:0;z-index:109;background:rgba(5,5,6,.55);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.info{
+  position:fixed;z-index:110;left:50%;top:clamp(12px,3vh,28px);width:min(680px,calc(100vw - 24px));max-height:calc(100vh - 2 * clamp(12px,3vh,28px));max-height:calc(100svh - 2 * clamp(12px,3vh,28px));
+  overflow:auto;overscroll-behavior:contain;background:#111113;color:var(--text);border:1px solid rgba(243,241,236,.18);border-radius:10px;
+  box-shadow:0 40px 120px rgba(0,0,0,.7);padding:clamp(18px,3vw,30px);
+  transform:translate(-50%,-18px) scale(.98);opacity:0;visibility:hidden;transition:transform .5s var(--ease),opacity .3s,visibility .3s;
+}
+.info-open .info{transform:translate(-50%,0) scale(1);opacity:1;visibility:visible}
+.info-open .info-scrim{opacity:1;visibility:visible}
+.info-open .cursor{mix-blend-mode:normal}
+.info-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+.info-head h2{font-size:clamp(1.3rem,3vw,1.9rem);line-height:1}
+.info-head h2 em{font-size:1.1em}
+.info-x{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:6px 0 6px 12px;white-space:nowrap}
+.info-x:hover{color:var(--text)}
+.info-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.info-stats div{padding:14px 14px 13px;border-right:1px solid var(--line)}
+.info-stats div:last-child{border-right:0}
+.info-stats dt{font:500 9.5px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.info-stats dd{font:800 clamp(1.05rem,2.6vw,1.6rem)/1 var(--display);font-stretch:112%;letter-spacing:-.02em}
+.info-stats dd small{display:block;font:500 9.5px/1.4 var(--mono);letter-spacing:.06em;color:var(--muted);margin-top:8px;text-transform:uppercase}
+.info-stats dd b{color:var(--alpha);font-weight:800}
+.info h3{font:500 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:20px 0 9px;display:flex;align-items:center;gap:.8em}
+.info h3::before{content:"";width:7px;height:7px;background:var(--alpha)}
+.info-prompt{background:#0a0a0b;border:1px solid var(--line);border-radius:6px;padding:14px 16px;font:400 12.5px/1.6 var(--mono);color:rgba(243,241,236,.86);white-space:pre-wrap;max-height:210px;overflow:auto}
+.info-prompt mark{background:none;color:var(--alpha)}
+.info-more{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:5px 22px;font:400 11px/1.5 var(--mono);color:var(--muted)}
+.info-more b{color:var(--text);font-weight:500}
+.info-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.info-links a{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:11px 14px 10px;transition:background .25s,color .25s,border-color .25s}
+.info-links a:hover{background:var(--text);color:var(--ink);border-color:var(--text)}
+@media (max-width:560px){.info-stats{grid-template-columns:1fr}.info-stats div{border-right:0;border-bottom:1px solid var(--line)}.info-stats div:last-child{border-bottom:0}.info-more{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){
+  .grain,.spot i::after,.sensor-box::after,.chip.ai,.rec::before,.hero-scroll span::before,.hero-scroll span::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Loader: shutter curtains -->
+<div class="loader" aria-hidden="true">
+  <div class="loader-half t"></div><div class="loader-half b"></div>
+  <div class="loader-mid"><span class="loader-a">α</span><span class="loader-n">000</span><span>Calibrando enfoque</span></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><div class="brk"><i></i><i></i><i></i><i></i></div><b>Ver</b></div>
+
+<!-- Viewfinder HUD + navigation -->
+<div class="hud">
+  <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+  <div class="hud-top">
+    <a class="brand" href="#top" aria-label="Inicio"><i>α</i>6700</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#diseno">Diseño</a><a href="#sensor">Sensor</a><a href="#af">Enfoque</a><a href="#video">Vídeo</a><a href="#galeria">Galería</a><a href="#specs">Ficha</a>
+    </nav>
+    <div class="hud-status" aria-hidden="true"><span class="raw">RAW+J</span><span class="raw">SD 1</span><span class="batt"><i></i></span><button class="info-btn" id="infoBtn" aria-label="Cómo se hizo esta web" aria-haspopup="dialog" aria-expanded="false">i</button></div>
+  </div>
+  <div class="hud-bot" aria-hidden="true">
+    <div class="hud-exp"><span class="mode">M</span><span id="hSh">1/250</span><span id="hAp">F2.8</span><span>ISO <span id="hIso">100</span></span></div>
+    <div class="meter" id="meter"><i class="needle" id="needle"></i></div>
+    <div class="hud-sec"><span id="hSec">Portada</span><span class="frame" id="hFrame">0000/0999</span></div>
+  </div>
+</div>
+
+<main>
+
+<!-- ═════════ HERO ═════════ -->
+<section class="hero" id="top" data-hud="1/250|F2.8|100|Portada">
+  <div class="hero-stage">
+    <div class="hero-media">
+      <img src="img/cam-hero.jpg" width="1920" height="1280" alt="Sony α6700 con objetivo 16-50 mm sobre fondo oscuro de estudio" fetchpriority="high">
+      <div class="hero-focus" aria-hidden="true"><div class="brk"><i></i><i></i><i></i><i></i></div></div>
+    </div>
+  </div>
+  <div class="hero-shade"></div>
+  <div class="hero-copy">
+    <div class="hero-kick"><span class="kicker hero-fade">ILCE-6700 · APS-C · Montura E</span></div>
+    <h1 class="hero-title" aria-label="Sony Alpha 6700"><span class="a">α</span><span>6</span><span>7</span><span>0</span><span>0</span></h1>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-tag hero-fade">Pequeña por fuera.<br><em>Inteligente</em> por dentro.</p>
+    <ul class="hero-stats hero-fade">
+      <li><b>26 MP</b>Exmor R</li>
+      <li><b>4K 120p</b>10 bits</li>
+      <li><b>IA</b>AF con chip propio</li>
+      <li><b>493 g</b>con batería</li>
+    </ul>
+  </div>
+  <div class="hero-scroll"><span class="hero-fade">Desliza para enfocar</span></div>
+</section>
+
+<!-- ═════════ MANIFESTO ═════════ -->
+<section class="manifesto" data-hud="1/125|F4.0|200|Idea">
+  <div class="wrap">
+    <span class="kicker">La idea</span>
+    <p class="manifesto-text">Cabe en una mano y pesa menos de medio kilo. Dentro lleva un sensor retroiluminado de <em>26 megapíxeles</em>, el procesador BIONZ XR y un chip dedicado solo a <em>entender</em> lo que tienes delante. La α6700 no te obliga a elegir entre foto y vídeo: se toma las dos cosas <em>en serio</em>.</p>
+  </div>
+</section>
+
+<!-- ═════════ JOURNEY ═════════ -->
+<section class="journey" id="diseno" data-hud="1/160|F8.0|100|Diseño">
+  <div class="journey-pin">
+    <div class="journey-inner">
+      <div class="j-head"><span class="j-count"><span id="jNum">01</span><small>/ 04</small></span><span class="kicker">01 — Diseño</span></div>
+
+      <div class="j-stage">
+        <figure class="j-view" style="--r:1.388">
+          <img src="img/cam-t16.jpg" width="1920" height="1383" alt="α6700 vista frontal, solo cuerpo">
+          <span class="spot" style="--x:24%;--y:41%"><i></i><em>Dial frontal</em></span>
+          <span class="spot" style="--x:24.5%;--y:70%"><i></i><em>Empuñadura profunda</em></span>
+          <span class="spot l" style="--x:73%;--y:60%"><i></i><em>Montura E</em></span>
+        </figure>
+        <figure class="j-view" style="--r:1.085">
+          <img src="img/cam-t18.jpg" width="1920" height="1769" alt="α6700 con el objetivo E 18-135 mm" loading="lazy">
+          <span class="spot b" style="--x:56%;--y:60%"><i></i><em>E 18-135 mm OSS</em></span>
+          <span class="spot" style="--x:56.5%;--y:12.5%"><i></i><em>Zapata MI</em></span>
+        </figure>
+        <figure class="j-view" style="--r:1.29">
+          <img src="img/cam-t23.jpg" width="1920" height="1488" alt="α6700 vista superior frontal con los diales" loading="lazy">
+          <span class="spot" style="--x:37%;--y:20.5%"><i></i><em>Modos · Foto / Vídeo / S&amp;Q</em></span>
+          <span class="spot" style="--x:24.5%;--y:40.5%"><i></i><em>Disparador y encendido</em></span>
+        </figure>
+        <figure class="j-view" style="--r:1.354">
+          <img src="img/cam-t24.jpg" width="1920" height="1418" alt="α6700 vista trasera con visor y pantalla" loading="lazy">
+          <span class="spot" style="--x:21%;--y:46%"><i></i><em>Visor OLED</em></span>
+          <span class="spot b" style="--x:41%;--y:72%"><i></i><em>LCD táctil articulada</em></span>
+          <span class="spot l" style="--x:72.5%;--y:53%"><i></i><em>AF-ON</em></span>
+        </figure>
+      </div>
+
+      <div class="j-texts">
+        <article class="j-text">
+          <span class="kicker">Cuerpo</span>
+          <h2>Medio kilo de <em>oficio</em>.</h2>
+          <p>Chasis de aleación de magnesio, sellado contra polvo y humedad. La empuñadura es la más profunda que ha tenido la serie y esconde la batería grande, la NP-FZ100: unos 570 disparos por carga.</p>
+          <dl><div><dt>493 g</dt><dd>Con batería<br>y tarjeta</dd></div><div><dt>122 × 69</dt><dd>× 75,1 mm</dd></div><div><dt>570</dt><dd>Disparos<br>por carga</dd></div></dl>
+        </article>
+        <article class="j-text">
+          <span class="kicker">Óptica</span>
+          <h2>Una montura, <em>decenas</em> de miradas.</h2>
+          <p>La montura E acepta toda la gama de Sony, APS-C y full frame, y la de Sigma, Tamron, Samyang o Viltrox. Aquí con el 18-135 mm del kit: de angular a tele sin cambiar de objetivo, con el sensor estabilizado en cinco ejes.</p>
+          <dl><div><dt>1,5×</dt><dd>Factor<br>de recorte</dd></div><div><dt>27–202</dt><dd>mm equiv.<br>con el kit</dd></div><div><dt>5 ejes</dt><dd>Estabilizador<br>en el cuerpo</dd></div></dl>
+        </article>
+        <article class="j-text">
+          <span class="kicker">Controles</span>
+          <h2>Todo a un <em>pulgar</em> de distancia.</h2>
+          <p>Dos diales, uno delante y otro detrás. Bajo el dial de modos, un selector para saltar entre foto, vídeo y S&amp;Q sin abrir un menú, y cada modo recuerda sus propios ajustes.</p>
+          <dl><div><dt>1/8000</dt><dd>Obturador<br>electrónico</dd></div><div><dt>11 fps</dt><dd>Ráfaga<br>con AF/AE</dd></div><div><dt>1000+</dt><dd>JPEG<br>seguidos</dd></div></dl>
+        </article>
+        <article class="j-text">
+          <span class="kicker">Visor y pantalla</span>
+          <h2>Mira como <em>quieras</em>.</h2>
+          <p>Visor OLED con refresco de hasta 120 fps y una pantalla táctil que se abre hacia un lado y gira: para grabarte, disparar a ras de suelo o por encima de la gente. Todo el menú responde al tacto.</p>
+          <dl><div><dt>2,36 M</dt><dd>Puntos<br>en el visor</dd></div><div><dt>3,0″</dt><dd>LCD de ángulo<br>variable</dd></div><div><dt>120 fps</dt><dd>Refresco<br>del visor</dd></div></dl>
+        </article>
+      </div>
+
+      <div class="j-progress"><i id="jBar"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ SENSOR ═════════ -->
+<section class="sensor" id="sensor" data-hud="1/60|F4.0|6400|Sensor">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker rv">02 — Sensor y procesado</span>
+      <h2 class="rv">Ve más de lo<br>que <em>tú</em> ves.</h2>
+      <p class="lead rv">Exmor R CMOS retroiluminado en formato APS-C. La circuitería va <strong>detrás</strong> de los fotodiodos, así que cada píxel recibe más luz: menos ruido cuando oscurece y más margen cuando editas.</p>
+    </header>
+    <div class="sensor-grid">
+      <div class="sensor-visual">
+        <div class="sensor-frame">
+          <div class="sensor-zoom">
+            <img src="img/cam-jb.jpg" width="1920" height="1244" alt="α6700 sin objetivo, con el sensor APS-C a la vista" loading="lazy">
+            <div class="sensor-box"></div>
+          </div>
+          <span class="sensor-tag">Exmor R · <b>23,3 × 15,5 mm</b></span>
+        </div>
+      </div>
+      <div class="sensor-stats">
+        <div class="stat"><b><span class="count" data-to="26" data-dec="1">26,0</span><small>MP</small></b><span><strong>Megapíxeles efectivos.</strong> Archivos de 6192 × 4128 píxeles con margen de sobra para recortar.</span></div>
+        <div class="stat"><b><span class="count" data-to="32000">32.000</span><small>ISO</small></b><span><strong>Sensibilidad nativa máxima.</strong> De ISO 100 a 32.000, ampliable a 50–102.400 en foto.</span></div>
+        <div class="stat"><b><span class="count" data-to="14" data-suffix="+">14+</span><small>pasos</small></b><span><strong>Latitud en S-Log3.</strong> Para conservar a la vez las luces de una ventana y las sombras de la habitación.</span></div>
+        <div class="stat"><b><span class="count" data-to="5" data-dec="1">5,0</span><small>pasos</small></b><span><strong>Estabilización en el cuerpo.</strong> Cinco ejes compensados en el propio sensor, con cualquier objetivo.</span></div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip-card rv"><div class="chip">BIONZ<br>XR</div><div><h3>Procesador BIONZ XR</h3><p>El mismo motor de imagen de las Alpha de gama alta. Mueve color, ruido y vídeo de 10 bits en tiempo real sin que el menú se arrastre.</p></div></div>
+      <div class="chip-card rv"><div class="chip ai">UNIDAD<br>IA</div><div><h3>Un chip solo para reconocer</h3><p>Un procesador aparte estima la postura del sujeto y sabe dónde está su cabeza aunque se gire, se agache o se tape la cara.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ AUTOFOCUS ═════════ -->
+<section class="af" id="af" data-hud="1/1600|F6.3|6400|Enfoque IA">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker rv">03 — Enfoque con IA</span>
+      <h2 class="rv">Reconoce. Sigue.<br><em>No suelta.</em></h2>
+    </header>
+    <div class="af-layout">
+      <div class="af-view rv" id="afView" data-cursor="lock">
+        <canvas class="af-points" id="afPoints" aria-hidden="true"></canvas>
+        <div class="af-box" id="afBox" aria-hidden="true"><div class="brk"><i></i><i></i><i></i><i></i></div></div>
+        <div class="af-osd"><span>AF-C · Seguimiento en tiempo real</span><span class="st" id="afState">● Buscando</span></div>
+        <div class="af-exif"><span id="afExif"></span><span id="afCredit"></span></div>
+      </div>
+      <aside class="af-side">
+        <p class="lead rv"><strong>759 puntos de detección de fase</strong> cubren el 93 % del encuadre. La unidad de IA identifica qué hay en escena, y dónde está su ojo, antes de que termines de componer. Elige un sujeto:</p>
+        <div class="af-chips rv" id="afChips" role="group" aria-label="Tipo de sujeto"></div>
+        <p class="af-note rv">También reconoce coches y aviones. Las fotos de esta demo están hechas con una α6700.</p>
+        <ul class="af-stats rv">
+          <li><b>759</b>Puntos de fase</li>
+          <li><b>93 %</b>Cobertura</li>
+          <li><b>EV −3</b>Enfoca casi a oscuras</li>
+          <li><b>7</b>Tipos de sujeto</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ VIDEO ═════════ -->
+<section class="video" id="video" data-hud="1/50|F2.8|800|Vídeo">
+  <div class="video-pin">
+    <div class="video-frame"><img id="videoImg" src="img/g-siena.jpg" width="1280" height="853" alt="Siena de noche, fotografiada con una α6700 por Andrew Parlette" loading="lazy"></div>
+    <div class="bar t"></div><div class="bar b"></div>
+    <div class="video-osd"><span class="rec">REC</span><span class="tc" id="tc">00:00:00:00</span><span>XAVC HS 4K · 10 bit 4:2:2</span></div>
+    <div class="video-big" aria-hidden="true">4K<small>120p</small></div>
+    <div class="video-title">
+      <span class="kicker">04 — Vídeo</span>
+      <h2>Cine de <em>bolsillo</em>.</h2>
+    </div>
+    <div class="profiles">
+      <span>Perfil de imagen · simulación</span>
+      <div id="profiles" role="group" aria-label="Perfil de imagen"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="video-feats">
+      <div class="feat rv"><i>01</i><h3>4K 60p desde 6K</h3><p>Lee el sensor a 6K y lo reduce a 4K, sin agrupar píxeles. Más detalle y menos moiré que un 4K nativo.</p></div>
+      <div class="feat rv"><i>02</i><h3>4K a 120p</h3><p>Cámara lenta de hasta 5× en 4K, con un recorte de 1,58×. En Full HD llega a 240p.</p></div>
+      <div class="feat rv"><i>03</i><h3>10 bits 4:2:2</h3><p>Grabación interna en XAVC HS, XAVC S o All-Intra. Mil millones de tonos para etalonar sin romper el cielo.</p></div>
+      <div class="feat rv"><i>04</i><h3>S-Log3 y S-Cinetone</h3><p>Curva logarítmica para exprimir el rango dinámico, o el color de la línea Cinema directo de cámara. Admite LUT propias.</p></div>
+      <div class="feat rv"><i>05</i><h3>Encuadre automático</h3><p>La IA recorta y sigue al sujeto como si hubiera un operador moviendo la cámara. Tú, mientras, hablas.</p></div>
+      <div class="feat rv"><i>06</i><h3>Estable y sin respirar</h3><p>Modo Active para grabar caminando y compensación del focus breathing con objetivos compatibles.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ PANORAMA ═════════ -->
+<section class="pano" data-hud="1/40|F11|125|Panorámica">
+  <div class="pano-pin">
+    <img class="pano-img" id="panoImg" src="img/g-pano.jpg" width="1920" height="768" alt="Panorámica de las colinas de Orvieto al amanecer, hecha con una α6700" loading="lazy">
+    <div class="pano-copy">
+      <span class="kicker">05 — Galería</span>
+      <h2>Hecho con<br>una <em>α</em>6700.</h2>
+    </div>
+    <p class="pano-cap"><span>Orvieto, Italia · 20 mm · f/11 · 1/40 s · ISO 125</span><span>Andrew Parlette · CC BY 2.0</span></p>
+  </div>
+</section>
+
+<!-- ═════════ GALLERY ═════════ -->
+<section class="gallery" id="galeria" data-hud="1/500|F5.6|400|Galería">
+  <div class="wrap">
+    <div class="gallery-head">
+      <p class="lead rv"><strong>Treinta y seis fotos reales, de fotógrafos reales.</strong> Todas disparadas con una α6700 y publicadas con licencia libre. Los ajustes que ves son los datos EXIF de cada toma.</p>
+      <div class="rv">
+        <div class="filters" id="filters" role="group" aria-label="Filtrar galería"></div>
+      </div>
+    </div>
+  </div>
+  <div class="mosaic" id="mosaic"></div>
+  <div class="wrap"><p class="gallery-foot" id="galleryFoot"></p></div>
+</section>
+
+<!-- ═════════ SPECS ═════════ -->
+<section class="specs" id="specs" data-hud="1/200|F5.6|200|Ficha técnica">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker rv">06 — Ficha técnica</span>
+      <h2 class="rv">Los números,<br><em>todos</em>.</h2>
+    </header>
+    <div class="spec-grid" id="specGrid"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═════════ FOOTER ═════════ -->
+<footer class="foot" data-hud="BULB|F16|100|Fin">
+  <div class="foot-big" aria-hidden="true"><span class="a">α</span><span>6700</span></div>
+  <div class="wrap foot-grid">
+    <div>
+      <p>Página no oficial, hecha por admiración a una cámara. No está afiliada a Sony ni respaldada por ella. Sony, α y BIONZ XR son marcas de Sony Group Corporation.</p>
+      <p>Las especificaciones corresponden a las publicadas por el fabricante en el lanzamiento (julio de 2023). Compruébalas en la web oficial antes de comprar.</p>
+      <a class="btn" href="#top" data-magnetic>↑ Volver arriba</a>
+    </div>
+    <details class="credits" open>
+      <summary>Créditos de las imágenes · Wikimedia Commons</summary>
+      <ul id="credits"></ul>
+    </details>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <span class="lb-count" id="lbCount"></span>
+  <button class="lb-btn lb-close" id="lbClose">Cerrar ✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior">←</button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Siguiente">→</button>
+  <figure>
+    <div class="lb-imgwrap"><img id="lbImg" alt=""></div>
+    <figcaption><b id="lbTitle"></b><span class="lb-exif" id="lbExif"></span><span class="lb-credit" id="lbCredit"></span></figcaption>
+  </figure>
+</div>
+
+<!-- Info popover -->
+<div class="info-scrim" id="infoScrim"></div>
+<div class="info" id="info" role="dialog" aria-modal="true" aria-labelledby="infoTitle" tabindex="-1">
+  <div class="info-head">
+    <h2 id="infoTitle">Cómo se <em>hizo</em></h2>
+    <button class="info-x" id="infoClose">Cerrar ✕</button>
+  </div>
+  <dl class="info-stats">
+    <div><dt>Modelo</dt><dd>Claude <b>Fable 5.2</b><small>en Claude Code</small></dd></div>
+    <div><dt>Tiempo</dt><dd>21 min 34 s<small>del prompt a la web servida</small></dd></div>
+    <div><dt>Tokens</dt><dd>114.758<small>de salida · 3,43 M procesados contando la caché</small></dd></div>
+  </dl>
+  <h3>El prompt</h3>
+  <div class="info-prompt">creame una página web llamativa, que muestre la sony a6700.
+añade imagenes publicas y tal y todo eso. lo que tu veas. que hable de las funciones y de todas las caracteristicas. que muestre tambien ejemplos de imagenes de todo tipo. añade por ejemplo una galeria que muestre imagenes, igual lo puedes hacer estilo mosaico.
+que sea una experiencia visual de página web, que conforme el usuario scrollea se sienta increible. que se vaya adaptando y modificando la web conforme el usuario baja o sube.
+el estilo de diseño decidelo tu, en función de lo que veas que pega.
+preparala, y cuando la tengas, la hosteas en local, puerto 80 si está disponible</div>
+  <h3>Más datos</h3>
+  <ul class="info-more">
+    <li><b>Fecha:</b> 10 de noviembre de 2026</li>
+    <li><b>Intervención humana:</b> un prompt y una aclaración</li>
+    <li><b>Código:</b> un solo HTML de ~1.100 líneas, sin framework</li>
+    <li><b>Librerías:</b> GSAP, ScrollTrigger y Lenis</li>
+    <li><b>Imágenes:</b> 43, todas de Wikimedia Commons</li>
+    <li><b>Datos EXIF:</b> reales, leídos de cada foto</li>
+    <li><b>Sin revisar a ojo:</b> se publicó tal cual salió</li>
+    <li><b>Página no oficial,</b> sin relación con Sony</li>
+  </ul>
+  <div class="info-links">
+    <a href="/claude/">← Todos los proyectos</a>
+    <a href="https://github.com/samilososami/claude-creations/tree/main/projects/sonya6700" target="_blank" rel="noopener">Código en GitHub ↗</a>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const hasGsap = !!(window.gsap && window.ScrollTrigger);
+if (!hasGsap) document.documentElement.classList.add('no-gsap');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* ───────── Data ───────── */
+const PHOTOS = [{"s":"g-robin","t":"Petirrojo con presa","c":["fauna"],"k":"big","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Rotkehlchen_(53660622341).jpg","e":"600 mm · f/6,3 · 1/1600 s · ISO 6400","n":"FE 200-600mm F5.6-6.3 G OSS"},{"s":"g-acropolis","t":"Acrópolis al amanecer, Atenas","c":["viajes","noche"],"k":"wide","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Athens_Acropolis_at_Daybreak.jpg","e":"28 mm · f/2,8 · 1/50 s · ISO 1250","n":"E 17-70mm F2.8 B070"},{"s":"g-bee","t":"Abeja en vuelo","c":["macro"],"k":"","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Biene_im_Anflug_(53876324859).jpg","e":"280 mm · f/9 · 1/160 s · ISO 200","n":"FE 70-200mm F4 Macro G OSS II + 1.4X Teleconverter"},{"s":"g-lightning","t":"Rayo sobre el Atlántico","c":["viajes","noche"],"k":"tall","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Lightning_over_the_Atlantic_-_Flickr_-_aparlette.jpg","e":"39 mm · f/2,8 · 2 s · ISO 100","n":"E 17-70mm F2.8 B070"},{"s":"g-neon","t":"Neón en Camden, Londres","c":["ciudad","noche"],"k":"big","a":"Tom Page","l":"CC BY-SA 2.0","p":"https://commons.wikimedia.org/wiki/File:Burritos_and_Tacos_neon_sign_Camden_High_Street_2024-02-08.jpg","e":"58 mm · f/2,8 · 1/160 s · ISO 100","n":"Helios 44M"},{"s":"g-deer","t":"Corzos en el prado","c":["fauna"],"k":"","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Rehbock_(53685214294).jpg","e":"600 mm · f/4 · 1/1250 s · ISO 640","n":"FE 600mm F4 GM OSS"},{"s":"g-heron","t":"Garza real pescando","c":["fauna"],"k":"wide","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Graureiher_beim_Fischfang_(53747693933).jpg","e":"600 mm · f/6,3 · 1/640 s · ISO 640","n":"FE 200-600mm F5.6-6.3 G OSS"},{"s":"g-campo","t":"Piazza del Campo, Siena","c":["viajes"],"k":"","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Piazza_del_Campo_from_Above.jpg","e":"23 mm · f/11 · 1/125 s · ISO 100","n":"E 17-70mm F2.8 B070"},{"s":"g-siena","t":"Siena de noche","c":["viajes","noche"],"k":"big","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Siena_Streets_at_Night.jpg","e":"35 mm · f/14 · 20 s · ISO 400","n":"E 17-70mm F2.8 B070"},{"s":"g-cat","t":"Gato en Walthamstow","c":["fauna"],"k":"tall","a":"Tom Page","l":"CC BY-SA 2.0","p":"https://commons.wikimedia.org/wiki/File:Cat,_Walthamstow_Wetlands_detail_2024-02-01.jpg","e":"286 mm · f/10 · 1/1600 s · ISO 3200","n":"E 18-300mm F3.5-6.3 B061"},{"s":"g-butterfly","t":"Mariposa sobre una hoja","c":["macro"],"k":"","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Admiral_butterfly_(53884298773).jpg","e":"155 mm · f/10 · 1/80 s · ISO 200","n":"FE 70-200mm F4 Macro G OSS II + 1.4X Teleconverter"},{"s":"g-concert","t":"Woody & the Woulds en directo","c":["accion"],"k":"","a":"Jax T.","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Woody_%26_the_Woulds.jpg","e":"21 mm · f/4 · 1/50 s · ISO 800","n":"E PZ 16-50mm F3.5-5.6 OSS"},{"s":"g-orvieto","t":"Amanecer desde la Fortezza, Orvieto","c":["viajes"],"k":"big","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Dawn_from_the_Fortezza,_Orvieto.jpg","e":"20 mm · f/16 · 1/40 s · ISO 100","n":"E 20mm F2.8"},{"s":"g-dragonfly","t":"Libélula en vuelo","c":["macro"],"k":"wide","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Keilfleck_Mosaikjungfer_(53745213939).jpg","e":"600 mm · f/6,3 · 1/500 s · ISO 250","n":"FE 200-600mm F5.6-6.3 G OSS"},{"s":"g-station","t":"Estación de Liverpool Street","c":["ciudad"],"k":"tall","a":"Tom Page","l":"CC BY-SA 2.0","p":"https://commons.wikimedia.org/wiki/File:Liverpool_Street_station_2024-02-28.jpg","e":"24 mm · f/4,5 · 1/100 s · ISO 1000","n":"SAMYANG AF 24mm F2.8"},{"s":"g-ladybug","t":"Mariquitas","c":["macro"],"k":"","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Marienk%C3%A4fer_(53702628639).jpg","e":"560 mm · f/8 · 1/250 s · ISO 500","n":"FE 100-400mm F4.5-5.6 GM OSS + 1.4X Teleconverter"},{"s":"g-festival","t":"Festival al aire libre","c":["accion","noche"],"k":"big","a":"Yalte","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:LescoStijntjesFestibal2023-20.jpg","e":"24 mm · f/4 · 1/250 s · ISO 10000","n":"E 17-70mm F2.8 B070"},{"s":"g-alishan","t":"Pasarela en Alishan, Taiwán","c":["viajes"],"k":"","a":"eugene_o","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:20240917_-_Alishan_-_13_(54379634495).jpg","e":"34 mm · f/2,8 · 1/60 s · ISO 640","n":"18-50mm F2.8 DC DN | Contemporary 021"},{"s":"g-bridge","t":"Bajo el Millennium Bridge","c":["ciudad"],"k":"wide","a":"Tom Page","l":"CC BY-SA 2.0","p":"https://commons.wikimedia.org/wiki/File:London_Millennium_Bridge_underside_2024-01-11.jpg","e":"39 mm · f/8 · 1/640 s · ISO 400","n":"E PZ 16-50mm F3.5-5.6 OSS"},{"s":"g-basilica","t":"Basílica de San Francisco, Asís","c":["viajes"],"k":"tall","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Basilica_of_Saint_Francis,_Through_the_Arch.jpg","e":"35 mm · f/8 · 1/60 s · ISO 100","n":"E 17-70mm F2.8 B070"},{"s":"g-parrots","t":"Pareja de cotorras","c":["fauna"],"k":"","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Pair_of_parrots_(54385959873).jpg","e":"70 mm · f/4 · 1/640 s · ISO 125","n":"FE 70-200mm F4 Macro G OSS II"},{"s":"g-minneapolis","t":"Reflejos de Mineápolis","c":["viajes","ciudad"],"k":"big","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Thank_You_for_Today_-_Minneapolis_Reflections_-_Flickr_-_aparlette.jpg","e":"20 mm · f/14 · 0,6 s · ISO 100","n":"E 20mm F2.8"},{"s":"g-wren","t":"Chochín","c":["fauna"],"k":"","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Zaunk%C3%B6nig_(54319039803).jpg","e":"600 mm · f/6,3 · 1/1600 s · ISO 12800","n":"FE 200-600mm F5.6-6.3 G OSS"},{"s":"g-risotto","t":"Borough Market, Londres","c":["ciudad"],"k":"","a":"Tom Page","l":"CC BY-SA 2.0","p":"https://commons.wikimedia.org/wiki/File:Wild_Mushroom_Risotto_Borough_Market_2024-01-11.jpg","e":"28 mm · f/5,6 · 1/30 s · ISO 1000","n":"E PZ 16-50mm F3.5-5.6 OSS"},{"s":"g-railway","t":"Tren forestal de Alishan","c":["viajes"],"k":"wide","a":"eugene_o","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:20240917_-_Alishan_Forest_Railway_-_1_(54379443144).jpg","e":"22 mm · f/2,8 · 1/40 s · ISO 100","n":"18-50mm F2.8 DC DN | Contemporary 021"},{"s":"g-dandelion","t":"Diente de león","c":["macro"],"k":"tall","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Pusteblume_(53682323088).jpg","e":"90 mm · f/2,8 · 1/250 s · ISO 100","n":"FE 90mm F2.8 Macro G OSS"},{"s":"g-peacock","t":"Mariposa pavo real","c":["macro"],"k":"big","a":"Ralf Hüsges","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Tagpfauenauge_(53975556728).jpg","e":"234 mm · f/10 · 1/100 s · ISO 320","n":"FE 70-200mm F4 Macro G OSS II + 1.4X Teleconverter"},{"s":"g-assisi","t":"Cena en la terraza, Asís","c":["viajes"],"k":"","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Terrace_Dinner_in_Assisi.jpg","e":"17 mm · f/14 · 1/30 s · ISO 100","n":"E 17-70mm F2.8 B070"},{"s":"g-towers","t":"Torres de Cape Henlopen","c":["viajes"],"k":"tall","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Two_Towers_-_Cape_Henlopen_-_Delaware_(55008241793).jpg","e":"81 mm · f/9 · 1/640 s · ISO 160","n":"70-200mm F2.8 DG DN OS | Sports 023"},{"s":"g-lrt","t":"Tren saliendo de KL Sentral","c":["ciudad","accion"],"k":"","a":"Kaerumy","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:RapidKL_LRT_Kelana_Jaya_Line_Train_Departing_KL_Sentral.jpg","e":"62 mm · f/5,6 · 1/100 s · ISO 200","n":""},{"s":"g-dome","t":"Cúpula del Panteón Nacional, Lisboa","c":["ciudad"],"k":"big","a":"NorbertNagel","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Dome_interior_-_National_Pantheon_-_Lisbon_-_Portugal.jpg","e":"17 mm · f/7,1 · 1/125 s · ISO 6400","n":"E 17-70mm F2.8 B070"},{"s":"g-forth","t":"Río Forth, Escocia","c":["viajes"],"k":"wide","a":"John Knight","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:River_Forth_(Explored_07-03-24)_-_Flickr_-_jkiscycling.jpg","e":"24 mm · f/8 · 1/125 s · ISO 100","n":"E 24mm F2.8 F051"},{"s":"g-athena","t":"Hacia el templo de Atenea","c":["viajes"],"k":"","a":"Andrew Parlette","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:Across_the_Hill_to_Athena%27s_Temple.jpg","e":"49 mm · f/18 · 1/80 s · ISO 100","n":"E 17-70mm F2.8 B070"},{"s":"g-vasco","t":"Puente Vasco da Gama, Lisboa","c":["ciudad"],"k":"","a":"Niko0193","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Vasco_da_Gama_bridge.jpg","e":"50 mm · f/5,6 · 1/2000 s · ISO 100","n":""},{"s":"g-ghosts","t":"Banco en Liverpool Street","c":["ciudad"],"k":"","a":"Tom Page","l":"CC BY-SA 2.0","p":"https://commons.wikimedia.org/wiki/File:Liverpool_Street_Elizabeth_line_bench_ghosts_2024-03-10.jpg","e":"24 mm · f/7,1 · 1/100 s · ISO 3200","n":"SAMYANG AF 24mm F2.8"},{"s":"g-foot2","t":"Entrenamiento en la J1 League","c":["accion"],"k":"","a":"RuinDig/Yuki Uchida","l":"CC BY 4.0","p":"https://commons.wikimedia.org/wiki/File:J1League-Football-2026-2027---YokohamaFM-and-Kashima---2026-08-07_00200.jpg","e":"227 mm · f/6,3 · 1/800 s · ISO 6400","n":""}];
+const CAMS = [{"t":"α6700 en estudio (portada)","a":"Henry Söderlund","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Sony_A6700_by_Henry_S%C3%B6derlund.jpg"},{"t":"α6700, vista frontal","a":"Tsungam","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7816).jpg"},{"t":"α6700 con 18-135 mm","a":"Tsungam","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7818).jpg"},{"t":"α6700, diales","a":"Tsungam","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7823).jpg"},{"t":"α6700, vista trasera","a":"Tsungam","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7824).jpg"},{"t":"α6700, sensor","a":"昼落ち","l":"CC BY-SA 4.0","p":"https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023b.jpg"},{"t":"Panorámica de Orvieto","a":"Andrew Parlette","l":"CC BY 2.0","p":"https://commons.wikimedia.org/wiki/File:Morning_Light_Over_Orvieto%E2%80%99s_Edge_(Italy)_(54589714303).jpg"}];
+const CATS = [['todo','Todo'],['fauna','Fauna'],['macro','Macro'],['viajes','Viajes'],['ciudad','Ciudad'],['noche','Noche'],['accion','Acción']];
+const bySlug = Object.fromEntries(PHOTOS.map(p => [p.s, p]));
+const AF = [
+  {k:'Pájaro',  s:'g-robin', x:70,   y:33, w:13},
+  {k:'Insecto', s:'g-bee',   x:58,   y:32, w:11},
+  {k:'Animal',  s:'g-cat',   x:52.5, y:60, w:20},
+  {k:'Humano',  s:'g-foot2', x:31.5, y:47, w:8},
+  {k:'Tren',    s:'g-lrt',   x:24.5, y:33, w:19}
+];
+const PROFILES = [
+  ['Estándar','none'],
+  ['S-Log3','contrast(.58) saturate(.5) brightness(1.18)'],
+  ['S-Cinetone','contrast(.94) saturate(1.12) sepia(.14) brightness(1.04)'],
+  ['LUT propia','contrast(1.18) saturate(1.35) hue-rotate(-12deg)']
+];
+const SPECS = [
+  ['Sensor e imagen', [
+    ['Sensor','Exmor R CMOS retroiluminado, APS-C (23,3 × 15,5 mm)'],
+    ['Resolución','26,0 MP efectivos · 6192 × 4128 px'],
+    ['Procesador','BIONZ XR + unidad de procesamiento de IA'],
+    ['Sensibilidad','ISO 100–32.000 (ampliable a 50–102.400 en foto)'],
+    ['Formatos','RAW de 14 bits, HEIF de 10 bits y JPEG'],
+    ['Estabilización','5 ejes en el cuerpo, hasta 5,0 pasos']
+  ]],
+  ['Enfoque', [
+    ['Sistema','AF híbrido rápido: detección de fase + contraste'],
+    ['Puntos','759 en foto · 495 en vídeo'],
+    ['Cobertura','Aprox. 93 % del sensor'],
+    ['Luz mínima','Hasta EV −3'],
+    ['Reconocimiento','Humano, animal, pájaro, insecto, coche, tren y avión']
+  ]],
+  ['Vídeo', [
+    ['4K','Hasta 60p con sobremuestreo 6K · 120p con recorte 1,58×'],
+    ['Full HD','Hasta 240p'],
+    ['Códecs','XAVC HS, XAVC S y XAVC S-I · 10 bits 4:2:2'],
+    ['Perfiles','S-Log3, S-Cinetone, HLG y LUT de usuario'],
+    ['Ayudas','Encuadre automático, modo Active, compensación de breathing']
+  ]],
+  ['Disparo', [
+    ['Obturador','1/4000 s mecánico · 1/8000 s electrónico'],
+    ['Ráfaga','Hasta 11 fps con seguimiento AF/AE'],
+    ['Búfer','Más de 1000 JPEG o 59 RAW comprimidos'],
+    ['Flash','Sincronización a 1/160 s']
+  ]],
+  ['Visor y pantalla', [
+    ['Visor','OLED XGA de 0,39″ · 2,36 M de puntos · hasta 120 fps'],
+    ['Aumento','1,07× (0,70× equiv. 35 mm)'],
+    ['Pantalla','LCD táctil de 3,0″ y ángulo variable · 1,03 M de puntos']
+  ]],
+  ['Cuerpo y conexiones', [
+    ['Montura','Sony E'],
+    ['Tarjeta','1 ranura SD UHS-II'],
+    ['Batería','NP-FZ100 · aprox. 570 disparos (LCD) / 550 (visor)'],
+    ['Puertos','USB-C con carga PD, micro HDMI, micro y auriculares 3,5 mm, zapata MI'],
+    ['Inalámbrico','Wi-Fi 2,4 / 5 GHz · Bluetooth'],
+    ['Tamaño','122,0 × 69,0 × 75,1 mm'],
+    ['Peso','493 g con batería y tarjeta'],
+    ['Sellado','Resistente a polvo y humedad']
+  ]]
+];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad = (n, l = 2) => String(n).padStart(l, '0');
+
+/* ───────── Build: specs ───────── */
+$('#specGrid').innerHTML = SPECS.map(([name, rows], i) =>
+  `<div class="spec-group rv"><h3>${esc(name)}<small>${pad(i + 1)}</small></h3><dl>` +
+  rows.map(([k, v]) => `<div class="spec-row"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('') + '</dl></div>'
+).join('');
+
+/* ───────── Build: gallery ───────── */
+const mosaic = $('#mosaic');
+mosaic.innerHTML = PHOTOS.map((p, i) =>
+  `<button class="tile ${p.k || ''}" data-i="${i}" data-cursor="view" aria-label="Ampliar: ${esc(p.t)}">` +
+  `<img src="img/${p.s}.jpg" alt="${esc(p.t)}" loading="lazy" decoding="async">` +
+  `<span class="tile-n">${pad(i + 1)}</span>` +
+  `<span class="tile-cap"><b>${esc(p.t)}</b><span>${esc(p.e)}<br>${esc(p.a)}</span></span></button>`
+).join('');
+const tiles = $$('.tile', mosaic);
+const filters = $('#filters');
+filters.innerHTML = CATS.map(([id, label], i) => {
+  const n = id === 'todo' ? PHOTOS.length : PHOTOS.filter(p => p.c.includes(id)).length;
+  return `<button class="pill${i ? '' : ' is-on'}" data-cat="${id}">${label}<sup>${n}</sup></button>`;
+}).join('');
+let visible = PHOTOS.map((_, i) => i);
+const foot = $('#galleryFoot');
+const setFoot = () => { foot.textContent = `${visible.length} de ${PHOTOS.length} fotos · Pulsa cualquiera para verla grande con sus datos de disparo`; };
+setFoot();
+filters.addEventListener('click', e => {
+  const b = e.target.closest('.pill'); if (!b) return;
+  $$('.pill', filters).forEach(x => x.classList.toggle('is-on', x === b));
+  const cat = b.dataset.cat;
+  visible = [];
+  tiles.forEach((t, i) => {
+    const show = cat === 'todo' || PHOTOS[i].c.includes(cat);
+    t.classList.toggle('is-hidden', !show);
+    if (show) visible.push(i);
+  });
+  setFoot();
+  if (hasGsap) {
+    gsap.fromTo(tiles.filter(t => !t.classList.contains('is-hidden')), {opacity: 0, y: 26, scale: .96},
+      {opacity: 1, y: 0, scale: 1, duration: .7, ease: 'power3.out', stagger: .025, overwrite: true});
+    ScrollTrigger.refresh();
+  }
+});
+
+/* ───────── Build: credits ───────── */
+$('#credits').innerHTML = [...CAMS, ...PHOTOS.map(p => ({t: p.t, a: p.a, l: p.l, p: p.p})), ]
+  .map(c => `<li><a href="${esc(c.p)}" target="_blank" rel="noopener">${esc(c.t)}</a> · ${esc(c.a)} · ${esc(c.l)}</li>`).join('');
+
+/* ───────── Lightbox ───────── */
+const lb = $('#lb'), lbImg = $('#lbImg');
+let lbPos = 0, lenis = null, lastFocus = null;
+function lbShow(pos) {
+  lbPos = (pos + visible.length) % visible.length;
+  const p = PHOTOS[visible[lbPos]];
+  lbImg.src = `img/${p.s}.jpg`; lbImg.alt = p.t;
+  $('#lbTitle').textContent = p.t;
+  $('#lbExif').textContent = p.e + (p.n ? ' · ' + p.n : '');
+  $('#lbCredit').innerHTML = `Foto: ${esc(p.a)}<br><a href="${esc(p.p)}" target="_blank" rel="noopener">${esc(p.l)} · Wikimedia Commons ↗</a>`;
+  $('#lbCount').textContent = `${pad(lbPos + 1)} / ${pad(visible.length)}`;
+  if (hasGsap) gsap.fromTo(lbImg, {opacity: 0, scale: .97}, {opacity: 1, scale: 1, duration: .5, ease: 'power3.out'});
+}
+function lbOpen(i) {
+  lastFocus = document.activeElement;
+  lb.classList.add('is-open'); document.body.classList.add('lb-open');
+  if (lenis) lenis.stop(); else document.documentElement.style.overflow = 'hidden';
+  lbShow(Math.max(0, visible.indexOf(i)));
+  $('#lbClose').focus();
+}
+function lbClose() {
+  lb.classList.remove('is-open'); document.body.classList.remove('lb-open');
+  if (lenis) lenis.start(); else document.documentElement.style.overflow = '';
+  if (lastFocus) lastFocus.focus({preventScroll: true});
+}
+mosaic.addEventListener('click', e => { const t = e.target.closest('.tile'); if (t) lbOpen(+t.dataset.i); });
+$('#lbClose').addEventListener('click', lbClose);
+$('#lbPrev').addEventListener('click', () => lbShow(lbPos - 1));
+$('#lbNext').addEventListener('click', () => lbShow(lbPos + 1));
+lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('lb-imgwrap')) lbClose(); });
+addEventListener('keydown', e => {
+  if (!lb.classList.contains('is-open')) return;
+  if (e.key === 'Escape') lbClose();
+  else if (e.key === 'ArrowLeft') lbShow(lbPos - 1);
+  else if (e.key === 'ArrowRight') lbShow(lbPos + 1);
+});
+
+/* ───────── Info popover ───────── */
+const infoBtn = $('#infoBtn'), infoBox = $('#info');
+let infoLast = null;
+function infoToggle(open) {
+  document.body.classList.toggle('info-open', open);
+  infoBtn.setAttribute('aria-expanded', open);
+  if (open) { infoLast = document.activeElement; infoBox.focus({preventScroll: true}); if (lenis) lenis.stop(); }
+  else { if (lenis && !lb.classList.contains('is-open')) lenis.start(); if (infoLast) infoLast.focus({preventScroll: true}); }
+}
+infoBtn.addEventListener('click', () => infoToggle(!document.body.classList.contains('info-open')));
+$('#infoClose').addEventListener('click', () => infoToggle(false));
+$('#infoScrim').addEventListener('click', () => infoToggle(false));
+addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('info-open')) infoToggle(false); });
+// the popover scrolls on its own; keep Lenis and the anchor handler away from it
+infoBox.setAttribute('data-lenis-prevent', '');
+
+/* ───────── Video profiles ───────── */
+const videoImg = $('#videoImg'), profBox = $('#profiles');
+profBox.innerHTML = PROFILES.map(([n], i) => `<button class="pill${i ? '' : ' is-on'}" data-p="${i}">${n}</button>`).join('');
+profBox.addEventListener('click', e => {
+  const b = e.target.closest('.pill'); if (!b) return;
+  $$('.pill', profBox).forEach(x => x.classList.toggle('is-on', x === b));
+  videoImg.style.filter = PROFILES[+b.dataset.p][1];
+});
+
+/* ───────── AF demo ───────── */
+const afView = $('#afView'), afBox = $('#afBox'), afState = $('#afState'), afCanvas = $('#afPoints');
+const afChips = $('#afChips'), afCtx = afCanvas.getContext('2d');
+AF.forEach((a, i) => {
+  const im = new Image();
+  im.className = 'af-img' + (i ? '' : ' is-on'); im.src = `img/${a.s}.jpg`; im.alt = (bySlug[a.s] || {}).t || a.k;
+  im.loading = 'lazy'; im.decoding = 'async';
+  afView.insertBefore(im, afCanvas);
+});
+const afImgs = $$('.af-img', afView);
+afChips.innerHTML = AF.map((a, i) => `<button class="pill${i ? '' : ' is-on'}" data-af="${i}">${a.k}</button>`).join('');
+const COLS = 33, ROWS = 23;               // 33 × 23 = 759 puntos
+const hl = {x: 50, y: 50, r: 0};
+function afResize() {
+  const r = afView.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+  afCanvas.width = Math.round(r.width * d); afCanvas.height = Math.round(r.height * d);
+  afDraw();
+}
+function afDraw() {
+  const W = afCanvas.width, H = afCanvas.height; if (!W) return;
+  const d = W / afView.clientWidth, mx = W * .035, my = H * .035;
+  afCtx.clearRect(0, 0, W, H);
+  const hx = hl.x / 100 * W, hy = hl.y / 100 * H, R = hl.r * W;
+  for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) {
+    const x = mx + i * (W - 2 * mx) / (COLS - 1), y = my + j * (H - 2 * my) / (ROWS - 1);
+    const on = R > 0 && Math.hypot(x - hx, y - hy) < R;
+    const s = (on ? 3.4 : 1.6) * d;
+    afCtx.fillStyle = on ? 'rgba(61,255,122,.95)' : 'rgba(255,255,255,.26)';
+    afCtx.fillRect(x - s / 2, y - s / 2, s, s);
+  }
+}
+let afCur = -1, afTl = null, afAuto = true, afTimer = null;
+function afSet(i) {
+  if (i === afCur) return; afCur = i;
+  const a = AF[i], p = bySlug[a.s] || {};
+  afImgs.forEach((im, j) => im.classList.toggle('is-on', j === i));
+  $$('.pill', afChips).forEach((b, j) => b.classList.toggle('is-on', j === i));
+  $('#afExif').textContent = p.e || '';
+  $('#afCredit').textContent = p.a ? `Foto: ${p.a}` : '';
+  afBox.classList.remove('is-locked');
+  afState.textContent = '○ Buscando ' + a.k.toLowerCase(); afState.style.color = '#fff';
+  const lock = () => { afBox.classList.add('is-locked'); afState.textContent = '● ' + a.k + ' · ojo detectado'; afState.style.color = ''; };
+  if (!hasGsap) {
+    Object.assign(afBox.style, {left: a.x + '%', top: a.y + '%', width: a.w + '%'});
+    Object.assign(hl, {x: a.x, y: a.y, r: .13}); afDraw(); lock(); return;
+  }
+  if (afTl) afTl.kill();
+  const rx = gsap.utils.random(-13, 13), ry = gsap.utils.random(-11, 11);
+  afTl = gsap.timeline({onUpdate: afDraw})
+    .to(hl, {r: 0, duration: .2}, 0)
+    .to(afBox, {left: gsap.utils.clamp(12, 88, a.x + rx) + '%', top: gsap.utils.clamp(14, 86, a.y + ry) + '%', width: a.w * 2 + '%', duration: .42, ease: 'power2.out'}, 0)
+    .to(afBox, {left: a.x + '%', top: a.y + '%', width: a.w + '%', duration: .5, ease: 'back.out(2.4)'})
+    .set(hl, {x: a.x, y: a.y}, '<')
+    .add(lock)
+    .to(hl, {r: .13, duration: .5, ease: 'power2.out'});
+}
+afChips.addEventListener('click', e => {
+  const b = e.target.closest('.pill'); if (!b) return;
+  afAuto = false; clearInterval(afTimer); afSet(+b.dataset.af);
+});
+if ('ResizeObserver' in window) new ResizeObserver(afResize).observe(afView); else addEventListener('resize', afResize);
+afResize();
+
+/* ───────── Film grain texture ───────── */
+(() => {
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const x = c.getContext('2d'), d = x.createImageData(160, 160);
+  for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  x.putImageData(d, 0, 0);
+  $('.grain').style.backgroundImage = `url(${c.toDataURL()})`;
+})();
+
+/* ───────── Exposure meter ticks ───────── */
+const meter = $('#meter');
+for (let i = 0; i < 19; i++) { const s = document.createElement('s'); if (i % 3 === 0) s.className = 'M'; meter.appendChild(s); }
+
+/* ───────── No GSAP: static, readable fallback ───────── */
+if (!hasGsap) { afSet(0); return; }
+
+/* ═════════ Motion ═════════ */
+gsap.registerPlugin(ScrollTrigger);
+gsap.defaults({ease: 'power3.out'});
+
+if (window.Lenis && !reduce) {
+  lenis = new Lenis({duration: 1.15, smoothWheel: true, wheelMultiplier: 1});
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+$$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  const t = $(a.getAttribute('href')); if (!t) return;
+  e.preventDefault();
+  if (lenis) lenis.scrollTo(t, {duration: 1.8}); else t.scrollIntoView({behavior: 'smooth'});
+}));
+
+/* ───────── Cursor: focus reticle ───────── */
+if (finePointer) {
+  const cur = $('.cursor');
+  document.documentElement.classList.add('has-cursor');
+  const xTo = gsap.quickTo(cur, 'x', {duration: .28, ease: 'power3'}), yTo = gsap.quickTo(cur, 'y', {duration: .28, ease: 'power3'});
+  let shown = false;
+  addEventListener('mousemove', e => {
+    xTo(e.clientX); yTo(e.clientY);
+    if (!shown) { shown = true; gsap.set(cur, {x: e.clientX, y: e.clientY}); gsap.to(cur, {opacity: 1, duration: .3}); }
+  }, {passive: true});
+  document.addEventListener('mouseover', e => {
+    const view = e.target.closest('[data-cursor="view"]');
+    const lock = !view && e.target.closest('a,button,summary,[data-cursor="lock"]');
+    cur.classList.toggle('is-view', !!view);
+    cur.classList.toggle('is-lock', !!lock);
+  });
+  document.addEventListener('mouseleave', () => gsap.to(cur, {opacity: 0, duration: .2}));
+  document.addEventListener('mouseenter', () => gsap.to(cur, {opacity: 1, duration: .2}));
+  // magnetic button
+  $$('[data-magnetic]').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      gsap.to(el, {x: (e.clientX - r.left - r.width / 2) * .3, y: (e.clientY - r.top - r.height / 2) * .4, duration: .4});
+    });
+    el.addEventListener('mouseleave', () => gsap.to(el, {x: 0, y: 0, duration: .7, ease: 'elastic.out(1,.4)'}));
+  });
+}
+
+/* ───────── Split manifesto into words ───────── */
+(() => {
+  const el = $('.manifesto-text'), out = [];
+  [...el.childNodes].forEach(n => {
+    if (n.nodeType === 3) n.textContent.split(/(\s+)/).forEach(w => {
+      if (!w) return;
+      if (/^\s+$/.test(w)) out.push(document.createTextNode(' '));
+      else { const s = document.createElement('span'); s.className = 'w'; s.textContent = w; out.push(s); }
+    });
+    else { n.classList.add('w'); out.push(n); }
+  });
+  el.replaceChildren(...out);
+})();
+
+/* ───────── Hero: intro + scroll zoom into the lens ───────── */
+const heroImg = $('.hero-media img'), heroFocus = $('.hero-focus');
+gsap.set('.hero-title span', {yPercent: 115});
+gsap.set('.hero-fade', {opacity: 0, y: 26});
+gsap.set(heroImg, {scale: 1.22, opacity: 0});
+gsap.set(heroFocus, {opacity: 0, scale: 2.4});
+gsap.set('.hud', {opacity: 0});
+
+function intro() {
+  const tl = gsap.timeline();
+  tl.to('.loader-mid', {opacity: 0, duration: .35, ease: 'power2.in'})
+    .to('.loader-half.t', {yPercent: -101, duration: 1.05, ease: 'expo.inOut'}, '<.15')
+    .to('.loader-half.b', {yPercent: 101, duration: 1.05, ease: 'expo.inOut'}, '<')
+    .set('.loader', {display: 'none'})
+    .to(heroImg, {scale: 1, opacity: 1, duration: 2.2, ease: 'expo.out'}, '<-.75')
+    .to('.hero-title span', {yPercent: 0, duration: 1.25, ease: 'expo.out', stagger: .07}, '<.2')
+    .to('.hero-fade', {opacity: 1, y: 0, duration: 1, stagger: .09}, '<.45')
+    .to('.hud', {opacity: 1, duration: .8}, '<')
+    .to(heroFocus, {opacity: 1, scale: 1, duration: .65, ease: 'back.out(1.8)'}, '<.25')
+    .add(() => heroFocus.classList.add('is-locked'))
+    .to(heroFocus, {opacity: .25, duration: .09, repeat: 3, yoyo: true});
+  return tl;
+}
+(() => {
+  const n = $('.loader-n'), o = {v: 0};
+  const count = gsap.to(o, {v: 100, duration: reduce ? .2 : 1.25, ease: 'power2.inOut', onUpdate: () => { n.textContent = pad(Math.round(o.v), 3); }});
+  const ready = Promise.race([
+    Promise.all([heroImg.decode ? heroImg.decode().catch(() => {}) : Promise.resolve(), document.fonts ? document.fonts.ready : Promise.resolve()]),
+    new Promise(r => setTimeout(r, 3500))
+  ]);
+  Promise.all([ready, count.then()]).then(intro);
+})();
+
+gsap.timeline({scrollTrigger: {trigger: '.hero', start: 'top top', end: '+=135%', pin: true, scrub: .7}})
+  .to('.hero-bottom,.hero-scroll,.hero-kick', {autoAlpha: 0, duration: .2, ease: 'none'}, 0)
+  .to('.hero-focus .brk', {autoAlpha: 0, duration: .12, ease: 'none'}, 0)
+  .to('.hero-title', {'--wdth': 62, letterSpacing: '.02em', yPercent: -34, autoAlpha: 0, duration: .5, ease: 'power1.in'}, 0)
+  .to('.hero-media', {scale: 3, duration: 1, ease: 'power2.in'}, 0)
+  .fromTo('.hero-media', {clipPath: 'circle(130% at 50% 60.5%)'}, {clipPath: 'circle(0% at 50% 60.5%)', duration: .42, ease: 'power2.in'}, .58);
+
+/* ───────── Manifesto: words develop as you scroll ───────── */
+gsap.fromTo('.manifesto-text .w', {opacity: .13}, {
+  opacity: 1, ease: 'none', stagger: .08,
+  scrollTrigger: {trigger: '.manifesto-text', start: 'top 82%', end: 'bottom 48%', scrub: .4}
+});
+
+/* ───────── Journey: card opens to full bleed, then pinned steps ───────── */
+gsap.fromTo('.journey-inner', {clipPath: 'inset(16% 9% 0% 9% round 44px)'}, {
+  clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
+  scrollTrigger: {trigger: '.journey', start: 'top bottom', end: 'top top', scrub: true}
+});
+(() => {
+  const views = $$('.j-view'), texts = $$('.j-text'), num = $('#jNum'), bar = $('#jBar');
+  const vertical = () => innerWidth > 900;
+  let cur = 0;
+  gsap.set(views.slice(1), {autoAlpha: 0});
+  gsap.set(texts.slice(1), {autoAlpha: 0});
+  function show(i, dir) {
+    const prev = cur; cur = i;
+    views.forEach((v, j) => { if (j !== i && j !== prev) gsap.set(v, {autoAlpha: 0}); });
+    texts.forEach((t, j) => { if (j !== i && j !== prev) gsap.set(t, {autoAlpha: 0}); });
+    gsap.to(views[prev], {autoAlpha: 0, scale: 1.08, rotate: -2.5 * dir, duration: .4, ease: 'power2.in', overwrite: true});
+    gsap.fromTo(views[i], {autoAlpha: 0, scale: .88, rotate: 4 * dir}, {autoAlpha: 1, scale: 1, rotate: 0, duration: 1, ease: 'expo.out', delay: .22, overwrite: true});
+    gsap.fromTo($$('.spot', views[i]), {scale: 0, opacity: 0}, {scale: 1, opacity: 1, duration: .5, ease: 'back.out(2.2)', stagger: .12, delay: .7, overwrite: true});
+    gsap.to(texts[prev], {autoAlpha: 0, y: -40 * dir, duration: .35, ease: 'power2.in', overwrite: true});
+    gsap.fromTo([...texts[i].children], {opacity: 0, y: 46 * dir}, {opacity: 1, y: 0, duration: .8, stagger: .07, delay: .25, overwrite: true});
+    gsap.set(texts[i], {autoAlpha: 1, y: 0, overwrite: true});
+    gsap.fromTo(num, {yPercent: 60 * dir, opacity: 0}, {yPercent: 0, opacity: 1, duration: .5, overwrite: true});
+    num.textContent = pad(i + 1);
+  }
+  ScrollTrigger.create({
+    trigger: '.journey-pin', start: 'top top', end: '+=340%', pin: true,
+    onUpdate(self) {
+      const i = Math.min(views.length - 1, Math.floor(self.progress * views.length));
+      if (i !== cur) show(i, i > cur ? 1 : -1);
+      gsap.set(bar, vertical() ? {scaleY: self.progress, scaleX: 1} : {scaleX: self.progress, scaleY: 1});
+    }
+  });
+  gsap.from($$('.spot', views[0]), {scale: 0, opacity: 0, duration: .5, ease: 'back.out(2.2)', stagger: .12,
+    scrollTrigger: {trigger: '.journey', start: 'top 25%'}});
+})();
+
+/* ───────── Sensor: zoom into the chip + counters ───────── */
+gsap.fromTo('.sensor-zoom', {scale: 1}, {scale: 2.3, ease: 'none',
+  scrollTrigger: {trigger: '.sensor-grid', start: 'top 75%', end: 'bottom 70%', scrub: .6}});
+gsap.fromTo('.sensor-box', {opacity: 0}, {opacity: 1, duration: .6,
+  scrollTrigger: {trigger: '.sensor-stats', start: 'top 45%', toggleActions: 'play none none reverse'}});
+$$('.count').forEach(el => {
+  const to = +el.dataset.to, dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || '';
+  const f = v => v.toLocaleString('es-ES', {minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: 'always'}) + suf;
+  const o = {v: 0};
+  ScrollTrigger.create({trigger: el, start: 'top 88%', once: true, onEnter: () =>
+    gsap.to(o, {v: to, duration: 1.8, ease: 'expo.out', onUpdate: () => { el.textContent = f(o.v); }})});
+});
+gsap.from('.stat', {opacity: 0, x: 50, duration: 1, stagger: .12, scrollTrigger: {trigger: '.sensor-stats', start: 'top 80%'}});
+
+/* ───────── AF: lock on enter, auto-cycle until the user picks ───────── */
+ScrollTrigger.create({trigger: '#afView', start: 'top 70%', end: 'bottom 20%',
+  onToggle(self) {
+    clearInterval(afTimer);
+    if (!self.isActive) return;
+    if (afCur < 0) afSet(0);
+    if (afAuto) afTimer = setInterval(() => afSet((afCur + 1) % AF.length), 4200);
+  }});
+
+/* ───────── Video: letterbox closes, timecode runs with the scroll ───────── */
+(() => {
+  const tc = $('#tc');
+  gsap.timeline({scrollTrigger: {trigger: '.video-pin', start: 'top top', end: '+=150%', pin: true, scrub: .6,
+    onUpdate(self) {
+      const f = Math.floor(self.progress * 24 * 12);
+      tc.textContent = `00:00:${pad(Math.floor(f / 24))}:${pad(f % 24)}`;
+    }}})
+    .fromTo('.video-frame img', {scale: 1.4, xPercent: -4}, {scale: 1.02, xPercent: 0, duration: 1, ease: 'none'}, 0)
+    .fromTo('.bar', {scaleY: 0}, {scaleY: 1, duration: .4, ease: 'power2.out'}, .05)
+    .from('.video-osd', {autoAlpha: 0, duration: .15}, .3)
+    .from('.video-title > *', {y: 70, autoAlpha: 0, duration: .3, stagger: .06}, .25)
+    .from('.video-big', {xPercent: 22, autoAlpha: 0, duration: .45}, .32)
+    .from('.profiles', {y: 24, autoAlpha: 0, duration: .2}, .62);
+})();
+
+/* ───────── Panorama: vertical scroll pans horizontally ───────── */
+(() => {
+  const img = $('#panoImg');
+  const travel = () => Math.max(0, img.offsetWidth - innerWidth);
+  gsap.timeline({scrollTrigger: {trigger: '.pano-pin', start: 'top top', end: () => '+=' + Math.max(innerHeight * .9, travel()), pin: true, scrub: .5, invalidateOnRefresh: true}})
+    .to(img, {x: () => -travel(), ease: 'none', duration: 1}, 0)
+    .to('.pano-copy', {x: () => -innerWidth * .18, autoAlpha: 0, ease: 'power1.in', duration: .55}, .35);
+  gsap.from('.pano-copy > *', {y: 60, opacity: 0, duration: 1, stagger: .1, scrollTrigger: {trigger: '.pano', start: 'top 55%'}});
+})();
+
+/* ───────── Gallery: reveal + per-tile parallax ───────── */
+gsap.set(tiles, {opacity: 0, y: 60, scale: .96});
+ScrollTrigger.batch(tiles, {start: 'top 94%', once: true,
+  onEnter: b => gsap.to(b, {opacity: 1, y: 0, scale: 1, duration: 1.1, ease: 'expo.out', stagger: .06, overwrite: true})});
+if (!reduce) tiles.forEach(t => gsap.fromTo($('img', t), {yPercent: -6}, {yPercent: 6, ease: 'none',
+  scrollTrigger: {trigger: t, start: 'top bottom', end: 'bottom top', scrub: true}}));
+
+/* ───────── Generic reveals ───────── */
+gsap.set('.rv', {opacity: 0, y: 44});
+ScrollTrigger.batch('.rv', {start: 'top 88%', once: true,
+  onEnter: b => gsap.to(b, {opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: .09, overwrite: true})});
+$$('.spec-group').forEach(g => gsap.from($$('.spec-row', g), {opacity: 0, x: -24, duration: .7, stagger: .045,
+  scrollTrigger: {trigger: g, start: 'top 82%'}}));
+
+/* ───────── Footer: the wordmark stretches as you arrive ───────── */
+gsap.fromTo('.foot-big', {'--wdth': 62, opacity: .25}, {'--wdth': 125, opacity: 1, ease: 'none',
+  scrollTrigger: {trigger: '.foot', start: 'top bottom', end: 'bottom bottom', scrub: .4}});
+
+/* ───────── HUD: exposure readout per section, frame counter, meter ───────── */
+(() => {
+  const els = {sh: $('#hSh'), ap: $('#hAp'), iso: $('#hIso'), sec: $('#hSec')}, frame = $('#hFrame'), needle = $('#needle');
+  const secs = $$('[data-hud]');
+  let last = '';
+  function setHud(str, i) {
+    if (str === last) return; last = str;
+    const [sh, ap, iso, name] = str.split('|');
+    [[els.sh, sh], [els.ap, ap], [els.iso, iso], [els.sec, name]].forEach(([el, v], k) => {
+      if (el.textContent === v) return;
+      gsap.fromTo(el, {opacity: 0, y: 9}, {opacity: 1, y: 0, duration: .4, delay: k * .05, overwrite: true, onStart: () => { el.textContent = v; }});
+    });
+  }
+  secs.forEach((s, i) => ScrollTrigger.create({trigger: s, start: 'top 55%', end: 'bottom 55%',
+    onToggle: self => { if (self.isActive) setHud(s.dataset.hud, i); }}));
+  ScrollTrigger.create({start: 0, end: 'max', onUpdate: self => { frame.textContent = pad(Math.round(self.progress * 999), 4) + '/0999'; }});
+  let ly = scrollY, nx = 0;
+  gsap.ticker.add(() => {
+    const y = scrollY, v = y - ly; ly = y;
+    nx += (gsap.utils.clamp(-58, 58, v * 1.6) - nx) * .12;
+    needle.style.transform = `translateX(${nx.toFixed(2)}px)`;
+  });
+})();
+
+/* ───────── Keep measurements honest once assets land ───────── */
+addEventListener('load', () => ScrollTrigger.refresh());
+if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

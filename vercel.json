@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/", "destination": "/claude/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/claude/", "destination": "/hub/index.html" },
+    { "source": "/claude/:slug/", "destination": "/projects/:slug/index.html" },
+    { "source": "/claude/:slug/:path*", "destination": "/projects/:slug/:path*" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/projects/:slug/img/:path*",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+    }
+  ]
+}
