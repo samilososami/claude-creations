@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GlassPhone · el teléfono que desaparece</title>
+<meta name="description" content="GlassPhone: un teléfono de una sola pieza de cristal, con pantalla, cuerpo y cámara transparentes. Modelo 3D interactivo y simulador completo de GlassOS.">
+<meta name="theme-color" content="#f3e4d6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='17' y='5' width='30' height='54' rx='9' fill='%23bfe3ee' fill-opacity='.55' stroke='%230d1524' stroke-width='3'/%3E%3Ccircle cx='32' cy='18' r='4' fill='none' stroke='%230d1524' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,144,300,100;1,144,300,100&family=Geist:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/site.css">
+<link rel="stylesheet" href="./css/os.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body class="is-loading">
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="veil" id="veil" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="nav__brand lg" href="#hero" aria-label="GlassPhone, inicio">
+    <span class="nav__dot" aria-hidden="true"></span>
+    <span class="nav__name">Glass<em>Phone</em></span>
+  </a>
+  <nav class="nav__links lg" aria-label="Secciones">
+    <a href="#nada">Idea</a>
+    <a href="#cristal">Cuerpo</a>
+    <a href="#luz">Pantalla</a>
+    <a href="#gota">Cámara</a>
+    <a href="#glassos">GlassOS</a>
+    <a href="#tocalo">3D</a>
+  </nav>
+  <div class="nav__side">
+    <button class="nav__os lg" type="button" data-act="sim">
+      <span class="nav__pulse" aria-hidden="true"></span>Simulador
+    </button>
+    <a class="nav__i lg" href="#info" aria-label="Cómo se hizo esta web">i</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ───────── Hero · alba ───────── -->
+  <section class="hero" id="hero">
+    <h1 class="sr">GlassPhone</h1>
+    <div class="hero__words" aria-hidden="true">
+      <div class="gword" data-word="glass"><span>Glass</span></div>
+      <div class="gword" data-word="phone"><span><em>Phone</em></span></div>
+    </div>
+    <div class="hero__meta" aria-hidden="true">
+      <span>Concepto · 2026</span>
+      <span>148 g · 7,4 mm · 0 colores</span>
+    </div>
+    <div class="hero__foot">
+      <p class="hero__tag rv">El teléfono que <em>desaparece.</em></p>
+      <p class="hero__sub rv">Pantalla, cuerpo y cámara de una sola pieza de cristal. Sin color, sin marcos, sin nada que mirar salvo lo que hay detrás.</p>
+      <div class="hero__cta rv">
+        <button class="drop drop--solid" type="button" data-act="sim">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8M6.3 6.8a8 8 0 1 0 11.4 0"/></svg>
+          Encender GlassOS
+        </button>
+        <a class="drop" href="#tocalo">Verlo en 3D</a>
+      </div>
+    </div>
+    <a class="cue" href="#nada" aria-label="Seguir bajando">
+      <span class="cue__drop" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ───────── 01 · nada · mediodía ───────── -->
+  <section class="chapter" id="nada" data-side="left">
+    <div class="chapter__title">
+      <span class="kicker">01 · La idea</span>
+      <div class="gword" data-word="nada" aria-hidden="true"><span><em>nada</em></span></div>
+    </div>
+    <div class="chapter__stage">
+      <div class="pin">
+        <article class="caption lg">
+          <h2>Hecho de casi <em>nada.</em></h2>
+          <p>Empezamos quitando. El color, los marcos, el logo, la isla de la cámara. Lo que quedó es una lámina de cristal que no intenta parecerse a nada: toma el color de la mesa, de tu mano, de la tarde.</p>
+          <dl class="stats">
+            <div><dt data-count="0">0</dt><dd>colores</dd></div>
+            <div><dt data-count="1">1</dt><dd>pieza</dd></div>
+            <div><dt data-count="7.4" data-dec="1">7,4</dt><dd>milímetros</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 02 · cristal ───────── -->
+  <section class="chapter" id="cristal" data-side="right">
+    <div class="chapter__title">
+      <span class="kicker">02 · El cuerpo</span>
+      <div class="gword" data-word="cristal" aria-hidden="true"><span><em>cristal</em></span></div>
+    </div>
+    <div class="chapter__stage">
+      <div class="pin">
+        <article class="caption lg">
+          <h2>Una pieza. <em>Ninguna junta.</em></h2>
+          <p>Zafiro fundido y templado durante once días en un único bloque. No hay tapa ni chasis: el canto es el mismo cristal, curvado hasta que la luz lo recorre entero. Ese verde del borde no es un acabado. Así es el cristal cuando es grueso.</p>
+          <dl class="stats">
+            <div><dt data-count="9">9</dt><dd>Mohs de dureza</dd></div>
+            <div><dt data-count="148">148</dt><dd>gramos</dd></div>
+            <div><dt>IP69</dt><dd>agua y polvo</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 03 · luz · hora dorada ───────── -->
+  <section class="chapter" id="luz" data-side="left">
+    <div class="chapter__title">
+      <span class="kicker">03 · La pantalla</span>
+      <div class="gword" data-word="luz" aria-hidden="true"><span><em>luz</em></span></div>
+    </div>
+    <div class="chapter__stage">
+      <div class="pin">
+        <article class="caption lg">
+          <h2>Una pantalla que solo existe <em>encendida.</em></h2>
+          <p>6,9 pulgadas de microLED transparente: cada píxel es más fino que un cabello y deja pasar el 92 % de la luz. Apagada, no hay pantalla. Encendida, la interfaz flota dentro del cristal, y desde atrás se lee del revés.</p>
+          <dl class="stats">
+            <div><dt data-count="92" data-suffix=" %">92 %</dt><dd>de luz la atraviesa</dd></div>
+            <div><dt data-count="3000" data-group="1">3.000</dt><dd>nits de pico</dd></div>
+            <div><dt data-count="144" data-suffix=" Hz">144 Hz</dt><dd>adaptativos</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 04 · gota ───────── -->
+  <section class="chapter" id="gota" data-side="right">
+    <div class="chapter__title">
+      <span class="kicker">04 · La cámara</span>
+      <div class="gword" data-word="gota" aria-hidden="true"><span><em>gota</em></span></div>
+    </div>
+    <div class="chapter__stage">
+      <div class="pin">
+        <article class="caption lg">
+          <h2>La cámara es <em>una gota.</em></h2>
+          <p>Sin módulo y sin anillos de metal. Una única lente líquida, del tamaño de una gota de lluvia, que cambia de curvatura para enfocar: de 14 a 120 mm sin una sola pieza móvil. El sensor va impreso en el propio cristal. Tampoco se ve.</p>
+          <dl class="stats">
+            <div><dt>14–120</dt><dd>mm de focal</dd></div>
+            <div><dt>f/1.4</dt><dd>de apertura</dd></div>
+            <div><dt data-count="50" data-suffix=" MP">50 MP</dt><dd>sin lente fija</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 05 · GlassOS · crepúsculo ───────── -->
+  <section class="chapter chapter--long" id="glassos" data-side="left">
+    <div class="chapter__title">
+      <span class="kicker">05 · El sistema</span>
+      <div class="gword" data-word="glassos" aria-hidden="true"><span>Glass<em>OS</em></span></div>
+    </div>
+    <div class="chapter__stage" id="os-a">
+      <div class="pin">
+        <article class="caption lg">
+          <h2>Tu fondo de pantalla <em>es el mundo.</em></h2>
+          <p>GlassOS no trae fondos porque no los necesita. Cada panel es cristal líquido: refracta lo que hay detrás, cede cuando lo tocas y cambia de tinta, clara u oscura, según la luz que le llega.</p>
+        </article>
+      </div>
+    </div>
+    <div class="chapter__stage" id="os-b">
+      <div class="pin">
+        <article class="caption lg">
+          <h2>Capas, <em>no ventanas.</em></h2>
+          <p>Las apps no tapan: se posan. Mensajes, cámara, calendario, ajustes. Todo es la misma lámina, más o menos esmerilada, y debajo sigue estando tu mesa.</p>
+          <button class="drop drop--sm" type="button" data-act="sim">Probar GlassOS ahora</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── Ficha ───────── -->
+  <section class="specs" id="ficha">
+    <header class="specs__head">
+      <span class="kicker rv">Ficha técnica</span>
+      <h2 class="rv">Todo está ahí. <em>No se ve nada.</em></h2>
+    </header>
+    <div class="bento">
+      <article class="tile lg tile--wide rv">
+        <span class="tile__k">Pantalla</span>
+        <p class="tile__v">6,9″ <small>microLED transparente</small></p>
+        <p class="tile__d">2.868 × 1.320 · 1–144 Hz · 3.000 nits</p>
+      </article>
+      <article class="tile lg rv">
+        <span class="tile__k">Peso</span>
+        <p class="tile__v">148 <small>g</small></p>
+      </article>
+      <article class="tile lg rv">
+        <span class="tile__k">Grosor</span>
+        <p class="tile__v">7,4 <small>mm</small></p>
+      </article>
+      <article class="tile lg rv">
+        <span class="tile__k">Chip</span>
+        <p class="tile__v">Prisma <small>P1</small></p>
+        <p class="tile__d">Fotónico, trazado en grafeno transparente</p>
+      </article>
+      <article class="tile lg rv">
+        <span class="tile__k">Batería</span>
+        <p class="tile__v">5.200 <small>mAh</small></p>
+        <p class="tile__d">Vidrio de estado sólido. Dos días.</p>
+      </article>
+      <article class="tile lg tile--wide rv">
+        <span class="tile__k">Cámara</span>
+        <p class="tile__v">Lente Gota <small>14–120 mm</small></p>
+        <p class="tile__d">50 MP · f/1.4 · vídeo 8K · sin piezas móviles</p>
+      </article>
+      <article class="tile lg rv">
+        <span class="tile__k">Carga</span>
+        <p class="tile__v">50 <small>W</small></p>
+        <p class="tile__d">Por inducción. No hay puertos.</p>
+      </article>
+      <article class="tile lg rv">
+        <span class="tile__k">Sonido</span>
+        <p class="tile__v">0 <small>altavoces</small></p>
+        <p class="tile__d">Suena el propio cristal.</p>
+      </article>
+      <article class="tile lg tile--wide rv">
+        <span class="tile__k">Conexión</span>
+        <p class="tile__v">5G <small>· Wi‑Fi 7 · UWB · eSIM</small></p>
+        <p class="tile__d">Antenas de óxido de indio, tan finas que desaparecen.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ───────── 3D ───────── -->
+  <section class="touch" id="tocalo">
+    <div class="touch__word">
+      <div class="gword" data-word="tocalo" aria-hidden="true"><span><em>tócalo</em></span></div>
+    </div>
+    <div class="touch__stage" id="inlineStage" aria-label="Modelo 3D de GlassPhone. Arrastra en horizontal para girarlo."></div>
+    <div class="touch__foot">
+      <span class="kicker rv">06 · En la mano</span>
+      <h2 class="rv">Dale <em>la vuelta.</em></h2>
+      <p class="rv">Arrástralo para girarlo. O ábrelo a pantalla completa para acercarte, moverlo y mirar el canto.</p>
+      <div class="touch__cta rv">
+        <button class="drop drop--solid" type="button" data-act="viewer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 9 8-4.5M12 12v9m0-9L4 7.5"/></svg>
+          Explorar en 3D
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── Simulador ───────── -->
+  <section class="power" id="simulador">
+    <span class="kicker rv">07 · Simulador</span>
+    <h2 class="rv">GlassOS, <em>entero.</em></h2>
+    <p class="rv">Arranque, pantalla de bloqueo, doce apps y ajustes. A pantalla completa y desde cero.</p>
+    <button class="powerbtn rv" type="button" data-act="sim" aria-label="Encender GlassOS">
+      <span class="powerbtn__ring" aria-hidden="true"></span>
+      <span class="powerbtn__ring" aria-hidden="true"></span>
+      <span class="powerbtn__core drop">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8M6.3 6.8a8 8 0 1 0 11.4 0"/></svg>
+      </span>
+      <span class="powerbtn__label">Encender</span>
+    </button>
+  </section>
+
+  <!-- ───────── Info ───────── -->
+  <section class="info" id="info">
+    <div class="info__card lg">
+      <span class="kicker">Cómo se hizo</span>
+      <h2>GlassPhone <em>no existe.</em></h2>
+      <p>Es un concepto: una idea de hasta dónde se puede quitar. El teléfono, el sistema, las cifras y los materiales son inventados. La web sí es real: el modelo 3D está generado con código, sin archivos ni imágenes, y GlassOS funciona entero en el navegador.</p>
+      <dl class="info__meta">
+        <div><dt>Hecho con</dt><dd>Claude, en Claude Code</dd></div>
+        <div><dt>Fecha</dt><dd>11 de noviembre de 2026</dd></div>
+        <div><dt>Tiempo</dt><dd>Unas dos horas y media, en una sola conversación</dd></div>
+        <div><dt>Motor</dt><dd>WebGL (Three.js) y sombreadores a mano</dd></div>
+      </dl>
+      <details class="info__prompt">
+        <summary>Ver el prompt completo</summary>
+        <blockquote>crea una página web espectacular que muestre un teléfono llamado Glass Phone, ¿vale? Todo junto. Entonces, es un teléfono completamente transparente, ¿vale? Pantalla transparente, carcasa transparente, cámara transparente, todo transparente. Y el sistema operativo también crea Glass OS, ¿vale? Que es básicamente un sistema operativo full transparente en el que predomina el Glass Morphism y el Liquid Glass estilo iOS, ¿vale? Entonces, que se vea espectacular y también, o sea, entonces la página web debe mostrar este teléfono, debe mostrar un render 3D con el que podrás mover el teléfono y tal y cosas de estas, y tiene que sentirse como una experiencia completamente visual, ¿vale? Debes adaptar el diseño de la página web y el estilo al teléfono, concretamente, ¿vale? A cómo se siente, debes como adaptar la interfaz a lo que sería Glass OS y cosas por el estilo. Y debe sentirse increíble, ¿vale? No debe verse como AI Slop ni nada por el estilo, sino que tiene que ser muy fluido todo, muy estético. La página web debe estar orientada tanto como para verse en teléfono como para verse en ordenador, pero principalmente teléfono, ¿vale? Entonces tiene que ser espectacular, ya un poco lo que tú veas, pero mi idea sería, por ejemplo, un diseño estilo Liquid Glass y super animaciones super fluidas, botones grandes, físicas, podríamos decir, estilo gotas de agua sobre cristal, cosas así, ¿vale? Y eso, como explica las características del teléfono, cuál es como la idea principal, que es como crear un teléfono minimalista al máximo, precioso, no sé qué, lo que tú veas, ¿vale? Entonces, como conforme bajas la web debe ir, por ejemplo, que aparezca un render del teléfono, y conforme vas bajando la web debe ir viéndose como el teléfono baja contigo, se va moviendo en función de si muestras el sistema operativo, de si muestras la parte de atrás, la carcasa, lo que sea. Y al final debe aparecer dos cosas. Primero, poder visualizar el modelo 3D del teléfono, ¿vale? Rollo que directamente puedas interactuar, hazlo con WebGL, por ejemplo, y que veas como el teléfono en 3D, puedas moverlo, agrandarlo, girarlo, rotarlo, que esté súper bien hecho, ¿vale? Y la segunda es que puedas, como un simulador del Glass OS, ¿vale? Como que un botón de entrar en simulación o algo por el estilo, y que aparezca como desde la boot animation, algo que ponga como completamente desde cero, ¿vale? Como si la página web mostrase en full screen, ¿vale? El sistema operativo desde cero, ¿vale? Con una boot animation de Glass OS customizada, que se vea como la pantalla de bloqueo, crea aplicaciones, crea interfaz, aplicación de configuración, pon típicas aplicaciones que podrían ser cámara, calendario, contactos, WhatsApp, lo que sea, pero todo orientado a la UI, ¿vale? A la interfaz de Glass OS. Debe verse espectacular. Cuando lo tengas, hosteas la página web con App Deploy en un subdominio temporal y me la pasas.</blockquote>
+      </details>
+    </div>
+    <footer class="foot">
+      <span>Glass<em>Phone</em></span>
+      <span>Un concepto de samilososami</span>
+      <a href="#hero">Volver al alba ↑</a>
+    </footer>
+  </section>
+
+</main>
+
+<!-- Visor 3D a pantalla completa -->
+<div class="viewer" id="viewer" hidden>
+  <div class="viewer__stage" id="viewerStage"></div>
+  <button class="viewer__close lg" type="button" data-act="viewer-close" aria-label="Cerrar el visor 3D">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <p class="viewer__hint" id="viewerHint">Arrastra para girar · pellizca o usa la rueda para acercar · dos dedos para mover · doble toque para volver</p>
+  <div class="viewer__bar lg" role="toolbar" aria-label="Opciones del modelo">
+    <button type="button" class="chip is-on" data-toggle="screen" aria-pressed="true">Pantalla</button>
+    <button type="button" class="chip" data-toggle="xray" aria-pressed="false">Interior</button>
+    <button type="button" class="chip is-on" data-toggle="spin" aria-pressed="true">Giro</button>
+    <button type="button" class="chip" data-toggle="day" aria-pressed="false">Luz: <span id="dayName">noche</span></button>
+  </div>
+</div>
+
+<!-- GlassOS se monta aquí -->
+<div class="os" id="os" hidden></div>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
