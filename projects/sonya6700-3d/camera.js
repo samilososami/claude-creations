@@ -19,6 +19,24 @@ function tex(c, { srgb = false, rx = 1, ry = 1 } = {}) {
   if (srgb) t.colorSpace = THREE.SRGBColorSpace;
   return t;
 }
+const _n = new Map();
+function nmap(src, strength, { rx = 1, ry = 1 } = {}) {
+  const key = src.width + ':' + src.height + ':' + strength + ':' + [...src.getContext('2d').getImageData(0, 0, 2, 2).data].join('');
+  if (!_n.has(key)) {
+    const w = src.width, h = src.height, s = src.getContext('2d').getImageData(0, 0, w, h).data;
+    const H = (x, y) => s[(((y + h) % h) * w + ((x + w) % w)) * 4] / 255;
+    _n.set(key, canvas(w, h, g => {
+      const d = g.createImageData(w, h);
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+        const dx = (H(x + 1, y) - H(x - 1, y)) * strength, dy = (H(x, y + 1) - H(x, y - 1)) * strength, l = Math.hypot(dx, dy, 1), i = (y * w + x) * 4;
+        d.data[i] = (-dx / l * .5 + .5) * 255; d.data[i + 1] = (dy / l * .5 + .5) * 255; d.data[i + 2] = (1 / l * .5 + .5) * 255; d.data[i + 3] = 255;
+      }
+      g.putImageData(d, 0, 0);
+    }));
+  }
+  return tex(_n.get(key), { rx, ry });
+}
+const V2 = s => new THREE.Vector2(s, s);
 function rnd(seed) { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
 
 // moteado fino del magnesio pintado
@@ -38,6 +56,7 @@ const leatherC = canvas(512, 512, (g, w, h) => {
       g.fillStyle = gr; g.beginPath(); g.ellipse(x + ox, y + oy, rad, rad * (.65 + r() * .5), r() * 3, 0, TAU); g.fill();
     }
   }
+  for (let i = 0; i < 2600; i++) { g.fillStyle = `rgba(0,0,0,${.25 + r() * .4})`; g.beginPath(); g.arc(r() * w, r() * h, .6 + r() * 1.3, 0, TAU); g.fill(); }
 });
 // estriado de los diales
 const knurlC = canvas(32, 8, (g, w, h) => {
@@ -57,29 +76,39 @@ const spunC = canvas(512, 512, (g, w, h) => {
   for (let rr = 4; rr < w / 2; rr += 2.5) { const v = 100 + r() * 70; g.strokeStyle = `rgba(${v},${v},${v},.25)`; g.lineWidth = 1; g.beginPath(); g.arc(0, 0, rr, 0, TAU); g.stroke(); }
 });
 
+// huellas y roces sutiles para las superficies brillantes (canal de rugosidad)
+const smudgeC = canvas(512, 512, (g, w, h) => {
+  const r = rnd(23); g.fillStyle = '#161616'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 46; i++) {
+    const x = r() * w, y = r() * h, rad = 30 + r() * 90, gr = g.createRadialGradient(x, y, 0, x, y, rad);
+    gr.addColorStop(0, `rgba(120,120,120,${.1 + r() * .22})`); gr.addColorStop(1, 'rgba(120,120,120,0)');
+    g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, rad, rad * (.3 + r() * .5), r() * 3, 0, TAU); g.fill();
+  }
+  for (let i = 0; i < 90; i++) { g.strokeStyle = `rgba(170,170,170,${.05 + r() * .12})`; g.lineWidth = .5 + r(); const x = r() * w, y = r() * h; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - .5) * 160, y + (r() - .5) * 60); g.stroke(); }
+});
+
 /* ───────────── materiales ───────────── */
-const speckleBump = (rx, ry) => tex(speckleC, { rx, ry });
 const M = {
-  body: new THREE.MeshStandardMaterial({ color: 0x151516, roughness: .5, metalness: .2, bumpMap: speckleBump(1 / 14, 1 / 14), bumpScale: .35 }),
-  plastic: new THREE.MeshStandardMaterial({ color: 0x121213, roughness: .46, metalness: .1 }),
-  gloss: new THREE.MeshPhysicalMaterial({ color: 0x070708, roughness: .22, metalness: .1, clearcoat: .6, clearcoatRoughness: .25 }),
-  leather: new THREE.MeshStandardMaterial({ color: 0x101011, roughness: .6, metalness: 0, bumpMap: tex(leatherC, { rx: 1 / 15, ry: 1 / 15 }), bumpScale: 1.1 }),
-  leatherBox: new THREE.MeshStandardMaterial({ color: 0x101011, roughness: .6, metalness: 0, bumpMap: tex(leatherC, { rx: 1.4, ry: 1.4 }), bumpScale: 1.1 }),
+  body: new THREE.MeshStandardMaterial({ color: 0x151516, roughness: 1, metalness: .2, normalMap: nmap(speckleC, 1.6, { rx: 1 / 12, ry: 1 / 12 }), normalScale: V2(.5), roughnessMap: tex(speckleC, { rx: 1 / 12, ry: 1 / 12 }) }),
+  plastic: new THREE.MeshStandardMaterial({ color: 0x121213, roughness: .46, metalness: .1, normalMap: nmap(speckleC, 1.6, { rx: 3, ry: 3 }), normalScale: V2(.18) }),
+  gloss: new THREE.MeshPhysicalMaterial({ color: 0x070708, roughness: .9, roughnessMap: tex(smudgeC, { rx: .5, ry: .5 }), metalness: .1, clearcoat: .6, clearcoatRoughness: .25 }),
+  leather: new THREE.MeshStandardMaterial({ color: 0x101011, roughness: .6, metalness: 0, normalMap: nmap(leatherC, 4, { rx: 1 / 15, ry: 1 / 15 }), normalScale: V2(1) }),
+  leatherBox: new THREE.MeshStandardMaterial({ color: 0x101011, roughness: .6, metalness: 0, normalMap: nmap(leatherC, 4, { rx: 1.4, ry: 1.4 }), normalScale: V2(1) }),
   lamp: new THREE.MeshPhysicalMaterial({ color: 0x3a1206, roughness: .12, clearcoat: 1 }),
-  rubber: new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: .88, metalness: 0 }),
+  rubber: new THREE.MeshStandardMaterial({ color: 0x0b0b0b, roughness: .82, metalness: 0, normalMap: nmap(speckleC, 1.6, { rx: 1 / 9, ry: 1 / 9 }), normalScale: V2(.35) }),
   dark: new THREE.MeshStandardMaterial({ color: 0x030303, roughness: .9, metalness: 0, side: THREE.DoubleSide }),
-  silver: new THREE.MeshStandardMaterial({ color: 0xd4d4d2, roughness: .26, metalness: 1, roughnessMap: tex(spunC), bumpMap: tex(spunC), bumpScale: .12 }),
+  silver: new THREE.MeshStandardMaterial({ color: 0xd4d4d2, roughness: .26, metalness: 1, roughnessMap: tex(spunC), normalMap: nmap(spunC, 1.5), normalScale: V2(.22) }),
   steel: new THREE.MeshStandardMaterial({ color: 0x9a9a98, roughness: .35, metalness: 1 }),
   blackMetal: new THREE.MeshStandardMaterial({ color: 0x151516, roughness: .38, metalness: .85 }),
   gold: new THREE.MeshStandardMaterial({ color: 0xd9a441, roughness: .3, metalness: 1 }),
   red: new THREE.MeshStandardMaterial({ color: 0xc92a12, roughness: .4, metalness: .2 }),
   white: new THREE.MeshStandardMaterial({ color: 0xf2f2f2, roughness: .5 }),
-  screen: new THREE.MeshPhysicalMaterial({ color: 0x020203, roughness: .06, metalness: 0, clearcoat: 1, clearcoatRoughness: .03, reflectivity: .5, envMapIntensity: .28 }),
+  screen: new THREE.MeshPhysicalMaterial({ color: 0x020203, roughness: 1, roughnessMap: tex(smudgeC), metalness: 0, clearcoat: 1, clearcoatRoughness: .03, reflectivity: .5, envMapIntensity: .28 }),
   glass: new THREE.MeshPhysicalMaterial({ color: 0x020305, roughness: .02, metalness: 0, clearcoat: 1, clearcoatRoughness: 0, iridescence: 1, iridescenceIOR: 1.6, iridescenceThicknessRange: [180, 520], envMapIntensity: 1.6 }),
   sensor: new THREE.MeshPhysicalMaterial({ color: 0x0a2a3a, roughness: .14, metalness: .7, envMapIntensity: .6, iridescence: .7, iridescenceIOR: 1.5, iridescenceThicknessRange: [300, 460], clearcoat: 1, clearcoatRoughness: .02 }),
 };
-const knurlMat = (n, color = 0x131314) => new THREE.MeshStandardMaterial({ color, roughness: .42, metalness: .8, bumpMap: tex(knurlC, { rx: n, ry: 1 }), bumpScale: 1.6 });
-const spunMat = (color = 0x1a1a1b) => new THREE.MeshStandardMaterial({ color, roughness: .32, metalness: .9, roughnessMap: tex(spunC), bumpMap: tex(spunC), bumpScale: .1 });
+const knurlMat = (n, color = 0x131314) => new THREE.MeshStandardMaterial({ color, roughness: .42, metalness: .8, normalMap: nmap(knurlC, 5, { rx: n, ry: 1 }), normalScale: V2(1) });
+const spunMat = (color = 0x1a1a1b) => new THREE.MeshStandardMaterial({ color, roughness: .32, metalness: .9, roughnessMap: tex(spunC), normalMap: nmap(spunC, 1.5), normalScale: V2(.2) });
 
 /* ───────────── utilidades de geometría ───────────── */
 const mesh = (g, m, x = 0, y = 0, z = 0) => { const o = new THREE.Mesh(g, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; return o; };
@@ -369,7 +398,7 @@ function buildLens() {
   L.add(ring(29.6, 30.6, .05, 2.6, M.blackMetal));
   L.add(ring(30.6, 32.35, 2.6, 4.2, matte));
   L.add(ring(32.35, 32.35, 4.2, 10.5, matte));
-  L.add(ring(32.6, 32.6, 10.5, 19.5, new THREE.MeshStandardMaterial({ color: 0x0c0c0d, roughness: .55, metalness: .3, bumpMap: tex(knurlC, { rx: 150, ry: 1 }), bumpScale: 1.2 })));
+  L.add(ring(32.6, 32.6, 10.5, 19.5, new THREE.MeshStandardMaterial({ color: 0x0c0c0d, roughness: .55, metalness: .3, normalMap: nmap(knurlC, 5, { rx: 150, ry: 1 }), normalScale: V2(.9) })));
   L.add(ring(32.35, 32.35, 19.5, 26, matte));
   L.add(ring(32.35, 30.9, 26, 28.2, matte));
   // frontal con las inscripciones

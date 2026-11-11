@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
 <script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","three/examples/jsm/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","three-mesh-bvh":"https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.8/build/index.module.js","three-gpu-pathtracer":"https://cdn.jsdelivr.net/npm/three-gpu-pathtracer@0.0.23/build/index.module.js"}}
 </script>
 <style>
 :root{
@@ -56,6 +56,9 @@ em.s{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:n
 .bar button:hover{color:var(--text);background:rgba(243,241,236,.08)}
 .bar button[aria-pressed="true"]{background:var(--text);color:var(--ink)}
 .bar i{width:1px;background:var(--line);margin:6px 2px}
+.rt-info{color:var(--muted);background:rgba(10,11,13,.6);border:1px solid var(--line);border-radius:999px;padding:9px 13px 8px}
+.bar #bRT{color:var(--alpha)}
+.bar #bRT[aria-pressed="true"]{background:var(--alpha);color:var(--ink)}
 .loading{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:14px;background:var(--ink);transition:opacity .8s,visibility .8s}
 .loading b{font:italic 400 84px/1 var(--serif);color:var(--alpha)}
 .loading.done{opacity:0;visibility:hidden}
@@ -102,7 +105,7 @@ em.s{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:n
   <canvas id="view" tabindex="0" aria-label="Modelo 3D de la Sony α6700. Arrastra para girar, usa la rueda para acercar."></canvas>
 
   <div class="hud tl"><a class="back mono" href="/claude/">← Claude creations</a></div>
-  <div class="hud tr"><a class="info-btn" href="#info" aria-label="Cómo se hizo este modelo">i</a></div>
+  <div class="hud tr"><span class="mono rt-info" id="rtInfo" hidden></span><a class="info-btn" href="#info" aria-label="Cómo se hizo este modelo">i</a></div>
 
   <div class="hud bl">
     <h1 class="title"><span class="a">α</span>6700<small>Modelo 3D · geometría procedural</small></h1>
@@ -119,6 +122,7 @@ em.s{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:n
       <i></i>
       <button id="bLens" aria-pressed="true">Objetivo</button>
       <button id="bSpin" aria-pressed="true">Giro</button>
+      <button id="bRT" aria-pressed="false" title="Iluminación por trazado de rayos">✦ Ray tracing</button>
       <i></i>
       <a href="#info"><button tabindex="-1">Info ↓</button></a>
     </div>
@@ -152,7 +156,9 @@ debes crear un render hiperrealista en 3d, de la sony a6700. basicamente, ponte 
           <li><span>Medidas</span><span>Las oficiales (122 × 69 × 75,1 mm) y, sobre ellas, la posición de cada mando medida en píxeles en las vistas frontal, trasera y superior.</span></li>
           <li><span>Geometría</span><span>Escrita a mano en código: extrusiones, cilindros y cajas redondeadas. No hay ningún archivo de modelo; se genera al abrir la página.</span></li>
           <li><span>Materiales</span><span>Polipiel, moteado del metal, estriado de los diales y metal torneado son texturas dibujadas en canvas. Los rótulos, también.</span></li>
-          <li><span>Motor</span><span>Three.js con materiales físicos, entorno de estudio y sombras en tiempo real.</span></li>
+          <li><span>Motor</span><span>Three.js con materiales físicos y sombras en tiempo real. El estudio (cajas de luz, contras y panel cenital) también está dibujado en código, como imagen HDR.</span></li>
+          <li><span>Segunda pasada</span><span>Las texturas finas (poros, huellas, grano) y el trazado de rayos se añadieron después, con un segundo prompt: «añadele más calidad aún […] pon iluminación hiperrealista […] trata de usar rtx o algo parecido». No están contados en el tiempo ni en los tokens de arriba.</span></li>
+          <li><span>Ray tracing</span><span>El botón ✦ activa un trazado de rayos progresivo en la GPU: luz rebotada, sombras suaves y reflejos reales en el suelo. Se afina mientras la cámara está quieta. No usa RTX; funciona en cualquier navegador con WebGL 2.</span></li>
         </ul>
         <p class="note"><strong>Hasta dónde llega.</strong> Las proporciones y la colocación de los mandos siguen las fotos, pero es una reconstrucción a ojo, no una copia exacta: la empuñadura real tiene curvas más complejas, y faltan detalles finos como las tapas inferiores o el interior de la zapata. Página no oficial, sin relación con Sony.</p>
       </div>
@@ -171,7 +177,6 @@ debes crear un render hiperrealista en 3d, de la sony a6700. basicamente, ponte 
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { buildCamera } from './camera.js';
 
 const REFS = [{"s": "ref-01", "t": "Sony A6700 by Henry Söderlund", "a": "Henry Söderlund", "l": "CC BY 2.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_A6700_by_Henry_S%C3%B6derlund.jpg"}, {"s": "ref-02", "t": "Sony Alpha 6700 (DSC 7816)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7816).jpg"}, {"s": "ref-03", "t": "Sony Alpha 6700 (DSC 7818)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7818).jpg"}, {"s": "ref-04", "t": "Sony Alpha 6700 (DSC 7819)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7819).jpg"}, {"s": "ref-05", "t": "Sony Alpha 6700 (DSC 7820)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7820).jpg"}, {"s": "ref-06", "t": "Sony Alpha 6700 (DSC 7821)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7821).jpg"}, {"s": "ref-07", "t": "Sony Alpha 6700 (DSC 7823)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7823).jpg"}, {"s": "ref-08", "t": "Sony Alpha 6700 (DSC 7824)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7824).jpg"}, {"s": "ref-09", "t": "Sony ILCE-6700 19 aug 2023a", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023a.jpg"}, {"s": "ref-10", "t": "Sony ILCE-6700 19 aug 2023b", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023b.jpg"}, {"s": "ref-11", "t": "Sony ILCE-6700 19 aug 2023c", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023c.jpg"}, {"s": "ref-12", "t": "Sony ILCE-6700 19 aug 2023d", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023d.jpg"}, {"s": "ref-13", "t": "Sony ILCE-6700 19 aug 2023e", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023e.jpg"}, {"s": "ref-14", "t": "Sony ILCE-6700 19 aug 2023f", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023f.jpg"}, {"s": "ref-15", "t": "Sony α6700 at Cultural & Creative Blvd. 20260403 131417", "a": "Solomon203", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_%CE%B16700_at_Cultural_%26_Creative_Blvd._20260403_131417.jpg"}];
@@ -189,8 +194,36 @@ try {
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), .03).texture; scene.environmentIntensity = 1.15;
+  // estudio HDR dibujado a mano: cajas de luz sobre fondo casi negro (equirectangular, valores lineales)
+  function studioEnv() {
+    const W = 1024, H = 512, f = new Float32Array(W * H * 4);
+    const boxes = [   // azimut, elevación, semiancho, semialto (grados), color, potencia
+      [128, 52, 34, 18, [1, .95, .88], 26],      // principal, arriba a la izquierda del frente
+      [28, 40, 13, 14, [.86, .93, 1], 8],        // relleno frío a la derecha
+      [-52, 44, 9, 16, [.9, .95, 1], 24],        // contra trasero derecho
+      [-142, 42, 8, 15, [1, .9, .8], 14],        // contra trasero izquierdo
+      [-92, 50, 32, 13, [1, 1, 1], 7],         // caja ancha trasera, para que la espalda no quede a oscuras
+      [95, 9, 34, 2.2, [1, 1, 1], 3],            // tira baja frontal, para el cristal del objetivo
+    ];
+    const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const az = (x / W - .5) * 360, el = (y / H - .5) * 180, i = (y * W + x) * 4;
+      let r = .012, g = .014, b = .018;
+      const top = ss(52, 82, el) * 3.2; r += top; g += top; b += top * 1.04;            // panel cenital
+      const fl = ss(-5, -60, el) * .05; r += fl; g += fl; b += fl;
+      for (const [a0, e0, hw, hh, col, p] of boxes) {
+        let da = Math.abs(az - a0); if (da > 180) da = 360 - da;
+        const k = (1 - ss(hw * .82, hw, da)) * (1 - ss(hh * .82, hh, Math.abs(el - e0))) * p;
+        r += col[0] * k; g += col[1] * k; b += col[2] * k;
+      }
+      f[i] = r; f[i + 1] = g; f[i + 2] = b; f[i + 3] = 1;
+    }
+    const t = new THREE.DataTexture(f, W, H, THREE.RGBAFormat, FloatType);
+    t.mapping = THREE.EquirectangularReflectionMapping; t.colorSpace = THREE.LinearSRGBColorSpace;
+    t.minFilter = t.magFilter = THREE.LinearFilter; t.wrapS = THREE.RepeatWrapping; t.needsUpdate = true; return t;
+  }
+  const FloatType = THREE.FloatType;
+  scene.environment = studioEnv(); scene.environmentIntensity = 1;
 
   const cam = new THREE.PerspectiveCamera(26, 1, 10, 4000);
   const controls = new OrbitControls(cam, canvas);
@@ -201,13 +234,13 @@ try {
   controls.target.copy(CENTER);
 
   // luces de estudio: principal suave arriba-izquierda, relleno y contra
-  const key = new THREE.DirectionalLight(0xfff4e6, 1.7); key.position.set(-180, 300, 260);
+  const key = new THREE.DirectionalLight(0xfff4e6, 1.3); key.position.set(-180, 300, 260);
   key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -.0004; key.shadow.normalBias = .6; key.shadow.radius = 5;
   Object.assign(key.shadow.camera, { left: -160, right: 160, top: 160, bottom: -160, near: 50, far: 900 });
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0xbfd6ff, 2.2); rim.position.set(240, 160, -260); scene.add(rim);
+  const rim = new THREE.DirectionalLight(0xbfd6ff, 1.2); rim.position.set(240, 160, -260); scene.add(rim);
   const fill = new THREE.DirectionalLight(0xffffff, .7); fill.position.set(200, 60, 240); scene.add(fill);
-  const backKey = new THREE.DirectionalLight(0xffffff, 1.5); backKey.position.set(-160, 240, -300); scene.add(backKey);
+  const backKey = new THREE.DirectionalLight(0xffffff, .8); backKey.position.set(-160, 240, -300); scene.add(backKey);
 
   const floor = new THREE.Mesh(new THREE.CircleGeometry(700, 64), new THREE.ShadowMaterial({ opacity: .55 }));
   floor.rotation.x = -Math.PI / 2; floor.position.y = -1.4; floor.receiveShadow = true; scene.add(floor);
@@ -231,15 +264,53 @@ try {
       const k = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - k, 4);
       const s = new THREE.Spherical(sf.radius + (st.radius - sf.radius) * e, sf.phi + (st.phi - sf.phi) * e, sf.theta + dth * e);
       controls.target.lerpVectors(tgt0, CENTER, e);
-      cam.position.setFromSpherical(s).add(controls.target);
+      cam.position.setFromSpherical(s).add(controls.target); if (rtOn) pt.updateCamera();
       if (k === 1) tween = null;
     };
   }
   const bSpin = document.getElementById('bSpin'), bLens = document.getElementById('bLens');
   const setSpin = on => { controls.autoRotate = on; bSpin.setAttribute('aria-pressed', on); };
   document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => { setSpin(false); go(b.dataset.view); }));
-  bSpin.addEventListener('click', () => setSpin(!controls.autoRotate));
-  bLens.addEventListener('click', () => { lens.visible = !lens.visible; bLens.setAttribute('aria-pressed', lens.visible); });
+  bSpin.addEventListener('click', () => { if (!rtOn) setSpin(!controls.autoRotate); });
+  bLens.addEventListener('click', () => { lens.visible = !lens.visible; bLens.setAttribute('aria-pressed', lens.visible); if (rtOn) pt.setScene(scene, cam); });
+
+  // ── trazado de rayos progresivo (path tracing en GPU). Se descarga solo al activarlo.
+  const bRT = document.getElementById('bRT'), rtInfo = document.getElementById('rtInfo'), rasterLights = [key, rim, fill, backKey];
+  // peana de metacrilato negro: da reflejos reales sin llenar el encuadre de brillo
+  const rtFloor = new THREE.Mesh(new THREE.CylinderGeometry(215, 219, 7, 160), new THREE.MeshStandardMaterial({ color: 0x040405, roughness: .34, metalness: 0 }));
+  rtFloor.position.y = -1.4 - 3.5; rtFloor.visible = false; scene.add(rtFloor);
+  let pt = null, rtOn = false, rtBusy = false;
+  async function setRT(on) {
+    if (rtBusy) return;
+    if (on && !pt) {
+      rtBusy = true; bRT.textContent = 'Cargando…';
+      try {
+        const { WebGLPathTracer } = await import('three-gpu-pathtracer');
+        pt = new WebGLPathTracer(renderer);
+        pt.bounces = 6; pt.filterGlossyFactor = .5; pt.tiles.set(2, 2); pt.textureSize.set(512, 512);
+        pt.renderScale = Math.min(1, 1.25 / renderer.getPixelRatio());
+        pt.minSamples = 2; pt.renderDelay = 60; pt.fadeDuration = 300; pt.dynamicLowRes = true; pt.lowResScale = .25;
+      } catch (e) {
+        console.error(e); pt = null; rtInfo.hidden = false; rtInfo.textContent = 'Este navegador no puede trazar rayos';
+        bRT.textContent = '✦ Ray tracing'; rtBusy = false; return;
+      }
+      bRT.textContent = '✦ Ray tracing'; rtBusy = false;
+    }
+    bRT.setAttribute('aria-pressed', on); rtInfo.hidden = !on;
+    floor.visible = !on; rtFloor.visible = on; rasterLights.forEach(l => { l.visible = !on; });
+    scene.background = on ? new THREE.Color(0x050608) : null;
+    scene.environmentIntensity = on ? 1.6 : 1;
+    renderer.shadowMap.enabled = !on;
+    if (!on) rtOn = false;
+    if (on) {
+      setSpin(false); rtInfo.textContent = 'Preparando la escena…';
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));      // deja pintar el aviso antes del trabajo pesado
+      try { pt.setScene(scene, cam); } catch (e) { console.error(e); rtInfo.textContent = 'No se ha podido preparar la escena'; return; }
+      rtOn = true;
+    }
+  }
+  bRT.addEventListener('click', () => setRT(!rtOn));
+  controls.addEventListener('change', () => { if (rtOn) pt.updateCamera(); });
   controls.addEventListener('start', () => { setSpin(false); tween = null; });
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) setSpin(false);
   if (matchMedia('(hover:none)').matches) document.getElementById('hint').textContent = 'Un dedo para girar · Dos para acercar y mover';
@@ -247,7 +318,7 @@ try {
   function resize() {
     const w = stage.clientWidth, h = stage.clientHeight;
     renderer.setSize(w, h, false); cam.aspect = w / h;
-    cam.fov = w < h ? 40 : 26; cam.updateProjectionMatrix();
+    cam.fov = w < h ? 40 : 26; cam.updateProjectionMatrix(); if (rtOn) pt.updateCamera();
   }
   new ResizeObserver(resize).observe(stage); resize();
 
@@ -256,11 +327,14 @@ try {
   renderer.setAnimationLoop(now => {
     if (!visible) return;
     if (tween) tween(now);
-    controls.update(); renderer.render(scene, cam);
+    controls.update();
+    if (rtOn) { pt.renderSample(); rtInfo.textContent = pt.isCompiling ? 'Compilando sombreadores… puede tardar' : `Trazado de rayos · ${Math.floor(pt.samples)} muestras`; }
+    else renderer.render(scene, cam);
   });
+  if (location.search.includes('rt')) setRT(true);
   if (location.search.includes('shot')) { document.querySelectorAll('.hud').forEach(e => e.remove()); setSpin(false); cam.position.set(-190, 95, 300); controls.update(); }
   loading.classList.add('done');
-  window.__viewer = { cam, controls, go, lens, setSpin, renderer, scene };
+  window.__viewer = { cam, controls, go, lens, setSpin, renderer, scene, setRT, get pt() { return pt; } };
 } catch (e) {
   console.error(e);
   fail('No se ha podido iniciar el visor 3D. Hace falta un navegador con WebGL activado.');

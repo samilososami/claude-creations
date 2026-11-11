@@ -17,6 +17,10 @@ Modelo 3D interactivo de la Sony α6700: se puede girar, acercar, mover y quitar
 | Motor | Three.js 0.170, materiales físicos, entorno de estudio y sombras en tiempo real |
 | Medidas | Las oficiales (122 × 69 × 75,1 mm) y la posición de cada mando medida sobre las fotos |
 
+## Trazado de rayos
+
+El botón **✦ Ray tracing** activa un path tracing progresivo en la GPU ([three-gpu-pathtracer](https://github.com/gkjohnson/three-gpu-pathtracer)): luz rebotada, sombras suaves y reflejos reales sobre una peana negra. La imagen se afina mientras la cámara está quieta. No usa RTX; funciona con WebGL 2, pero la primera activación compila sombreadores y puede tardar desde unos segundos hasta más de un minuto en gráficas integradas. Se añadió en una segunda petición, igual que las texturas finas, y no está contado en el tiempo ni en los tokens de arriba.
+
 ## Hasta dónde llega
 
 Las proporciones y la colocación de los mandos siguen las fotos de referencia, pero es una reconstrucción a ojo, no una copia exacta. La empuñadura real tiene curvas más complejas y faltan detalles finos (tapas inferiores, interior de la zapata, textura exacta de la polipiel). El prompt pedía analizar decenas de imágenes; solo existen 15 con licencia libre, que son las que se usaron.
