@@ -15,6 +15,7 @@ Cada web lleva un botón **i** en la esquina superior derecha con el prompt exac
 | # | Proyecto | Qué es | Modelo | Tiempo | Enlace |
 |---|----------|--------|--------|--------|--------|
 | 01 | [Sony α6700](projects/sonya6700) | Web de producto con scroll interactivo y galería de 36 fotos reales | Claude Fable 5.2 | 21 min | [/claude/sonya6700](https://www.samilososami.com/claude/sonya6700/) |
+| 02 | [α6700 en 3D](projects/sonya6700-3d) | Modelo 3D interactivo de la cámara, hecho con geometría procedural | Claude Fable 5.2 | 17 min | [/claude/sonya6700-3d](https://www.samilososami.com/claude/sonya6700-3d/) |
 
 ## Estructura
 

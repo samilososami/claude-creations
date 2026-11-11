@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sony α6700 en 3D · Modelo interactivo no oficial</title>
+<meta name="description" content="Modelo 3D interactivo de la Sony α6700, construido a mano con geometría procedural a partir de fotos de referencia. Gíralo, acércate y quítale el objetivo.">
+<meta name="theme-color" content="#08090b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0b'/%3E%3Ctext x='32' y='46' font-size='44' text-anchor='middle' font-family='Georgia,serif' font-style='italic' fill='%23ff6a1a'%3E%CE%B1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<style>
+:root{
+  --ink:#08090b;--ink-2:#111215;--text:#f3f1ec;--muted:rgba(243,241,236,.66);--line:rgba(243,241,236,.15);
+  --alpha:#ff6a1a;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif;--serif:'EB Garamond',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(18px,4.6vw,72px);--ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--text);font-family:var(--display);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--alpha);color:var(--ink)}
+:focus-visible{outline:2px solid var(--alpha);outline-offset:3px}
+.mono{font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+em.s{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;color:var(--alpha);letter-spacing:-.01em;font-size:1.14em}
+
+/* ───── visor ───── */
+.stage{position:relative;height:100vh;height:100svh;min-height:520px;overflow:hidden;
+  background:radial-gradient(90% 70% at 50% 42%,#262b33 0%,#12151a 46%,#07080a 100%)}
+#view{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;outline:0}
+#view:active{cursor:grabbing}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55) 100%)}
+.hud{position:absolute;z-index:2;pointer-events:none}
+.hud > *{pointer-events:auto}
+.hud.tl{left:var(--pad);top:clamp(16px,3vh,30px)}
+.hud.tr{right:var(--pad);top:clamp(16px,3vh,30px);display:flex;gap:10px;align-items:center}
+.hud.bl{left:var(--pad);bottom:clamp(88px,13vh,120px);max-width:min(430px,70vw);pointer-events:none}
+.hud.bc{left:0;right:0;bottom:clamp(16px,3vh,30px);display:flex;justify-content:center;padding:0 12px}
+.back{display:inline-flex;gap:10px;align-items:center;opacity:.8;transition:opacity .2s}
+.back:hover{opacity:1}
+.title{font-weight:800;font-stretch:118%;font-size:clamp(2rem,5.6vw,5rem);line-height:.86;letter-spacing:-.035em;text-transform:uppercase}
+.title .a{font:italic 400 1.1em/0.7 var(--serif);color:var(--alpha);letter-spacing:0;text-transform:none}
+.title small{display:block;font:500 11px/1.5 var(--mono);letter-spacing:.14em;color:var(--muted);margin-top:14px}
+.hint{color:var(--muted);margin-top:8px}
+.info-btn{width:34px;height:34px;border:1.5px solid var(--text);border-radius:50%;display:grid;place-items:center;font:italic 500 19px/1 var(--serif);transition:background .25s,color .25s}
+.info-btn:hover{background:var(--text);color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;background:rgba(10,11,13,.66);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:6px}
+.bar button{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:12px 15px 11px;border-radius:999px;color:var(--muted);transition:background .25s,color .25s}
+.bar button:hover{color:var(--text);background:rgba(243,241,236,.08)}
+.bar button[aria-pressed="true"]{background:var(--text);color:var(--ink)}
+.bar i{width:1px;background:var(--line);margin:6px 2px}
+.loading{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:14px;background:var(--ink);transition:opacity .8s,visibility .8s}
+.loading b{font:italic 400 84px/1 var(--serif);color:var(--alpha)}
+.loading.done{opacity:0;visibility:hidden}
+.err{max-width:30em;text-align:center;color:var(--muted);padding:0 24px}
+@media (max-width:640px){.bar{border-radius:18px}.bar button{padding:11px 11px 10px}.bar i{display:none}.hud.bl{bottom:150px}}
+
+/* ───── ficha ───── */
+.wrap{width:min(1240px,100% - 2 * var(--pad));margin-inline:auto}
+.sheet{padding:clamp(70px,12vh,150px) 0 clamp(60px,9vh,110px)}
+.sheet h2{font-weight:800;font-stretch:112%;font-size:clamp(2.3rem,6.4vw,5.6rem);line-height:.9;letter-spacing:-.03em;text-transform:uppercase;margin:18px 0 clamp(34px,6vh,64px)}
+.k{display:inline-flex;align-items:center;gap:.8em;color:var(--muted)}
+.k::before{content:"";width:8px;height:8px;background:var(--alpha)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stats div{padding:22px 20px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats dt{color:var(--muted);margin-bottom:12px}
+.stats dd{font-weight:800;font-stretch:112%;font-size:clamp(1.3rem,2.6vw,2.2rem);line-height:1;letter-spacing:-.02em}
+.stats dd b{color:var(--alpha)}
+.stats dd small{display:block;font:500 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--muted);margin-top:10px;text-transform:uppercase}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(26px,5vw,70px);margin-top:clamp(40px,7vh,80px)}
+.cols h3,.refs-head h3{margin-bottom:14px}
+.prompt{background:#050506;border:1px solid var(--line);border-radius:8px;padding:18px 20px;font:400 13px/1.65 var(--mono);color:rgba(243,241,236,.88);white-space:pre-wrap}
+.how{list-style:none;display:grid;gap:0}
+.how li{display:grid;grid-template-columns:minmax(110px,.4fr) 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.96rem}
+.how li span:first-child{color:var(--muted)}
+.note{margin-top:22px;color:var(--muted);font-size:.96rem;border-left:2px solid var(--alpha);padding-left:16px}
+.note strong{color:var(--text);font-weight:500}
+.refs-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-top:clamp(50px,9vh,100px);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.refs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
+.refs a{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:var(--ink-2)}
+.refs img{width:100%;height:100%;object-fit:cover;transition:scale .9s var(--ease)}
+.refs a:hover img{scale:1.07}
+.refs span{position:absolute;inset:auto 0 0 0;padding:26px 10px 9px;background:linear-gradient(transparent,rgba(0,0,0,.88));font:500 11px/1.35 var(--mono);letter-spacing:.04em;color:rgba(243,241,236,.9)}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-top:clamp(44px,8vh,90px);padding-top:20px;border-top:1px solid var(--line);color:var(--muted)}
+.foot a{color:var(--text);border-bottom:1px solid var(--line)}
+.foot a:hover{border-color:var(--alpha)}
+@media (max-width:900px){.stats{grid-template-columns:1fr 1fr}.stats div:nth-child(2){border-right:0}.stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}.cols{grid-template-columns:1fr}.refs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.refs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+
+<section class="stage" id="top">
+  <canvas id="view" tabindex="0" aria-label="Modelo 3D de la Sony α6700. Arrastra para girar, usa la rueda para acercar."></canvas>
+
+  <div class="hud tl"><a class="back mono" href="/claude/">← Claude creations</a></div>
+  <div class="hud tr"><a class="info-btn" href="#info" aria-label="Cómo se hizo este modelo">i</a></div>
+
+  <div class="hud bl">
+    <h1 class="title"><span class="a">α</span>6700<small>Modelo 3D · geometría procedural</small></h1>
+    <p class="hint mono" id="hint">Arrastra para girar · Rueda para acercar · Clic derecho para mover</p>
+  </div>
+
+  <div class="hud bc">
+    <div class="bar" role="toolbar" aria-label="Controles del visor">
+      <button data-view="hero">3/4</button>
+      <button data-view="front">Frontal</button>
+      <button data-view="back">Trasera</button>
+      <button data-view="top">Superior</button>
+      <button data-view="side">Lateral</button>
+      <i></i>
+      <button id="bLens" aria-pressed="true">Objetivo</button>
+      <button id="bSpin" aria-pressed="true">Giro</button>
+      <i></i>
+      <a href="#info"><button tabindex="-1">Info ↓</button></a>
+    </div>
+  </div>
+
+  <div class="loading" id="loading"><b>α</b><span class="mono" id="loadMsg">Construyendo la cámara</span></div>
+</section>
+
+<section class="sheet" id="info">
+  <div class="wrap">
+    <span class="k mono">Cómo se hizo</span>
+    <h2>Sin escáner.<br>Sin <em class="s">CAD.</em></h2>
+
+    <dl class="stats">
+      <div><dt class="mono">Modelo</dt><dd>Claude <b>Fable 5.2</b><small>en Claude Code</small></dd></div>
+      <div><dt class="mono">Tiempo</dt><dd>17 min<small>del prompt a la web publicada</small></dd></div>
+      <div><dt class="mono">Tokens</dt><dd>~70.000<small>de salida · ~6,6 M procesados contando la caché</small></dd></div>
+      <div><dt class="mono">Geometría</dt><dd><span id="sTris">…</span><small><span id="sMeshes">…</span> piezas · triángulos generados al cargar</small></dd></div>
+    </dl>
+
+    <div class="cols">
+      <div>
+        <h3 class="k mono">El prompt</h3>
+        <div class="prompt">crea otro proyecto dentro de samilososami.com/claude. lo añades al repo tambien.
+debes crear un render hiperrealista en 3d, de la sony a6700. basicamente, ponte a analizar decenas de imagenes de la sony, y de ahi, creas un render HIPERREALISTA. con todo lujo de detalles. debe ser exactamente fiel al diseño de la sony a6700. la pagina web debe permitir hacer zoom, girarlo, rotarlo, etc etc. y añades toda la info al final del modelo, cuanto has tardado, el prompt, las imagenes de referencia que has usado, etc</div>
+      </div>
+      <div>
+        <h3 class="k mono">El método</h3>
+        <ul class="how">
+          <li><span>Referencias</span><span>Las 15 fotos de la cámara con licencia libre que hay en Wikimedia Commons. No son decenas: no existen más.</span></li>
+          <li><span>Medidas</span><span>Las oficiales (122 × 69 × 75,1 mm) y, sobre ellas, la posición de cada mando medida en píxeles en las vistas frontal, trasera y superior.</span></li>
+          <li><span>Geometría</span><span>Escrita a mano en código: extrusiones, cilindros y cajas redondeadas. No hay ningún archivo de modelo; se genera al abrir la página.</span></li>
+          <li><span>Materiales</span><span>Polipiel, moteado del metal, estriado de los diales y metal torneado son texturas dibujadas en canvas. Los rótulos, también.</span></li>
+          <li><span>Motor</span><span>Three.js con materiales físicos, entorno de estudio y sombras en tiempo real.</span></li>
+        </ul>
+        <p class="note"><strong>Hasta dónde llega.</strong> Las proporciones y la colocación de los mandos siguen las fotos, pero es una reconstrucción a ojo, no una copia exacta: la empuñadura real tiene curvas más complejas, y faltan detalles finos como las tapas inferiores o el interior de la zapata. Página no oficial, sin relación con Sony.</p>
+      </div>
+    </div>
+
+    <div class="refs-head"><h3 class="k mono">Imágenes de referencia</h3><span class="mono" style="color:var(--muted)">15 fotos · Wikimedia Commons · clic para ver el original</span></div>
+    <div class="refs" id="refs"></div>
+
+    <div class="foot mono">
+      <span>Hecho con Claude · samilososami</span>
+      <span><a href="/claude/">Todos los proyectos</a> &nbsp;·&nbsp; <a href="https://github.com/samilososami/claude-creations/tree/main/projects/sonya6700-3d" target="_blank" rel="noopener">Código en GitHub ↗</a></span>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { buildCamera } from './camera.js';
+
+const REFS = [{"s": "ref-01", "t": "Sony A6700 by Henry Söderlund", "a": "Henry Söderlund", "l": "CC BY 2.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_A6700_by_Henry_S%C3%B6derlund.jpg"}, {"s": "ref-02", "t": "Sony Alpha 6700 (DSC 7816)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7816).jpg"}, {"s": "ref-03", "t": "Sony Alpha 6700 (DSC 7818)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7818).jpg"}, {"s": "ref-04", "t": "Sony Alpha 6700 (DSC 7819)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7819).jpg"}, {"s": "ref-05", "t": "Sony Alpha 6700 (DSC 7820)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7820).jpg"}, {"s": "ref-06", "t": "Sony Alpha 6700 (DSC 7821)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7821).jpg"}, {"s": "ref-07", "t": "Sony Alpha 6700 (DSC 7823)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7823).jpg"}, {"s": "ref-08", "t": "Sony Alpha 6700 (DSC 7824)", "a": "Tsungam", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_Alpha_6700_(DSC_7824).jpg"}, {"s": "ref-09", "t": "Sony ILCE-6700 19 aug 2023a", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023a.jpg"}, {"s": "ref-10", "t": "Sony ILCE-6700 19 aug 2023b", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023b.jpg"}, {"s": "ref-11", "t": "Sony ILCE-6700 19 aug 2023c", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023c.jpg"}, {"s": "ref-12", "t": "Sony ILCE-6700 19 aug 2023d", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023d.jpg"}, {"s": "ref-13", "t": "Sony ILCE-6700 19 aug 2023e", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023e.jpg"}, {"s": "ref-14", "t": "Sony ILCE-6700 19 aug 2023f", "a": "昼落ち", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_ILCE-6700_19_aug_2023f.jpg"}, {"s": "ref-15", "t": "Sony α6700 at Cultural & Creative Blvd. 20260403 131417", "a": "Solomon203", "l": "CC BY-SA 4.0", "p": "https://commons.wikimedia.org/wiki/File:Sony_%CE%B16700_at_Cultural_%26_Creative_Blvd._20260403_131417.jpg"}];
+document.getElementById('refs').innerHTML = REFS.map(r =>
+  `<a href="${r.p}" target="_blank" rel="noopener"><img src="refs/${r.s}.jpg" alt="${r.t}" loading="lazy"><span>${r.a} · ${r.l}</span></a>`).join('');
+
+const canvas = document.getElementById('view'), stage = canvas.parentElement, loading = document.getElementById('loading');
+const fail = msg => { document.getElementById('loadMsg').outerHTML = `<p class="err">${msg}</p>`; };
+
+try {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  const scene = new THREE.Scene();
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), .03).texture; scene.environmentIntensity = 1.15;
+
+  const cam = new THREE.PerspectiveCamera(26, 1, 10, 4000);
+  const controls = new OrbitControls(cam, canvas);
+  controls.enableDamping = true; controls.dampingFactor = .07;
+  controls.minDistance = 70; controls.maxDistance = 900; controls.zoomSpeed = .9;
+  controls.autoRotate = true; controls.autoRotateSpeed = .9;
+  const CENTER = new THREE.Vector3(0, 33, 22);
+  controls.target.copy(CENTER);
+
+  // luces de estudio: principal suave arriba-izquierda, relleno y contra
+  const key = new THREE.DirectionalLight(0xfff4e6, 1.7); key.position.set(-180, 300, 260);
+  key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -.0004; key.shadow.normalBias = .6; key.shadow.radius = 5;
+  Object.assign(key.shadow.camera, { left: -160, right: 160, top: 160, bottom: -160, near: 50, far: 900 });
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0xbfd6ff, 2.2); rim.position.set(240, 160, -260); scene.add(rim);
+  const fill = new THREE.DirectionalLight(0xffffff, .7); fill.position.set(200, 60, 240); scene.add(fill);
+  const backKey = new THREE.DirectionalLight(0xffffff, 1.5); backKey.position.set(-160, 240, -300); scene.add(backKey);
+
+  const floor = new THREE.Mesh(new THREE.CircleGeometry(700, 64), new THREE.ShadowMaterial({ opacity: .55 }));
+  floor.rotation.x = -Math.PI / 2; floor.position.y = -1.4; floor.receiveShadow = true; scene.add(floor);
+
+  const { camera: model, lens, stats } = await buildCamera();
+  scene.add(model);
+  document.getElementById('sTris').textContent = stats.tris.toLocaleString('es-ES');
+  document.getElementById('sMeshes').textContent = stats.meshes;
+
+  const VIEWS = {
+    hero: [-235, 105, 330], front: [0, 34, 470], back: [0, 60, -450], top: [0, 480, 60], side: [450, 50, 40]
+  };
+  cam.position.set(...VIEWS.hero);
+  let tween = null;
+  function go(name) {
+    const from = cam.position.clone().sub(controls.target), to = new THREE.Vector3(...VIEWS[name]).sub(CENTER);
+    const sf = new THREE.Spherical().setFromVector3(from), st = new THREE.Spherical().setFromVector3(to);
+    let dth = st.theta - sf.theta; dth = Math.atan2(Math.sin(dth), Math.cos(dth));
+    const t0 = performance.now(), tgt0 = controls.target.clone();
+    tween = now => {
+      const k = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - k, 4);
+      const s = new THREE.Spherical(sf.radius + (st.radius - sf.radius) * e, sf.phi + (st.phi - sf.phi) * e, sf.theta + dth * e);
+      controls.target.lerpVectors(tgt0, CENTER, e);
+      cam.position.setFromSpherical(s).add(controls.target);
+      if (k === 1) tween = null;
+    };
+  }
+  const bSpin = document.getElementById('bSpin'), bLens = document.getElementById('bLens');
+  const setSpin = on => { controls.autoRotate = on; bSpin.setAttribute('aria-pressed', on); };
+  document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => { setSpin(false); go(b.dataset.view); }));
+  bSpin.addEventListener('click', () => setSpin(!controls.autoRotate));
+  bLens.addEventListener('click', () => { lens.visible = !lens.visible; bLens.setAttribute('aria-pressed', lens.visible); });
+  controls.addEventListener('start', () => { setSpin(false); tween = null; });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) setSpin(false);
+  if (matchMedia('(hover:none)').matches) document.getElementById('hint').textContent = 'Un dedo para girar · Dos para acercar y mover';
+
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false); cam.aspect = w / h;
+    cam.fov = w < h ? 40 : 26; cam.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(stage); resize();
+
+  let visible = true;
+  new IntersectionObserver(e => { visible = e[0].isIntersecting; }).observe(stage);
+  renderer.setAnimationLoop(now => {
+    if (!visible) return;
+    if (tween) tween(now);
+    controls.update(); renderer.render(scene, cam);
+  });
+  if (location.search.includes('shot')) { document.querySelectorAll('.hud').forEach(e => e.remove()); setSpin(false); cam.position.set(-190, 95, 300); controls.update(); }
+  loading.classList.add('done');
+  window.__viewer = { cam, controls, go, lens, setSpin, renderer, scene };
+} catch (e) {
+  console.error(e);
+  fail('No se ha podido iniciar el visor 3D. Hace falta un navegador con WebGL activado.');
+}
+</script>
+</body>
+</html>
