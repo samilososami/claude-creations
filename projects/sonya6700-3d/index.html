@@ -134,7 +134,7 @@ em.s{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:n
 <section class="sheet" id="info">
   <div class="wrap">
     <span class="k mono">Cómo se hizo</span>
-    <h2>Sin escáner.<br>Sin <em class="s">CAD.</em></h2>
+    <h2>Modelada a mano,<br>en <em class="s">código.</em></h2>
 
     <dl class="stats">
       <div><dt class="mono">Modelo</dt><dd>Claude <b>Fable 5.2</b><small>en Claude Code</small></dd></div>
@@ -152,13 +152,13 @@ debes crear un render hiperrealista en 3d, de la sony a6700. basicamente, ponte 
       <div>
         <h3 class="k mono">El método</h3>
         <ul class="how">
-          <li><span>Referencias</span><span>Las 15 fotos de la cámara con licencia libre que hay en Wikimedia Commons. No son decenas: no existen más.</span></li>
+          <li><span>Referencias</span><span>Las 15 fotos de la cámara con licencia libre que hay en Wikimedia Commons; el prompt pedía decenas, pero no existen más.</span></li>
           <li><span>Medidas</span><span>Las oficiales (122 × 69 × 75,1 mm) y, sobre ellas, la posición de cada mando medida en píxeles en las vistas frontal, trasera y superior.</span></li>
           <li><span>Geometría</span><span>Escrita a mano en código: extrusiones, cilindros y cajas redondeadas. No hay ningún archivo de modelo; se genera al abrir la página.</span></li>
           <li><span>Materiales</span><span>Polipiel, moteado del metal, estriado de los diales y metal torneado son texturas dibujadas en canvas. Los rótulos, también.</span></li>
           <li><span>Motor</span><span>Three.js con materiales físicos y sombras en tiempo real. El estudio (cajas de luz, contras y panel cenital) también está dibujado en código, como imagen HDR.</span></li>
           <li><span>Segunda pasada</span><span>Las texturas finas (poros, huellas, grano) y el trazado de rayos se añadieron después, con un segundo prompt: «añadele más calidad aún […] pon iluminación hiperrealista […] trata de usar rtx o algo parecido». No están contados en el tiempo ni en los tokens de arriba.</span></li>
-          <li><span>Ray tracing</span><span>El botón ✦ activa un trazado de rayos progresivo en la GPU: luz rebotada, sombras suaves y reflejos reales en el suelo. Se afina mientras la cámara está quieta. No usa RTX; funciona en cualquier navegador con WebGL 2.</span></li>
+          <li><span>Ray tracing</span><span>El botón ✦ activa un trazado de rayos progresivo en la GPU: luz rebotada, sombras suaves y reflejos reales en el suelo. Se afina mientras la cámara está quieta y funciona en cualquier navegador con WebGL 2, sin necesidad de una gráfica RTX.</span></li>
         </ul>
         <p class="note"><strong>Hasta dónde llega.</strong> Las proporciones y la colocación de los mandos siguen las fotos, pero es una reconstrucción a ojo, no una copia exacta: la empuñadura real tiene curvas más complejas, y faltan detalles finos como las tapas inferiores o el interior de la zapata. Página no oficial, sin relación con Sony.</p>
       </div>
