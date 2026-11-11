@@ -3,7 +3,7 @@
    del teléfono: un cielo desenfocado dibujado en canvas o, si se activa la
    transparencia real, la cámara trasera del dispositivo. */
 import { DAYS } from './scene.js';
-import { $, $$, el, ico, clamp, pad, slider, wait } from './ui.js';
+import { $, $$, el, ico, clamp, pad, slider } from './ui.js';
 import { APPS, HOME, DOCK, makeStore } from './apps.js';
 
 const rgb = a => a.map(v => Math.round(v * 255)).join(',');
@@ -213,6 +213,7 @@ function startBoot() {
       <div class="boot-line"><u></u></div>
     </div>
     <div class="boot-ver">Versión 1.0 · GlassPhone</div>`;
+  const bootAt = performance.now();
   let done = false;
   const reveal = () => {
     if (done || st.phase !== 'boot') return;
@@ -236,7 +237,6 @@ function startBoot() {
   };
   setTimeout(reveal, st.calm ? 600 : 3900);
   boot.onclick = () => { if (performance.now() - bootAt > 900) reveal(); };
-  const bootAt = performance.now();
 }
 
 /* ───────── bloqueo ───────── */
