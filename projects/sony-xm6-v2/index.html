@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sony WH-1000XM6 · Apaga el mundo</title>
+<meta name="description" content="Página no oficial sobre los Sony WH-1000XM6: cancelación de ruido, sonido, diseño, batería y una galería para escuchar con los ojos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --f:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --m:'DM Mono',ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(18px,4vw,60px);
+  --bg:#EFEBE3;--fg:#0B0C10;--acc:#2E3CFF;
+}
+body[data-theme=bone]{--bg:#EFEBE3;--fg:#0B0C10;--acc:#2E3CFF}
+body[data-theme=ink]{--bg:#0B0C10;--fg:#EFEBE3;--acc:#D8FF3D}
+body[data-theme=blue]{--bg:#2E3CFF;--fg:#EFEBE3;--acc:#D8FF3D}
+body[data-theme=acid]{--bg:#D8FF3D;--fg:#0B0C10;--acc:#2E3CFF}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f);font-size:17px;line-height:1.5;font-stretch:100%;-webkit-font-smoothing:antialiased;transition:background-color .9s var(--ease),color .9s var(--ease)}
+main{position:relative;z-index:1;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--acc);color:var(--bg)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.mono{font-family:var(--m);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.wrap{max-width:1380px;margin:0 auto;padding:0 var(--pad)}
+.sec{position:relative;padding:clamp(90px,13vw,190px) 0}
+.acc{color:var(--acc);transition:color .9s var(--ease)}
+.lab{display:inline-flex;align-items:center;gap:.7em;margin-bottom:1.4rem}
+.lab::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--acc);transition:background-color .9s var(--ease)}
+h1,h2,h3{font-weight:760;letter-spacing:-.035em;line-height:.92;font-stretch:80%}
+h2{font-size:clamp(2.7rem,7.2vw,7rem)}
+h2 em,h1 em{font-style:normal;color:var(--acc);transition:color .9s var(--ease)}
+p.lead{font-size:clamp(1.05rem,1.5vw,1.32rem);max-width:46ch;opacity:.78;line-height:1.5}
+.line{border-top:1px solid rgba(128,128,128,.3)}
+/* reveal */
+.rv{opacity:0;transform:translateY(46px);transition:opacity 1s var(--ease),transform 1.1s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .06em .14em 0;margin:0 -.06em -.14em 0}
+.w>span{display:inline-block;transform:translateY(112%);transition:transform 1.05s var(--ease);transition-delay:calc(var(--i)*55ms)}
+.in .w>span,.split.in .w>span{transform:none}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.7em;padding:.95em 1.5em;border-radius:99px;font-weight:600;font-size:.95rem;border:1.5px solid currentColor;transition:background-color .35s,color .35s,transform .5s var(--ease)}
+.btn:hover{background:var(--fg);color:var(--bg)}
+.btn.fill{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.btn.fill:hover{background:var(--fg);border-color:var(--fg)}
+.chip{display:inline-flex;align-items:center;padding:.55em 1em;border-radius:99px;border:1.5px solid rgba(128,128,128,.45);font-family:var(--m);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;transition:background-color .3s,color .3s,border-color .3s}
+.chip:hover,.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+/* preloader */
+#pre{position:fixed;inset:0;z-index:100;background:#0B0C10;color:#EFEBE3;display:grid;place-items:center;transition:transform 1.1s var(--ease) .1s}
+.ready #pre{transform:translateY(-101%)}
+.pre-in{text-align:center}
+.vu{display:flex;gap:5px;align-items:flex-end;justify-content:center;height:54px;margin-bottom:22px}
+.vu i{width:6px;height:100%;background:#D8FF3D;transform-origin:bottom;animation:vu .7s ease-in-out infinite alternate;animation-delay:calc(var(--k)*-.11s)}
+@keyframes vu{from{transform:scaleY(.12)}to{transform:scaleY(1)}}
+.pre-n{font-size:clamp(4rem,12vw,8rem);font-weight:800;font-stretch:78%;letter-spacing:-.04em;line-height:1}
+.pre-n small{font-size:.35em;opacity:.5}
+/* chrome */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#bar{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--acc);transform-origin:0 50%;transform:scaleX(0);z-index:60;transition:background-color .9s var(--ease)}
+.nav{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px var(--pad);transition:transform .7s var(--ease)}
+.nav.hide{transform:translateY(-110%)}
+.logo{font-weight:800;font-size:1.5rem;letter-spacing:-.05em;font-stretch:75%}
+.logo b{color:var(--acc);font-weight:800;transition:color .9s var(--ease)}
+.nav nav{display:flex;gap:2rem;font-size:.88rem;font-weight:500}
+.nav nav a{opacity:.7;transition:opacity .3s}.nav nav a:hover{opacity:1}
+.nav .btn{padding:.6em 1.1em;font-size:.82rem}
+.dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:10px}
+.dots a{display:block;width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;opacity:.4;transition:all .4s var(--ease)}
+.dots a.on{opacity:1;background:currentColor;transform:scale(1.35)}
+.cur{position:fixed;left:0;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:1.5px solid var(--acc);z-index:90;pointer-events:none;display:none;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background-color .3s}
+.cur.big{width:84px;height:84px;margin:-42px 0 0 -42px;background:color-mix(in srgb,var(--acc) 22%,transparent)}
+@media (pointer:fine){.cur{display:block}}
+/* hero */
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;display:grid}
+.hero-xm{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;padding-bottom:6vh;font-weight:800;font-stretch:75%;font-size:min(40vw,92vh);letter-spacing:-.02em;line-height:.8;color:var(--fg);user-select:none;pointer-events:none}
+.hero-xm span{display:inline-block;transform:translateY(40%) scale(.9);opacity:0;transition:transform 1.5s var(--ease),opacity 1.2s;transition-delay:calc(var(--i)*120ms + .5s)}
+.ready .hero-xm span{transform:none;opacity:1}
+.hero-disc{position:absolute;left:50%;top:46%;width:min(58vh,74vw);aspect-ratio:1;margin:calc(min(58vh,74vw)/-2) 0 0 calc(min(58vh,74vw)/-2);border-radius:50%;background:radial-gradient(circle at 35% 30%,#6d78ff,#2E3CFF 55%,#1a22b8);opacity:0;will-change:transform;transition:opacity 1s .3s}
+.ready .hero-disc{opacity:1}
+.hero-hp{position:absolute;inset:0 0 8vh;display:grid;place-items:center;pointer-events:none;perspective:1400px}
+.hero-in{position:relative;width:min(70vh,96vw);aspect-ratio:1;will-change:transform;opacity:0;transition:opacity 1.2s .6s}
+.ready .hero-in{opacity:1}
+.hero-in img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 40px 50px rgba(0,0,0,.35))}
+.hero-copy{position:absolute;left:var(--pad);bottom:clamp(28px,6vh,70px);max-width:min(520px,86vw);z-index:3}
+.hero-copy h1{font-size:clamp(2.6rem,4.8vw,5rem);margin-bottom:1.1rem}
+.hero-copy p{opacity:.8;max-width:42ch;margin-bottom:1.6rem}
+.hero-copy .btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero-top{position:absolute;left:var(--pad);right:var(--pad);top:84px;display:flex;justify-content:space-between;z-index:3;opacity:.7}
+.hero-stats{position:absolute;right:var(--pad);bottom:clamp(28px,6vh,70px);display:flex;gap:clamp(18px,3vw,46px);z-index:3;text-align:right}
+.hero-stats b{display:block;font-size:clamp(2rem,3.6vw,3.6rem);font-weight:760;letter-spacing:-.04em;line-height:1;font-stretch:80%}
+.hero-stats span{font-family:var(--m);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+.hint{position:absolute;left:50%;bottom:14px;width:1px;height:38px;background:linear-gradient(var(--fg),transparent);z-index:3;animation:hint 2s ease-in-out infinite}
+@keyframes hint{0%,100%{transform:scaleY(.3);transform-origin:top}50%{transform:scaleY(1)}}
+/* marquee */
+.marq{position:relative;background:#0B0C10;color:#EFEBE3;padding:1.4rem 0;overflow:hidden;white-space:nowrap}
+.marq .row{display:inline-flex;will-change:transform}
+.marq span{font-weight:800;font-stretch:75%;font-size:clamp(2.6rem,8vw,7.5rem);letter-spacing:-.04em;line-height:1;padding-right:.5em;text-transform:uppercase}
+.marq span:nth-child(even){color:transparent;-webkit-text-stroke:1.5px #D8FF3D}
+/* pinned stage */
+.pin{position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#silencio .lab{position:absolute;left:var(--pad);top:84px;margin:0;z-index:5}
+.s-hp{position:absolute;left:50%;top:50%;width:min(64vh,92vw);aspect-ratio:1;margin:calc(min(64vh,92vw)/-2) 0 0 calc(min(64vh,92vw)/-2);will-change:transform}
+.s-disc{position:absolute;inset:6%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#5662ff,#2E3CFF 55%,#141c9c);opacity:.9}
+.s-hp img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.4))}
+.hot{position:absolute;left:var(--x);top:var(--y);width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;opacity:0;transform:scale(.4);transition:opacity .5s,transform .6s var(--ease);color:#D8FF3D;z-index:3}
+.hot.show{opacity:1;transform:none}
+.hot i{position:absolute;inset:0;border-radius:50%;border:1.5px solid currentColor;animation:pulse 2s ease-out infinite}
+.hot::after{content:'';position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px;border-radius:50%;background:currentColor}
+@keyframes pulse{from{transform:scale(.5);opacity:1}to{transform:scale(1.6);opacity:0}}
+.hot span{position:absolute;left:44px;top:50%;transform:translateY(-50%);white-space:nowrap;background:#0B0C10;color:#EFEBE3;padding:.45em .85em;border-radius:99px;font-size:.78rem;font-weight:600;opacity:0;transition:opacity .4s}
+.hot.r span{left:auto;right:44px}
+.hot.on span,.hot:hover span{opacity:1}
+.steps{position:absolute;inset:0;pointer-events:none}
+.step{position:absolute;top:50%;left:var(--pad);width:min(32vw,440px);opacity:0;will-change:transform,opacity;transform:translate3d(0,calc(-50% + var(--ty,0px)),0)}
+.step:nth-child(even){left:auto;right:var(--pad)}
+.step h3{font-size:clamp(2.2rem,4.4vw,4.6rem);margin:.6rem 0 1rem}
+.step p{opacity:.82;max-width:38ch}
+.step .big{display:flex;gap:2rem;margin-top:1.4rem}
+.step .big b{display:block;font-size:clamp(3rem,6vw,5.8rem);font-weight:800;line-height:.9;letter-spacing:-.05em;font-stretch:78%}
+.step .big span{font-family:var(--m);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.step small{display:block;margin-top:1rem;font-family:var(--m);font-size:.66rem;opacity:.55;letter-spacing:.06em}
+.step:nth-child(4){left:50%;right:auto;width:min(86vw,680px);margin-left:calc(min(86vw,680px)/-2);text-align:center;top:auto;bottom:7vh;transform:translate3d(0,var(--ty,0px),0)}
+.step:nth-child(4) p{margin:0 auto}
+.ticks{position:absolute;left:50%;bottom:22px;margin-left:-60px;display:flex;gap:8px;list-style:none;z-index:5}
+.ticks li{width:26px;height:3px;border-radius:2px;background:currentColor;opacity:.25;transition:opacity .4s,background-color .4s}
+.ticks li.on{opacity:1}
+/* nc demo */
+.grid2{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(30px,6vw,100px);align-items:center}
+.ctrl{display:flex;flex-direction:column;gap:1.2rem;margin-top:2rem}
+.seg{display:inline-flex;border:1.5px solid currentColor;border-radius:99px;padding:4px;align-self:flex-start}
+.seg button{padding:.7em 1.3em;border-radius:99px;font-weight:600;font-size:.88rem;transition:background-color .3s,color .3s}
+.seg button.on{background:var(--acc);color:var(--bg)}
+.rng{display:flex;flex-direction:column;gap:.5rem;max-width:380px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:rgba(128,128,128,.4);outline-offset:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--acc);border:0;cursor:pointer}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--acc);border:0;cursor:pointer}
+.scope{position:relative;border:1.5px solid rgba(128,128,128,.35);border-radius:22px;overflow:hidden;background:rgba(0,0,0,.25)}
+#ncCv{width:100%;height:clamp(280px,34vw,440px);display:block}
+.legend{position:absolute;left:18px;top:14px;display:flex;gap:1.2rem;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:.5em}
+.legend i{width:18px;height:3px;border-radius:2px;display:block}
+.readout{position:absolute;right:20px;bottom:14px;text-align:right}
+.readout b{display:block;font-size:clamp(2.4rem,5vw,4.4rem);font-weight:800;letter-spacing:-.05em;line-height:1;font-stretch:78%}
+/* sound */
+.snd{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(26px,5vw,80px);align-items:end;margin-top:3.5rem}
+.photo{position:relative;overflow:hidden;border-radius:22px;background:rgba(0,0,0,.2)}
+.photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.1)}
+.photo figcaption{position:absolute;left:14px;bottom:12px;background:#0B0C10;color:#EFEBE3;padding:.45em .9em;border-radius:99px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:3rem}
+.card{border:1.5px solid rgba(239,235,227,.35);border-radius:20px;padding:1.4rem}
+.card b{display:block;font-size:clamp(2rem,3.4vw,3.2rem);font-weight:800;letter-spacing:-.04em;line-height:1;font-stretch:78%;margin-bottom:.6rem}
+.card p{font-size:.92rem;opacity:.8;line-height:1.45}
+.eq{margin-top:3rem;border:1.5px solid rgba(239,235,227,.35);border-radius:24px;padding:clamp(18px,3vw,34px);background:rgba(11,12,16,.28)}
+.eq-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.presets{display:flex;gap:8px;flex-wrap:wrap}
+#eqCv{width:100%;height:clamp(170px,22vw,260px);display:block}
+.bands{display:grid;grid-template-columns:repeat(10,1fr);gap:clamp(4px,1.2vw,16px);margin-top:.6rem}
+.band{display:flex;flex-direction:column;align-items:center;gap:8px;touch-action:none;user-select:none}
+.trk{position:relative;width:34px;height:150px;cursor:ns-resize}
+.trk::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;border-radius:2px;background:rgba(239,235,227,.3)}
+.knob{position:absolute;left:50%;width:30px;height:16px;margin:-8px 0 0 -15px;border-radius:8px;background:#D8FF3D;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.band span{font-family:var(--m);font-size:.62rem;opacity:.7}
+/* calls */
+.calls{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(26px,5vw,90px);align-items:center}
+#callCv{width:100%;aspect-ratio:1/.82;display:block;border-radius:26px;border:1.5px solid rgba(128,128,128,.35)}
+.facts{list-style:none;margin-top:1.8rem}
+.facts li{padding:1rem 0;display:flex;gap:1rem;justify-content:space-between;font-size:.95rem}
+.facts li span{font-family:var(--m);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.6;white-space:nowrap}
+/* day scenes */
+#dia{background:#0B0C10;color:#EFEBE3}
+.scene{position:absolute;inset:0;opacity:0;will-change:opacity}
+.scene img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,12,16,.88),rgba(11,12,16,.35) 60%,rgba(11,12,16,.55))}
+.hud{position:absolute;left:var(--pad);right:var(--pad);bottom:9vh;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.hud .t{font-size:clamp(5rem,17vw,15rem);font-weight:800;font-stretch:75%;letter-spacing:-.06em;line-height:.78;font-variant-numeric:tabular-nums}
+.hud .info{max-width:400px;background:rgba(11,12,16,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:1.3rem 1.4rem;border-radius:20px}
+.hud h3{font-size:clamp(1.6rem,2.8vw,2.6rem);margin:.4rem 0 .7rem}
+.hud p{opacity:.8;font-size:.98rem}
+.nc-meter{margin-top:1.1rem}
+.nc-meter div{height:6px;border-radius:3px;background:rgba(239,235,227,.2);overflow:hidden;margin-top:.5rem}
+.nc-meter i{display:block;height:100%;width:50%;background:#D8FF3D;border-radius:3px;transition:width .8s var(--ease)}
+#dia .head{position:absolute;left:var(--pad);top:84px;right:var(--pad);display:flex;justify-content:space-between;gap:1rem}
+.swap{transition:opacity .45s,transform .6s var(--ease)}
+.swap.out{opacity:0;transform:translateY(12px)}
+/* design horizontal */
+.hpin{position:relative}
+.hstage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.hhead{padding:0 var(--pad);margin-bottom:clamp(14px,3vh,34px);display:flex;justify-content:space-between;align-items:flex-end;gap:2rem}
+.track{display:flex;gap:clamp(14px,2vw,28px);padding:0 var(--pad);will-change:transform}
+.hc{flex:none;width:min(78vw,560px);height:min(56vh,520px);border-radius:26px;overflow:hidden;position:relative;background:#0B0C10;color:#EFEBE3}
+.hc.light{background:#fff;color:#0B0C10}
+.hc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hc img.fit{object-fit:contain;padding:8%}
+.hc .cap{position:absolute;left:0;right:0;bottom:0;padding:1.6rem;background:linear-gradient(transparent,rgba(11,12,16,.85));color:#EFEBE3}
+.hc.light .cap{background:none;color:#0B0C10}
+.hc .cap b{display:block;font-size:clamp(1.4rem,2.3vw,2rem);font-weight:760;letter-spacing:-.03em;font-stretch:82%;line-height:1;margin-bottom:.4rem}
+.hc .cap span{font-size:.9rem;opacity:.85}
+.hc.num{display:grid;place-items:center;text-align:center;background:var(--fg);color:var(--bg)}
+.hc.num b{font-size:clamp(7rem,20vw,13rem);font-weight:800;line-height:.8;letter-spacing:-.06em;font-stretch:75%}
+.hc.num span{display:block;font-family:var(--m);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.8rem}
+/* battery */
+.bat{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,6vw,100px);align-items:center}
+.gauge{position:relative;width:min(100%,460px);aspect-ratio:1;margin:0 auto}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge circle{fill:none;stroke-width:14;stroke-linecap:round}
+#ringV{stroke:var(--acc);transition:stroke-dashoffset 1.4s var(--ease),stroke .9s}
+.gauge .in{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.gauge b{display:block;font-size:clamp(5rem,13vw,9.5rem);font-weight:800;line-height:.85;letter-spacing:-.06em;font-stretch:75%}
+.gauge span{font-family:var(--m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+.qc{margin-top:2rem;padding:1.3rem;border:1.5px solid rgba(128,128,128,.4);border-radius:20px}
+.qc .bar2{height:10px;border-radius:5px;background:rgba(128,128,128,.3);margin-top:.9rem;overflow:hidden}
+.qc .bar2 i{display:block;height:100%;width:0;background:var(--acc);border-radius:5px;transition:width 1.6s var(--ease)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.6rem}
+/* colors */
+#colores{background:var(--tint,#E6E1D6);color:#0B0C10;transition:background-color .9s var(--ease)}
+.cw{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(20px,5vw,80px);align-items:center}
+.cw-img{position:relative;aspect-ratio:1;width:100%}
+.cw-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 34px 40px rgba(0,0,0,.3));transition:opacity .5s,transform .8s var(--ease)}
+.cw-img img.out{opacity:0;transform:scale(.92) rotate(-6deg)}
+.swatches{display:flex;gap:14px;margin:2rem 0 1.4rem;flex-wrap:wrap}
+.sw{width:58px;height:58px;border-radius:50%;border:3px solid transparent;box-shadow:inset 0 0 0 2px rgba(0,0,0,.18);transition:transform .5s var(--ease),border-color .3s}
+.sw:hover{transform:scale(1.1)}.sw.on{border-color:#0B0C10;transform:scale(1.12)}
+.cw-name{font-size:clamp(2.6rem,7vw,6.4rem);font-weight:800;font-stretch:76%;letter-spacing:-.045em;line-height:.9}
+/* gallery */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:2rem 0 2.4rem}
+.mosaic{--g:10px;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:calc((min(100vw,1380px) - 2*var(--pad) - 11*var(--g))/12);grid-auto-flow:dense;gap:var(--g)}
+.tile{position:relative;display:block;overflow:hidden;border-radius:16px;background:#1a1c24;grid-column:var(--s,auto) / span var(--c);grid-row:span var(--r);color:#EFEBE3;text-align:left;transition:opacity .5s,filter .5s,transform .8s var(--ease)}
+.tile img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.tile:hover img{transform:scale(1.06)}
+.tile .cap{position:absolute;left:0;right:0;bottom:0;padding:2.4rem 1rem .9rem;background:linear-gradient(transparent,rgba(11,12,16,.82));opacity:0;transform:translateY(10px);transition:opacity .4s,transform .6s var(--ease)}
+.tile:hover .cap,.tile:focus-visible .cap{opacity:1;transform:none}
+.tile .cap b{display:block;font-size:1rem;font-weight:650;letter-spacing:-.01em}
+.tile .cap span{color:#D8FF3D}
+.tile.txt{display:grid;place-items:center;padding:1.2rem;text-align:center;background:var(--acc);color:var(--bg);cursor:default}
+.tile.txt b{font-size:clamp(1.4rem,3vw,2.8rem);font-weight:800;font-stretch:76%;letter-spacing:-.04em;line-height:.95}
+.tile.dim{opacity:.18;filter:grayscale(1)}
+.lb{position:fixed;inset:0;z-index:95;background:rgba(11,12,16,.96);color:#EFEBE3;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:14px}
+.lb.open{display:flex}
+.lb img{max-width:min(92vw,1300px);max-height:76vh;border-radius:14px;object-fit:contain}
+.lb .bt{position:absolute;top:18px;right:18px}
+.lb .nv{position:absolute;top:50%;margin-top:-26px;width:52px;height:52px;border-radius:50%;border:1.5px solid #EFEBE3;font-size:1.3rem;display:grid;place-items:center}
+.lb .pv{left:18px}.lb .nx{right:18px}
+/* specs */
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(30px,6vw,100px);margin-top:3rem}
+.sp{display:grid;grid-template-columns:.8fr 1.2fr;gap:1rem;padding:1.15rem 0;border-top:1px solid rgba(128,128,128,.35)}
+.sp dt{font-family:var(--m);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.6;padding-top:.25em}
+.sp dd{font-weight:500}
+/* cta */
+.cta{text-align:center;min-height:100vh;display:grid;place-items:center;padding:12vh 0}
+.cta h2{font-size:clamp(3.4rem,13vw,13rem)}
+.cta p{margin:1.6rem auto 2.2rem}
+.foot{padding:34px var(--pad);display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;font-size:.78rem;opacity:.75;max-width:1380px;margin:0 auto}
+.foot p{max-width:70ch}
+/* responsive */
+@media (max-width:960px){
+  .nav nav,.dots{display:none}
+  .grid2,.snd,.calls,.bat,.cw{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .specs{grid-template-columns:1fr}
+  .hero-stats{display:none}
+  .hero-copy{bottom:5vh}
+  .hero-top{top:70px}
+  .hero-in{width:min(100vw,62vh);margin-top:-14vh}
+  .hero-disc{margin-top:calc(min(66vh,78vw)/-2 - 12vh)}
+  .hero-xm{align-items:flex-start;padding-top:12vh;font-size:min(62vw,40vh)}
+  .step{top:auto;bottom:6vh;left:var(--pad)!important;right:var(--pad)!important;width:auto!important;margin:0!important;text-align:left!important;transform:translate3d(0,var(--ty,0px),0)!important}
+  .step h3{font-size:clamp(2rem,9vw,3rem);margin:.3rem 0 .6rem}
+  .step p{font-size:.95rem}
+  .step .big{margin-top:.8rem}
+  .s-hp{width:min(86vw,46vh);margin-top:calc(min(86vw,46vh)/-2 - 14vh);margin-left:calc(min(86vw,46vh)/-2)}
+  .ticks{bottom:10px}
+  .hud .t{font-size:clamp(4.4rem,22vw,8rem)}
+  .hud{bottom:6vh}
+  .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(110px,40vw,230px)}
+  .tile{grid-column:span 1;grid-row:span 2}
+  .tile.w2{grid-column:span 2;grid-row:span 2}
+  .bands{gap:2px}
+  .trk{width:24px}.knob{width:22px;margin-left:-11px}
+  .sp{grid-template-columns:1fr;gap:.2rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
+</style>
+<noscript><style>.rv,.w>span,.hero-xm span,.hero-disc,.hero-in{opacity:1!important;transform:none!important}#pre{display:none}</style></noscript>
+</head>
+<body data-theme="bone">
+<div id="pre" aria-hidden="true"><div class="pre-in"><div class="vu" id="vu"></div><div class="pre-n"><span id="preN">0</span><small>%</small></div><p class="mono" style="margin-top:14px;opacity:.6">Calibrando la cancelación</p></div></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div id="bar"></div>
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="Inicio">XM<b>6</b></a>
+  <nav aria-label="Principal"><a href="#silencio">Silencio</a><a href="#sonido">Sonido</a><a href="#dia">Un día</a><a href="#diseno">Diseño</a><a href="#galeria">Galería</a><a href="#specs">Ficha</a></nav>
+  <a class="btn" href="#colores">Elige color</a>
+</header>
+<nav class="dots" id="dots" aria-label="Secciones"></nav>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero" id="hero" data-theme="bone" data-mood="1,1">
+  <div class="hero-disc" id="heroDisc" aria-hidden="true"></div>
+  <div class="hero-xm" aria-hidden="true"><span style="--i:0">X</span><span style="--i:1">M</span><span style="--i:2">6</span></div>
+  <div class="hero-hp"><div class="hero-in" id="heroIn">
+    <img class="js-hp" id="heroImg" alt="Auriculares Sony WH-1000XM6 en color negro" width="1000" height="1000" fetchpriority="high" decoding="async">
+  </div></div>
+  <div class="hero-top mono"><span>Sony · WH-1000XM6</span><span>Cancelación de ruido inalámbrica</span></div>
+  <div class="hero-copy">
+    <h1><span class="split">Apaga el <em>mundo.</em></span></h1>
+    <p>Un procesador nuevo, 12 micrófonos y un driver de 30 mm con cúpula de fibra de carbono. Baja y escucha qué hace cada cosa.</p>
+    <div class="btns"><a class="btn fill" href="#silencio">Empezar el recorrido</a><a class="btn" href="#colores">Ver colores</a></div>
+  </div>
+  <div class="hero-stats"><div><b>12</b><span>micrófonos</span></div><div><b>30h</b><span>con NC activa</span></div><div><b>254g</b><span>de peso</span></div></div>
+  <div class="hint" aria-hidden="true"></div>
+</section>
+
+<div class="marq" aria-hidden="true"><div class="row" id="mq1"></div></div>
+
+<!-- SILENCIO (pinned) -->
+<section class="pin" id="silencio" data-pin data-theme="bone" style="height:560vh">
+  <div class="stage">
+    <div class="lab mono">01 · Silencio</div>
+    <div class="s-hp" id="sHp"><div class="s-disc" id="sDisc"></div><img class="js-hp" alt="Sony WH-1000XM6 con las partes principales señaladas" width="1000" height="1000" loading="lazy" decoding="async"><div id="hots"></div></div>
+    <div class="steps">
+      <article class="step"><span class="mono acc">Paso 1</span><h3>Hay ruido en todas partes.</h3><p>Tráfico, aire acondicionado, el rumor constante de un avión. Lo dejas de notar, pero sigue ahí. Los XM6 empiezan por escucharlo todo.</p></article>
+      <article class="step"><span class="mono acc">Paso 2</span><h3>12 micrófonos. Un procesador.</h3><p>El HD Noise Cancelling Processor QN3 ajusta los micrófonos en tiempo real. Sony dice que es siete veces más rápido que el del XM5.</p><div class="big"><div><b data-count="12">0</b><span>micrófonos</span></div><div><b data-count="7" data-suf="×">0</b><span>más rápido</span></div></div></article>
+      <article class="step"><span class="mono acc">Paso 3</span><h3>Se ajusta a ti.</h3><p>El Adaptive NC Optimizer afina la cancelación según el ruido de fuera y la presión del aire. El modo Ambiente automático deja pasar anuncios y conversaciones.</p></article>
+      <article class="step"><span class="mono acc">Paso 4</span><h3>Silencio.</h3><p>La cancelación más avanzada de Sony hasta la fecha. Lo que queda es tu música.</p><small>Según comparativa propia de Sony a 1 de marzo de 2025.</small></article>
+    </div>
+    <ol class="ticks" aria-hidden="true"><li></li><li></li><li></li><li></li></ol>
+  </div>
+</section>
+
+<!-- NC DEMO -->
+<section class="sec" id="nc" data-theme="ink" data-mood="0.2,0">
+  <div class="wrap grid2">
+    <div>
+      <div class="lab mono rv">02 · Pruébalo</div>
+      <h2 class="split rv">Así se <em>apaga</em> el ruido.</h2>
+      <p class="lead rv" style="margin-top:1.6rem">Los micrófonos oyen el ruido, el procesador genera la onda contraria y al sumarse se anulan. Esto es una simulación, no una medición del aparato.</p>
+      <div class="ctrl rv">
+        <div class="seg" role="group" aria-label="Cancelación de ruido"><button type="button" data-nc="0" class="on">NC apagada</button><button type="button" data-nc="1">NC activada</button></div>
+        <label class="rng"><span class="mono">Nivel de ruido</span><input type="range" id="noiseR" min="0" max="100" value="70" aria-label="Nivel de ruido"></label>
+        <button type="button" class="chip" id="soundBtn" aria-pressed="false" style="align-self:flex-start">Sonido: apagado</button>
+      </div>
+    </div>
+    <div class="scope rv">
+      <canvas id="ncCv" aria-label="Simulación de cancelación de ruido"></canvas>
+      <div class="legend mono"><span><i style="background:#ff6a4d"></i>Ruido</span><span id="legA" style="opacity:.25"><i style="background:#D8FF3D"></i>Onda contraria</span><span><i style="background:#EFEBE3"></i>Lo que oyes</span></div>
+      <div class="readout"><b id="ncDb">0 dB</b><span class="mono" style="opacity:.6" id="ncSt">Sin cancelar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SONIDO -->
+<section class="sec" id="sonido" data-theme="blue" data-mood="0.18,1">
+  <div class="wrap">
+    <div class="lab mono rv">03 · Sonido</div>
+    <h2 class="split rv">Masterizados por quien <em>masteriza.</em></h2>
+    <div class="snd">
+      <figure class="photo rv" style="aspect-ratio:16/10"><img id="studioImg" alt="WH-1000XM6 sobre una mesa de mezclas de estudio" loading="lazy" decoding="async"><figcaption class="mono">Foto de prensa · Sony</figcaption></figure>
+      <p class="lead rv">Sony los afinó con ingenieros de mastering de Sterling Sound, Battery Studios y Coast Mastering. Cúpula de composite de fibra de carbono, bobina propia y un procesador que predice el ruido de cuantización para dar graves más limpios.</p>
+    </div>
+    <div class="cards">
+      <div class="card rv"><b>30 mm</b><p>Driver con cúpula de composite de fibra de carbono de alta rigidez.</p></div>
+      <div class="card rv" style="--d:1"><b>990 kbps</b><p>LDAC para Hi-Res Audio inalámbrico, con un móvil compatible.</p></div>
+      <div class="card rv" style="--d:2"><b>DSEE Extreme</b><p>IA en el propio casco que recupera agudos perdidos al comprimir.</p></div>
+    </div>
+    <div class="eq rv" id="eqBox">
+      <div class="eq-top"><span class="mono">Ecualizador de 10 bandas · simulador</span><div class="presets" id="presets"></div></div>
+      <canvas id="eqCv" aria-hidden="true"></canvas>
+      <div class="bands" id="bands"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LLAMADAS -->
+<section class="sec" id="llamadas" data-theme="ink" data-mood="0.12,0">
+  <div class="wrap calls">
+    <canvas id="callCv" class="rv" aria-label="Animación de captación de voz con beamforming"></canvas>
+    <div>
+      <div class="lab mono rv">04 · Llamadas</div>
+      <h2 class="split rv">Que te oigan <em>a ti.</em></h2>
+      <p class="lead rv" style="margin-top:1.6rem">Un sistema de seis micrófonos con beamforming por IA localiza tu voz y filtra lo demás, aunque haya gente hablando alrededor.</p>
+      <ul class="facts rv"><li class="line">Beamforming con IA <span>6 micros</span></li><li class="line">Silenciar desde el propio casco <span>Se configura en la app</span></li><li class="line">Autonomía en llamadas <span>24 h con NC</span></li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- UN DIA (pinned) -->
+<section class="pin" id="dia" data-pin data-theme="ink" style="height:500vh">
+  <div class="stage">
+    <div id="scenes"></div>
+    <div class="shade"></div>
+    <div class="head mono"><span>05 · Un día con los XM6</span><span id="dIdx">1 / 5</span></div>
+    <div class="hud"><div class="t swap" id="dTime">07:42</div><div class="info swap" id="dInfo"><span class="mono" id="dMode" style="color:#D8FF3D"></span><h3 id="dPlace"></h3><p id="dText"></p><div class="nc-meter mono"><span style="opacity:.7">Cancelación (ilustrativo)</span><div><i id="dNc"></i></div></div></div></div>
+  </div>
+</section>
+
+<!-- DISEÑO (horizontal) -->
+<section class="hpin" id="diseno" data-hpin data-theme="acid">
+  <div class="hstage">
+    <div class="hhead"><div><div class="lab mono">06 · Diseño</div><h2 style="font-size:clamp(2.4rem,6vw,5.6rem)">Pensados para <em>llevarlos.</em></h2></div><p class="mono" style="max-width:22ch;opacity:.7">Sigue bajando, se desliza hacia un lado</p></div>
+    <div class="track" id="track"></div>
+  </div>
+</section>
+
+<!-- BATERIA -->
+<section class="sec" id="bateria" data-theme="ink" data-mood="0.15,0">
+  <div class="wrap bat">
+    <div>
+      <div class="lab mono rv">07 · Batería y conexión</div>
+      <h2 class="split rv">Dura más que <em>tu vuelo.</em></h2>
+      <p class="lead rv" style="margin-top:1.6rem">Hasta 30 horas con la cancelación activada y 40 sin ella. Si te quedas sin batería, enchufa el cable USB y sigue escuchando.</p>
+      <div class="seg rv" style="margin-top:1.8rem" role="group" aria-label="Modo de batería"><button type="button" data-bat="30" class="on">NC activada</button><button type="button" data-bat="40">NC apagada</button></div>
+      <div class="qc rv"><span class="mono">Carga rápida</span><div style="font-size:1.35rem;font-weight:700;margin-top:.3rem;letter-spacing:-.02em">3 minutos = hasta 3 horas</div><div class="bar2"><i id="qcBar"></i></div></div>
+      <div class="chips rv"><span class="chip">Bluetooth 5.3</span><span class="chip">LE Audio</span><span class="chip">Auracast</span><span class="chip">Multipunto</span><span class="chip">LDAC</span><span class="chip">LC3</span><span class="chip">AAC</span><span class="chip">SBC</span></div>
+    </div>
+    <div class="gauge rv">
+      <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="86" stroke="rgba(128,128,128,.28)"/><circle id="ringV" cx="100" cy="100" r="86" stroke-dasharray="540.35" stroke-dashoffset="540.35"/></svg>
+      <div class="in"><div><b id="hrs">0</b><span>horas de música</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLORES -->
+<section class="sec" id="colores" data-theme="bone" data-mood="0,0">
+  <div class="wrap cw">
+    <div class="cw-img rv"><img class="js-hp" id="cwImg" alt="WH-1000XM6 en el color seleccionado" width="1000" height="1000" loading="lazy" decoding="async"></div>
+    <div>
+      <div class="lab mono rv" style="--d:0">08 · Color</div>
+      <div class="cw-name rv" id="cwName" aria-live="polite">Negro</div>
+      <div class="swatches rv" id="swatches" role="radiogroup" aria-label="Color"></div>
+      <p class="lead rv" id="cwDesc">El clásico. Se ve negro tanto en la oficina como en el avión.</p>
+      <p class="mono rv" style="margin-top:1.4rem;opacity:.55">Colores disponibles según región. Tu elección cambia también el casco del resto de la página.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="sec" id="galeria" data-theme="ink" data-mood="0.16,0">
+  <div class="wrap">
+    <div class="lab mono rv">09 · Galería</div>
+    <h2 class="split rv">Suena <em>así.</em></h2>
+    <p class="lead rv" style="margin-top:1.4rem">Fotos para ponerle imagen a cada situación. Toca una para verla grande. Las de producto son de la prensa de Sony; el resto, de Unsplash.</p>
+    <div class="filters rv" id="filters"></div>
+    <div class="mosaic" id="mosaic"></div>
+  </div>
+</section>
+
+<!-- FICHA -->
+<section class="sec" id="specs" data-theme="bone" data-mood="0,0">
+  <div class="wrap">
+    <div class="lab mono rv">10 · Ficha técnica</div>
+    <h2 class="split rv">Los <em>números.</em></h2>
+    <dl class="specs" id="specList"></dl>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta" data-theme="blue" data-mood="0.1,0">
+  <div class="wrap">
+    <div class="lab mono rv">Y ya está</div>
+    <h2 class="split rv">Disfruta del <em>silencio.</em></h2>
+    <p class="lead rv">Precio de lanzamiento en Europa: 450 €. Puede variar según tienda y país.</p>
+    <a class="btn fill rv" href="https://www.sony.co.uk/headphones/products/wh-1000xm6" target="_blank" rel="noopener">Ver la ficha oficial de Sony</a>
+  </div>
+</section>
+</main>
+<footer class="foot" style="position:relative;z-index:1;background:#2E3CFF;color:#EFEBE3;max-width:none;justify-content:space-between"><p>Página no oficial, sin relación con Sony. Sony y WH-1000XM6 son marcas de Sony Group Corporation. Las imágenes de producto y de prensa son de Sony y se enlazan desde sus servidores. Las fotos de la galería son de Unsplash. Los datos técnicos vienen de la nota de prensa y de las fichas de Sony.</p><p>Las animaciones y valores de las simulaciones son ilustrativos.</p></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada"><button class="bt chip" id="lbX" type="button">Cerrar</button><button class="nv pv" id="lbP" type="button" aria-label="Anterior">←</button><img id="lbImg" alt=""><button class="nv nx" id="lbN" type="button" aria-label="Siguiente">→</button><p class="mono" id="lbCap"></p></div>
+
+<script>
+(function(){
+'use strict';
+const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+const clamp=(v,a=0,b=1)=>v<a?a:v>b?b:v, lerp=(a,b,t)=>a+(b-a)*t;
+const sstep=(a,b,v)=>{const t=clamp((v-a)/(b-a));return t*t*(3-2*t)};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine=matchMedia('(pointer:fine)').matches;
+const SONY='https://sony.scene7.com/is/image/sonyglobalsolutions/';
+const PR='https://cdn.uc.assets.prezly.com/';
+const UID={'1436491865332':'7a61a109cc05','1449824913935':'59a10b8d2000','1508700115892':'45ecd05ae2ad','1514525253161':'7a46d19cd819','1762952805560':'130ccc74c3fa','1776779399573':'0c19831317df','1625786682948':'2168238883d2','1470071459604':'3b5ec3a7fe05','1758640920659':'0bb864175983','1519389950473':'47ba0277781c','1511671782779':'c97d3d27a1d4','1470225620780':'dba8ba36b745','1760926421866':'4ce684285fa6','1493225457124':'a3eb161ffa5f','1507838153414':'b4b713384a76','1511379938547':'c1f69419868d'};
+const US=(id,w)=>'https://images.unsplash.com/photo-'+id+(UID[id]?'-'+UID[id]:'')+'?w='+(w||900)+'&q=70&auto=format&fit=crop&fm=jpg';
+const CW={
+  black:{n:'Negro',c:'#16171c',t:'#E6E1D6',d:'El clásico. Se ve serio en la oficina y discreto en el avión.',img:SONY+'WH1000XM6_Primary_image_Black?wid=1000&fmt=webp-alpha'},
+  silver:{n:'Plata platino',c:'#d9dbdd',t:'#DCE2EA',d:'Claro y limpio. Se nota en la calle y combina con casi todo.',img:SONY+'WH1000XM6_Primary_image_Platinum_Silver?wid=1000&fmt=webp-alpha'},
+  blue:{n:'Azul medianoche',c:'#22304f',t:'#C9D3EB',d:'Un azul casi negro que sólo se delata cuando le da la luz.',img:SONY+'WH1000XM6_Primary_image_Midnight_Blue?wid=1000&fmt=webp-alpha'},
+  olive:{n:'Gris oliva',c:'#8a9272',t:'#DADDC9',d:'El más distinto de la gama. Tono tierra, mate y tranquilo.',img:SONY+'WH1000XM6_Primary_image_Olive_Gray?wid=1000&fmt=webp-alpha'}
+};
+let cwKey='black';
+
+/* ---------- split headings ---------- */
+function split(el){let i=0;(function walk(n){Array.from(n.childNodes).forEach(c=>{
+  if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(tk=>{if(!tk)return;
+    if(/^\s+$/.test(tk))f.appendChild(document.createTextNode(' '));
+    else{const w=document.createElement('span');w.className='w';const s=document.createElement('span');s.textContent=tk;s.style.setProperty('--i',i++);w.appendChild(s);f.appendChild(w);}});
+    n.replaceChild(f,c);}
+  else if(c.nodeType===1)walk(c);});})(el);}
+$$('.split').forEach(split);
+
+/* ---------- images ---------- */
+function setHp(key){const c=CW[key];$$('.js-hp').forEach(im=>{if(im.getAttribute('src')===c.img)return;
+  if(im.id==='cwImg'&&im.getAttribute('src')){im.classList.add('out');setTimeout(()=>{im.src=c.img;im.classList.remove('out')},300)}else im.src=c.img;});}
+setHp('black');
+$('#studioImg').src=PR+'38a4f6aa-9af1-437c-82ec-603d197b843c/-/preview/-/format/auto/7_WH-1000XM6_Co-creation_HeadphonewithStudioGear.jpg';
+
+/* ---------- preloader ---------- */
+const vu=$('#vu');for(let i=0;i<14;i++){const b=document.createElement('i');b.style.setProperty('--k',i);vu.appendChild(b)}
+(function(){const hero=$('#heroImg');let loaded=hero.complete&&hero.naturalWidth>0;
+  hero.addEventListener('load',()=>loaded=true);hero.addEventListener('error',()=>loaded=true);
+  const t0=performance.now();let done=false;const nEl=$('#preN');
+  (function tk(){const t=performance.now()-t0;const n=Math.round(clamp(t/1500)*(loaded?100:88));nEl.textContent=n;
+    if((n>=100&&t>1200)||t>3800){if(!done){done=true;nEl.textContent=100;document.body.classList.add('ready');$('.hero .split').classList.add('in');
+      setTimeout(()=>{const p=$('#pre');if(p)p.style.display='none'},1600);}}
+    else requestAnimationFrame(tk);})();
+  if(reduce)document.body.classList.add('ready');
+})();
+
+/* ---------- reveal ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+$$('.rv,.split').forEach(el=>{if(!el.closest('.hero'))io.observe(el)});
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!e.target._c){e.target._c=1;count(e.target)}}),{threshold:.6});
+function count(el){const to=parseFloat(el.dataset.count),suf=el.dataset.suf||'',t0=performance.now();
+  (function f(){const p=clamp((performance.now()-t0)/1400);el.textContent=Math.round(to*(1-Math.pow(1-p,4)))+suf;if(p<1)requestAnimationFrame(f)})();}
+
+/* ---------- data ---------- */
+const HOTS=[
+  {x:55,y:10,t:'Diadema ancha, cuero vegano'},
+  {x:69,y:47,t:'Bisagra de metal inyectado',r:1},
+  {x:66,y:75,t:'Panel táctil y botones',r:1},
+  {x:31,y:79,t:'Almohadillas elásticas'}
+];
+const hotsEl=$('#hots');
+HOTS.forEach(h=>{const b=document.createElement('button');b.type='button';b.className='hot'+(h.r?' r':'');b.style.setProperty('--x',h.x+'%');b.style.setProperty('--y',h.y+'%');b.setAttribute('aria-label',h.t);b.innerHTML='<i></i><span>'+h.t+'</span>';hotsEl.appendChild(b);});
+const hots=$$('.hot');
+
+const SC=[
+  {t:'07:42',m:'Cancelación máxima',p:'Hora punta',d:'Metro, autobuses, obras. El ruido grave y constante es lo que mejor anulan los micrófonos y el procesador.',nc:.95,img:US('1449824913935',1600)},
+  {t:'11:15',m:'Ambiente automático',p:'Oficina abierta',d:'Los micrófonos dejan pasar lo que importa, como anuncios o conversaciones, y el resto se queda fuera.',nc:.55,img:US('1519389950473',1600)},
+  {t:'15:30',m:'Optimizador adaptativo',p:'Vuelo largo',d:'La presión de cabina cambia y la cancelación se reajusta al ruido exterior y a la presión del aire.',nc:.9,img:US('1436491865332',1600)},
+  {t:'21:20',m:'LDAC · Hi-Res',p:'Sesión nocturna',d:'Audio Hi-Res inalámbrico con LDAC a hasta 990 kbps, si tu móvil también lo admite.',nc:.7,img:US('1760926421866',1600)},
+  {t:'00:10',m:'Escucha por escenas',p:'Cuando todo calla',d:'La escucha por escenas usa sensores para adaptar la cancelación a tu actividad y a tu entorno.',nc:.4,img:US('1470071459604',1600)}
+];
+const scEl=$('#scenes');
+SC.forEach((s,i)=>{const d=document.createElement('div');d.className='scene';const im=document.createElement('img');im.alt=s.p;im.decoding='async';if(i>0)im.loading='lazy';im.src=s.img;d.appendChild(im);scEl.appendChild(d)});
+const scenes=$$('.scene');
+
+const GAL=[
+  {i:'1436491865332',c:'Viaje',t:'Altitud de crucero',w:6,h:5,s:1},
+  {i:'1449824913935',c:'Ciudad',t:'Hora punta',w:3,h:5,s:7},
+  {i:'1508700115892',c:'Estilo',t:'You are what you listen to',w:3,h:3,s:10},
+  {k:1,t:'Sin ruido. Solo música.',w:3,h:2,s:10},
+  {i:'1514525253161',c:'Directo',t:'Cuando acaba el silencio',w:4,h:4,s:1},
+  {i:'1762952805560',c:'Estudio',t:'Mesa de mezclas',w:4,h:4,s:5},
+  {p:PR+'5aab9e62-4c77-4dee-be80-5a55092791c1/-/preview/-/format/auto/6_WH-1000XM6_black_CLOSE_UP_hinge.jpg',c:'Producto',t:'La bisagra, de cerca · Sony',w:4,h:3,s:9},
+  {i:'1625786682948',c:'Estilo',t:'Ojos cerrados',w:4,h:5,s:1},
+  {i:'1776779399573',c:'Estilo',t:'Tu propio mundo',w:4,h:4,s:5},
+  {i:'1519389950473',c:'Foco',t:'Equipo, café y foco',w:4,h:4,s:9},
+  {i:'1511671782779',c:'Estudio',t:'Voz',w:4,h:4,s:1},
+  {i:'1758640920659',c:'Foco',t:'Escritorio sin ruido',w:4,h:4,s:5},
+  {i:'1470071459604',c:'Viaje',t:'Silencio de verdad',w:4,h:3,s:9},
+  {i:'1760926421866',c:'Estudio',t:'Sesión de madrugada',w:4,h:4,s:1},
+  {i:'1470225620780',c:'Directo',t:'Graves en directo',w:4,h:4,s:5},
+  {p:PR+'900c7415-6b08-493e-a364-98be68fc0def/-/preview/-/format/auto/6_WH-1000XM6_silver_CLOSE_UP.jpg',c:'Producto',t:'En plata, con estilo · Sony',w:4,h:4,s:9},
+  {i:'1511379938547',c:'Estudio',t:'Sala de ensayo',w:4,h:3,s:1},
+  {i:'1493225457124',c:'Directo',t:'Energía',w:4,h:4,s:5},
+  {i:'1507838153414',c:'Estudio',t:'Partitura',w:4,h:3,s:9},
+  {k:2,t:'12 micrófonos',w:4,h:3,s:9,m2:1}
+];
+const mos=$('#mosaic');const lbItems=[];
+GAL.forEach((g,n)=>{
+  if(g.k){const d=document.createElement('div');d.className='tile txt rv';d.style.setProperty('--c',g.w);d.style.setProperty('--r',g.h);d.dataset.cat='x';d.style.setProperty('--s',g.s);if(g.m2)d.classList.add('w2');d.innerHTML='<b>'+g.t+'</b>';mos.appendChild(d);return}
+  const b=document.createElement('button');b.type='button';b.className='tile rv';b.style.setProperty('--c',g.w);b.style.setProperty('--r',g.h);b.style.setProperty('--s',g.s);b.dataset.cat=g.c;
+  if(g.w>=6)b.classList.add('w2');
+  const src=g.p||US(g.i,900),big=g.p||US(g.i,1800);
+  b.innerHTML='<img loading="lazy" decoding="async" alt="'+g.t+'" src="'+src+'"><div class="cap mono"><span>'+g.c+'</span><b style="font-family:var(--f);text-transform:none;letter-spacing:-.01em">'+g.t+'</b></div>';
+  const idx=lbItems.length;lbItems.push({src:big,cap:g.c+' · '+g.t});
+  b.addEventListener('click',()=>openLb(idx));mos.appendChild(b);io.observe(b);
+});
+const tiles=$$('.tile',mos);
+const cats=['Todo','Viaje','Ciudad','Estudio','Directo','Foco','Estilo','Producto'];
+const fl=$('#filters');
+cats.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.className='chip'+(i?'':' on');b.textContent=c;b.addEventListener('click',()=>{
+  $$('.chip',fl).forEach(x=>x.classList.toggle('on',x===b));
+  tiles.forEach(t=>t.classList.toggle('dim',i>0&&t.dataset.cat!==c));});fl.appendChild(b)});
+
+/* lightbox */
+const lb=$('#lb'),lbImg=$('#lbImg');let lbI=0,lbFrom=null;
+function showLb(){lbImg.src=lbItems[lbI].src;lbImg.alt=lbItems[lbI].cap;$('#lbCap').textContent=lbItems[lbI].cap}
+function openLb(i){lbFrom=document.activeElement;lbI=i;showLb();lb.classList.add('open');$('#lbX').focus()}
+function closeLb(){lb.classList.remove('open');if(lbFrom)lbFrom.focus()}
+$('#lbX').addEventListener('click',closeLb);
+$('#lbP').addEventListener('click',()=>{lbI=(lbI+lbItems.length-1)%lbItems.length;showLb()});
+$('#lbN').addEventListener('click',()=>{lbI=(lbI+1)%lbItems.length;showLb()});
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();else if(e.key==='ArrowRight')$('#lbN').click();else if(e.key==='ArrowLeft')$('#lbP').click();});
+
+/* design cards */
+const track=$('#track');
+[
+ {cls:'',img:PR+'5aab9e62-4c77-4dee-be80-5a55092791c1/-/preview/-/format/auto/6_WH-1000XM6_black_CLOSE_UP_hinge.jpg',b:'Bisagra de metal inyectado',s:'Se pliega de nuevo y entra en el estuche sin esfuerzo.',alt:'Detalle de la bisagra de los WH-1000XM6'},
+ {cls:'',img:PR+'900c7415-6b08-493e-a364-98be68fc0def/-/preview/-/format/auto/6_WH-1000XM6_silver_CLOSE_UP.jpg',b:'Diadema ancha, cuero vegano',s:'Asimétrica: distingues izquierda y derecha de un vistazo.',alt:'Persona con los WH-1000XM6 plata colgados del bolso'},
+ {num:1,b:'254',s:'gramos de peso aproximado'},
+ {cls:'light',img:PR+'f6137eff-e0a3-4d74-b8e2-c84366eb4c7f/-/preview/-/format/auto/AEBNM6-Stills-1x1_00007.png',fit:1,b:'Tres colores de lanzamiento',s:'Negro, plata platino y azul medianoche.',alt:'WH-1000XM6 en blanco, azul y negro'},
+ {cls:'light',img:SONY+'WH1000XM6_PrimaryTout_0pt-image07-d?wid=1000&fmt=webp-alpha',fit:1,b:'Estuche compacto, cierre magnético',s:'Más fácil de abrir y de meter en la mochila.',alt:'Estuche abierto con los WH-1000XM6 plegados dentro'}
+].forEach(c=>{const d=document.createElement('article');
+  if(c.num){d.className='hc num';d.innerHTML='<div><b>'+c.b+'</b><span>'+c.s+'</span></div>'}
+  else{d.className='hc '+(c.cls||'');d.innerHTML='<img'+(c.fit?' class="fit"':'')+' loading="lazy" decoding="async" alt="'+c.alt+'" src="'+c.img+'"><div class="cap"><b>'+c.b+'</b><span>'+c.s+'</span></div>'}
+  track.appendChild(d)});
+
+/* specs */
+const SP=[['Tipo','Cerrados, circumaurales, plegables'],['Driver','30 mm, imán de neodimio'],['Respuesta','4 Hz – 40 kHz (JEITA)'],['Micrófonos','12 en total · 6 para llamadas'],['Procesador','HD Noise Cancelling QN3'],['Bluetooth','5.3 · alcance aprox. 10 m'],['Códecs','SBC, AAC, LDAC, LC3'],['Música','30 h con NC · 40 h sin NC'],['Llamadas','24 h con NC · 28 h sin NC'],['Carga','Aprox. 3,5 h por USB · 3 min = 3 h'],['Peso','Aprox. 254 g'],['Cable','1,2 m, jack de 3,5 mm desmontable'],['Multipunto','Sí, con cambio automático'],['En la caja','Estuche, cable de conexión, cable USB y guía']];
+const spl=$('#specList');SP.forEach((r,i)=>{const d=document.createElement('div');d.className='sp rv';d.style.setProperty('--d',i%2);d.innerHTML='<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';spl.appendChild(d);io.observe(d)});
+
+/* colours */
+const sws=$('#swatches');
+Object.keys(CW).forEach(k=>{const b=document.createElement('button');b.type='button';b.className='sw'+(k==='black'?' on':'');b.style.background=CW[k].c;b.setAttribute('role','radio');b.setAttribute('aria-checked',k==='black');b.setAttribute('aria-label',CW[k].n);
+  b.addEventListener('click',()=>pick(k));sws.appendChild(b)});
+function pick(k){cwKey=k;const c=CW[k];$$('.sw',sws).forEach((b,i)=>{const on=Object.keys(CW)[i]===k;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
+  $('#cwName').textContent=c.n;$('#cwDesc').textContent=c.d;$('#colores').style.setProperty('--tint',c.t);setHp(k)}
+setTimeout(()=>{['silver','blue','olive'].forEach(k=>{const i=new Image();i.src=CW[k].img})},2500);
+
+/* marquee */
+const mq=$('#mq1');const mw='Sin ruido ·Solo música ·12 micrófonos ·Hi-Res ·30 horas ·Apaga el mundo ·'.split('·');
+function fillMq(){mq.innerHTML='';for(let r=0;r<2;r++)mw.forEach(w=>{if(!w.trim())return;const s=document.createElement('span');s.textContent=w.trim();mq.appendChild(s)})}
+fillMq();let mqX=0,mqDir=-1;
+
+/* dots */
+const SECS=['hero','silencio','nc','sonido','llamadas','dia','diseno','bateria','colores','galeria','specs','cta'];
+const dots=$('#dots');SECS.forEach(id=>{const a=document.createElement('a');a.href='#'+id;a.setAttribute('aria-label',id);dots.appendChild(a)});
+
+/* ---------- theme + canvas bg ---------- */
+const TH={bone:{fg:[11,12,16],bg:[239,235,227]},ink:{fg:[239,235,227],bg:[11,12,16]},blue:{fg:[239,235,227],bg:[46,60,255]},acid:{fg:[11,12,16],bg:[216,255,61]}};
+let theme='bone',fgc=[11,12,16].slice();
+function setTheme(t){if(t!==theme){theme=t;document.body.dataset.theme=t}}
+const cv=$('#bg'),cx=cv.getContext('2d');let W=0,H=0,dpr=1;
+function size(){dpr=Math.min(devicePixelRatio||1,1.5);W=cv.width=Math.round(innerWidth*dpr);H=cv.height=Math.round(innerHeight*dpr)}
+const mood={a:1,j:1},mt={a:1,j:1};
+const hash=n=>{const s=Math.sin(n)*43758.5453;return s-Math.floor(s)};
+function drawBg(t){cx.clearRect(0,0,W,H);
+  const L=20,gap=H*.8/L,top=H*.12,pts=W<900*dpr?64:120;
+  for(let i=0;i<L;i++){const y0=top+i*gap;cx.beginPath();
+    for(let j=0;j<=pts;j++){const nx=j/pts,x=nx*W,env=Math.pow(Math.sin(nx*Math.PI),1.15);
+      let n=Math.sin(nx*5.2+t*.55+i*.45)*.55+Math.sin(nx*11.3-t*.8+i*.9)*.3;
+      n+=(hash(j*7.13+i*3.7+Math.floor(t*14))-.5)*1.7*mood.j;
+      const y=y0-n*Math.max(mood.a,.018)*gap*2.5*env;j?cx.lineTo(x,y):cx.moveTo(x,y)}
+    cx.strokeStyle='rgba('+(fgc[0]|0)+','+(fgc[1]|0)+','+(fgc[2]|0)+','+(.05+.13*i/L)+')';cx.lineWidth=dpr*1.1;cx.stroke()}}
+
+/* ---------- pinned helpers ---------- */
+let vw=innerWidth,vh=innerHeight,sy=0,lastY=0,vel=0;
+const pinEls=$$('[data-pin]'),hsec=$('#diseno');
+const hs={el:hsec,max:0};
+function measure(){vw=innerWidth;vh=innerHeight;size();const last=track.lastElementChild,pad=parseFloat(getComputedStyle(track).paddingLeft)||0;
+  hs.max=last?Math.max(0,last.offsetLeft+last.offsetWidth+pad-vw):0;hsec.style.height=(hs.max+vh*1.15)+'px'}
+const P={sil:0,dia:0,hor:0};
+const dotEls=$$('a',dots);let intro=.4;
+const S4=$$('.step'),ticks=$$('.ticks li'),sHp=$('#sHp'),sDisc=$('#sDisc');
+const POSE=[[16,0,1,-5],[-16,0,1.08,6],[16,-3,1.32,-8],[0,-6,.84,0]];
+let hotShown=-1,counted=false;
+function silence(p){const f=p*4,M=vw<=960;
+  let i=clamp(Math.floor(f-.5),0,2),u=sstep(.18,.82,clamp(f-.5-i,0,1));if(f<.5){i=0;u=0}
+  const a=POSE[i],b=POSE[i+1];const x=lerp(a[0],b[0],u),y=lerp(a[1],b[1],u),s=lerp(a[2],b[2],u),r=lerp(a[3],b[3],u);
+  sHp.style.transform=M?'translate3d(0,'+(y*vh/100)+'px,0) scale('+(s*.92)+') rotate('+r+'deg)':'translate3d('+(x*vw/100)+'px,'+(y*vh/100)+'px,0) scale('+s+') rotate('+r+'deg)';
+  sDisc.style.transform='scale('+(1.02-.12*clamp(p*1.4))+')';
+  S4.forEach((el,k)=>{let d=f-(k+.5);if(k===0&&f<.5)d=0;if(k===3&&f>3.5)d=0;
+    const o=clamp(1.7-Math.abs(d)*3.8);el.style.opacity=o;el.style.setProperty('--ty',(-d*80)+'px')});
+  const act=clamp(Math.floor(f),0,3);ticks.forEach((t,k)=>t.classList.toggle('on',k===act));
+  const sh=act===1?1:0;if(sh!==hotShown){hotShown=sh;hots.forEach((h,k)=>setTimeout(()=>h.classList.toggle('show',!!sh),sh?k*160:0))}
+  hots.forEach((h,k)=>h.classList.toggle('on',act===1&&Math.floor((f-1.5+.5)*4)%4===k||false));
+  if(act===1&&!counted){counted=true;$$('[data-count]').forEach(el=>cio.observe(el))}
+  /* mood: ruido -> silencio */
+  mt.a=f<1?.95:f<2?lerp(.95,.45,f-1):f<3?lerp(.45,.05,f-2):.02;mt.j=mt.a>.3?1:mt.a*3;
+  setTheme(f<1.6?'bone':'ink')}
+const DI=$('#dInfo'),DT=$('#dTime');let dCur=-1;
+function day(p){const f=p*5;scenes.forEach((s,i)=>{let o=clamp(1-Math.abs(f-(i+.5))*1.7);if(i===0&&f<.5)o=1;if(i===4&&f>4.5)o=1;s.style.opacity=o;
+  const q=f-i;s.firstChild.style.transform='scale('+(1.16-.08*clamp(q))+') translate3d(0,'+((q-.5)*-3)+'%,0)'});
+  const k=clamp(Math.floor(f),0,4);if(k!==dCur){dCur=k;const s=SC[k];DI.classList.add('out');DT.classList.add('out');
+    setTimeout(()=>{DT.textContent=s.t;$('#dMode').textContent=s.m;$('#dPlace').textContent=s.p;$('#dText').textContent=s.d;$('#dNc').style.width=(s.nc*100)+'%';$('#dIdx').textContent=(k+1)+' / 5';DI.classList.remove('out');DT.classList.remove('out')},reduce?0:260)}}
+function hor(p){track.style.transform='translate3d('+(-p*hs.max)+'px,0,0)'}
+
+/* ---------- nc demo ---------- */
+const nc=$('#ncCv'),nx=nc.getContext('2d');let ncOn=0,cancel=0,noiseL=.7,snd=0,ac,ng;
+function ncSize(){const r=nc.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);nc.width=r.width*d;nc.height=r.height*d;nc._d=d}
+$$('[data-nc]').forEach(b=>b.addEventListener('click',()=>{ncOn=+b.dataset.nc;$$('[data-nc]').forEach(x=>x.classList.toggle('on',x===b));gain()}));
+$('#noiseR').addEventListener('input',e=>{noiseL=e.target.value/100;gain()});
+$('#soundBtn').addEventListener('click',e=>{snd=!snd;e.currentTarget.textContent='Sonido: '+(snd?'encendido':'apagado');e.currentTarget.classList.toggle('on',!!snd);e.currentTarget.setAttribute('aria-pressed',!!snd);
+  if(snd&&!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();const len=ac.sampleRate*2,buf=ac.createBuffer(1,len,ac.sampleRate),d=buf.getChannelData(0);let last=0;
+    for(let i=0;i<len;i++){const w=Math.random()*2-1;last=(last+.02*w)/1.02;d[i]=last*3.2}
+    const src=ac.createBufferSource();src.buffer=buf;src.loop=true;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=900;ng=ac.createGain();ng.gain.value=0;src.connect(lp);lp.connect(ng);ng.connect(ac.destination);src.start()}catch(err){ac=null}}
+  if(ac&&ac.state==='suspended')ac.resume();gain()});
+function gain(){if(!ng)return;ng.gain.setTargetAtTime(snd?(ncOn?.012:.32*noiseL):0,ac.currentTime,.15)}
+function nz(x,t){return Math.sin(x*3.1+t*2.3)*.5+Math.sin(x*7.7-t*3.7)*.3+Math.sin(x*17.3+t*5.1)*.22+Math.sin(x*31+t*9)*.12*noiseL}
+function drawNc(t){const w=nc.width,h=nc.height,d=nc._d||1;nx.clearRect(0,0,w,h);
+  cancel=lerp(cancel,ncOn?.985:0,.05);const mid=h/2,A=h*.3*(.1+noiseL*.9);
+  nx.strokeStyle='rgba(239,235,227,.12)';nx.lineWidth=d;nx.beginPath();nx.moveTo(0,mid);nx.lineTo(w,mid);nx.stroke();
+  const draw=(fn,col,lw,dash)=>{nx.beginPath();nx.setLineDash(dash||[]);for(let x=0;x<=w;x+=3*d){const y=mid-fn(x/w*8)*A;x?nx.lineTo(x,y):nx.moveTo(x,y)}nx.strokeStyle=col;nx.lineWidth=lw*d;nx.stroke();nx.setLineDash([])};
+  draw(x=>nz(x,t),'rgba(255,106,77,'+(.35+.65*(1-cancel))+')',2);
+  if(cancel>.05)draw(x=>-nz(x,t)*cancel,'rgba(216,255,61,'+cancel+')',2,[8*d,6*d]);
+  draw(x=>nz(x,t)*(1-cancel),'#EFEBE3',3.2);
+  const db=Math.round(20*Math.log10(Math.max(.015,1-cancel)));$('#ncDb').textContent=(db===0?'0':db)+' dB';$('#ncSt').textContent=ncOn?'Simulación con NC':'Sin cancelar';$('#legA').style.opacity=ncOn?1:.25}
+
+/* ---------- eq ---------- */
+const FQ=['32','64','125','250','500','1k','2k','4k','8k','16k'],PRE={Plano:[0,0,0,0,0,0,0,0,0,0],Graves:[7,6,4,2,0,0,0,0,0,0],Voces:[-2,-1,0,2,4,5,4,2,0,-1],Brillo:[0,0,0,0,0,1,3,5,7,7],Cine:[5,4,2,0,-1,0,2,3,4,3]};
+let eq=PRE.Plano.slice(),eqT=eq.slice();
+const bandsEl=$('#bands'),knobs=[];
+FQ.forEach((f,i)=>{const b=document.createElement('div');b.className='band';b.innerHTML='<div class="trk" role="slider" tabindex="0" aria-label="Banda '+f+' Hz" aria-valuemin="-10" aria-valuemax="10" aria-valuenow="0"><div class="knob"></div></div><span>'+f+'</span>';bandsEl.appendChild(b);
+  const trk=$('.trk',b),kn=$('.knob',b);knobs.push({kn,trk});
+  const set=y=>{const r=trk.getBoundingClientRect();eqT[i]=eq[i]=Math.round((.5-clamp((y-r.top)/r.height))*40)/2};
+  trk.addEventListener('pointerdown',e=>{trk.setPointerCapture(e.pointerId);set(e.clientY);trk._d=1});
+  trk.addEventListener('pointermove',e=>{if(trk._d)set(e.clientY)});
+  trk.addEventListener('pointerup',()=>trk._d=0);
+  trk.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowRight'){eqT[i]=eq[i]=clamp(eq[i]+1,-10,10);e.preventDefault()}else if(e.key==='ArrowDown'||e.key==='ArrowLeft'){eqT[i]=eq[i]=clamp(eq[i]-1,-10,10);e.preventDefault()}})});
+const preEl=$('#presets');Object.keys(PRE).forEach((k,i)=>{const b=document.createElement('button');b.type='button';b.className='chip'+(i?'':' on');b.textContent=k;b.addEventListener('click',()=>{eqT=PRE[k].slice();$$('.chip',preEl).forEach(x=>x.classList.toggle('on',x===b))});preEl.appendChild(b)});
+const eqc=$('#eqCv'),ex=eqc.getContext('2d');
+function eqSize(){const r=eqc.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);eqc.width=r.width*d;eqc.height=r.height*d;eqc._d=d}
+function gAt(u){const p=u*9,i=Math.floor(p),f=p-i;return lerp(eq[clamp(i,0,9)],eq[clamp(i+1,0,9)],f*f*(3-2*f))}
+function drawEq(t){const w=eqc.width,h=eqc.height,d=eqc._d||1;ex.clearRect(0,0,w,h);
+  for(let i=0;i<10;i++)eq[i]=Math.abs(eq[i]-eqT[i])<.02?eqT[i]:lerp(eq[i],eqT[i],.12);
+  const N=Math.max(24,Math.floor(w/(14*d))),bw=w/N;
+  for(let i=0;i<N;i++){const u=i/(N-1),base=.5+.28*Math.sin(u*5+1)*Math.sin(u*2.2)+.1*Math.sin(u*17),beat=.5+.5*Math.sin(t*3.4+u*9)*Math.sin(t*1.7+u*3),g=gAt(u)/10;
+    const v=clamp((base*.55+beat*.35)*(1+g*.9),.04,1);ex.fillStyle='rgba(239,235,227,'+(.22+.4*v)+')';ex.fillRect(i*bw+bw*.12,h-v*h*.92,bw*.76,v*h*.92)}
+  ex.beginPath();for(let x=0;x<=w;x+=4*d){const u=x/w,y=h*.5-gAt(u)/10*h*.4;x?ex.lineTo(x,y):ex.moveTo(x,y)}ex.strokeStyle='#D8FF3D';ex.lineWidth=3*d;ex.stroke();
+  knobs.forEach((k,i)=>{k.kn.style.top=((.5-eq[i]/20)*100)+'%';k.trk.setAttribute('aria-valuenow',Math.round(eqT[i]))})}
+
+/* ---------- calls ---------- */
+const cc=$('#callCv'),cxx=cc.getContext('2d');let parts=[],waves=[];
+function callSize(){const r=cc.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);cc.width=r.width*d;cc.height=r.height*d;cc._d=d}
+function drawCall(t){const w=cc.width,h=cc.height,d=cc._d||1,cx0=w*.42,cy0=h*.5,R=Math.min(w,h)*.3;cxx.clearRect(0,0,w,h);
+  if(Math.random()<.35&&parts.length<46){const a=Math.random()*Math.PI*2;parts.push({x:cx0+Math.cos(a)*w*.62,y:cy0+Math.sin(a)*h*.62,a:a+Math.PI,s:.8+Math.random()*1.4,l:1})}
+  if(Math.floor(t*2.2)!==cc._w){cc._w=Math.floor(t*2.2);waves.push({r:R*.35,l:1})}
+  cxx.setLineDash([6*d,8*d]);cxx.strokeStyle='rgba(239,235,227,.4)';cxx.lineWidth=1.5*d;cxx.beginPath();cxx.arc(cx0,cy0,R*1.55,0,7);cxx.stroke();cxx.setLineDash([]);
+  parts=parts.filter(p=>{const dx=cx0-p.x,dy=cy0-p.y,dist=Math.hypot(dx,dy);p.x+=dx/dist*p.s*d*1.6;p.y+=dy/dist*p.s*d*1.6;if(dist<R*1.55)p.l-=.08;
+    cxx.fillStyle='rgba(255,106,77,'+clamp(p.l)+')';cxx.beginPath();cxx.arc(p.x,p.y,4*d*clamp(p.l,.3,1),0,7);cxx.fill();return p.l>0&&dist>R*.7});
+  cxx.fillStyle='#EFEBE3';cxx.beginPath();cxx.arc(cx0,cy0,R*.5,0,7);cxx.fill();
+  cxx.strokeStyle='#EFEBE3';cxx.lineWidth=9*d;cxx.lineCap='round';cxx.beginPath();cxx.arc(cx0,cy0,R*.66,Math.PI*.62,Math.PI*1.38);cxx.stroke();cxx.beginPath();cxx.arc(cx0,cy0,R*.66,-Math.PI*.38,Math.PI*.38);cxx.stroke();
+  waves=waves.filter(v=>{v.r+=2.6*d;v.l-=.011;cxx.strokeStyle='rgba(216,255,61,'+clamp(v.l)+')';cxx.lineWidth=3*d;cxx.beginPath();cxx.arc(cx0+R*.4,cy0,v.r,-.5,.5);cxx.stroke();return v.l>0});
+  cxx.fillStyle='#D8FF3D';cxx.font='500 '+(12*d)+'px DM Mono,monospace';cxx.fillText('TU VOZ  →',w*.62,cy0+4*d);cxx.fillStyle='rgba(255,106,77,.9)';cxx.fillText('RUIDO',w*.05,h*.1)}
+
+/* ---------- battery ---------- */
+const ringV=$('#ringV'),hrsEl=$('#hrs');let hrsCur=0,hrsT=30,batSeen=false;
+$$('[data-bat]').forEach(b=>b.addEventListener('click',()=>{hrsT=+b.dataset.bat;$$('[data-bat]').forEach(x=>x.classList.toggle('on',x===b));ringV.style.strokeDashoffset=540.35*(1-hrsT/40)}));
+
+/* ---------- cursor & magnetic ---------- */
+const cur=$('#cur');let mx=-100,my=-100,cxp=-100,cyp=-100,tx=0,ty=0,tcx=0,tcy=0;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);
+  if(fine)cur.classList.toggle('big',!!e.target.closest('a,button,.tile,.trk,input'))},{passive:true});
+
+/* ---------- main loop ---------- */
+const secEls=SECS.map(id=>document.getElementById(id));
+const bar=$('#bar'),nav=$('#nav'),heroIn=$('#heroIn'),heroDisc=$('#heroDisc'),heroXm=$('.hero-xm'),heroCopy=$('.hero-copy');
+let lastT=performance.now(),vis=true;document.addEventListener('visibilitychange',()=>vis=!document.hidden);
+function frame(now){requestAnimationFrame(frame);if(!vis)return;
+  const t=now/1000;sy=scrollY;vel=sy-lastY;lastY=sy;
+  bar.style.transform='scaleX('+(sy/Math.max(1,document.documentElement.scrollHeight-vh))+')';
+  if(vel>2&&sy>200)nav.classList.add('hide');else if(vel<-2||sy<100)nav.classList.remove('hide');
+  /* theme from section at viewport middle */
+  let act=0;const mid=vh*.5;secEls.forEach((el,i)=>{const r=el.getBoundingClientRect();if(r.top<mid&&r.bottom>mid){act=i}});
+  const sel=secEls[act];
+  if(sel.id!=='silencio'){setTheme(sel.dataset.theme||'ink');const m=(sel.dataset.mood||'.2,0').split(',');mt.a=+m[0];mt.j=+m[1]}
+  dotEls.forEach((a,i)=>a.classList.toggle('on',i===act));
+  /* hero */
+  tcx=lerp(tcx,tx,.07);tcy=lerp(tcy,ty,.07);const hpg=clamp(sy/vh);
+  intro=lerp(intro,document.body.classList.contains('ready')?1:.4,.05);
+  const fl=reduce?0:Math.sin(t*1.1)*10;
+  if(hpg<1||frame.hh!==1){
+    heroIn.style.transform='translate3d('+(tcx*-26)+'px,'+(fl-hpg*vh*.12)+'px,0) rotateY('+(tcx*14)+'deg) rotateX('+(tcy*-8)+'deg) scale('+(1+hpg*.28)+')';
+    heroDisc.style.transform='translate3d('+(tcx*40)+'px,'+(tcy*26)+'px,0) scale('+(intro*(1+hpg*.5))+')';
+    heroXm.style.letterSpacing=(-.02+hpg*.16)+'em';heroXm.style.opacity=1-hpg*.9;heroCopy.style.opacity=1-hpg*1.6;heroCopy.style.transform='translate3d(0,'+(hpg*-60)+'px,0)';
+    frame.hh=hpg>=1?1:0}
+  /* pinned */
+  pinEls.forEach(el=>{const r=el.getBoundingClientRect();if(r.bottom<-vh||r.top>vh*2)return;const p=clamp(-r.top/(r.height-vh));
+    if(el.id==='silencio'){P.sil=lerp(P.sil,p,.14);if(Math.abs(P.sil-p)<.0004)P.sil=p;silence(P.sil)}else{P.dia=lerp(P.dia,p,.14);day(P.dia)}});
+  {const r=hs.el.getBoundingClientRect();if(r.bottom>-vh&&r.top<vh*2){const p=clamp(-r.top/(r.height-vh));P.hor=lerp(P.hor,p,.14);hor(P.hor)}}
+  /* marquee */
+  if(vel>1)mqDir=-1;else if(vel<-1)mqDir=1;
+  if(!reduce){mqX+=mqDir*(.9+Math.min(Math.abs(vel),40)*.35);const half=mq.scrollWidth/2;if(mqX<-half)mqX+=half;if(mqX>0)mqX-=half;mq.style.transform='translate3d('+mqX+'px,0,0)'}
+  /* bg canvas */
+  const tg=TH[theme].fg;for(let i=0;i<3;i++)fgc[i]=lerp(fgc[i],tg[i],.06);
+  mood.a=lerp(mood.a,mt.a,.05);mood.j=lerp(mood.j,mt.j,.05);
+  if(!reduce||!frame.once){drawBg(reduce?0:t);frame.once=1}
+  /* widgets only when visible */
+  const vis2=el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<vh};
+  if(vis2(nc)){drawNc(t)}
+  if(vis2(eqc)){drawEq(t)}
+  if(vis2(cc)){drawCall(t)}
+  if(!batSeen&&vis2(hrsEl)){batSeen=true;ringV.style.strokeDashoffset=540.35*(1-30/40);$('#qcBar').style.width='100%'}
+  hrsCur=lerp(hrsCur,batSeen?hrsT:0,.08);hrsEl.textContent=Math.round(hrsCur);
+  /* tiles parallax */
+  tiles.forEach(tl=>{const r=tl.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const im=tl.firstChild;if(im&&im.tagName==='IMG')im.style.transform='translate3d(0,'+(((r.top+r.height/2)/vh-.5)*-6)+'%,0)'});
+  const ph=$('.photo img');if(ph&&vis2(ph.parentNode)){const r=ph.parentNode.getBoundingClientRect();ph.style.transform='scale(1.12) translate3d(0,'+(((r.top+r.height/2)/vh-.5)*-5)+'%,0)'}
+  /* cursor */
+  cxp=lerp(cxp,mx,.2);cyp=lerp(cyp,my,.2);if(fine)cur.style.transform='translate3d('+cxp+'px,'+cyp+'px,0)';
+}
+addEventListener('resize',()=>{measure();ncSize();eqSize();callSize()});
+function boot(){measure();ncSize();eqSize();callSize();requestAnimationFrame(frame)}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
+addEventListener('load',measure);
+boot();
+/* magnetic buttons */
+if(fine)$$('.btn,.sw').forEach(b=>{b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.22)+'px,'+((e.clientY-r.top-r.height/2)*.3)+'px)'});b.addEventListener('pointerleave',()=>b.style.transform='')});
+})();
+</script>
+</body>
+</html>
