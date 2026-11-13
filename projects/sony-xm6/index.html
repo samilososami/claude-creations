@@ -132,8 +132,8 @@ dialog img{max-height:80vh;width:auto;max-width:100%;margin:0 auto}
   .db{font-size:52px}
   .hero-meta span:last-child{display:none}
   .feat-wrap{grid-template-columns:1fr}
-  .feat-stage{top:72px;height:44vh;position:sticky}
-  .f{min-height:62vh;padding-top:32px}
+  .feat-stage{top:72px;height:44vh;position:sticky;z-index:3;background:var(--ink)}
+  .f{min-height:0;justify-content:flex-start;padding-top:calc(44vh + 40px)}
   .mosaic{grid-template-columns:1fr 1fr}
   .spec-grid{grid-template-columns:1fr}
   .buy{grid-template-columns:1fr}
@@ -542,7 +542,7 @@ dialog img{max-height:80vh;width:auto;max-width:100%;margin:0 auto}
       sc.fillRect(i * bw + 1, base - bh, bw - 2, bh);
     }
     label('LDAC · 990 kbps · 96 kHz', 18, h - 18, 'rgba(238,232,220,0.8)');
-    label('DSEE Extreme · ilustrativo', w - 18, h - 18, 'rgba(238,232,220,0.5)', 'right');
+    label(w < 460 ? 'ilustrativo' : 'DSEE Extreme · ilustrativo', w - 18, h - 18, 'rgba(238,232,220,0.5)', 'right');
   }
   function vMulti(w, h, t) {
     var cx = w * 0.5, cy = h * 0.5, R = Math.min(w, h) * 0.34;
@@ -674,7 +674,7 @@ dialog img{max-height:80vh;width:auto;max-width:100%;margin:0 auto}
 
     $$('.f').forEach(function (el, i) {
       ScrollTrigger.create({
-        trigger: el, start: 'top 58%', end: 'bottom 58%',
+        trigger: el, start: window.innerWidth <= 820 ? 'top 24%' : 'top 58%', end: window.innerWidth <= 820 ? 'bottom 24%' : 'bottom 58%',
         onToggle: function (s) {
           if (!s.isActive) return;
           $$('.f').forEach(function (x) { x.classList.toggle('on', x === el); });
