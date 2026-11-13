@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sony WH-1000XM6 · Del ruido al silencio</title>
+<meta name="description" content="Los Sony WH-1000XM6 contados con scroll: cancelación de ruido con 12 micrófonos y procesador QN3, sonido afinado con ingenieros de masterización, diseño plegable, seis colores y galería.">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0b0c'/%3E%3Cpath d='M4 16h5l2-7 3 14 3-10 2 5 2-2h7' fill='none' stroke='%23ff5722' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0b0b0c;
+  --paper: #f1efea;
+  --steel: #cdd4da;
+  --midnight: #0f1626;
+  --signal: #ff5722;
+  --brass: #c9a36b;
+  --f: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --m: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --pad: clamp(20px, 4vw, 64px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; }
+h1, h2, h3, h4, p, figure, ul, ol, dl, dd, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+::selection { background: var(--signal); color: #fff; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- type ---------- */
+.eyebrow {
+  font-family: var(--m);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.eyebrow b { font-weight: 500; opacity: .55; }
+.eyebrow::after { content: ''; width: 44px; height: 1px; background: currentColor; opacity: .4; }
+.h2 {
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: clamp(2.3rem, 6.2vw, 6.4rem);
+  line-height: .95;
+  letter-spacing: -.028em;
+  text-wrap: balance;
+  margin-top: .45em;
+}
+.lead { font-size: clamp(1.05rem, 1.35vw, 1.3rem); line-height: 1.5; max-width: 34em; }
+.fine { font-family: var(--m); font-size: .66rem; letter-spacing: .04em; opacity: .5; line-height: 1.5; }
+[data-reveal] { opacity: 0; transform: translateY(34px); }
+
+/* ---------- loader ---------- */
+.loader {
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--ink);
+  display: grid; place-items: center;
+  transition: opacity .8s .15s, visibility .8s .15s;
+}
+.is-ready .loader { opacity: 0; visibility: hidden; }
+.loader__in { width: min(280px, 60vw); font-family: var(--m); font-size: .7rem; letter-spacing: .2em; text-align: center; }
+.loader__in i { display: block; height: 1px; margin-top: 16px; background: var(--paper); transform-origin: 50% 50%; animation: breathe 1.2s ease-in-out infinite alternate; }
+@keyframes breathe { from { transform: scaleX(.08); } to { transform: scaleX(1); } }
+
+/* ---------- chrome ---------- */
+.brand {
+  position: fixed; top: 20px; left: var(--pad); z-index: 60;
+  mix-blend-mode: difference; color: #fff;
+  font-stretch: 125%; font-weight: 700; font-size: .84rem; letter-spacing: .03em; line-height: 1.15;
+  text-decoration: none; display: flex; flex-direction: column;
+}
+.brand small { font-family: var(--m); font-stretch: 100%; font-weight: 400; font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; opacity: .7; }
+.info-btn {
+  position: fixed; top: 16px; right: var(--pad); z-index: 60;
+  mix-blend-mode: difference; color: #fff;
+  width: 38px; height: 38px; border: 1px solid currentColor; border-radius: 50%;
+  font-family: var(--m); font-size: .85rem; font-style: italic;
+  transition: background .3s, color .3s;
+}
+.info-btn:hover { background: #fff; color: #000; }
+
+.player {
+  position: fixed; left: 50%; bottom: 18px; z-index: 70;
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 28px)); height: 50px;
+  padding: 0 7px 0 16px;
+  display: flex; align-items: center; gap: 14px;
+  border-radius: 999px;
+  background: rgba(16, 16, 18, .84);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, .14);
+  color: var(--paper);
+  font-family: var(--m); font-size: .7rem; letter-spacing: .06em;
+}
+.player__eq { display: flex; align-items: flex-end; gap: 2px; width: 20px; height: 16px; flex: none; }
+.player__eq i { flex: 1; height: calc(12% + var(--v, 0) * 88%); background: var(--signal); border-radius: 1px; }
+.player__track { flex: none; max-width: 46%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase; }
+.player__track b { font-weight: 500; opacity: .5; margin-right: .7em; }
+.player__bar { flex: 1; min-width: 30px; height: 2px; background: rgba(255, 255, 255, .18); position: relative; }
+.player__bar i { position: absolute; inset: 0; background: var(--paper); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+.player__pct { flex: none; width: 3em; text-align: right; opacity: .65; }
+.player__menu {
+  flex: none; height: 36px; padding: 0 15px; border-radius: 999px;
+  background: var(--paper); color: var(--ink);
+  font-size: .64rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  transition: background .3s, color .3s;
+}
+.player__menu:hover { background: var(--signal); color: #fff; }
+
+.tracks {
+  position: fixed; inset: 0; z-index: 65;
+  background: rgba(11, 11, 12, .97); color: var(--paper);
+  display: grid; place-items: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .35s, visibility .35s;
+}
+.tracks.is-open { opacity: 1; visibility: visible; }
+.tracks ol { width: min(760px, 88vw); counter-reset: t; max-height: 76vh; overflow: auto; }
+.tracks li { border-bottom: 1px solid rgba(255, 255, 255, .12); }
+.tracks a {
+  display: flex; align-items: baseline; gap: 1.2em;
+  padding: .42em 0;
+  text-decoration: none;
+  font-stretch: 118%; font-weight: 700; font-size: clamp(1.3rem, 3.4vw, 2.5rem); letter-spacing: -.02em;
+  transition: padding .45s var(--ease), color .3s;
+}
+.tracks a::before { counter-increment: t; content: counter(t, decimal-leading-zero); font-family: var(--m); font-stretch: 100%; font-weight: 400; font-size: .7rem; letter-spacing: .1em; opacity: .5; }
+.tracks a:hover { padding-left: .6em; color: var(--signal); }
+.tracks a.is-current { color: var(--signal); }
+
+/* ---------- 01 hero ---------- */
+.hero { position: relative; height: 440vh; background: var(--ink); }
+.hero__stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero__grain {
+  position: absolute; inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: calc(var(--lvl, 1) * .2);
+  animation: grain .7s steps(5) infinite;
+  pointer-events: none;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-2%, 3%); }
+  80% { transform: translate(4%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+.hero__words span {
+  position: absolute; white-space: nowrap; text-transform: uppercase;
+  color: var(--paper); line-height: 1;
+  animation: jit .2s steps(2) infinite;
+}
+@keyframes jit {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -1px); }
+  50% { transform: translate(-1px, 2px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+.hero__flood { position: absolute; inset: 0; background: var(--paper); opacity: 0; transform: scaleY(0); will-change: transform; }
+.hero__title { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.hero__word { grid-area: 1 / 1; text-transform: uppercase; line-height: .8; letter-spacing: -.03em; white-space: nowrap; }
+.hero__word--a { font-size: clamp(4.6rem, 23vw, 27rem); color: var(--paper); }
+.hero__word--a span { display: inline-block; font-variation-settings: 'wdth' var(--wd, 125), 'wght' var(--wt, 800); }
+.hero__word--b { font-size: clamp(3rem, 16vw, 19rem); color: var(--ink); opacity: 0; font-variation-settings: 'wdth' var(--wd, 125), 'wght' var(--wt, 800); }
+.hero__product {
+  position: absolute; left: 50%; top: 54%;
+  height: min(70vh, 62vw); width: auto; max-width: none;
+  opacity: 0;
+  filter: drop-shadow(0 44px 48px rgba(0, 0, 0, .3));
+  will-change: transform, opacity;
+}
+.hero__readout {
+  position: absolute; left: var(--pad); bottom: 96px;
+  display: flex; align-items: baseline; gap: .8em;
+  font-family: var(--m); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: #fff; mix-blend-mode: difference;
+}
+.hero__readout b { font-family: var(--f); font-stretch: 62%; font-weight: 300; font-size: clamp(3.2rem, 7vw, 6.4rem); letter-spacing: 0; line-height: .78; min-width: 1.3em; text-align: right; }
+.hero__hint {
+  position: absolute; left: 50%; bottom: 84px; transform: translateX(-50%);
+  font-family: var(--m); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
+  color: var(--paper); background: rgba(11, 11, 12, .88);
+  border: 1px solid rgba(241, 239, 234, .24); border-radius: 999px; padding: 9px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero__hint i { display: block; width: 1px; height: 14px; background: currentColor; transform-origin: 50% 0; animation: drop 1.6s var(--ease) infinite; }
+@keyframes drop { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+.hero__caption { position: absolute; left: var(--pad); right: var(--pad); bottom: 96px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; color: var(--ink); pointer-events: none; }
+.hero__caption > div { width: min(25vw, 330px); opacity: 0; }
+.hero__model { font-stretch: 125%; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.4rem); letter-spacing: -.02em; line-height: 1; margin: .5em 0 .35em; }
+.hero__cap-r { text-align: right; font-size: 1.02rem; line-height: 1.4; }
+
+/* ---------- 02 manifesto ---------- */
+.manifesto { background: var(--paper); color: var(--ink); padding: 20vh var(--pad) 16vh; position: relative; }
+.manifesto__text {
+  font-stretch: 106%; font-weight: 600;
+  font-size: clamp(1.85rem, 4.7vw, 4.9rem);
+  line-height: 1.04; letter-spacing: -.028em;
+  max-width: 19em; margin-top: 5vh;
+}
+.manifesto__text .w { opacity: .12; }
+.figures { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 16vh; border-top: 1px solid rgba(11, 11, 12, .85); }
+.figure { padding: 26px 22px 0 0; }
+.figure + .figure { padding-left: 22px; border-left: 1px solid rgba(11, 11, 12, .14); }
+.figure b { display: block; font-stretch: 62%; font-weight: 300; font-size: clamp(4.4rem, 10.5vw, 11rem); line-height: .8; letter-spacing: -.02em; }
+.figure b small { font-size: .34em; font-weight: 400; margin-left: .08em; }
+.figure > span { display: block; margin-top: 16px; max-width: 19em; font-family: var(--m); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; line-height: 1.5; opacity: .68; }
+.still { position: relative; overflow: hidden; margin-top: 16vh; aspect-ratio: 16 / 9; border-radius: 4px; }
+.still img, .cover { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; max-width: none; object-fit: cover; }
+.still figcaption { position: absolute; right: clamp(16px, 3vw, 44px); bottom: clamp(14px, 3vw, 40px); text-align: right; font-stretch: 118%; font-weight: 700; font-size: clamp(1.3rem, 3.4vw, 3.6rem); line-height: .98; letter-spacing: -.025em; color: var(--ink); }
+
+/* ---------- 03 noise cancelling ---------- */
+.anc { background: var(--ink); color: var(--paper); padding: 18vh var(--pad) 14vh; position: relative; }
+.anc__head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 6vw; align-items: end; margin-bottom: 8vh; }
+.anc__head .lead { margin-top: 1.6em; opacity: .8; }
+.anc__portrait { position: relative; overflow: hidden; aspect-ratio: 3 / 4; border-radius: 4px; max-height: 78vh; justify-self: end; width: 100%; }
+.anc__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 90px); align-items: start; }
+.step { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; opacity: .22; transition: opacity .5s; }
+.step.is-on { opacity: 1; }
+.step__n { font-stretch: 62%; font-weight: 300; font-size: clamp(4rem, 8vw, 8rem); line-height: .8; color: var(--signal); }
+.step h3 { font-stretch: 112%; font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.8rem); letter-spacing: -.02em; line-height: 1; margin: .55em 0 .45em; }
+.step p { max-width: 26em; opacity: .82; }
+.anc__scope { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.scope { position: relative; width: 100%; aspect-ratio: 4 / 3; max-height: 58vh; border: 1px solid rgba(241, 239, 234, .16); border-radius: 6px; overflow: hidden; background: #0e0e10; }
+.scope canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.scope__l { position: absolute; left: 14px; font-family: var(--m); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+.meter { display: grid; grid-template-columns: auto 1fr 4.2em; gap: 14px; align-items: center; font-family: var(--m); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; }
+.meter__bar { height: 6px; background: rgba(241, 239, 234, .12); border-radius: 3px; overflow: hidden; }
+.meter__bar i { display: block; height: 100%; background: var(--signal); transform-origin: 0 50%; }
+.meter b { font-weight: 500; text-align: right; }
+.sim { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  height: 36px; padding: 0 14px;
+  border: 1px solid rgba(128, 128, 128, .55); border-radius: 999px;
+  font-family: var(--m); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.chip:hover { border-color: currentColor; }
+.chip[aria-pressed='true'] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.chip--alt[aria-pressed='true'] { background: var(--signal); border-color: var(--signal); color: #fff; }
+.sim__sep { width: 1px; background: rgba(241, 239, 234, .2); margin: 4px 4px; }
+
+.rows { margin-top: 10vh; border-top: 1px solid currentColor; }
+.row { display: grid; grid-template-columns: 4em minmax(0, 1fr) minmax(0, 1.5fr); gap: 24px; padding: 26px 0; border-bottom: 1px solid rgba(128, 128, 128, .3); align-items: baseline; }
+.row i { font-family: var(--m); font-style: normal; font-size: .7rem; opacity: .5; }
+.row h4 { font-stretch: 112%; font-weight: 700; font-size: clamp(1.15rem, 2vw, 1.7rem); letter-spacing: -.015em; line-height: 1.1; }
+.row p { opacity: .78; max-width: 36em; }
+
+/* ---------- 04 sound ---------- */
+.sound { background: var(--midnight); color: #e9edf3; }
+.sound__intro { padding: 18vh var(--pad) 9vh; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 6vw; align-items: end; }
+.sound__intro .lead { opacity: .82; }
+.sound__media { position: relative; margin: 0 var(--pad); height: 88vh; overflow: hidden; border-radius: 4px; }
+.sound__media figcaption { position: absolute; left: 20px; bottom: 16px; font-family: var(--m); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: #fff; opacity: .8; }
+.quote { padding: 16vh var(--pad) 6vh; font-stretch: 106%; font-weight: 600; font-size: clamp(1.6rem, 3.6vw, 3.6rem); line-height: 1.08; letter-spacing: -.025em; max-width: 21em; }
+.quote cite { display: block; margin-top: 1.6em; font-family: var(--m); font-style: normal; font-stretch: 100%; font-weight: 400; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+
+.driver { position: relative; height: 320vh; }
+.driver__stage { position: sticky; top: 0; height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 4vw; padding: 0 var(--pad); overflow: hidden; }
+.driver__view { height: 76vh; display: grid; place-items: center; perspective: 1500px; }
+.driver__stack { position: relative; width: min(34vw, 50vh); aspect-ratio: 1; transform-style: preserve-3d; transform: rotateX(62deg) rotateZ(calc(var(--rz, -34) * 1deg)); }
+.layer { position: absolute; inset: var(--in, 0); border-radius: 50%; transform: translateZ(calc(var(--ex, 0) * var(--z) * var(--zk, 1) * 1px)); transition: filter .4s, opacity .4s; }
+.layer--frame { --z: -170; background: radial-gradient(circle, #070a11 0 31%, transparent 31.5%), repeating-conic-gradient(from 0deg, #2c3650 0 5deg, #151b2a 5deg 10deg); border: 2px solid #46537a; box-shadow: 0 0 60px rgba(0, 0, 0, .6); }
+.layer--magnet { --z: -58; --in: 21%; background: conic-gradient(from 20deg, #e3e7ee, #8a93a4, #f6f8fb, #7b8496, #cfd5df, #8a93a4, #e3e7ee); -webkit-mask: radial-gradient(circle, transparent 0 40%, #000 41%); mask: radial-gradient(circle, transparent 0 40%, #000 41%); }
+.layer--coil { --z: 52; --in: 31%; background: conic-gradient(from 0deg, #e7a56c, #96562a, #f4c093, #8a4e22, #e7a56c, #96562a, #e7a56c); -webkit-mask: radial-gradient(circle, transparent 0 60%, #000 61%); mask: radial-gradient(circle, transparent 0 60%, #000 61%); }
+.layer--dome { --z: 170; --in: 5%; background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .34), transparent 46%), repeating-linear-gradient(45deg, #262b35 0 3px, #10141b 3px 6px); border: 1px solid #556082; box-shadow: inset 0 0 40px rgba(0, 0, 0, .7); }
+.layer--dome::after { content: ''; position: absolute; inset: 30%; border-radius: 50%; background: radial-gradient(circle at 36% 30%, #6c7791, #1a1f2b 62%); box-shadow: 0 0 0 1px rgba(255, 255, 255, .14); }
+.driver__stack[data-on] .layer { filter: brightness(.5) saturate(.6); }
+.driver__stack[data-on='0'] .layer--dome,
+.driver__stack[data-on='1'] .layer--coil,
+.driver__stack[data-on='2'] .layer--magnet,
+.driver__stack[data-on='3'] .layer--frame { filter: none; }
+.driver__list li { padding: 18px 0; border-bottom: 1px solid rgba(233, 237, 243, .16); opacity: .3; transition: opacity .4s; display: grid; grid-template-columns: 3.2em 1fr; }
+.driver__list li.is-on { opacity: 1; }
+.driver__list i { font-family: var(--m); font-style: normal; font-size: .7rem; opacity: .55; padding-top: .5em; }
+.driver__list h4 { font-stretch: 112%; font-weight: 700; font-size: clamp(1.15rem, 2vw, 1.7rem); letter-spacing: -.015em; }
+.driver__list p { opacity: .78; max-width: 28em; font-size: .98rem; }
+.driver__big { font-stretch: 62%; font-weight: 300; font-size: clamp(4rem, 9vw, 9rem); line-height: .8; margin: .3em 0 .25em; }
+.driver__big small { font-size: .32em; font-weight: 400; margin-left: .15em; }
+
+.eq { padding: 14vh var(--pad) 4vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 5vw; align-items: center; }
+.eq .lead { margin-top: 1.4em; opacity: .82; }
+.eq__panel { border: 1px solid rgba(233, 237, 243, .18); border-radius: 6px; padding: clamp(12px, 2vw, 24px); background: rgba(255, 255, 255, .025); }
+.eq svg { display: block; width: 100%; height: auto; overflow: visible; }
+.eq-grid { stroke: rgba(233, 237, 243, .1); stroke-width: 1; }
+.eq-zero { stroke: rgba(233, 237, 243, .34); }
+.eq-stem { stroke: rgba(233, 237, 243, .07); stroke-width: 1; }
+.eq-db, .eq-f, .eq-val { font-family: var(--m); font-size: 19px; fill: rgba(233, 237, 243, .55); }
+.eq-val { fill: #e9edf3; font-size: 18px; }
+.eq-curve { fill: none; stroke: var(--signal); stroke-width: 3; stroke-linecap: round; }
+.eq-area { fill: rgba(255, 87, 34, .14); }
+.eq-h { cursor: ns-resize; touch-action: none; outline: none; }
+.eq-hit { fill: transparent; }
+.eq-dot { fill: var(--midnight); stroke: #e9edf3; stroke-width: 3; transition: fill .2s; }
+.eq-h:hover .eq-dot, .eq-h:focus-visible .eq-dot { fill: var(--signal); }
+.eq__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+.eq__state { font-family: var(--m); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.sound .rows { margin: 8vh var(--pad) 0; }
+.sound__end { height: 14vh; }
+
+/* ---------- 05 design ---------- */
+.design { background: var(--steel); color: var(--ink); }
+.fold { position: relative; height: 540vh; }
+.fold__stage {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  padding: 13vh var(--pad) 96px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 'head frames' 'caps frames';
+  column-gap: 4vw;
+}
+.fold__head { grid-area: head; }
+.fold__caps { grid-area: caps; position: relative; align-self: end; min-height: 13.5em; }
+.fold__cap { position: absolute; left: 0; bottom: 0; width: min(100%, 27em); opacity: 0; }
+.fold__cap b { display: block; font-family: var(--m); font-weight: 500; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; opacity: .55; margin-bottom: 1em; }
+.fold__cap h3 { font-stretch: 112%; font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2.4rem); letter-spacing: -.02em; line-height: 1.02; margin-bottom: .5em; }
+.fold__cap p { opacity: .8; }
+.fold__frames { grid-area: frames; display: grid; place-items: center; min-height: 0; }
+.fold__frames img { grid-area: 1 / 1; max-height: 72vh; max-width: 100%; width: auto; height: auto; opacity: 0; filter: drop-shadow(0 34px 40px rgba(30, 44, 60, .3)); will-change: transform, opacity; }
+.fold__count { position: absolute; right: var(--pad); top: 13vh; font-family: var(--m); font-size: .7rem; letter-spacing: .12em; }
+.fold__count b { font-family: var(--f); font-stretch: 62%; font-weight: 300; font-size: 3.4rem; line-height: .8; margin-right: .1em; }
+.details { padding: 6vh var(--pad) 18vh; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 6vw; align-items: center; }
+.details figure { position: relative; overflow: hidden; aspect-ratio: 16 / 10; border-radius: 4px; }
+.details li { display: grid; grid-template-columns: 7.5em 1fr; gap: 18px; padding: 16px 0; border-bottom: 1px solid rgba(11, 11, 12, .18); align-items: baseline; }
+.details li:first-child { border-top: 1px solid var(--ink); }
+.details li b { font-stretch: 62%; font-weight: 400; font-size: 1.9rem; line-height: 1; }
+.details li span { opacity: .82; }
+
+/* ---------- 06 colours ---------- */
+.colors { position: relative; height: 660vh; --c-bg: #dcdad4; --c-fg: #0b0b0c; background: var(--c-bg); color: var(--c-fg); transition: background-color .9s var(--ease), color .6s; }
+.colors__stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.colors__photo { position: absolute; inset: 0; opacity: 0; transition: opacity .9s; }
+.colors__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 66% 28%; }
+.colors__photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(40, 36, 33, .5), transparent 55%); }
+.colors.is-photo .colors__photo { opacity: 1; }
+.colors__name {
+  position: absolute; left: 0; right: 0; top: 50%;
+  transform: translateY(-54%);
+  text-align: center; white-space: pre-line; text-transform: uppercase;
+  font-stretch: 125%; font-weight: 800; font-size: clamp(3rem, 12.5vw, 15rem); line-height: .84; letter-spacing: -.03em;
+  opacity: .1; pointer-events: none;
+}
+.colors.is-photo .colors__name { opacity: 0; }
+.colors__products { position: absolute; left: 0; right: 0; top: 13vh; bottom: 16vh; display: grid; place-items: center; }
+.colors__products img {
+  grid-area: 1 / 1; height: min(71vh, 96vw); width: auto; max-width: none;
+  opacity: 0; transform: translateY(8%) scale(.92) rotate(-4deg);
+  transition: opacity .5s, transform 1s var(--ease);
+  filter: drop-shadow(0 40px 44px rgba(0, 0, 0, .32));
+}
+.colors__products img.is-on { opacity: 1; transform: none; }
+.colors__head { position: absolute; top: 13vh; left: var(--pad); }
+.colors__head .h2 { font-size: clamp(1.8rem, 3.6vw, 3.6rem); }
+.colors__meta { position: absolute; left: var(--pad); bottom: 100px; width: min(24em, 44vw); }
+.colors__count { font-family: var(--m); font-size: .7rem; letter-spacing: .12em; opacity: .7; }
+.colors__label { font-stretch: 112%; font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2.4rem); letter-spacing: -.02em; line-height: 1; margin: .35em 0 .4em; }
+.colors__note { opacity: .82; font-size: .98rem; }
+.colors__swatches { position: absolute; right: var(--pad); bottom: 104px; display: flex; gap: 12px; }
+.sw { width: 34px; height: 34px; border-radius: 50%; background: var(--sw); border: 1px solid rgba(128, 128, 128, .6); position: relative; transition: transform .4s var(--ease); }
+.sw:hover { transform: scale(1.12); }
+.sw[aria-current='true']::after { content: ''; position: absolute; inset: -6px; border: 1px solid currentColor; border-radius: 50%; }
+
+/* ---------- 07 a day ---------- */
+.day { position: relative; height: 640vh; --d-bg: #cdd4da; --d-fg: #0b0b0c; background: var(--d-bg); color: var(--d-fg); }
+.day__stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-bottom: 60px; }
+.day__head { padding: 0 var(--pad); display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 5vh; }
+.day__head .h2 { font-size: clamp(1.9rem, 4.4vw, 4.4rem); }
+.day__head .fine { max-width: 24em; text-align: right; opacity: .6; }
+.day__track { display: flex; gap: clamp(18px, 4vw, 64px); padding: 0 var(--pad); width: max-content; will-change: transform; }
+.card { flex: none; width: min(58vw, 900px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(16px, 2.4vw, 36px); align-items: end; }
+.card figure { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; }
+.card img { width: 100%; height: 100%; object-fit: cover; }
+.card time { display: block; font-stretch: 62%; font-weight: 300; font-size: clamp(3.4rem, 6.6vw, 6.6rem); line-height: .8; }
+.card h3 { font-stretch: 112%; font-weight: 700; font-size: clamp(1.2rem, 2vw, 1.9rem); letter-spacing: -.018em; line-height: 1.04; margin: .65em 0 .45em; }
+.card p { font-size: .98rem; opacity: .82; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tags li { font-family: var(--m); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; border: 1px solid currentColor; border-radius: 999px; padding: 4px 9px; opacity: .72; }
+.day__clock { margin: 5vh var(--pad) 0; font-family: var(--m); font-size: .64rem; letter-spacing: .1em; }
+.day__clock div { height: 1px; background: rgba(128, 128, 128, .4); position: relative; }
+.day__clock i { position: absolute; inset: 0; background: currentColor; transform-origin: 0 50%; transform: scaleX(var(--dp, 0)); }
+.day__clock p { display: flex; justify-content: space-between; margin-top: 10px; opacity: .7; }
+
+/* ---------- 08 battery ---------- */
+.battery { background: var(--ink); color: var(--paper); padding: 16vh var(--pad) 18vh; }
+.battery__top { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 5vw; align-items: end; margin-top: 4vh; }
+.battery__num { font-stretch: 62%; font-weight: 200; font-size: clamp(9rem, 31vw, 31rem); line-height: .74; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.battery__num small { font-size: .28em; font-weight: 300; margin-left: .08em; }
+.battery__top .lead { opacity: .82; padding-bottom: 1.2em; }
+.cells { display: grid; grid-template-columns: repeat(30, 1fr); gap: clamp(2px, .4vw, 6px); margin-top: 7vh; }
+.cells i { height: clamp(40px, 9vh, 110px); background: rgba(241, 239, 234, .1); border-radius: 2px; transition: background .25s; }
+.cells i.is-on { background: var(--paper); }
+.cells i.is-on:nth-child(n+13):nth-child(-n+20) { background: var(--brass); }
+.cells i.is-on:nth-child(n+21) { background: var(--signal); }
+.cells__legend { display: grid; grid-template-columns: 12fr 8fr 10fr; gap: clamp(2px, .4vw, 6px); margin-top: 12px; font-family: var(--m); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; opacity: .7; }
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 11vh; border-top: 1px solid rgba(241, 239, 234, .85); }
+.fact { padding: 24px 20px 0 0; }
+.fact + .fact { padding-left: 20px; border-left: 1px solid rgba(241, 239, 234, .14); }
+.fact b { display: block; font-stretch: 62%; font-weight: 300; font-size: clamp(2.8rem, 5.4vw, 5.4rem); line-height: .86; }
+.fact b small { font-size: .4em; font-weight: 400; margin-left: .1em; }
+.fact span { display: block; margin-top: 12px; font-family: var(--m); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; line-height: 1.5; opacity: .68; max-width: 20em; }
+
+/* ---------- 09 gallery ---------- */
+.gallery { background: var(--ink); color: var(--paper); padding: 6vh var(--pad) 18vh; }
+.gallery__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 7vh; }
+.gallery__head .fine { max-width: 26em; text-align: right; }
+.mosaic { --u: calc((100vw - 2 * var(--pad)) / 12 * .86); display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: var(--u); gap: clamp(6px, .9vw, 14px); grid-auto-flow: dense; }
+.tile { position: relative; overflow: hidden; border-radius: 3px; grid-column: span var(--c); grid-row: span var(--r); background: #151517; cursor: zoom-in; display: block; }
+.tile__in { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; }
+.tile img { width: 100%; height: 100%; object-fit: cover; object-position: var(--op, 50% 50%); transition: transform 1.2s var(--ease); }
+.tile:hover img, .tile:focus-visible img { transform: scale(1.05); }
+.tile__n { position: absolute; top: 10px; left: 12px; font-family: var(--m); font-size: .62rem; letter-spacing: .08em; color: #fff; mix-blend-mode: difference; }
+.tile__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 14px 12px; font-family: var(--m); font-size: .62rem; letter-spacing: .05em; text-transform: uppercase; line-height: 1.4; color: #fff; background: linear-gradient(transparent, rgba(0, 0, 0, .66)); opacity: 0; transform: translateY(8px); transition: opacity .4s, transform .4s; }
+.tile:hover .tile__cap, .tile:focus-visible .tile__cap { opacity: 1; transform: none; }
+
+.lb { position: fixed; inset: 0; z-index: 90; background: rgba(8, 8, 9, .97); color: var(--paper); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+.lb.is-open { opacity: 1; visibility: visible; }
+.lb__top { display: flex; justify-content: space-between; align-items: center; padding: 16px var(--pad); font-family: var(--m); font-size: .72rem; letter-spacing: .1em; }
+.lb__img { min-height: 0; display: grid; place-items: center; padding: 0 var(--pad); overflow: hidden; }
+.lb__img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 3px; }
+.lb__bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 16px var(--pad) 22px; }
+.lb__cap { font-size: .95rem; max-width: 46em; }
+.lb__nav { display: flex; gap: 8px; flex: none; }
+.round { width: 44px; height: 44px; border: 1px solid rgba(241, 239, 234, .32); border-radius: 50%; font-family: var(--m); font-size: .9rem; transition: background .25s, color .25s; }
+.round:hover { background: var(--paper); color: var(--ink); }
+
+/* ---------- 10 specs ---------- */
+.specs { background: var(--paper); color: var(--ink); padding: 18vh var(--pad) 12vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 6vw; }
+.specs__side { position: sticky; top: 12vh; align-self: start; background: var(--paper); }
+.specs__side img { mix-blend-mode: multiply; width: min(100%, 380px); margin-top: 2vh; }
+.spec-group { border-top: 1px solid var(--ink); padding: 18px 0 40px; }
+.spec-group h3 { font-family: var(--m); font-weight: 500; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.spec-group dl { display: grid; grid-template-columns: minmax(8.5em, 1fr) 2.2fr; column-gap: 24px; }
+.spec-group dt, .spec-group dd { padding: 11px 0; border-bottom: 1px solid rgba(11, 11, 12, .12); }
+.spec-group dt { opacity: .6; font-size: .92rem; }
+.spec-group dd { font-weight: 500; font-size: .98rem; }
+.versus { width: 100%; border-collapse: collapse; font-size: .98rem; }
+.versus th { font-family: var(--m); font-weight: 500; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; text-align: left; padding: 10px 0; opacity: .6; }
+.versus td { padding: 11px 12px 11px 0; border-top: 1px solid rgba(11, 11, 12, .12); }
+.versus td:nth-child(2) { opacity: .5; }
+.versus td:nth-child(3) { font-weight: 600; }
+.specs .fine { margin-top: 8px; opacity: .6; max-width: 60em; }
+
+/* ---------- outro ---------- */
+.outro { position: relative; height: 100vh; min-height: 620px; overflow: hidden; color: var(--ink); text-align: center; background: #e9e9ee; }
+.outro__in { position: relative; height: 100%; padding: 12vh var(--pad) 100px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+.outro h2 { font-stretch: 125%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.3rem, 7.6vw, 8.6rem); line-height: .84; letter-spacing: -.03em; }
+.outro p { margin: 0 auto; max-width: 30em; }
+.btn { display: inline-flex; align-items: center; gap: .9em; height: 54px; padding: 0 26px; margin-top: 26px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; font-family: var(--m); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; transition: background .3s, transform .5s var(--ease); }
+.btn:hover { background: var(--signal); transform: translateY(-2px); }
+.credits { background: var(--ink); color: rgba(241, 239, 234, .66); padding: 44px var(--pad) 110px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 36px; font-size: .84rem; line-height: 1.6; }
+.credits h3 { font-family: var(--m); font-weight: 500; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--paper); margin-bottom: 10px; }
+.credits a { text-underline-offset: 3px; }
+.credits a:hover { color: var(--signal); }
+
+/* ---------- info dialog ---------- */
+.info { width: min(620px, calc(100vw - 32px)); max-height: 84vh; padding: 0; border: 1px solid rgba(255, 255, 255, .16); border-radius: 10px; background: #121214; color: var(--paper); }
+.info::backdrop { background: rgba(0, 0, 0, .66); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.info__in { padding: 28px clamp(20px, 4vw, 34px) 30px; }
+.info__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.info h2 { font-stretch: 118%; font-weight: 700; font-size: 1.5rem; letter-spacing: -.02em; }
+.info blockquote { margin: 16px 0; padding: 16px 18px; border-left: 2px solid var(--signal); background: rgba(255, 255, 255, .04); font-family: var(--m); font-size: .76rem; line-height: 1.65; }
+.info dl { display: grid; grid-template-columns: 7em 1fr; gap: 8px 16px; font-size: .9rem; margin-top: 18px; }
+.info dt { font-family: var(--m); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; opacity: .55; padding-top: .25em; }
+
+/* ---------- fallback without GSAP ---------- */
+.no-gsap [data-reveal], .no-gsap .manifesto__text .w, .no-gsap .step { opacity: 1; transform: none; }
+.no-gsap .hero { height: 100vh; }
+.no-gsap .hero__flood { opacity: 1; transform: none; }
+.no-gsap .hero__word--a, .no-gsap .hero__words, .no-gsap .hero__readout, .no-gsap .hero__hint { display: none; }
+.no-gsap .hero__word--b, .no-gsap .hero__caption > div { opacity: 1; }
+.no-gsap .hero__product { opacity: 1; transform: translate(-50%, -50%); }
+.no-gsap .fold, .no-gsap .driver, .no-gsap .colors, .no-gsap .day { height: auto; }
+.no-gsap .fold__frames img:first-child, .no-gsap .fold__cap:first-child { opacity: 1; }
+.no-gsap .day__stage { height: auto; padding: 12vh 0; }
+.no-gsap .day__track { width: auto; overflow-x: auto; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  body { font-size: 16px; }
+  .hero__product { height: min(50vh, 104vw); top: 47%; }
+  .hero__readout { bottom: 88px; }
+  .hero__hint { bottom: 158px; font-size: .58rem; }
+  .hero__caption { justify-content: center; text-align: center; bottom: 84px; }
+  .hero__caption > div { width: 100%; }
+  .hero__caption .eyebrow { justify-content: center; }
+  .hero__caption .eyebrow::after { display: none; }
+  .hero__cap-r { display: none; }
+  .figures, .facts { grid-template-columns: repeat(2, 1fr); }
+  .figure, .fact { padding: 20px 14px 26px 0; }
+  .figure + .figure, .fact + .fact { padding-left: 0; border-left: 0; }
+  .figure:nth-child(even), .fact:nth-child(even) { padding-left: 14px; border-left: 1px solid rgba(128, 128, 128, .25); }
+  .figure:nth-child(n+3), .fact:nth-child(n+3) { border-top: 1px solid rgba(128, 128, 128, .25); }
+  .still { aspect-ratio: 4 / 3; }
+  .anc__head, .sound__intro, .eq, .details, .specs { grid-template-columns: minmax(0, 1fr); }
+  .anc__portrait { max-height: 62vh; aspect-ratio: 4 / 5; }
+  .anc__grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .anc__scope { order: -1; height: auto; z-index: 2; padding: 62px 0 12px; background: var(--ink); gap: 10px; }
+  .scope { aspect-ratio: 16 / 10; max-height: 30vh; }
+  .scope__l { font-size: .54rem; left: 8px; }
+  .chip { height: 32px; padding: 0 11px; font-size: .6rem; }
+  .anc__scope .fine { display: none; }
+  .step { min-height: 62vh; }
+  .row { grid-template-columns: 2.6em minmax(0, 1fr); }
+  .row p { grid-column: 2; }
+  .sound__media { height: 62vh; }
+  .driver__stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: 44vh auto; align-content: center; gap: 0; }
+  .driver__view { height: 44vh; }
+  .driver__stack { width: min(62vw, 32vh); --zk: .5; }
+  .driver__list li { padding: 10px 0; }
+  .driver__list p { font-size: .88rem; display: none; }
+  .driver__list li.is-on p { display: block; }
+  .driver__big { display: none; }
+  .fold__stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; grid-template-areas: 'head' 'frames' 'caps'; padding-top: 11vh; }
+  .fold__frames img { max-height: 40vh; }
+  .fold__caps { min-height: 11.5em; }
+  .fold__count { top: auto; bottom: 86px; }
+  .fold__count b { font-size: 2.2rem; }
+  .details li { grid-template-columns: 6em 1fr; }
+  .colors__products { top: 20vh; bottom: 30vh; }
+  .colors__products img { height: min(48vh, 100vw); }
+  .colors__meta { bottom: 142px; width: auto; right: var(--pad); }
+  .colors__swatches { right: auto; left: var(--pad); bottom: 88px; }
+  .colors__photo img { object-position: 70% 20%; }
+  .day__head { flex-direction: column; align-items: flex-start; margin-bottom: 3vh; }
+  .day__head .fine { display: none; }
+  .card { width: 84vw; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .card figure { aspect-ratio: 16 / 10; }
+  .card time { font-size: 3.2rem; }
+  .card p { font-size: .92rem; }
+  .day__clock { margin-top: 3vh; }
+  .battery__top { grid-template-columns: minmax(0, 1fr); }
+  .cells { gap: 2px; }
+  .cells__legend { font-size: .54rem; }
+  .gallery__head { flex-direction: column; align-items: flex-start; }
+  .gallery__head .fine { text-align: left; }
+  .mosaic { --u: calc((100vw - 2 * var(--pad)) / 6 * .86); grid-template-columns: repeat(6, 1fr); }
+  .tile { grid-column: span var(--mc); grid-row: span 4; }
+  .tile__cap { opacity: 1; transform: none; font-size: .54rem; padding: 30px 10px 8px; }
+  .specs__side { position: static; }
+  .specs__side img { width: 46%; }
+  .spec-group dl { grid-template-columns: minmax(0, 1fr); }
+  .spec-group dt { border-bottom: 0; padding-bottom: 0; font-size: .8rem; }
+  .spec-group dd { padding-top: 2px; }
+  .credits { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .player { gap: 10px; padding-left: 13px; }
+  .player__pct { display: none; }
+  .lb__bottom { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 900px) and (max-height: 720px) {
+  .tags { display: none; }
+  .fold__caps { min-height: 10em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__grain, .hero__words span, .hero__hint i, .loader__in i { animation: none; }
+}
+/* ---------- small-screen refinements ---------- */
+@media (max-width: 900px) {
+  .player { padding: 0 14px 0 7px; }
+  .player__menu { order: -1; }
+  .fold__count { top: 11vh; bottom: auto; }
+  .colors__products { top: 17vh; bottom: 38vh; }
+  .colors__products img { height: min(40vh, 96vw); }
+  .card figure { aspect-ratio: 16 / 9; }
+  .outro p { display: none; }
+}
+@media (max-width: 900px) and (max-height: 760px) {
+  .day__stage { justify-content: flex-start; padding-top: 74px; }
+}
+/* lightbox arrows sit on the sides, clear of anything docked in the corners */
+.lb__nav { display: contents; }
+.lb__nav .round { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(8, 8, 9, .62); }
+.lb__nav .round:hover { background: var(--paper); }
+#lbPrev { left: clamp(8px, 2vw, 28px); }
+#lbNext { right: clamp(8px, 2vw, 28px); }
+</style>
+</head>
+<body>
+
+<div class="loader" aria-hidden="true">
+  <div class="loader__in">WH-1000XM6<i></i></div>
+</div>
+
+<a class="brand" href="#ruido" aria-label="Volver al inicio"><small>Sony</small>WH-1000XM6</a>
+<button class="info-btn" type="button" id="infoBtn" aria-haspopup="dialog" aria-label="Sobre esta página">i</button>
+
+<main>
+
+  <!-- 01 · RUIDO -->
+  <section class="hero" id="ruido" data-track="Ruido">
+    <div class="hero__stage">
+      <canvas class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__grain" aria-hidden="true"></div>
+      <div class="hero__words" aria-hidden="true"></div>
+      <div class="hero__flood" aria-hidden="true"></div>
+      <h1 class="hero__title">
+        <span class="hero__word hero__word--a" aria-hidden="true"><span>R</span><span>U</span><span>I</span><span>D</span><span>O</span></span>
+        <span class="hero__word hero__word--b">Silencio</span>
+        <span class="sr">Sony WH-1000XM6: del ruido al silencio</span>
+      </h1>
+      <img class="hero__product" src="img/c-black.webp" width="1047" height="1525" alt="Auriculares Sony WH-1000XM6 en color negro" fetchpriority="high">
+      <div class="hero__readout" aria-hidden="true"><span>Cancelación</span><b id="ncPct">00</b><span>%</span></div>
+      <p class="hero__hint"><i></i>Desliza. El ruido se cancela solo.</p>
+      <div class="hero__caption">
+        <div class="hero__cap-l">
+          <p class="eyebrow">Sony · serie 1000X</p>
+          <p class="hero__model">WH-1000XM6</p>
+          <p>Auriculares inalámbricos con cancelación de ruido.</p>
+        </div>
+        <div class="hero__cap-r">
+          <p>Doce micrófonos. Un procesador siete veces más rápido. Treinta horas. Y vuelven a plegarse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · SILENCIO -->
+  <section class="manifesto" id="silencio" data-track="Silencio">
+    <p class="eyebrow"><b>02</b>Silencio</p>
+    <p class="manifesto__text">El mundo no piensa bajar el volumen. Así que doce micrófonos lo escuchan por ti, un procesador siete veces más rápido calcula su contrario y lo único que queda es la música. Tal y como se grabó.</p>
+    <div class="figures">
+      <div class="figure" data-reveal><b><span data-count="12">12</span></b><span>micrófonos. Un 50 % más que en los WH-1000XM5</span></div>
+      <div class="figure" data-reveal><b><span data-count="7">7</span>×</b><span>más rápido: procesador QN3 frente al QN1</span></div>
+      <div class="figure" data-reveal><b><span data-count="30">30</span><small>h</small></b><span>de batería con la cancelación activada</span></div>
+      <div class="figure" data-reveal><b><span data-count="254">254</span><small>g</small></b><span>de peso. Y se pliegan para viajar</span></div>
+    </div>
+    <figure class="still" data-clip>
+      <img src="img/p-still.webp" alt="Una persona sentada con los WH-1000XM6 en Sand Pink mientras otras pasan desenfocadas a su alrededor" loading="lazy" data-par>
+      <figcaption>Todo se mueve.<br>Tú no.</figcaption>
+    </figure>
+  </section>
+
+  <!-- 03 · CANCELACIÓN -->
+  <section class="anc" id="cancelacion" data-track="Cancelación">
+    <header class="anc__head">
+      <div>
+        <p class="eyebrow"><b>03</b>Cancelación de ruido</p>
+        <h2 class="h2">Así se fabrica el silencio.</h2>
+        <p class="lead">Cancelar ruido no es taparlo. Es escucharlo, calcular su onda contraria y sumar las dos. Los WH-1000XM6 lo hacen con más oídos y más deprisa que cualquier 1000X anterior.</p>
+      </div>
+      <figure class="anc__portrait" data-clip>
+        <img class="cover" src="img/p-profile.webp" alt="Perfil de una mujer con los WH-1000XM6 puestos" loading="lazy" data-par>
+      </figure>
+    </header>
+
+    <div class="anc__grid">
+      <div class="anc__steps">
+        <article class="step">
+          <span class="step__n">01</span>
+          <h3>Escuchar</h3>
+          <p>Doce micrófonos repartidos entre las dos copas captan lo que ocurre fuera y lo que llega al oído. Cuantos más puntos de escucha, mejor se adapta la cancelación a ti y a lo que te rodea.</p>
+        </article>
+        <article class="step">
+          <span class="step__n">02</span>
+          <h3>Calcular</h3>
+          <p>El procesador HD de cancelación de ruido QN3, siete veces más rápido que el QN1, ajusta esos doce micrófonos en tiempo real y genera una onda idéntica al ruido, pero invertida.</p>
+        </article>
+        <article class="step">
+          <span class="step__n">03</span>
+          <h3>Sumar</h3>
+          <p>Ruido más antirruido da silencio. La física es la de siempre; lo que cambia es la velocidad a la que se resuelve. Lo que queda en la línea de abajo es solo tu música.</p>
+        </article>
+      </div>
+
+      <div class="anc__scope">
+        <div class="scope">
+          <canvas id="scope" aria-label="Osciloscopio ilustrativo: ruido exterior, antirruido y señal resultante"></canvas>
+          <span class="scope__l" style="top:5%">Ruido exterior · 12 micrófonos</span>
+          <span class="scope__l" style="top:37%">Antirruido · QN3</span>
+          <span class="scope__l" style="top:69%">Lo que oyes</span>
+        </div>
+        <div class="meter">
+          <span>Ruido que te llega</span>
+          <div class="meter__bar"><i id="ncBar"></i></div>
+          <b id="ncLeft">100 %</b>
+        </div>
+        <div class="sim" role="group" aria-label="Simulador de entorno">
+          <button class="chip" type="button" data-env="0" aria-pressed="true">Avión</button>
+          <button class="chip" type="button" data-env="1" aria-pressed="false">Metro</button>
+          <button class="chip" type="button" data-env="2" aria-pressed="false">Oficina</button>
+          <button class="chip" type="button" data-env="3" aria-pressed="false">Calle</button>
+          <span class="sim__sep" aria-hidden="true"></span>
+          <button class="chip chip--alt" type="button" id="ncToggle" aria-pressed="true">Cancelación: activada</button>
+          <button class="chip chip--alt" type="button" id="sndToggle" aria-pressed="false">Sonido: desactivado</button>
+        </div>
+        <p class="fine">Simulación ilustrativa generada en tu navegador. No es una medición real.</p>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="row" data-reveal><i>A</i><h4>Adaptive NC Optimizer</h4><p>Reajusta la cancelación sobre la marcha según el ruido exterior, cómo llevas puestos los auriculares y la presión atmosférica. En un avión se nota.</p></div>
+      <div class="row" data-reveal><i>B</i><h4>Sonido ambiente automático</h4><p>Equilibra música y entorno en tiempo real. Filtra el ruido y deja pasar lo que importa: un aviso por megafonía, una conversación, la calle.</p></div>
+      <div class="row" data-reveal><i>C</i><h4>Atención rápida</h4><p>Cubre la copa derecha con la mano y la música baja al instante para que oigas lo que tienes delante, sin quitártelos.</p></div>
+    </div>
+  </section>
+
+  <!-- 04 · SONIDO -->
+  <section class="sound" id="sonido" data-track="Sonido">
+    <div class="sound__intro">
+      <div>
+        <p class="eyebrow"><b>04</b>Sonido</p>
+        <h2 class="h2">Afinados por quienes masterizan tus discos.</h2>
+      </div>
+      <p class="lead" data-reveal>Sony desarrolló los WH-1000XM6 junto a ingenieros de masterización de Sterling Sound, Battery Studios y Coast Mastering. Randy Merrill, Chris Gehringer, Mike Piacentini y Michael Romanowski: los oídos detrás de discos de Ed Sheeran, Rihanna, Bob Dylan o Alicia Keys.</p>
+    </div>
+    <figure class="sound__media" data-clip>
+      <img class="cover" src="img/p-console.webp" alt="WH-1000XM6 en Platinum Silver apoyados sobre una mesa de masterización" loading="lazy" data-par>
+      <figcaption>Platinum Silver sobre una consola de masterización · Foto: Sony</figcaption>
+    </figure>
+    <blockquote class="quote" data-reveal>«Representan con fidelidad el sonido de las grabaciones en las que tanto trabajamos.»
+      <cite>Randy Merrill · ingeniero de masterización, Sterling Sound</cite>
+    </blockquote>
+
+    <div class="driver">
+      <div class="driver__stage">
+        <div class="driver__view" aria-hidden="true">
+          <div class="driver__stack">
+            <div class="layer layer--frame"></div>
+            <div class="layer layer--magnet"></div>
+            <div class="layer layer--coil"></div>
+            <div class="layer layer--dome"></div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">El diafragma, capa a capa</p>
+          <p class="driver__big">30<small>mm</small></p>
+          <ol class="driver__list">
+            <li><i>01</i><div><h4>Cúpula de fibra de carbono</h4><p>Un compuesto de alta rigidez que saca los matices de cada frecuencia: voces más ricas, instrumentos mejor definidos.</p></div></li>
+            <li><i>02</i><div><h4>Bobina móvil</h4><p>Con una estructura desarrollada por Sony para este modelo.</p></div></li>
+            <li><i>03</i><div><h4>Imán de neodimio</h4><p>El motor que mueve el conjunto, de 4 Hz a 40 000 Hz.</p></div></li>
+            <li><i>04</i><div><h4>Unidad de 30 mm</h4><p>Afinada también para la cancelación: el mismo diafragma que suena es el que emite el antirruido.</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="eq">
+      <div>
+        <p class="eyebrow">Sony | Sound Connect</p>
+        <h2 class="h2" style="font-size:clamp(1.9rem,4vw,4rem)">Diez bandas para dejarlo a tu gusto.</h2>
+        <p class="lead">La app incluye un ecualizador de 10 bandas, un Game EQ desarrollado con el equipo de INZONE para shooters y un efecto de música de fondo. Prueba a mover la curva.</p>
+      </div>
+      <div class="eq__panel">
+        <svg id="eq" viewBox="0 0 1000 400" role="group" aria-label="Ecualizador interactivo de diez bandas"></svg>
+        <div class="eq__bar">
+          <div class="sim" role="group" aria-label="Preajustes del ecualizador">
+            <button class="chip" type="button" data-preset="Plano" aria-pressed="true">Plano</button>
+            <button class="chip" type="button" data-preset="Graves" aria-pressed="false">Graves</button>
+            <button class="chip" type="button" data-preset="Voz" aria-pressed="false">Voz</button>
+            <button class="chip" type="button" data-preset="Brillante" aria-pressed="false">Brillante</button>
+            <button class="chip" type="button" data-preset="Cine" aria-pressed="false">Cine</button>
+          </div>
+          <p class="eq__state" id="eqState" aria-live="polite">Preajuste: Plano</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="row" data-reveal><i>A</i><h4>LDAC</h4><p>Audio de alta resolución inalámbrico, con una tasa de hasta 990 kbps en dispositivos compatibles.</p></div>
+      <div class="row" data-reveal><i>B</i><h4>DSEE Extreme</h4><p>Inteligencia artificial en el propio auricular que reconstruye en tiempo real los agudos que la compresión se llevó por delante.</p></div>
+      <div class="row" data-reveal><i>C</i><h4>Noise shaper predictivo</h4><p>El QN3 anticipa y optimiza el ruido de cuantización en la conversión digital-analógica. Más detalle, graves más limpios.</p></div>
+      <div class="row" data-reveal><i>D</i><h4>360 Reality Audio Upmix for Cinema</h4><p>Convierte el estéreo de una película en sonido espacial, como si estuvieras sentado en la sala.</p></div>
+    </div>
+    <div class="sound__end"></div>
+  </section>
+
+  <!-- 05 · DISEÑO -->
+  <section class="design" id="diseno" data-track="Diseño">
+    <div class="fold">
+      <div class="fold__stage">
+        <header class="fold__head">
+          <p class="eyebrow"><b>05</b>Diseño</p>
+          <h2 class="h2">Vuelven a plegarse.</h2>
+        </header>
+        <div class="fold__caps">
+          <div class="fold__cap"><b>Diadema</b><h3>Más ancha y asimétrica</h3><p>Reparte mejor el peso y, de un vistazo, sabes cuál es el lado derecho. Va forrada en cuero vegano.</p></div>
+          <div class="fold__cap"><b>Copas</b><h3>Giran y quedan planas</h3><p>Para llevarlos al cuello o dejarlos sobre la mesa. Las almohadillas, de material elástico, sellan sin apretar.</p></div>
+          <div class="fold__cap"><b>Bisagra</b><h3>Metal inyectado</h3><p>El mecanismo de plegado se fabrica por inyección de metal, pensado para abrirse y cerrarse durante años.</p></div>
+          <div class="fold__cap"><b>Plegados</b><h3>Caben donde no cabían</h3><p>En un bolso o en el bolsillo del asiento del avión. El detalle que más se echaba de menos en la generación anterior.</p></div>
+          <div class="fold__cap"><b>Estuche</b><h3>Cierre magnético</h3><p>Más compacto y sin cremallera. Dentro, hueco para el cable de audio y el de carga.</p></div>
+        </div>
+        <div class="fold__frames">
+          <img src="img/f-front.webp" alt="WH-1000XM6 en Sand Pink vistos de frente" loading="lazy">
+          <img src="img/f-swivel.webp" alt="WH-1000XM6 con las copas giradas en plano" loading="lazy">
+          <img src="img/f-half.webp" alt="WH-1000XM6 con una copa plegada hacia dentro" loading="lazy">
+          <img src="img/f-flat.webp" alt="WH-1000XM6 completamente plegados" loading="lazy">
+          <img src="img/f-case.webp" alt="WH-1000XM6 plegados dentro de su estuche" loading="lazy">
+        </div>
+        <p class="fold__count" aria-hidden="true"><b id="foldN">01</b>/ 05</p>
+      </div>
+    </div>
+    <div class="details">
+      <figure data-clip>
+        <img class="cover" src="img/p-hinge.webp" alt="Detalle de la bisagra metálica de los WH-1000XM6 en negro" loading="lazy" data-par>
+      </figure>
+      <ul>
+        <li data-reveal><b>254 g</b><span>Ligeros para llevarlos puestos una jornada entera.</span></li>
+        <li data-reveal><b>2 botones</b><span>Distintos al tacto, para no confundir el encendido con el modo de cancelación.</span></li>
+        <li data-reveal><b>1 panel</b><span>Táctil en la copa derecha: volumen, pistas y llamadas con gestos.</span></li>
+        <li data-reveal><b>100 %</b><span>Embalaje de papel, sin plásticos, según Sony.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 06 · COLORES -->
+  <section class="colors" id="colores" data-track="Colores">
+    <div class="colors__stage">
+      <div class="colors__photo"><img src="img/p-sandstone.webp" alt="Mujer de perfil con los WH-1000XM6 en color Sandstone" loading="lazy"></div>
+      <p class="colors__name" aria-hidden="true">Black</p>
+      <div class="colors__products">
+        <img class="is-on" data-c="black" src="img/c-black.webp" alt="WH-1000XM6 en Black" loading="lazy">
+        <img data-c="silver" src="img/c-silver.webp" alt="WH-1000XM6 en Platinum Silver" loading="lazy">
+        <img data-c="blue" src="img/c-blue.webp" alt="WH-1000XM6 en Midnight Blue" loading="lazy">
+        <img data-c="pink" src="img/c-pink.webp" alt="WH-1000XM6 en Sand Pink" loading="lazy">
+        <img data-c="olive" src="img/c-olive.webp" alt="WH-1000XM6 en Olive Gray" loading="lazy">
+      </div>
+      <header class="colors__head">
+        <p class="eyebrow"><b>06</b>Colores</p>
+        <h2 class="h2">Seis acabados.</h2>
+      </header>
+      <div class="colors__meta" aria-live="polite">
+        <p class="colors__count" id="cCount">01 / 06 · 2025</p>
+        <p class="colors__label" id="cLabel">Black</p>
+        <p class="colors__note" id="cNote">El de siempre. Negro mate, con el logotipo en un dorado apagado.</p>
+      </div>
+      <div class="colors__swatches" role="group" aria-label="Elegir color">
+        <button class="sw" type="button" style="--sw:#2c2c2e" aria-label="Black" aria-current="true"></button>
+        <button class="sw" type="button" style="--sw:#c9c8c3" aria-label="Platinum Silver"></button>
+        <button class="sw" type="button" style="--sw:#35435a" aria-label="Midnight Blue"></button>
+        <button class="sw" type="button" style="--sw:#d8c2be" aria-label="Sand Pink"></button>
+        <button class="sw" type="button" style="--sw:#cdbda8" aria-label="Sandstone"></button>
+        <button class="sw" type="button" style="--sw:#7b7d71" aria-label="Olive Gray"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · UN DÍA -->
+  <section class="day" id="dia" data-track="Un día">
+    <div class="day__stage">
+      <header class="day__head">
+        <div>
+          <p class="eyebrow"><b>07</b>Un día con ellos</p>
+          <h2 class="h2">De las 07:40 a las 23:50.</h2>
+        </div>
+        <p class="fine">Sigue bajando: el día avanza hacia la derecha y la página se va haciendo de noche.</p>
+      </header>
+      <div class="day__track">
+        <article class="card">
+          <figure><img src="img/p-metro.webp" alt="Una mujer con los WH-1000XM6 mira el móvil mientras la gente pasa desenfocada" loading="lazy"></figure>
+          <div>
+            <time>07:40</time>
+            <h3>El andén desaparece</h3>
+            <p>La escucha por escenas detecta que vas de camino y pone tu música y el nivel de cancelación que toca, sin sacar el móvil.</p>
+            <ul class="tags"><li>Scene-based Listening</li><li>Quick Access</li></ul>
+          </div>
+        </article>
+        <article class="card">
+          <figure><img src="img/p-ambient.webp" alt="Dos personas conversan; una lleva los auriculares puestos" loading="lazy"></figure>
+          <div>
+            <time>09:10</time>
+            <h3>Portátil y móvil a la vez</h3>
+            <p>Conectados a dos dispositivos, saltan solos al que suena. Y si alguien te habla, el sonido ambiente deja pasar su voz.</p>
+            <ul class="tags"><li>Multipunto</li><li>Auto Switch</li><li>Hey Headphones</li></ul>
+          </div>
+        </article>
+        <article class="card">
+          <figure><img src="img/p-call.webp" alt="Un hombre atiende una llamada con los auriculares puestos" loading="lazy"></figure>
+          <div>
+            <time>12:30</time>
+            <h3>Se te oye a ti</h3>
+            <p>Seis micrófonos con beamforming por IA aíslan tu voz del ruido, aunque haya gente hablando al lado. Y un botón silencia el micro.</p>
+            <ul class="tags"><li>6 micrófonos</li><li>Beamforming IA</li><li>Mute</li></ul>
+          </div>
+        </article>
+        <article class="card">
+          <figure><img src="img/p-flatlay.webp" alt="Los auriculares plegados junto a una camisa, unas gafas y un bolso" loading="lazy"></figure>
+          <div>
+            <time>16:00</time>
+            <h3>Plegados, en la maleta</h3>
+            <p>Estuche compacto con cierre magnético. Ya en el aire, la cancelación se reajusta a la presión de la cabina.</p>
+            <ul class="tags"><li>Plegables</li><li>Presión atmosférica</li></ul>
+          </div>
+        </article>
+        <article class="card">
+          <figure><img src="img/p-cinema.webp" alt="Una mujer tumbada con los auriculares puestos y los ojos cerrados" loading="lazy"></figure>
+          <div>
+            <time>20:30</time>
+            <h3>La sala de cine, puesta</h3>
+            <p>El upmix para cine reparte el estéreo de una película a tu alrededor. Y con LE Audio la latencia cae para jugar sin retraso.</p>
+            <ul class="tags"><li>360 Upmix Cinema</li><li>LE Audio</li><li>Auracast</li></ul>
+          </div>
+        </article>
+        <article class="card">
+          <figure><img src="img/p-chair.webp" alt="Los auriculares apoyados en una silla junto a una tableta" loading="lazy"></figure>
+          <div>
+            <time>23:50</time>
+            <h3>Tres minutos de enchufe</h3>
+            <p>Dan para unas tres horas más. Y por primera vez en la serie puedes seguir escuchando mientras cargan.</p>
+            <ul class="tags"><li>Carga rápida USB PD</li><li>Escucha mientras cargan</li></ul>
+          </div>
+        </article>
+      </div>
+      <div class="day__clock" aria-hidden="true">
+        <div><i></i></div>
+        <p><span>07:40</span><span>12:30</span><span>16:00</span><span>23:50</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · BATERÍA -->
+  <section class="battery" id="bateria" data-track="Batería">
+    <p class="eyebrow"><b>08</b>Batería</p>
+    <div class="battery__top">
+      <p class="battery__num"><span id="batNum">30</span><small>h</small></p>
+      <p class="lead">Treinta horas de música con la cancelación activada. Para hacerse una idea: un vuelo de doce horas, una jornada entera de trabajo y todavía sobran diez.</p>
+    </div>
+    <div class="cells" aria-hidden="true"></div>
+    <div class="cells__legend" aria-hidden="true"><span>Vuelo largo · 12 h</span><span>Jornada · 8 h</span><span>Aún quedan · 10 h</span></div>
+    <div class="facts">
+      <div class="fact" data-reveal><b>40<small>h</small></b><span>con la cancelación desactivada</span></div>
+      <div class="fact" data-reveal><b>3<small>min</small></b><span>de carga para unas 3 h de música, con un adaptador USB PD</span></div>
+      <div class="fact" data-reveal><b>24<small>h</small></b><span>de llamadas con cancelación</span></div>
+      <div class="fact" data-reveal><b>3,5<small>h</small></b><span>para una carga completa por USB-C</span></div>
+    </div>
+  </section>
+
+  <!-- 09 · GALERÍA -->
+  <section class="gallery" id="galeria" data-track="Galería">
+    <header class="gallery__head">
+      <div>
+        <p class="eyebrow"><b>09</b>Galería</p>
+        <h2 class="h2">Míralos bien.</h2>
+      </div>
+      <p class="fine">Imágenes oficiales de prensa de Sony. Pulsa cualquiera para verla a tamaño completo.</p>
+    </header>
+    <div class="mosaic" id="mosaic"></div>
+  </section>
+
+  <!-- 10 · FICHA -->
+  <section class="specs" id="ficha" data-track="Ficha técnica">
+    <div class="specs__side">
+      <p class="eyebrow"><b>10</b>Ficha técnica</p>
+      <h2 class="h2">Todo, en números.</h2>
+      <img src="img/g-side.webp" alt="Vista lateral de los WH-1000XM6 en Platinum Silver" loading="lazy">
+    </div>
+    <div>
+      <div class="spec-group">
+        <h3>Sonido</h3>
+        <dl>
+          <dt>Tipo</dt><dd>Cerrado, circumaural, dinámico</dd>
+          <dt>Diafragma</dt><dd>30 mm, cúpula de compuesto de fibra de carbono</dd>
+          <dt>Imán</dt><dd>Neodimio</dd>
+          <dt>Respuesta en frecuencia</dt><dd>4 Hz – 40 000 Hz (JEITA)</dd>
+          <dt>Por Bluetooth</dt><dd>20 Hz – 20 000 Hz (44,1 kHz) · 20 Hz – 40 000 Hz (LDAC 96 kHz, 990 kbps)</dd>
+          <dt>Impedancia</dt><dd>48 Ω encendidos · 16 Ω apagados (1 kHz, por cable)</dd>
+          <dt>Sensibilidad</dt><dd>103 dB/mW encendidos · 102 dB/mW apagados</dd>
+          <dt>Procesado</dt><dd>DSEE Extreme · ecualizador de 10 bandas · 360 Reality Audio Upmix for Cinema</dd>
+        </dl>
+      </div>
+      <div class="spec-group">
+        <h3>Cancelación de ruido</h3>
+        <dl>
+          <dt>Procesador</dt><dd>HD Noise Cancelling Processor QN3</dd>
+          <dt>Micrófonos</dt><dd>12 en total (MEMS, omnidireccionales) · 6 con beamforming por IA en llamadas</dd>
+          <dt>Optimización</dt><dd>Adaptive NC Optimizer · ajuste a la presión atmosférica</dd>
+          <dt>Modos</dt><dd>Cancelación · sonido ambiente · sonido ambiente automático · atención rápida</dd>
+        </dl>
+      </div>
+      <div class="spec-group">
+        <h3>Conexión</h3>
+        <dl>
+          <dt>Bluetooth</dt><dd>5.3 · alcance aproximado de 10 m</dd>
+          <dt>Códecs</dt><dd>SBC · AAC · LDAC · LC3</dd>
+          <dt>LE Audio</dt><dd>Sí, con Auracast</dd>
+          <dt>Multipunto</dt><dd>Sí, con cambio automático entre dispositivos</dd>
+          <dt>Cable</dt><dd>Minijack estéreo de 1,2 m, desmontable · admite uso pasivo</dd>
+        </dl>
+      </div>
+      <div class="spec-group">
+        <h3>Batería</h3>
+        <dl>
+          <dt>Música</dt><dd>Hasta 30 h con cancelación · hasta 40 h sin ella</dd>
+          <dt>Llamadas</dt><dd>Hasta 24 h con cancelación · hasta 28 h sin ella</dd>
+          <dt>Carga completa</dt><dd>3,5 h aproximadamente, por USB-C</dd>
+          <dt>Carga rápida</dt><dd>3 min para unas 3 h (adaptador USB PD no incluido)</dd>
+          <dt>Escuchar cargando</dt><dd>Sí</dd>
+        </dl>
+      </div>
+      <div class="spec-group">
+        <h3>Diseño</h3>
+        <dl>
+          <dt>Peso</dt><dd>254 g aproximadamente</dd>
+          <dt>Plegado</dt><dd>Sí, con bisagra de metal inyectado</dd>
+          <dt>Controles</dt><dd>Botones físicos y panel táctil</dd>
+          <dt>Colores</dt><dd>Black · Platinum Silver · Midnight Blue · Sand Pink · Sandstone · Olive Gray</dd>
+          <dt>En la caja</dt><dd>Estuche con cierre magnético · cable de audio · cable USB</dd>
+          <dt>Lanzamiento</dt><dd>Mayo de 2025 · 450 € de precio recomendado en Europa</dd>
+        </dl>
+      </div>
+      <div class="spec-group">
+        <h3>Qué cambia frente a los WH-1000XM5</h3>
+        <table class="versus">
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col">XM5</th><th scope="col">XM6</th></tr></thead>
+          <tbody>
+            <tr><td>Micrófonos</td><td>8</td><td>12</td></tr>
+            <tr><td>Procesador de cancelación</td><td>QN1</td><td>QN3, 7 veces más rápido</td></tr>
+            <tr><td>Se pliegan</td><td>No</td><td>Sí</td></tr>
+            <tr><td>Estuche</td><td>Cremallera</td><td>Cierre magnético</td></tr>
+            <tr><td>Escuchar mientras cargan</td><td>No</td><td>Sí</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine">Datos de Sony. La autonomía varía según el uso y los ajustes. La carga rápida requiere un adaptador USB PD de 9 V / 2,3 A o más. LDAC a 990 kbps necesita un dispositivo compatible. La disponibilidad de colores cambia según el país.</p>
+    </div>
+  </section>
+
+  <!-- OUTRO -->
+  <section class="outro">
+    <img class="cover" src="img/p-pillow.webp" alt="Los WH-1000XM6 en Sand Pink descansan sobre una almohada blanca" loading="lazy" data-par>
+    <div class="outro__in">
+      <h2 data-reveal>Ahora, silencio.</h2>
+      <div class="outro__foot">
+        <p data-reveal>Hasta aquí el ruido. Si quieres comprobar el resto con tus propios oídos, la ficha oficial está en la web de Sony.</p>
+        <a class="btn" data-reveal href="https://www.sony.es/headphones/products/wh-1000xm6" target="_blank" rel="noopener">Ver en sony.es <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="credits">
+  <div>
+    <h3>Sobre esta página</h3>
+    <p>Página no oficial, hecha como ejercicio de diseño. No tiene relación con Sony ni vende nada. WH-1000XM6, LDAC, DSEE Extreme y 360 Reality Audio son marcas de Sony Group Corporation.</p>
+  </div>
+  <div>
+    <h3>Imágenes</h3>
+    <p>Fotografías y renders oficiales del <a href="https://www.sony.eu/presscentre/media/album/44224" target="_blank" rel="noopener">Sony Europe Press Centre</a>. © Sony Group Corporation.</p>
+  </div>
+  <div>
+    <h3>Datos</h3>
+    <p><a href="https://www.sony.eu/presscentre/sony-introduces-the-next-evolution-of-noise-cancelling-with-the-wh-1000xm6" target="_blank" rel="noopener">Nota de prensa de Sony Europe</a> (15 de mayo de 2025) y especificaciones oficiales de soporte.</p>
+  </div>
+</footer>
+
+<!-- player / tracklist -->
+<nav class="tracks" id="tracks" aria-label="Secciones" aria-hidden="true"><ol></ol></nav>
+<div class="player" role="navigation" aria-label="Progreso de la página">
+  <span class="player__eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+  <span class="player__track"><b id="trkN">01</b><span id="trkT">Ruido</span></span>
+  <span class="player__bar" aria-hidden="true"><i></i></span>
+  <span class="player__pct" id="trkP" aria-hidden="true">0 %</span>
+  <button class="player__menu" type="button" id="trkBtn" aria-expanded="false" aria-controls="tracks">Pistas</button>
+</div>
+
+<!-- lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Imagen ampliada" aria-hidden="true">
+  <div class="lb__top"><span id="lbCount">01 / 21</span><button class="round" type="button" id="lbClose" aria-label="Cerrar imagen">✕</button></div>
+  <div class="lb__img"><img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""></div>
+  <div class="lb__bottom">
+    <p class="lb__cap" id="lbCap"></p>
+    <div class="lb__nav"><button class="round" type="button" id="lbPrev" aria-label="Imagen anterior">←</button><button class="round" type="button" id="lbNext" aria-label="Imagen siguiente">→</button></div>
+  </div>
+</div>
+
+<!-- info -->
+<dialog class="info" id="info" aria-labelledby="infoTitle">
+  <div class="info__in">
+    <div class="info__top"><h2 id="infoTitle">Sobre esta página</h2><button class="round" type="button" id="infoClose" aria-label="Cerrar">✕</button></div>
+    <p>Hecha por Claude a partir de un único prompt, sin plantillas. Este es, tal cual:</p>
+    <blockquote>creame una página web llamativa, que muestre los cascos sony xm6. añade imagenes publicas y tal y todo eso. lo que tu veas. que hable de las funciones y de todas las caracteristicas. que muestre tambien ejemplos de imagenes de todo tipo. añade por ejemplo una galeria que muestre imagenes, igual lo puedes hacer estilo mosaico. que sea una experiencia visual de página web, que conforme el usuario scrollea se sienta increible. que se vaya adaptando y modificando la web conforme el usuario baja o sube. el estilo de diseño decidelo tu, en función de lo que veas que pega. preparala, y cuando la tengas, la hosteas en appdeploy.</blockquote>
+    <dl>
+      <dt>Modelo</dt><dd>Claude Fable 5.2</dd>
+      <dt>Fecha</dt><dd>13 de noviembre de 2026</dd>
+      <dt>Imágenes</dt><dd>Sony Europe Press Centre</dd>
+      <dt>Aviso</dt><dd>Página no oficial, sin relación con Sony.</dd>
+    </dl>
+  </div>
+</dialog>
+
+<noscript><p style="position:fixed;left:0;right:0;bottom:0;z-index:200;margin:0;padding:14px;background:#ff5722;color:#fff;text-align:center">Esta página necesita JavaScript para mostrar sus animaciones.</p></noscript>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const $ = (s, c) => (c || document).querySelector(s);
+  const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+  const clamp = (v, a, b) => Math.min(b === undefined ? 1 : b, Math.max(a === undefined ? 0 : a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const pad2 = (n) => String(n).padStart(2, '0');
+  const hash = (n) => { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.floor(s); };
+  const vnoise = (x) => { const i = Math.floor(x); const f = x - i; const u = f * f * (3 - 2 * f); return lerp(hash(i), hash(i + 1), u) * 2 - 1; };
+  const IMG = 'img/';
+
+  const boot = () => { document.body.classList.add('is-ready'); if (window.ScrollTrigger) { window.ScrollTrigger.refresh(); } };
+  window.addEventListener('load', boot);
+  setTimeout(boot, 4500);
+
+  if (!window.gsap || !window.ScrollTrigger) {
+    document.documentElement.classList.add('no-gsap');
+    return;
+  }
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const small = () => window.innerWidth <= 900;
+
+  /* ---------- smooth scroll ---------- */
+  let lenis = null;
+  if (window.Lenis && !reduce) {
+    lenis = new window.Lenis({ lerp: 0.11 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  const scrollToY = (y) => {
+    if (lenis) { lenis.scrollTo(y, { duration: 1.3 }); } else { window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' }); }
+  };
+  const lockScroll = (on) => {
+    if (lenis) { if (on) { lenis.stop(); } else { lenis.start(); } }
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+  };
+
+  /* ---------- 01 hero ---------- */
+  const hero = $('#ruido');
+  const hs = { level: 1, flood: 0 };
+  const hcv = $('.hero__canvas');
+  const hcx = hcv.getContext('2d');
+  const grain = $('.hero__grain');
+  const pctEl = $('#ncPct');
+  let HW = 0;
+  let HH = 0;
+  let heroOn = true;
+
+  const sizeHero = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    HW = hcv.clientWidth;
+    HH = hcv.clientHeight;
+    hcv.width = Math.round(HW * dpr);
+    hcv.height = Math.round(HH * dpr);
+    hcx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const drawHero = (t) => {
+    hcx.clearRect(0, 0, HW, HH);
+    const lvl = hs.level;
+    const lines = HW < 760 ? 20 : 32;
+    const mid = (lines - 1) / 2;
+    const gap = HH / (lines + 1);
+    const spread = Math.pow(lvl, 0.8);
+    const amp = HH * 0.13 * lvl;
+    const stepX = HW < 760 ? 7 : 6;
+    hcx.lineWidth = 1.1;
+    for (let i = 0; i < lines; i++) {
+      const base = HH / 2 + (i - mid) * gap * spread;
+      hcx.beginPath();
+      for (let x = -12; x <= HW + 12; x += stepX) {
+        const env = 0.22 + Math.exp(-Math.pow((x - HW / 2) / (HW * 0.3), 2));
+        const n = vnoise(x * 0.011 + t * 0.8 + i * 13.7) * 0.62 + vnoise(x * 0.047 - t * 2.1 + i * 7.3) * 0.3 + (reduce ? 0 : (Math.random() - 0.5) * 0.55);
+        const y = base + n * amp * env;
+        if (x === -12) { hcx.moveTo(x, y); } else { hcx.lineTo(x, y); }
+      }
+      if (i % 8 === 3) {
+        hcx.strokeStyle = 'rgba(255,87,34,' + (0.95 * lvl).toFixed(3) + ')';
+      } else {
+        hcx.strokeStyle = 'rgba(241,239,234,' + (0.26 + 0.5 * (1 - Math.abs(i - mid) / mid)).toFixed(3) + ')';
+      }
+      hcx.stroke();
+    }
+  };
+
+  // noise sources scattered around the title
+  const WORDS = [
+    ['tráfico', 6, 13, 2.3, 800, 125, 0],
+    ['obras', 31, 8, 1.1, 400, 62, 0],
+    ['megafonía', 50, 15, 1.7, 300, 100, 0],
+    ['claxon', 79, 9, 3.2, 900, 62, 0],
+    ['turbinas', 11, 27, 1.3, 500, 125, 0],
+    ['el vecino de arriba', 60, 25, 1, 400, 100, 0],
+    ['sirenas', 84, 23, 1.8, 700, 100, 0],
+    ['teclados', 4, 70, 1.5, 300, 62, 0],
+    ['aire acondicionado', 22, 79, 1, 500, 125, 0],
+    ['conversaciones ajenas', 47, 71, 1.4, 800, 62, 0],
+    ['metro', 83, 70, 2.8, 200, 125, 0],
+    ['notificaciones', 63, 83, 1.1, 600, 100, 0],
+    ['lluvia', 80, 84, 2, 900, 100, 0],
+    ['taladro', 30, 86, 1.2, 300, 125, 0],
+    ['motores', 93, 44, 1.2, 600, 100, 90],
+    ['ladridos', 2.5, 46, 1, 500, 62, -90]
+  ];
+  const wordsBox = $('.hero__words');
+  WORDS.forEach((w, i) => {
+    const el = document.createElement('span');
+    el.textContent = w[0];
+    el.style.left = w[1] + '%';
+    el.style.top = w[2] + '%';
+    el.style.fontSize = 'clamp(' + (0.6 * w[3]).toFixed(2) + 'rem,' + (1.25 * w[3]).toFixed(2) + 'vw,' + (1.5 * w[3]).toFixed(2) + 'rem)';
+    el.style.fontVariationSettings = '\'wdth\' ' + w[5] + ', \'wght\' ' + w[4];
+    el.style.animationDuration = (0.14 + (i % 5) * 0.05) + 's';
+    if (w[6]) { el.style.rotate = w[6] + 'deg'; }
+    if (i % 3 === 1) { el.style.fontFamily = 'var(--m)'; }
+    wordsBox.appendChild(el);
+  });
+  const wordEls = $$('.hero__words span');
+  const letters = $$('.hero__word--a span');
+  let lastJit = 0;
+  const jitter = (now) => {
+    if (reduce || now - lastJit < 85) { return; }
+    lastJit = now;
+    const k = hs.level;
+    letters.forEach((el) => {
+      el.style.setProperty('--wd', (125 - Math.random() * 63 * k).toFixed(0));
+      el.style.setProperty('--wt', (800 - Math.random() * 620 * k * (Math.random() > 0.45 ? 1 : 0.15)).toFixed(0));
+    });
+  };
+
+  gsap.set('.hero__product', { xPercent: -50, yPercent: -50 });
+  const htl = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom bottom', scrub: 0.5 }
+  });
+  htl.to(hs, { level: 0, duration: 0.46, ease: 'power1.inOut' }, 0);
+  htl.to('.hero__hint', { opacity: 0, duration: 0.04 }, 0.01);
+  const order = [7, 2, 11, 0, 14, 5, 9, 3, 12, 1, 15, 6, 10, 4, 13, 8];
+  wordEls.forEach((el, i) => {
+    htl.to(el, { opacity: 0, filter: 'blur(10px)', duration: 0.05 }, 0.03 + order[i] * 0.021);
+  });
+  htl.to('.hero__word--a', { opacity: 0, scale: 0.94, filter: 'blur(16px)', duration: 0.1 }, 0.36);
+  htl.set('.hero__flood', { opacity: 1 }, 0.455);
+  htl.fromTo('.hero__flood', { scaleY: 0.0026 }, { scaleY: 1, duration: 0.16, ease: 'power3.inOut' }, 0.46);
+  htl.to(hs, { flood: 1, duration: 0.16 }, 0.46);
+  htl.to('.hero__readout', { opacity: 0, duration: 0.04 }, 0.5);
+  htl.fromTo('.hero__word--b', { opacity: 0, '--wd': 62, '--wt': 300 }, { opacity: 1, '--wd': 125, '--wt': 800, duration: 0.12, ease: 'power2.out' }, 0.56);
+  htl.fromTo('.hero__product', { opacity: 0, y: 90, scale: 0.9, rotation: 4 }, { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.16, ease: 'power3.out' }, 0.66);
+  htl.to('.hero__word--b', { yPercent: () => (small() ? 0 : -62), y: () => (small() ? -window.innerHeight * 0.33 : 0), duration: 0.16, ease: 'power2.out' }, 0.66);
+  htl.fromTo('.hero__caption > div', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.07, stagger: 0.025, ease: 'power2.out' }, 0.8);
+  htl.to({}, { duration: 0.08 }, 0.92);
+
+  ScrollTrigger.create({ trigger: hero, start: 'top bottom', end: 'bottom top', onToggle: (s) => { heroOn = s.isActive; } });
+
+  /* ---------- 02 manifesto ---------- */
+  const mt = $('.manifesto__text');
+  mt.innerHTML = mt.textContent.trim().split(/\s+/).map((w) => '<span class="w">' + w + '</span>').join(' ');
+  gsap.to('.manifesto__text .w', {
+    opacity: 1, stagger: 0.1, ease: 'none',
+    scrollTrigger: { trigger: mt, start: 'top 80%', end: 'bottom 48%', scrub: 0.4 }
+  });
+  $$('[data-count]').forEach((el) => {
+    const to = parseFloat(el.dataset.count);
+    const o = { v: 0 };
+    gsap.to(o, {
+      v: to, duration: 1.7, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      onUpdate: () => { el.textContent = Math.round(o.v); }
+    });
+  });
+
+  /* ---------- shared reveals ---------- */
+  $$('[data-clip]').forEach((f) => {
+    gsap.fromTo(f, { clipPath: 'inset(14% 9% 14% 9% round 8px)' }, {
+      clipPath: 'inset(0% 0% 0% 0% round 4px)', ease: 'none',
+      scrollTrigger: { trigger: f, start: 'top 96%', end: 'top 32%', scrub: 0.4 }
+    });
+  });
+  $$('[data-par]').forEach((im) => {
+    gsap.fromTo(im, { yPercent: -7 }, {
+      yPercent: 7, ease: 'none',
+      scrollTrigger: { trigger: im.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  /* ---------- 03 noise cancelling scope ---------- */
+  const scv = $('#scope');
+  const scx = scv.getContext('2d');
+  const anc = { scroll: 0, on: true, manual: false, cancel: 0, env: 0, shown: -1 };
+  const ENVS = [
+    { f: [0.9, 1.7, 2.6], a: [1, 0.55, 0.3], j: 0.1 },
+    { f: [1.4, 3.1, 6.3], a: [0.8, 0.6, 0.45], j: 0.28 },
+    { f: [3.2, 7.4, 12.1], a: [0.45, 0.5, 0.4], j: 0.4 },
+    { f: [1.1, 4.4, 9.2], a: [0.7, 0.5, 0.5], j: 0.5 }
+  ];
+  const AUDIO = [
+    { lp: 420, pf: 110, pg: 9, vol: 0.5 },
+    { lp: 900, pf: 260, pg: 7, vol: 0.4 },
+    { lp: 2600, pf: 900, pg: 4, vol: 0.2 },
+    { lp: 1800, pf: 500, pg: 6, vol: 0.32 }
+  ];
+  let SW = 0;
+  let SH = 0;
+  let ancOn = false;
+  const ncBar = $('#ncBar');
+  const ncLeft = $('#ncLeft');
+
+  const sizeScope = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    SW = scv.clientWidth;
+    SH = scv.clientHeight;
+    scv.width = Math.round(SW * dpr);
+    scv.height = Math.round(SH * dpr);
+    scx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const drawScope = (t) => {
+    const w = SW;
+    const h = SH;
+    const e = ENVS[anc.env];
+    const c = anc.cancel;
+    const rows = [h * 0.22, h * 0.54, h * 0.85];
+    const amp = h * 0.105;
+    scx.clearRect(0, 0, w, h);
+    scx.strokeStyle = 'rgba(241,239,234,.07)';
+    scx.lineWidth = 1;
+    for (let g = 1; g < 12; g++) {
+      scx.beginPath();
+      scx.moveTo(w * g / 12, 0);
+      scx.lineTo(w * g / 12, h);
+      scx.stroke();
+    }
+    rows.forEach((y) => { scx.beginPath(); scx.moveTo(0, y); scx.lineTo(w, y); scx.stroke(); });
+
+    const noiseAt = (x) => {
+      const u = x / w;
+      let v = 0;
+      for (let k = 0; k < 3; k++) {
+        v += e.a[k] * Math.sin(6.2832 * (e.f[k] * u * 3 + t * (0.5 + k * 0.37)) + k * 1.7);
+      }
+      return (v + e.j * vnoise(x * 0.09 + t * 7)) * 0.62;
+    };
+    const musicAt = (x) => {
+      const u = x / w;
+      return 0.55 * Math.sin(6.2832 * (u * 2.1 - t * 0.45)) * (0.65 + 0.35 * Math.sin(6.2832 * (u * 0.6 - t * 0.15)));
+    };
+    const trace = (fn, y0, color, lw) => {
+      scx.beginPath();
+      for (let x = 0; x <= w; x += 3) {
+        const y = y0 - fn(x) * amp;
+        if (x === 0) { scx.moveTo(x, y); } else { scx.lineTo(x, y); }
+      }
+      scx.strokeStyle = color;
+      scx.lineWidth = lw;
+      scx.stroke();
+    };
+    trace(noiseAt, rows[0], '#ff5722', 1.6);
+    trace((x) => -noiseAt(x) * c, rows[1], 'rgba(201,163,107,' + (0.35 + 0.65 * c).toFixed(3) + ')', 1.6);
+    trace((x) => musicAt(x) + noiseAt(x) * (1 - 0.97 * c), rows[2], '#f1efea', 2.2);
+    scx.fillStyle = '#f1efea';
+    for (let m = 0; m < 12; m++) {
+      const x = w * (m + 0.5) / 12;
+      scx.beginPath();
+      scx.arc(x, rows[0] - noiseAt(x) * amp, 3.2, 0, 6.2832);
+      scx.fill();
+    }
+  };
+
+  const steps = $$('.step');
+  steps.forEach((el) => {
+    ScrollTrigger.create({ trigger: el, start: 'top 62%', end: 'bottom 38%', toggleClass: 'is-on' });
+  });
+  ScrollTrigger.create({
+    trigger: '.anc__steps', start: 'top 55%', end: 'bottom 60%',
+    onUpdate: (s) => { anc.scroll = clamp((s.progress - 0.3) / 0.42); }
+  });
+
+  // optional synthesised noise so the toggle can also be heard
+  let actx = null;
+  let nodes = null;
+  let soundOn = false;
+  const ncBtn = $('#ncToggle');
+  const sndBtn = $('#sndToggle');
+  const buildAudio = () => {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) { return false; }
+    actx = new AC();
+    const len = actx.sampleRate * 2;
+    const buf = actx.createBuffer(1, len, actx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) { data[i] = Math.random() * 2 - 1; }
+    const src = actx.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+    const lp = actx.createBiquadFilter();
+    lp.type = 'lowpass';
+    const pk = actx.createBiquadFilter();
+    pk.type = 'peaking';
+    pk.Q.value = 0.8;
+    const gain = actx.createGain();
+    gain.gain.value = 0;
+    src.connect(lp);
+    lp.connect(pk);
+    pk.connect(gain);
+    gain.connect(actx.destination);
+    src.start();
+    nodes = { lp: lp, pk: pk, gain: gain };
+    return true;
+  };
+  const applyAudio = () => {
+    if (!nodes) { return; }
+    const t = actx.currentTime;
+    const e = AUDIO[anc.env];
+    const c = anc.cancel;
+    nodes.lp.frequency.setTargetAtTime(lerp(e.lp, 170, c), t, 0.08);
+    nodes.pk.frequency.setTargetAtTime(e.pf, t, 0.08);
+    nodes.pk.gain.setTargetAtTime(lerp(e.pg, 0, c), t, 0.08);
+    nodes.gain.gain.setTargetAtTime(soundOn ? lerp(e.vol, e.vol * 0.05, c) : 0, t, 0.08);
+  };
+  const setSound = (on) => {
+    if (on && !nodes && !buildAudio()) { return; }
+    soundOn = on;
+    if (actx && on && actx.state === 'suspended') { actx.resume(); }
+    sndBtn.setAttribute('aria-pressed', String(on));
+    sndBtn.textContent = on ? 'Sonido: activado' : 'Sonido: desactivado';
+    applyAudio();
+  };
+  const setNc = (on) => {
+    anc.on = on;
+    ncBtn.setAttribute('aria-pressed', String(on));
+    ncBtn.textContent = on ? 'Cancelación: activada' : 'Cancelación: desactivada';
+  };
+  ncBtn.addEventListener('click', () => { anc.manual = true; setNc(!anc.on); });
+  sndBtn.addEventListener('click', () => { setSound(!soundOn); });
+  $$('.chip[data-env]').forEach((b) => {
+    b.addEventListener('click', () => {
+      anc.env = Number(b.dataset.env);
+      $$('.chip[data-env]').forEach((o) => { o.setAttribute('aria-pressed', String(o === b)); });
+      applyAudio();
+    });
+  });
+  ScrollTrigger.create({
+    trigger: '.anc__grid', start: 'top bottom', end: 'bottom top',
+    onToggle: (s) => {
+      ancOn = s.isActive;
+      if (!s.isActive) { anc.manual = false; setNc(true); if (soundOn) { setSound(false); } }
+    }
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && soundOn) { setSound(false); } });
+
+  /* ---------- 04 driver + equaliser ---------- */
+  const stack = $('.driver__stack');
+  const dItems = $$('.driver__list li');
+  let dOn = -1;
+  gsap.fromTo(stack, { '--ex': 0, '--rz': -34 }, {
+    '--ex': 1, '--rz': -12, ease: 'none',
+    scrollTrigger: {
+      trigger: '.driver', start: 'top top', end: 'bottom bottom', scrub: 0.5,
+      onUpdate: (s) => {
+        const i = s.progress < 0.12 ? -1 : Math.min(3, Math.floor((s.progress - 0.12) / 0.22));
+        if (i === dOn) { return; }
+        dOn = i;
+        if (i < 0) { stack.removeAttribute('data-on'); } else { stack.setAttribute('data-on', String(i)); }
+        dItems.forEach((li, k) => { li.classList.toggle('is-on', k === i); });
+      }
+    }
+  });
+
+  const eqSvg = $('#eq');
+  const eqState = $('#eqState');
+  const EQF = ['31', '63', '125', '250', '500', '1k', '2k', '4k', '8k', '16k'];
+  const PRESETS = {
+    Plano: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Graves: [7, 6, 4, 2, 0, 0, 0, 0, 1, 1],
+    Voz: [-3, -2, 0, 2, 4, 5, 4, 2, 0, -1],
+    Brillante: [0, 0, 0, 0, 0, 1, 3, 5, 6, 7],
+    Cine: [5, 4, 2, 0, -1, 0, 2, 3, 4, 3]
+  };
+  const eqX = (i) => 70 + i * (860 / 9);
+  const eqY = (g) => 200 - g * 15;
+  const eqVals = PRESETS.Plano.slice();
+  let eqMarkup = '';
+  [-10, -5, 0, 5, 10].forEach((g) => {
+    eqMarkup += '<line class="eq-grid' + (g === 0 ? ' eq-zero' : '') + '" x1="44" x2="960" y1="' + eqY(g) + '" y2="' + eqY(g) + '"/>';
+    eqMarkup += '<text class="eq-db" x="36" y="' + (eqY(g) + 6) + '" text-anchor="end">' + (g > 0 ? '+' : '') + g + '</text>';
+  });
+  eqMarkup += '<path class="eq-area"/><path class="eq-curve"/>';
+  EQF.forEach((f, i) => {
+    eqMarkup += '<line class="eq-stem" x1="' + eqX(i) + '" x2="' + eqX(i) + '" y1="50" y2="350"/>';
+    eqMarkup += '<text class="eq-f" x="' + eqX(i) + '" y="390" text-anchor="middle">' + f + '</text>';
+    eqMarkup += '<g class="eq-h" data-i="' + i + '" tabindex="0" role="slider" aria-label="Banda de ' + f + ' hercios" aria-valuemin="-10" aria-valuemax="10"><circle class="eq-hit" r="34"/><circle class="eq-dot" r="11"/><text class="eq-val" y="-22" text-anchor="middle"></text></g>';
+  });
+  eqSvg.innerHTML = eqMarkup;
+  const eqCurve = $('.eq-curve', eqSvg);
+  const eqArea = $('.eq-area', eqSvg);
+  const eqHandles = $$('.eq-h', eqSvg);
+  const smooth = (pts) => {
+    let d = 'M' + pts[0][0].toFixed(1) + ',' + pts[0][1].toFixed(1);
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[Math.max(0, i - 1)];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = pts[Math.min(pts.length - 1, i + 2)];
+      d += ' C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ',' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1);
+      d += ' ' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ',' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1);
+      d += ' ' + p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
+    }
+    return d;
+  };
+  const eqDraw = () => {
+    const pts = eqVals.map((g, i) => [eqX(i), eqY(g)]);
+    const d = smooth(pts);
+    eqCurve.setAttribute('d', d);
+    eqArea.setAttribute('d', d + ' L' + eqX(9) + ',200 L' + eqX(0) + ',200 Z');
+    eqHandles.forEach((h, i) => {
+      const g = Math.round(eqVals[i]);
+      h.setAttribute('transform', 'translate(' + pts[i][0].toFixed(1) + ',' + pts[i][1].toFixed(1) + ')');
+      h.setAttribute('aria-valuenow', String(g));
+      h.lastChild.textContent = (g > 0 ? '+' : '') + g;
+    });
+  };
+  const eqLabel = (name) => {
+    eqState.textContent = name === 'custom' ? 'Ajuste: personalizado' : 'Preajuste: ' + name;
+    $$('.chip[data-preset]').forEach((b) => { b.setAttribute('aria-pressed', String(b.dataset.preset === name)); });
+  };
+  $$('.chip[data-preset]').forEach((b) => {
+    b.addEventListener('click', () => {
+      const target = PRESETS[b.dataset.preset];
+      eqLabel(b.dataset.preset);
+      gsap.to(eqVals, { duration: reduce ? 0 : 0.7, ease: 'power3.out', endArray: target, onUpdate: eqDraw });
+    });
+  });
+  let eqDrag = -1;
+  const eqFromEvent = (e) => {
+    const r = eqSvg.getBoundingClientRect();
+    const y = (e.clientY - r.top) / r.height * 400;
+    eqVals[eqDrag] = clamp(Math.round((200 - y) / 15), -10, 10);
+    eqLabel('custom');
+    eqDraw();
+  };
+  eqSvg.addEventListener('pointerdown', (e) => {
+    const h = e.target.closest ? e.target.closest('.eq-h') : null;
+    if (!h) { return; }
+    gsap.killTweensOf(eqVals);
+    eqDrag = Number(h.dataset.i);
+    eqSvg.setPointerCapture(e.pointerId);
+    eqFromEvent(e);
+    e.preventDefault();
+  });
+  eqSvg.addEventListener('pointermove', (e) => { if (eqDrag > -1) { eqFromEvent(e); } });
+  ['pointerup', 'pointercancel'].forEach((ev) => { eqSvg.addEventListener(ev, () => { eqDrag = -1; }); });
+  eqHandles.forEach((h, i) => {
+    h.addEventListener('keydown', (e) => {
+      const dir = e.key === 'ArrowUp' || e.key === 'ArrowRight' ? 1 : (e.key === 'ArrowDown' || e.key === 'ArrowLeft' ? -1 : 0);
+      if (!dir) { return; }
+      e.preventDefault();
+      eqVals[i] = clamp(Math.round(eqVals[i]) + dir, -10, 10);
+      eqLabel('custom');
+      eqDraw();
+    });
+  });
+  eqDraw();
+
+  /* ---------- 05 fold sequence ---------- */
+  const frames = $$('.fold__frames img');
+  const caps = $$('.fold__cap');
+  const foldN = $('#foldN');
+  const seg = 1 / frames.length;
+  gsap.set(frames[0], { opacity: 1 });
+  gsap.set(caps[0], { opacity: 1 });
+  const ftl = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: {
+      trigger: '.fold', start: 'top top', end: 'bottom bottom', scrub: 0.5,
+      onUpdate: (s) => { foldN.textContent = pad2(Math.min(frames.length, Math.floor(s.progress * frames.length + 0.12) + 1)); }
+    }
+  });
+  frames.forEach((f, i) => {
+    const t0 = i * seg;
+    if (i > 0) {
+      ftl.fromTo(f, { opacity: 0, scale: 0.88, rotation: -7, yPercent: 7 }, { opacity: 1, scale: 1, rotation: 0, yPercent: 0, duration: seg * 0.34, ease: 'power2.out' }, t0 - seg * 0.14);
+      ftl.fromTo(caps[i], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: seg * 0.26, ease: 'power2.out' }, t0 - seg * 0.06);
+    }
+    if (i < frames.length - 1) {
+      ftl.to(f, { opacity: 0, scale: 1.07, rotation: 6, yPercent: -6, duration: seg * 0.32, ease: 'power2.in' }, t0 + seg * 0.56);
+      ftl.to(caps[i], { opacity: 0, y: -30, duration: seg * 0.22, ease: 'power2.in' }, t0 + seg * 0.58);
+    }
+  });
+  ftl.to({}, { duration: 0.02 }, 0.98);
+
+  /* ---------- 06 colours ---------- */
+  const COLORS = [
+    { id: 'black', name: 'Black', ghost: 'Black', year: '2025', bg: '#dcdad4', fg: '#0b0b0c', note: 'El de siempre. Negro mate, con el logotipo en un dorado apagado.' },
+    { id: 'silver', name: 'Platinum Silver', ghost: 'Platinum\nSilver', year: '2025', bg: '#1b1d21', fg: '#f1efea', note: 'Un gris claro y cálido, casi mineral.' },
+    { id: 'blue', name: 'Midnight Blue', ghost: 'Midnight\nBlue', year: '2025', bg: '#c4cfdb', fg: '#0f1626', note: 'Azul de medianoche: oscuro, sobrio y con más carácter que el negro.' },
+    { id: 'pink', name: 'Sand Pink', ghost: 'Sand\nPink', year: '2026', bg: '#463838', fg: '#f6e9e5', note: 'Rosa arena con detalles en tono cobre en la bisagra.' },
+    { id: 'sandstone', name: 'Sandstone', ghost: 'Sandstone', year: '2026', bg: '#77726d', fg: '#ffffff', photo: true, note: 'Un tono piedra, natural y cálido. El quinto color de la gama, de mayo de 2026.' },
+    { id: 'olive', name: 'Olive Gray', ghost: 'Olive\nGray', year: '2026', bg: '#e0e3d9', fg: '#1c1f18', note: 'Gris oliva. El acabado más reciente, presentado en agosto de 2026.' }
+  ];
+  const cSec = $('#colores');
+  const cImgs = $$('.colors__products img');
+  const cName = $('.colors__name');
+  const cLabel = $('#cLabel');
+  const cNote = $('#cNote');
+  const cCount = $('#cCount');
+  const swatches = $$('.sw');
+  let cIdx = 0;
+  const setColor = (i) => {
+    if (i === cIdx) { return; }
+    cIdx = i;
+    const c = COLORS[i];
+    cSec.style.setProperty('--c-bg', c.bg);
+    cSec.style.setProperty('--c-fg', c.fg);
+    cSec.classList.toggle('is-photo', Boolean(c.photo));
+    cImgs.forEach((im) => { im.classList.toggle('is-on', im.dataset.c === c.id); });
+    cName.textContent = c.ghost;
+    cLabel.textContent = c.name;
+    cNote.textContent = c.note;
+    cCount.textContent = pad2(i + 1) + ' / ' + pad2(COLORS.length) + ' · ' + c.year;
+    swatches.forEach((b, k) => { if (k === i) { b.setAttribute('aria-current', 'true'); } else { b.removeAttribute('aria-current'); } });
+  };
+  const cST = ScrollTrigger.create({
+    trigger: cSec, start: 'top top', end: 'bottom bottom',
+    onUpdate: (s) => { setColor(Math.min(COLORS.length - 1, Math.floor(s.progress * COLORS.length))); }
+  });
+  swatches.forEach((b, i) => {
+    b.addEventListener('click', () => {
+      scrollToY(cST.start + (cST.end - cST.start) * ((i + 0.5) / COLORS.length));
+    });
+  });
+
+  /* ---------- 07 a day, sideways ---------- */
+  const day = $('#dia');
+  const track = $('.day__track');
+  const dayBg = gsap.utils.interpolate(['#cdd4da', '#f1efea', '#ead6d0', '#1b2030', '#0b0b0c']);
+  const dayFg = gsap.utils.interpolate('#0b0b0c', '#f1efea');
+  gsap.to(track, {
+    x: () => -(track.scrollWidth - window.innerWidth),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: day, start: 'top top', end: 'bottom bottom', scrub: 0.5, invalidateOnRefresh: true,
+      onUpdate: (s) => {
+        day.style.setProperty('--d-bg', dayBg(s.progress));
+        day.style.setProperty('--d-fg', dayFg(clamp((s.progress - 0.55) / 0.1)));
+        day.style.setProperty('--dp', s.progress.toFixed(4));
+      }
+    }
+  });
+
+  /* ---------- 08 battery ---------- */
+  const cellsBox = $('.cells');
+  for (let i = 0; i < 30; i++) { cellsBox.appendChild(document.createElement('i')); }
+  const cells = $$('.cells i');
+  const batNum = $('#batNum');
+  let batK = -1;
+  ScrollTrigger.create({
+    trigger: '.battery', start: 'top 72%', end: 'top 2%', scrub: true,
+    onUpdate: (s) => {
+      const k = Math.round(s.progress * 30);
+      if (k === batK) { return; }
+      batK = k;
+      cells.forEach((c, i) => { c.classList.toggle('is-on', i < k); });
+      batNum.textContent = String(k);
+    }
+  });
+
+  /* ---------- 09 gallery ---------- */
+  const SHOTS = [
+    ['p-still', 7, 5, 'Quietud en mitad del movimiento. Campaña del color Sand Pink.'],
+    ['g-face', 5, 5, 'Sand Pink, de cerca.', '50% 30%'],
+    ['g-dynamic', 4, 4, 'WH-1000XM6 en Black.'],
+    ['p-console', 8, 4, 'Platinum Silver sobre una consola de masterización.', '50% 72%'],
+    ['g-walls', 4, 6, 'Entre muros de acero.'],
+    ['g-suit', 8, 6, 'Rosa sobre rosa.'],
+    ['g-tray', 5, 4, 'Plegados ocupan lo que una bandeja.'],
+    ['g-rail', 7, 4, 'Platinum Silver, Black, Midnight Blue y Sand Pink.', '50% 38%'],
+    ['g-neck', 6, 5, 'Al cuello, con las copas giradas en plano.', '50% 40%'],
+    ['g-arch', 3, 5, 'Arquitectura y silencio.'],
+    ['g-tote', 3, 5, 'Colgados del asa del bolso.', '48% 50%'],
+    ['g-olive', 5, 4, 'Olive Gray, el acabado más reciente.', '70% 30%'],
+    ['g-bag', 4, 4, 'Platinum Silver como un accesorio más.'],
+    ['g-lean', 3, 4, 'Sand Pink sobre blanco.', '40% 50%'],
+    ['g-back', 6, 5, 'La diadema, más ancha y asimétrica.'],
+    ['g-case', 6, 5, 'Estuche compacto con cierre magnético.'],
+    ['g-trio', 4, 4, 'Los tres colores de lanzamiento, en 2025.'],
+    ['g-eyes', 4, 4, 'Ojos cerrados.', '82% 40%'],
+    ['p-pillow', 4, 4, 'En reposo.', '50% 62%'],
+    ['p-sandstone', 7, 5, 'Sandstone, de perfil.', '66% 26%'],
+    ['g-olivecall', 5, 5, 'Olive Gray en mitad de una llamada.', '86% 50%']
+  ];
+  const mosaic = $('#mosaic');
+  mosaic.innerHTML = SHOTS.map((s, i) => {
+    const style = '--c:' + s[1] + ';--r:' + s[2] + ';--mc:' + (s[1] >= 5 ? 6 : 3) + (s[4] ? ';--op:' + s[4] : '');
+    return '<a class="tile" href="' + IMG + s[0] + '.webp" data-i="' + i + '" style="' + style + '" aria-label="Ampliar imagen: ' + s[3] + '">' +
+      '<span class="tile__in"><img src="' + IMG + s[0] + '.webp" alt="' + s[3] + '" loading="lazy"></span>' +
+      '<span class="tile__n">' + pad2(i + 1) + '</span><span class="tile__cap">' + s[3] + '</span></a>';
+  }).join('');
+  const tiles = $$('.tile');
+  gsap.set(tiles, { opacity: 0, y: 46 });
+  ScrollTrigger.batch(tiles, {
+    start: 'top 94%', once: true,
+    onEnter: (els) => { gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: 0.07 }); }
+  });
+  tiles.forEach((tile) => {
+    gsap.fromTo($('.tile__in', tile), { yPercent: -5 }, {
+      yPercent: 5, ease: 'none',
+      scrollTrigger: { trigger: tile, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  const lb = $('#lb');
+  const lbImg = $('#lbImg');
+  const lbCap = $('#lbCap');
+  const lbCount = $('#lbCount');
+  let lbI = 0;
+  let lbFrom = null;
+  const lbShow = (i) => {
+    lbI = (i + SHOTS.length) % SHOTS.length;
+    const s = SHOTS[lbI];
+    lbImg.src = IMG + s[0] + '.webp';
+    lbImg.alt = s[3];
+    lbCap.textContent = s[3] + ' Foto: Sony.';
+    lbCount.textContent = pad2(lbI + 1) + ' / ' + pad2(SHOTS.length);
+  };
+  const lbOpen = (i, from) => {
+    lbFrom = from || null;
+    lbShow(i);
+    lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden', 'false');
+    lockScroll(true);
+    $('#lbClose').focus();
+  };
+  const lbClose = () => {
+    lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden', 'true');
+    lockScroll(false);
+    if (lbFrom) { lbFrom.focus({ preventScroll: true }); }
+  };
+  mosaic.addEventListener('click', (e) => {
+    const tile = e.target.closest('.tile');
+    if (!tile) { return; }
+    e.preventDefault();
+    lbOpen(Number(tile.dataset.i), tile);
+  });
+  $('#lbClose').addEventListener('click', lbClose);
+  $('#lbPrev').addEventListener('click', () => { lbShow(lbI - 1); });
+  $('#lbNext').addEventListener('click', () => { lbShow(lbI + 1); });
+  lb.addEventListener('click', (e) => { if (e.target === lb || e.target.classList.contains('lb__img')) { lbClose(); } });
+
+  /* ---------- generic reveals (after dynamic content exists) ---------- */
+  ScrollTrigger.batch('[data-reveal]', {
+    start: 'top 90%', once: true,
+    onEnter: (els) => { gsap.to(els, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.09 }); }
+  });
+
+  /* ---------- player + tracklist ---------- */
+  const secs = $$('[data-track]');
+  const trkN = $('#trkN');
+  const trkT = $('#trkT');
+  const trkP = $('#trkP');
+  const trkBtn = $('#trkBtn');
+  const tracksEl = $('#tracks');
+  const bar = $('.player__bar');
+  const eqBars = $$('.player__eq i');
+  const barVals = eqBars.map(() => 0);
+  let vel = 0;
+  $('ol', tracksEl).innerHTML = secs.map((s) => '<li><a href="#' + s.id + '">' + s.dataset.track + '</a></li>').join('');
+  const trackLinks = $$('a', tracksEl);
+  const setTrack = (i) => {
+    trkN.textContent = pad2(i + 1);
+    trkT.textContent = secs[i].dataset.track;
+    trackLinks.forEach((a, k) => { a.classList.toggle('is-current', k === i); });
+  };
+  secs.forEach((sec, i) => {
+    ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: (s) => { if (s.isActive) { setTrack(i); } } });
+  });
+  ScrollTrigger.create({
+    start: 0, end: 'max',
+    onUpdate: (s) => {
+      bar.style.setProperty('--p', s.progress.toFixed(4));
+      trkP.textContent = Math.round(s.progress * 100) + ' %';
+      vel = Math.max(vel, Math.min(1, Math.abs(s.getVelocity()) / 2600));
+    }
+  });
+  const toggleTracks = (open) => {
+    tracksEl.classList.toggle('is-open', open);
+    tracksEl.setAttribute('aria-hidden', String(!open));
+    trkBtn.setAttribute('aria-expanded', String(open));
+    trkBtn.textContent = open ? 'Cerrar' : 'Pistas';
+    lockScroll(open);
+  };
+  trkBtn.addEventListener('click', () => { toggleTracks(!tracksEl.classList.contains('is-open')); });
+  const goTo = (hashId) => {
+    const el = document.getElementById(hashId);
+    if (!el) { return; }
+    scrollToY(el.getBoundingClientRect().top + window.scrollY + (hashId === 'ruido' ? 0 : 2));
+  };
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) { return; }
+    e.preventDefault();
+    if (tracksEl.classList.contains('is-open')) { toggleTracks(false); }
+    goTo(a.getAttribute('href').slice(1));
+  });
+
+  /* ---------- info dialog ---------- */
+  const info = $('#info');
+  $('#infoBtn').addEventListener('click', () => { if (info.showModal) { info.showModal(); } else { info.setAttribute('open', ''); } });
+  $('#infoClose').addEventListener('click', () => { info.close(); });
+  info.addEventListener('click', (e) => { if (e.target === info) { info.close(); } });
+
+  /* ---------- keyboard ---------- */
+  document.addEventListener('keydown', (e) => {
+    if (lb.classList.contains('is-open')) {
+      if (e.key === 'Escape') { lbClose(); }
+      if (e.key === 'ArrowLeft') { lbShow(lbI - 1); }
+      if (e.key === 'ArrowRight') { lbShow(lbI + 1); }
+      return;
+    }
+    if (e.key === 'Escape' && tracksEl.classList.contains('is-open')) { toggleTracks(false); }
+  });
+
+  /* ---------- frame loop ---------- */
+  gsap.ticker.add(() => {
+    const now = performance.now();
+    const t = now / 1000;
+    if (heroOn && hs.flood < 1) {
+      drawHero(reduce ? 0 : t);
+      jitter(now);
+      grain.style.setProperty('--lvl', hs.level.toFixed(3));
+      pctEl.textContent = pad2(Math.round((1 - hs.level) * 100));
+    }
+    if (ancOn) {
+      const target = anc.manual ? (anc.on ? 1 : 0) : anc.scroll;
+      anc.cancel += (target - anc.cancel) * 0.09;
+      drawScope(reduce ? 0 : t);
+      const left = Math.round((1 - 0.97 * anc.cancel) * 100);
+      if (left !== anc.shown) {
+        anc.shown = left;
+        ncBar.style.transform = 'scaleX(' + (left / 100) + ')';
+        ncLeft.textContent = left + ' %';
+        applyAudio();
+      }
+    }
+    vel *= 0.9;
+    eqBars.forEach((b, i) => {
+      const target = vel * (0.35 + 0.65 * Math.abs(Math.sin(t * (5 + i * 1.7) + i)));
+      barVals[i] += (target - barVals[i]) * 0.3;
+      b.style.setProperty('--v', barVals[i].toFixed(3));
+    });
+  });
+
+  /* ---------- sizing ---------- */
+  const resize = () => { sizeHero(); sizeScope(); };
+  let rz = 0;
+  window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(resize, 120); });
+  resize();
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(() => { ScrollTrigger.refresh(); }); }
+})();
+</script>
+</body>
+</html>

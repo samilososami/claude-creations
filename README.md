@@ -17,7 +17,7 @@ Cada web lleva un botón **i** en la esquina superior derecha con el prompt exac
 | 01 | [Sony α6700](projects/sonya6700) | Web de producto con scroll interactivo y galería de 36 fotos reales | Claude Fable 5.2 | 21 min | [/claude/sonya6700](https://www.samilososami.com/claude/sonya6700/) |
 | 02 | [α6700 en 3D](projects/sonya6700-3d) | Modelo 3D interactivo de la cámara, hecho con geometría procedural | Claude Fable 5.2 | 17 min | [/claude/sonya6700-3d](https://www.samilososami.com/claude/sonya6700-3d/) |
 | 03 | [GlassPhone](projects/glassphone) | Concepto de teléfono transparente: cristal con refracción real en WebGL y GlassOS, un sistema simulado con doce apps | Claude | 2 h 30 min | [/claude/glassphone](https://www.samilososami.com/claude/glassphone/) |
-| 04 | [Sony XM6 comparison](projects/sonyxm6comparison) | Lista de webs sobre los Sony WH-1000XM6, una por modelo: [Haiku 5.5](projects/sonyxm6comparison/haiku) y [Sonnet 5.5](projects/sonyxm6comparison/sonnet) | Haiku 5.5 y Sonnet 5.5 | | [/claude/sonyxm6comparison](https://www.samilososami.com/claude/sonyxm6comparison/) |
+| 04 | [Sony XM6 comparison](projects/sonyxm6comparison) | Lista de webs sobre los Sony WH-1000XM6, una por modelo: [Haiku 5.5](projects/sonyxm6comparison/haiku), [Sonnet 5.5](projects/sonyxm6comparison/sonnet) y [Fable 5.2](projects/sonyxm6comparison/fable) | Haiku 5.5, Sonnet 5.5 y Fable 5.2 | | [/claude/sonyxm6comparison](https://www.samilososami.com/claude/sonyxm6comparison/) |
 
 ## Estructura
 
