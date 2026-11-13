@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang='es'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Sony WH-1000XM6 · Silencio a medida</title>
+<meta name='description' content='Página no oficial sobre los Sony WH-1000XM6: cancelación de ruido, sonido, batería, galería y ficha técnica.'>
+<meta name='theme-color' content='#0a0907'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap' rel='stylesheet'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js'></script>
+<style>
+:root{
+  --ink:#0a0907;--bone:#eee8dc;--mute:#8d8579;--dim:#4b463f;--line:rgba(238,232,220,.13);
+  --signal:#ff5a2b;--steel:#7d8b99;
+  --serif:'Instrument Serif',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+  --pad:clamp(20px,4.5vw,64px);--ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);color:var(--bone);scroll-behavior:smooth}
+body{font:400 17px/1.55 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.aura{position:fixed;inset:-30%;z-index:-1;pointer-events:none}
+.aura i{position:absolute;inset:0;opacity:0;transition:opacity 1.6s var(--ease);background:radial-gradient(45% 40% at 50% 40%,var(--c),transparent 72%)}
+.aura i:nth-child(1){--c:rgba(255,90,43,.15)}
+.aura i:nth-child(2){--c:rgba(125,139,153,.14)}
+.aura i:nth-child(3){--c:rgba(214,190,160,.10)}
+.aura[data-c='1'] i:nth-child(1),.aura[data-c='2'] i:nth-child(2),.aura[data-c='3'] i:nth-child(3){opacity:1}
+.cur{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid rgba(238,232,220,.7);border-radius:50%;pointer-events:none;z-index:60;display:none;transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease),background .4s,border-color .4s;mix-blend-mode:difference}
+.cur.hot{width:72px;height:72px;margin:-36px 0 0 -36px;background:var(--bone);border-color:transparent}
+@media (pointer:fine){.cur{display:block}body,a,button,figure{cursor:none}}
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad);font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;transition:transform .6s var(--ease),background .6s}
+.nav.hide{transform:translateY(-100%)}
+.nav.solid{background:rgba(10,9,7,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav a{text-decoration:none}
+.nav nav{display:flex;gap:28px}
+.nav nav a{color:var(--mute);transition:color .3s}
+.nav nav a:hover{color:var(--bone)}
+.hero{position:relative;height:300vh}
+.hero-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
+#wave{position:absolute;inset:0;width:100%;height:100%}
+.hero-meta{position:absolute;top:92px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;gap:20px;font:400 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.hero-prod{position:relative;width:min(44vw,680px);filter:drop-shadow(0 50px 70px rgba(0,0,0,.75));will-change:transform}
+.hero-title{position:absolute;left:var(--pad);bottom:9vh;font:400 clamp(70px,14vw,226px)/.84 var(--serif);letter-spacing:-.025em}
+.hero-title span{display:block;overflow:hidden;padding-bottom:.04em}
+.hero-title b{display:block;font-weight:400;animation:rise 1.4s var(--ease) both}
+.hero-title span+span b{animation-delay:.15s}
+.hero-title em{font-style:italic;color:var(--signal)}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.hero-side{position:absolute;right:var(--pad);bottom:9vh;width:min(300px,28vw);text-align:right}
+.db{font:400 clamp(46px,6vw,92px)/1 var(--mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.db small{font-size:.3em;letter-spacing:0;color:var(--mute);margin-left:8px}
+.lbl{margin-top:10px;font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.hero-side p{margin-top:18px;color:#bdb6aa;font-size:15px}
+.hero-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font:400 11px var(--mono);letter-spacing:.2em;color:var(--mute);text-transform:uppercase;text-align:center}
+.hero-hint::after{content:'';display:block;width:1px;height:34px;margin:10px auto 0;background:linear-gradient(var(--bone),transparent)}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 4px rgba(255,90,43,.14)}
+section{position:relative}
+.statement{padding:22vh var(--pad) 16vh}
+.statement p{font:400 clamp(36px,5.4vw,90px)/1.05 var(--serif);letter-spacing:-.012em;max-width:21em}
+.sw{color:var(--dim)}
+.nums{padding:12vh var(--pad) 18vh;border-top:1px solid var(--line)}
+.nums-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.n{padding:34px 28px 0 0}
+.n+.n{padding-left:28px;border-left:1px solid var(--line)}
+.n b{display:block;font:400 clamp(72px,10vw,170px)/.9 var(--serif);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.n span{display:block;margin-top:20px;color:var(--mute);max-width:22ch;font-size:15px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:9vh}
+.sec-head h2{margin-top:22px;font:400 clamp(50px,7.6vw,122px)/.92 var(--serif);letter-spacing:-.02em}
+.sec-head h2 em,.price em{font-style:italic;color:var(--signal)}
+.sec-head p{max-width:40ch;color:var(--mute);font-size:16px}
+.feat{padding:12vh var(--pad) 18vh;border-top:1px solid var(--line)}
+.feat-wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,6vw,110px);align-items:start}
+.feat-stage{position:sticky;top:12vh;height:72vh;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.03),transparent 60%);overflow:hidden}
+#stage{width:100%;height:100%;display:block}
+.stage-tag{position:absolute;left:18px;top:16px;z-index:1;font:400 11px var(--mono);letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+.f{min-height:72vh;display:flex;flex-direction:column;justify-content:center;opacity:.2;transform:translateY(24px);transition:opacity .7s var(--ease),transform .9s var(--ease)}
+.f.on{opacity:1;transform:none}
+.fnum{font:400 12px var(--mono);color:var(--signal);letter-spacing:.12em}
+.f h3{margin:18px 0 22px;font:400 clamp(38px,4.4vw,64px)/1 var(--serif);letter-spacing:-.01em}
+.f p{color:#cfc8bb;max-width:44ch}
+.f ul{list-style:none;margin-top:28px;border-top:1px solid var(--line)}
+.f li{padding:13px 0;border-bottom:1px solid var(--line);font:400 12px var(--mono);color:var(--mute);letter-spacing:.03em}
+.gal{padding:14vh var(--pad) 18vh;border-top:1px solid var(--line)}
+.mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.3vw,18px);align-items:start}
+.col{display:flex;flex-direction:column;gap:clamp(10px,1.3vw,18px);will-change:transform}
+.t{position:relative;overflow:hidden;background:#151310;border-radius:2px}
+.t img{width:100%;height:auto;transition:transform 1.4s var(--ease),filter .8s;filter:saturate(.85)}
+.t:hover img{transform:scale(1.06);filter:none}
+.t figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.85));font:400 11px/1.45 var(--mono);letter-spacing:.03em;color:var(--bone);opacity:0;transform:translateY(10px);transition:opacity .5s,transform .6s var(--ease)}
+.t figcaption b{display:block;margin-bottom:3px;color:var(--signal);font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.t:hover figcaption{opacity:1;transform:none}
+@media (hover:none){.t figcaption{opacity:1;transform:none}}
+.specs{padding:14vh var(--pad);border-top:1px solid var(--line)}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(30px,6vw,110px)}
+.row{display:grid;grid-template-columns:minmax(120px,.7fr) 1.3fr;gap:20px;padding:20px 0;border-top:1px solid var(--line)}
+.row dt{font:400 11px/1.8 var(--mono);color:var(--mute);letter-spacing:.1em;text-transform:uppercase}
+.row dd{font-size:16px;color:#e4ddd0}
+.buy{padding:16vh var(--pad) 14vh;border-top:1px solid var(--line);display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:end}
+.price{margin-top:24px;font:400 clamp(96px,16vw,260px)/.84 var(--serif);letter-spacing:-.035em}
+.price sup{font:400 14px var(--mono);letter-spacing:.12em;color:var(--mute);vertical-align:top;margin-left:14px}
+.buy-note{margin-top:22px;color:var(--mute);font-size:15px;max-width:46ch}
+.buy-cta p{color:var(--mute);font-size:15px;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:20px 30px;border:1px solid var(--bone);border-radius:999px;text-decoration:none;font:500 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;transition:background .5s var(--ease),color .5s,border-color .5s}
+.btn:hover{background:var(--bone);color:var(--ink)}
+.btn.sig{background:var(--signal);border-color:var(--signal);color:var(--ink)}
+.btn.sig:hover{background:var(--bone);border-color:var(--bone)}
+footer{padding:8vh var(--pad) 12vh;border-top:1px solid var(--line);font-size:14px;color:var(--mute)}
+footer details summary{margin:22px 0 14px;cursor:pointer;color:var(--bone);font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.cred{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:9px 26px;margin-top:6px;font-size:13px;line-height:1.5}
+.cred a{color:var(--bone)}
+dialog{background:#0c0b09;color:var(--bone);border:1px solid var(--line);max-width:min(1100px,94vw);padding:0}
+dialog::backdrop{background:rgba(0,0,0,.88)}
+dialog img{max-height:80vh;width:auto;max-width:100%;margin:0 auto}
+.lb-cap{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font:400 12px var(--mono);color:var(--mute)}
+.lb-cap button{background:none;border:1px solid var(--line);color:var(--bone);padding:9px 16px;border-radius:999px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+@media (max-width:1000px){
+  .nums-grid{grid-template-columns:1fr 1fr;row-gap:56px}
+  .n:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:820px){
+  .nav nav{display:none}
+  .hero-prod{width:86vw}
+  .hero-title{font-size:19vw;left:var(--pad);bottom:8vh}
+  .hero-side{left:var(--pad);right:auto;bottom:auto;top:128px;width:auto;text-align:left}
+  .hero-side p{display:none}
+  .hero-hint{display:none}
+  .db{font-size:52px}
+  .hero-meta span:last-child{display:none}
+  .feat-wrap{grid-template-columns:1fr}
+  .feat-stage{top:72px;height:44vh;position:sticky;z-index:3;background:var(--ink)}
+  .f{min-height:0;justify-content:flex-start;padding-top:calc(44vh + 40px)}
+  .mosaic{grid-template-columns:1fr 1fr}
+  .spec-grid{grid-template-columns:1fr}
+  .buy{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .nums-grid{grid-template-columns:1fr}
+  .n+.n{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:40px}
+  .row{grid-template-columns:1fr;gap:6px}
+  .mosaic{gap:8px}
+  .col{gap:8px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class='aura' id='aura' data-c='1' aria-hidden='true'><i></i><i></i><i></i></div>
+<div class='cur' id='cur' aria-hidden='true'></div>
+
+<header class='nav' id='nav'>
+  <a href='#top'>WH-1000XM6</a>
+  <nav>
+    <a href='#funciones'>Funciones</a>
+    <a href='#galeria'>Galería</a>
+    <a href='#specs'>Ficha</a>
+    <a href='#comprar'>Precio</a>
+  </nav>
+</header>
+
+<main id='top'>
+
+<section class='hero' id='hero'>
+  <div class='hero-stick'>
+    <canvas id='wave' aria-hidden='true'></canvas>
+    <div class='hero-meta'>
+      <span>Sony · WH-1000XM6</span>
+      <span>Cancelación de ruido · 12 micrófonos</span>
+    </div>
+    <img class='hero-prod' id='prod' src='https://d1ncau8tqf99kp.cloudfront.net/converted/152005_original_local_1200x1050_v3_converted.webp' alt='Sony WH-1000XM6 negros, vista de tres cuartos'>
+    <h1 class='hero-title'>
+      <span><b>Silencio</b></span>
+      <span><b><em>a medida.</em></b></span>
+    </h1>
+    <div class='hero-side'>
+      <div class='db'><span id='db'>72</span><small>dB</small></div>
+      <div class='lbl'>ruido ambiente · simulado</div>
+      <p>Doce micrófonos escuchan el entorno y el procesador QN3 resta lo que no quieres oír. Desliza y mira cómo se cancela.</p>
+    </div>
+    <div class='hero-hint'>desliza</div>
+  </div>
+</section>
+
+<section class='statement' data-aura='2'>
+  <p class='rv' id='statement'>Doce micrófonos escuchan el mundo a la vez. El procesador QN3 decide qué se borra y qué se queda, en tiempo real, mientras tú solo oyes la música.</p>
+</section>
+
+<section class='nums' data-aura='2'>
+  <span class='eyebrow'>01 · Cifras</span>
+  <div class='nums-grid' style='margin-top:6vh'>
+    <div class='n rv'><b data-to='12'>12</b><span>micrófonos trabajando a la vez para cancelar el ruido</span></div>
+    <div class='n rv'><b data-to='7' data-suf='×'>7×</b><span>más rápido el procesador QN3 que el QN1 del WH-1000XM5</span></div>
+    <div class='n rv'><b data-to='30' data-suf=' h'>30 h</b><span>de música con cancelación activa. Sin ella, hasta 40 h</span></div>
+    <div class='n rv'><b data-to='254' data-suf=' g'>254 g</b><span>de peso aproximado, 8,96 oz según la ficha de Sony</span></div>
+  </div>
+</section>
+
+<section class='feat' id='funciones' data-aura='1'>
+  <div class='sec-head'>
+    <div>
+      <span class='eyebrow'>02 · Funciones</span>
+      <h2>Lo que <em>hace</em> cada cosa</h2>
+    </div>
+    <p>Seis funciones principales. Las animaciones de la izquierda son ilustrativas: muestran la idea, no una medición del aparato.</p>
+  </div>
+  <div class='feat-wrap'>
+    <div class='feat-stage'>
+      <span class='stage-tag' id='stageTag'>01 · Cancelación adaptativa</span>
+      <canvas id='stage' aria-hidden='true'></canvas>
+    </div>
+    <div class='feat-list'>
+      <article class='f on' data-i='0'>
+        <span class='fnum'>01</span>
+        <h3>Cancelación adaptativa</h3>
+        <p>El Adaptive NC Optimizer se reajusta al ruido exterior, a la presión del aire y a cómo llevas los cascos, incluso con gorra o gafas.</p>
+        <ul><li>Procesador HD QN3, 7 veces más rápido que el QN1</li><li>12 micrófonos optimizados en tiempo real</li></ul>
+      </article>
+      <article class='f' data-i='1'>
+        <span class='fnum'>02</span>
+        <h3>Llamadas claras</h3>
+        <p>Doce micrófonos trabajan en tiempo real con el QN3 para que tu voz se oiga clara al otro lado de la llamada.</p>
+        <ul><li>Micrófonos MEMS de captación omnidireccional</li><li>El mismo procesador que la cancelación</li></ul>
+      </article>
+      <article class='f' data-i='2'>
+        <span class='fnum'>03</span>
+        <h3>Modo ambiente y Speak-to-Chat</h3>
+        <p>Deja entrar lo que necesitas oír. Speak-to-Chat detecta cuando hablas, baja la música y la reanuda sola 15 segundos después de la conversación, o antes si tocas el panel.</p>
+        <ul><li>Auto Ambient Sound</li><li>Speak-to-Chat se activa desde la app Sony Sound Connect</li></ul>
+      </article>
+      <article class='f' data-i='3'>
+        <span class='fnum'>04</span>
+        <h3>Sonido afinado con mastering</h3>
+        <p>Co-creados con ingenieros de mastering para conservar cada nota y cada voz como el artista la quiso. LDAC llega a 990 kbps a 96 kHz con un móvil compatible.</p>
+        <ul><li>LDAC: 990 kbps, 96 kHz de muestreo</li><li>DSEE Extreme, se activa desde la app</li></ul>
+      </article>
+      <article class='f' data-i='4'>
+        <span class='fnum'>05</span>
+        <h3>Multipunto y Bluetooth 5.3</h3>
+        <p>Conéctalo a más de un dispositivo a la vez. Bluetooth 5.3 con SBC, AAC, LDAC y LC3, y compatibilidad con Google Assistant y Alexa mediante la app.</p>
+        <ul><li>Multipunto</li><li>SBC · AAC · LDAC · LC3</li></ul>
+      </article>
+      <article class='f' data-i='5'>
+        <span class='fnum'>06</span>
+        <h3>Batería de sobra</h3>
+        <p>Hasta 30 horas de música con la cancelación activada, y 40 sin ella. En llamadas, hasta 24 o 28 horas. Carga completa por USB en unas 3,5 horas.</p>
+        <ul><li>Música: 30 h con NC · 40 h sin NC</li><li>Llamadas: 24 h con NC · 28 h sin NC</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class='gal' id='galeria' data-aura='3'>
+  <div class='sec-head'>
+    <div>
+      <span class='eyebrow'>03 · Galería</span>
+      <h2>Suena <em>en cualquier sitio</em></h2>
+    </div>
+    <p>Fotos con licencia abierta: estudios, vinilos, conciertos, vuelos, lluvia y naturaleza. Pulsa una para verla grande y ver quién la hizo.</p>
+  </div>
+  <div class='mosaic'>
+    <div class='col'>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Beautiful_girl_listening_to_music_with_headphones.jpg/1280px-Beautiful_girl_listening_to_music_with_headphones.jpg' data-credit='Lars Frantzen · CC BY-SA 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Beautiful_girl_listening_to_music_with_headphones.jpg/1280px-Beautiful_girl_listening_to_music_with_headphones.jpg' alt='Chica escuchando música con cascos'>
+        <figcaption><b>Escucha</b>Chica escuchando música con cascos</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Das_Vinyl_dreht_sich.jpg/1280px-Das_Vinyl_dreht_sich.jpg' data-credit='Sulamith Sallmann · CC BY-SA 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Das_Vinyl_dreht_sich.jpg/1280px-Das_Vinyl_dreht_sich.jpg' alt='Disco de vinilo girando'>
+        <figcaption><b>Vinilo</b>El vinilo gira</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Concert_crowd_%28Unsplash%29.jpg/1280px-Concert_crowd_%28Unsplash%29.jpg' data-credit='Hannah Rodrigo · CC0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Concert_crowd_%28Unsplash%29.jpg/1280px-Concert_crowd_%28Unsplash%29.jpg' alt='Público en un concierto'>
+        <figcaption><b>Directo</b>Público en un concierto</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Rain_on_a_window_pane.jpg/1280px-Rain_on_a_window_pane.jpg' data-credit='Theactivistuk · CC BY-SA 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Rain_on_a_window_pane.jpg/1280px-Rain_on_a_window_pane.jpg' alt='Lluvia sobre un cristal'>
+        <figcaption><b>Lluvia</b>Lluvia sobre un cristal</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Club_holds_radio_dance_wearing_earphones_1920.jpg/1280px-Club_holds_radio_dance_wearing_earphones_1920.jpg' data-credit='Autor desconocido · dominio público · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Club_holds_radio_dance_wearing_earphones_1920.jpg/1280px-Club_holds_radio_dance_wearing_earphones_1920.jpg' alt='Baile de 1920 con auriculares de radio'>
+        <figcaption><b>Historia</b>Baile de 1920 con auriculares de radio</figcaption>
+      </figure>
+    </div>
+    <div class='col'>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Woman_listening_to_music_with_wireless_headphones_neon_light_%2850810419882%29.jpg/1280px-Woman_listening_to_music_with_wireless_headphones_neon_light_%2850810419882%29.jpg' data-credit='Vu Hoang · CC BY 2.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Woman_listening_to_music_with_wireless_headphones_neon_light_%2850810419882%29.jpg/1280px-Woman_listening_to_music_with_wireless_headphones_neon_light_%2850810419882%29.jpg' alt='Mujer con cascos inalámbricos bajo luz de neón'>
+        <figcaption><b>Noche</b>Cascos inalámbricos bajo luz de neón</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Kazantip%2C_Popovka%2C_Crimea%2C_Technics_turntable%2C_Vinyl_turntable.jpg/1280px-Kazantip%2C_Popovka%2C_Crimea%2C_Technics_turntable%2C_Vinyl_turntable.jpg' data-credit='Vyacheslav Argenberg · CC BY 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Kazantip%2C_Popovka%2C_Crimea%2C_Technics_turntable%2C_Vinyl_turntable.jpg/1280px-Kazantip%2C_Popovka%2C_Crimea%2C_Technics_turntable%2C_Vinyl_turntable.jpg' alt='Tocadiscos Technics'>
+        <figcaption><b>Platos</b>Tocadiscos Technics</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Crowd_at_Noam_Rotem_concert.jpg/1280px-Crowd_at_Noam_Rotem_concert.jpg' data-credit='Asaf antman · CC BY 2.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Crowd_at_Noam_Rotem_concert.jpg/1280px-Crowd_at_Noam_Rotem_concert.jpg' alt='Público en un concierto de Noam Rotem'>
+        <figcaption><b>Directo</b>Público en un concierto</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Rain_on_the_car_window%2C_Lianjiang.jpg/1280px-Rain_on_the_car_window%2C_Lianjiang.jpg' data-credit='Winzekter986 · CC BY-SA 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Rain_on_the_car_window%2C_Lianjiang.jpg/1280px-Rain_on_the_car_window%2C_Lianjiang.jpg' alt='Lluvia en la ventanilla de un coche'>
+        <figcaption><b>Viaje</b>Lluvia en la ventanilla de un coche</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Sony_WH-CH510_Bluetooth_Over-Ear_Headphone.jpg/1280px-Sony_WH-CH510_Bluetooth_Over-Ear_Headphone.jpg' data-credit='RPSkokie · CC BY-SA 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Sony_WH-CH510_Bluetooth_Over-Ear_Headphone.jpg/1280px-Sony_WH-CH510_Bluetooth_Over-Ear_Headphone.jpg' alt='Sony WH-CH510, otro modelo de la marca'>
+        <figcaption><b>Otro Sony</b>WH-CH510, otro modelo de la marca</figcaption>
+      </figure>
+    </div>
+    <div class='col'>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Young_handsome_girl_listening_to_music_at_the_gym%2C_headphones_closeup.jpg/1280px-Young_handsome_girl_listening_to_music_at_the_gym%2C_headphones_closeup.jpg' data-credit='Nenad Stojkovic · CC BY 2.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Young_handsome_girl_listening_to_music_at_the_gym%2C_headphones_closeup.jpg/1280px-Young_handsome_girl_listening_to_music_at_the_gym%2C_headphones_closeup.jpg' alt='Chica escuchando música en el gimnasio'>
+        <figcaption><b>Entreno</b>Música en el gimnasio</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Shure_SM7.jpg/1280px-Shure_SM7.jpg' data-credit='The Midnite Wolf · CC0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Shure_SM7.jpg/1280px-Shure_SM7.jpg' alt='Micrófono Shure SM7'>
+        <figcaption><b>Estudio</b>Micrófono Shure SM7</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Clouds_from_Airplane_window.jpg/1280px-Clouds_from_Airplane_window.jpg' data-credit='JaneDubrov · CC BY-SA 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Clouds_from_Airplane_window.jpg/1280px-Clouds_from_Airplane_window.jpg' alt='Nubes vistas desde la ventanilla de un avión'>
+        <figcaption><b>Vuelo</b>Nubes desde la ventanilla</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Mountain_Lake_Virginia_lakeview.jpg/1280px-Mountain_Lake_Virginia_lakeview.jpg' data-credit='Rolfmueller · CC BY-SA 3.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Mountain_Lake_Virginia_lakeview.jpg/1280px-Mountain_Lake_Virginia_lakeview.jpg' alt='Lago de montaña en Virginia'>
+        <figcaption><b>Naturaleza</b>Lago de montaña en Virginia</figcaption>
+      </figure>
+    </div>
+    <div class='col'>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Groove_and_needle_in_close_embrace_from_beginning_to_end.jpg/1280px-Groove_and_needle_in_close_embrace_from_beginning_to_end.jpg' data-credit='Franz van Duns · CC BY-SA 4.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Groove_and_needle_in_close_embrace_from_beginning_to_end.jpg/1280px-Groove_and_needle_in_close_embrace_from_beginning_to_end.jpg' alt='Aguja sobre el surco de un disco de vinilo'>
+        <figcaption><b>Vinilo</b>Aguja y surco, de principio a fin</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Neumann_U87_Condenser_Microphone_-_Studio_A%2C_In_Your_Ear_Studios.jpg/1280px-Neumann_U87_Condenser_Microphone_-_Studio_A%2C_In_Your_Ear_Studios.jpg' data-credit='Will Fisher · CC BY-SA 2.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Neumann_U87_Condenser_Microphone_-_Studio_A%2C_In_Your_Ear_Studios.jpg/1280px-Neumann_U87_Condenser_Microphone_-_Studio_A%2C_In_Your_Ear_Studios.jpg' alt='Micrófono Neumann U87 en un estudio'>
+        <figcaption><b>Estudio</b>Neumann U87 en la sala A</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Woman_listening_music_on_her_smartphone_%2850810304846%29.jpg/1280px-Woman_listening_music_on_her_smartphone_%2850810304846%29.jpg' data-credit='Vu Hoang · CC BY 2.0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Woman_listening_music_on_her_smartphone_%2850810304846%29.jpg/1280px-Woman_listening_music_on_her_smartphone_%2850810304846%29.jpg' alt='Mujer escuchando música en el móvil'>
+        <figcaption><b>Móvil</b>Escuchando música en el móvil</figcaption>
+      </figure>
+      <figure class='t' data-src='https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/L%C3%A1gym%C3%A1nyos_Bay_Park_running_track_20170627_193533.jpg/1280px-L%C3%A1gym%C3%A1nyos_Bay_Park_running_track_20170627_193533.jpg' data-credit='Vauia Rex · CC0 · Wikimedia Commons'>
+        <img loading='lazy' src='https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/L%C3%A1gym%C3%A1nyos_Bay_Park_running_track_20170627_193533.jpg/1280px-L%C3%A1gym%C3%A1nyos_Bay_Park_running_track_20170627_193533.jpg' alt='Pista de running en un parque'>
+        <figcaption><b>Calle</b>Pista de running en un parque</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class='specs' id='specs' data-aura='2'>
+  <div class='sec-head'>
+    <div>
+      <span class='eyebrow'>04 · Ficha técnica</span>
+      <h2>Los <em>números</em></h2>
+    </div>
+    <p>Datos de la ficha oficial de Sony (EE. UU.). Algunas funciones se activan desde la app Sony Sound Connect.</p>
+  </div>
+  <dl class='spec-grid'>
+    <div class='row'><dt>Tipo</dt><dd>Cerrados, over-ear, con orejeras plegables</dd></div>
+    <div class='row'><dt>Peso</dt><dd>Aprox. 8,96 oz (254 g)</dd></div>
+    <div class='row'><dt>Driver</dt><dd>1,18 in (aprox. 30 mm), imán de neodimio</dd></div>
+    <div class='row'><dt>Respuesta</dt><dd>4–40.000 Hz por cable · 20–20.000 Hz por Bluetooth · 20–40.000 Hz con LDAC</dd></div>
+    <div class='row'><dt>Micrófonos</dt><dd>12 para cancelación y llamadas, MEMS de captación omnidireccional</dd></div>
+    <div class='row'><dt>Bluetooth</dt><dd>Versión 5.3, banda 2,4 GHz, alcance aprox. 10 m</dd></div>
+    <div class='row'><dt>Códecs</dt><dd>SBC, AAC, LDAC, LC3</dd></div>
+    <div class='row'><dt>Batería</dt><dd>Música: 30 h con NC · 40 h sin NC. Llamadas: 24 h · 28 h</dd></div>
+    <div class='row'><dt>Carga</dt><dd>USB, carga completa en aprox. 3,5 h</dd></div>
+    <div class='row'><dt>Cable</dt><dd>Desmontable, 1,2 m, conexión en un solo lado</dd></div>
+    <div class='row'><dt>Funciones</dt><dd>Cancelación adaptativa, modo ambiente, Speak-to-Chat, multipunto, DSEE Extreme, Sound Connect</dd></div>
+    <div class='row'><dt>En la caja</dt><dd>Estuche, cable de conexión, cable USB, tarjeta de garantía, guía de referencia</dd></div>
+  </dl>
+</section>
+
+<section class='buy' id='comprar' data-aura='1'>
+  <div>
+    <span class='eyebrow'>05 · Precio</span>
+    <p class='price'>379,99<sup>USD</sup></p>
+    <p class='buy-note'>Precio de la web de Sony EE. UU. consultado el 12 de noviembre de 2026, frente a un PVP de 459,99 USD. Los precios cambian: mira la web antes de comprar.</p>
+  </div>
+  <div class='buy-cta'>
+    <p>Modelo WH-1000XM6/B, negro. Hay más colores según la región.</p>
+    <a class='btn sig' href='https://electronics.sony.com/audio/headphones/headband/p/wh1000xm6-b' target='_blank' rel='noopener'>Ver en Sony →</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Página no oficial, sin relación con Sony. Textos basados en la ficha técnica y la web de Sony. Hecha con Claude a partir de un prompt.</p>
+  <details open>
+    <summary>Créditos de las imágenes</summary>
+    <p>Fotos de producto: © Sony Electronics, tomadas de su web solo para presentar el producto. No tienen licencia abierta; si Sony lo pide, se retiran.</p>
+    <div class='cred'>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Beautiful_girl_listening_to_music_with_headphones.jpg' target='_blank' rel='noopener'>Chica con cascos</a> · Lars Frantzen · CC BY-SA 4.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Woman_listening_to_music_with_wireless_headphones_neon_light_(50810419882).jpg' target='_blank' rel='noopener'>Luz de neón</a> · Vu Hoang · CC BY 2.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Young_handsome_girl_listening_to_music_at_the_gym,_headphones_closeup.jpg' target='_blank' rel='noopener'>Gimnasio</a> · Nenad Stojkovic · CC BY 2.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Groove_and_needle_in_close_embrace_from_beginning_to_end.jpg' target='_blank' rel='noopener'>Aguja y surco</a> · Franz van Duns · CC BY-SA 4.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Das_Vinyl_dreht_sich.jpg' target='_blank' rel='noopener'>El vinilo gira</a> · Sulamith Sallmann · CC BY-SA 4.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Kazantip,_Popovka,_Crimea,_Technics_turntable,_Vinyl_turntable.jpg' target='_blank' rel='noopener'>Tocadiscos Technics</a> · Vyacheslav Argenberg · CC BY 4.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Shure_SM7.jpg' target='_blank' rel='noopener'>Micrófono Shure SM7</a> · The Midnite Wolf · CC0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Neumann_U87_Condenser_Microphone_-_Studio_A,_In_Your_Ear_Studios.jpg' target='_blank' rel='noopener'>Neumann U87</a> · Will Fisher · CC BY-SA 2.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Concert_crowd_(Unsplash).jpg' target='_blank' rel='noopener'>Público en concierto</a> · Hannah Rodrigo · CC0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Crowd_at_Noam_Rotem_concert.jpg' target='_blank' rel='noopener'>Concierto de Noam Rotem</a> · Asaf antman · CC BY 2.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Clouds_from_Airplane_window.jpg' target='_blank' rel='noopener'>Nubes desde el avión</a> · JaneDubrov · CC BY-SA 4.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Woman_listening_music_on_her_smartphone_(50810304846).jpg' target='_blank' rel='noopener'>Música en el móvil</a> · Vu Hoang · CC BY 2.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Rain_on_a_window_pane.jpg' target='_blank' rel='noopener'>Lluvia sobre un cristal</a> · Theactivistuk · CC BY-SA 4.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Rain_on_the_car_window,_Lianjiang.jpg' target='_blank' rel='noopener'>Lluvia en el coche</a> · Winzekter986 · CC BY-SA 4.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Mountain_Lake_Virginia_lakeview.jpg' target='_blank' rel='noopener'>Lago de montaña</a> · Rolfmueller · CC BY-SA 3.0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:L%C3%A1gym%C3%A1nyos_Bay_Park_running_track_20170627_193533.jpg' target='_blank' rel='noopener'>Pista de running</a> · Vauia Rex · CC0</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Club_holds_radio_dance_wearing_earphones_1920.jpg' target='_blank' rel='noopener'>Baile de 1920</a> · autor desconocido · dominio público</span>
+      <span>Galería · <a href='https://commons.wikimedia.org/wiki/File:Sony_WH-CH510_Bluetooth_Over-Ear_Headphone.jpg' target='_blank' rel='noopener'>WH-CH510</a> · RPSkokie · CC BY-SA 4.0</span>
+    </div>
+  </details>
+</footer>
+
+<dialog id='lb'>
+  <img id='lbImg' alt=''>
+  <div class='lb-cap'><span id='lbCap'></span><button id='lbClose' type='button'>cerrar</button></div>
+</dialog>
+
+<script>
+(function () {
+  'use strict';
+  var D = Math.min(window.devicePixelRatio || 1, 2);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(pointer: fine)').matches;
+  var wide = window.matchMedia('(min-width: 821px)').matches;
+  var hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+  function $(s) { return document.querySelector(s); }
+  function $$(s) { return Array.prototype.slice.call(document.querySelectorAll(s)); }
+
+  var hero = $('#wave'), hc = hero.getContext('2d');
+  var stg = $('#stage'), sc = stg.getContext('2d');
+  var dbEl = $('#db'), tagEl = $('#stageTag');
+  var NAMES = ['01 · Cancelación adaptativa', '02 · Llamadas claras', '03 · Modo ambiente', '04 · Sonido afinado', '05 · Multipunto', '06 · Batería'];
+  var cancel = 0, sIdx = 0;
+
+  function fit(c) {
+    var r = c.getBoundingClientRect();
+    c.width = Math.round(r.width * D);
+    c.height = Math.round(r.height * D);
+    c.getContext('2d').setTransform(D, 0, 0, D, 0, 0);
+  }
+  function fitAll() { fit(hero); fit(stg); }
+  fitAll();
+  window.addEventListener('resize', fitAll);
+
+  function nz(x, t) {
+    return Math.sin(x * 34 + t * 2.3) * 0.5 + Math.sin(x * 87 - t * 3.1) * 0.3 +
+      Math.sin(x * 190 + t * 5.7) * 0.14 + Math.sin(x * 9 + t * 0.6) * 0.45;
+  }
+  function env(x) { return Math.pow(Math.sin(Math.PI * x), 0.7); }
+  function trace(ctx, w, mid, amp, fn, t, color, lw) {
+    ctx.beginPath();
+    ctx.moveTo(0, mid + fn(0, t) * amp);
+    for (var px = 3; px <= w; px += 3) ctx.lineTo(px, mid + fn(px / w, t) * amp);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lw;
+    ctx.stroke();
+  }
+  function drawHero(t) {
+    var w = hero.clientWidth, h = hero.clientHeight, mid = h * 0.52, amp = Math.min(h * 0.13, 150);
+    hc.clearRect(0, 0, w, h);
+    var k = Math.min(1, cancel / 0.84), e = k * k * (3 - 2 * k), lag = 0.004;
+    trace(hc, w, mid, amp, function (x, t) { return nz(x, t) * env(x); }, t, 'rgba(238,232,220,0.2)', 1);
+    trace(hc, w, mid, amp, function (x, t) { return -e * nz(x - lag, t) * env(x); }, t, 'rgba(255,90,43,0.9)', 1.4);
+    trace(hc, w, mid, amp, function (x, t) { return (nz(x, t) - e * nz(x - lag, t)) * env(x); }, t, 'rgba(238,232,220,0.95)', 2);
+    dbEl.textContent = Math.round(72 - 63 * e);
+  }
+
+  function label(txt, x, y, col, align) {
+    sc.font = '500 11px JetBrains Mono, monospace';
+    sc.fillStyle = col || 'rgba(238,232,220,0.5)';
+    sc.textAlign = align || 'left';
+    sc.fillText(txt, x, y);
+  }
+  function vAdaptive(w, h, t) {
+    var n = 44, bw = w / n, cy = h * 0.5;
+    for (var i = 0; i < n; i++) {
+      var raw = 0.25 + 0.75 * Math.abs(Math.sin(i * 0.73 + t * 0.9) * Math.cos(i * 0.31 - t * 0.45));
+      var osc = 0.5 + 0.5 * Math.sin(t * 1.6 - i * 0.22);
+      var rest = raw * (1 - 0.82 * osc);
+      var x = i * bw + bw * 0.22, bwid = bw * 0.56;
+      sc.fillStyle = 'rgba(125,139,153,0.28)';
+      sc.fillRect(x, cy - raw * h * 0.38, bwid, raw * h * 0.76);
+      sc.fillStyle = 'rgba(238,232,220,0.9)';
+      sc.fillRect(x, cy - rest * h * 0.38, bwid, rest * h * 0.76);
+    }
+    label('ruido filtrado por banda · ilustrativo', 18, h - 18);
+  }
+  function vCalls(w, h, t) {
+    var cx = w * 0.5, cy = h * 0.52, R = Math.min(w, h) * 0.3, beam = (t * 0.9) % (Math.PI * 2);
+    sc.beginPath(); sc.arc(cx, cy, R * 0.42, 0, Math.PI * 2);
+    sc.strokeStyle = 'rgba(238,232,220,0.16)'; sc.lineWidth = 1; sc.stroke();
+    for (var i = 0; i < 12; i++) {
+      var a = i / 12 * Math.PI * 2 - Math.PI / 2;
+      var d = Math.abs(Math.atan2(Math.sin(a - beam), Math.cos(a - beam)));
+      var on = Math.max(0, 1 - d / 0.9);
+      var x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+      sc.beginPath(); sc.arc(x, y, 4 + on * 7, 0, Math.PI * 2);
+      sc.fillStyle = on > 0.05 ? 'rgba(255,90,43,' + (0.35 + on * 0.65).toFixed(2) + ')' : 'rgba(238,232,220,0.4)';
+      sc.fill();
+    }
+    sc.beginPath(); sc.arc(cx, cy, 6, 0, Math.PI * 2); sc.fillStyle = 'rgba(238,232,220,0.9)'; sc.fill();
+    label('voz', cx + 14, cy + 4, 'rgba(238,232,220,0.8)');
+    label('12 micrófonos por zonas · ilustrativo', 18, h - 18);
+  }
+  function vAmbient(w, h, t) {
+    var cy = h * 0.5, c = (t % 6) / 6;
+    var sp = (c > 0.5 && c < 0.88) ? Math.sin((c - 0.5) / 0.38 * Math.PI) : 0;
+    var mA = h * 0.13 * (1 - 0.85 * sp);
+    sc.beginPath();
+    for (var px = 0; px <= w; px += 3) {
+      var x = px / w;
+      var y = cy - Math.sin(x * 26 + t * 3) * mA * Math.pow(Math.sin(Math.PI * x), 0.5) - Math.sin(x * 9 - t) * mA * 0.4;
+      if (px === 0) sc.moveTo(px, y); else sc.lineTo(px, y);
+    }
+    sc.strokeStyle = 'rgba(238,232,220,0.85)'; sc.lineWidth = 1.6; sc.stroke();
+    if (sp > 0.02) {
+      sc.beginPath();
+      for (var q = 0; q <= w; q += 3) {
+        var xx = q / w;
+        var yy = cy + (Math.sin(xx * 140 + t * 19) * 0.6 + Math.sin(xx * 61 - t * 11) * 0.4) * h * 0.2 * sp * Math.pow(Math.sin(Math.PI * xx), 0.6);
+        if (q === 0) sc.moveTo(q, yy); else sc.lineTo(q, yy);
+      }
+      sc.strokeStyle = 'rgba(255,90,43,' + sp.toFixed(2) + ')'; sc.lineWidth = 1.4; sc.stroke();
+    }
+    if (sp > 0.2) label('voz detectada · música en pausa', 18, h - 18, 'rgba(255,90,43,0.95)');
+    else label('música sonando', 18, h - 18);
+  }
+  function vSound(w, h, t) {
+    var n = 60, bw = w / n, base = h * 0.82;
+    for (var i = 0; i < n; i++) {
+      var f = i / n;
+      var v = (0.42 + 0.36 * Math.sin(i * 0.37 + t * 1.3) * Math.cos(i * 0.11 - t * 0.45)) * (1 - f * 0.6) + 0.04;
+      var bh = Math.max(0.02, v) * h * 0.62;
+      var g = sc.createLinearGradient(0, base - bh, 0, base);
+      g.addColorStop(0, 'rgba(255,90,43,0.95)');
+      g.addColorStop(1, 'rgba(238,232,220,0.25)');
+      sc.fillStyle = g;
+      sc.fillRect(i * bw + 1, base - bh, bw - 2, bh);
+    }
+    label('LDAC · 990 kbps · 96 kHz', 18, h - 18, 'rgba(238,232,220,0.8)');
+    label(w < 460 ? 'ilustrativo' : 'DSEE Extreme · ilustrativo', w - 18, h - 18, 'rgba(238,232,220,0.5)', 'right');
+  }
+  function vMulti(w, h, t) {
+    var cx = w * 0.5, cy = h * 0.5, R = Math.min(w, h) * 0.34;
+    var nodes = [[-0.9, -0.6, 'Móvil'], [0.9, -0.5, 'Portátil'], [0, 1.0, 'Tablet']];
+    nodes.forEach(function (nd, i) {
+      var x = cx + nd[0] * R, y = cy + nd[1] * R * 0.85;
+      sc.beginPath(); sc.moveTo(cx, cy); sc.lineTo(x, y);
+      sc.strokeStyle = 'rgba(238,232,220,0.18)'; sc.lineWidth = 1; sc.stroke();
+      var p = (t * 0.35 + i * 0.33) % 1;
+      sc.beginPath(); sc.arc(cx + (x - cx) * p, cy + (y - cy) * p, 3, 0, Math.PI * 2);
+      sc.fillStyle = 'rgba(255,90,43,0.95)'; sc.fill();
+      sc.beginPath(); sc.arc(x, y, 14, 0, Math.PI * 2);
+      sc.strokeStyle = 'rgba(238,232,220,0.5)'; sc.stroke();
+      label(nd[2], x, y + 34, 'rgba(238,232,220,0.7)', 'center');
+    });
+    sc.beginPath(); sc.arc(cx, cy, 34, 0, Math.PI * 2);
+    sc.fillStyle = '#14120f'; sc.fill();
+    sc.strokeStyle = 'rgba(238,232,220,0.8)'; sc.stroke();
+    label('XM6', cx, cy + 4, 'rgba(238,232,220,0.95)', 'center');
+    label('varios dispositivos a la vez · ilustrativo', 18, h - 18);
+  }
+  function vBattery(w, h, t) {
+    var ph = Math.min(1, (t % 6) / 3.2), g = ph * ph * (3 - 2 * ph);
+    var x0 = w * 0.12, maxW = w * 0.76;
+    [['NC activada', 30], ['NC desactivada', 40]].forEach(function (r, i) {
+      var y = h * (0.36 + i * 0.2), len = maxW * (r[1] / 40) * g;
+      label(r[0].toUpperCase(), x0, y - 16, 'rgba(238,232,220,0.55)');
+      sc.fillStyle = 'rgba(238,232,220,0.08)'; sc.fillRect(x0, y, maxW, 22);
+      sc.fillStyle = i ? 'rgba(238,232,220,0.9)' : 'rgba(255,90,43,0.95)';
+      sc.fillRect(x0, y, len, 22);
+      label(r[1] + ' h', x0 + len + 10, y + 16, 'rgba(238,232,220,0.95)');
+    });
+    label('carga completa en unas 3,5 h por USB', x0, h * 0.7, 'rgba(238,232,220,0.6)');
+    label('llamadas: 24 h con NC · 28 h sin NC', x0, h * 0.7 + 24, 'rgba(238,232,220,0.45)');
+  }
+  var VIS = [vAdaptive, vCalls, vAmbient, vSound, vMulti, vBattery];
+  function setStage(i) {
+    if (i === sIdx) return;
+    sIdx = i;
+    tagEl.textContent = NAMES[i];
+  }
+
+  var T0 = performance.now();
+  function frame(now) {
+    var t = reduce ? 0 : (now - T0) / 1000;
+    drawHero(t);
+    sc.clearRect(0, 0, stg.clientWidth, stg.clientHeight);
+    VIS[sIdx](stg.clientWidth, stg.clientHeight, t);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  var nav = $('#nav'), lastY = 0;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    nav.classList.toggle('solid', y > 80);
+    nav.classList.toggle('hide', y > lastY && y > 320);
+    lastY = y;
+  }, { passive: true });
+
+  if (fine) {
+    var cur = $('#cur'), mx = -200, my = -200, cx = -200, cy = -200;
+    window.addEventListener('pointermove', function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function loop() {
+      cx += (mx - cx) * 0.22;
+      cy += (my - cy) * 0.22;
+      cur.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener('pointerover', function (e) {
+      if (e.target.closest && e.target.closest('a,button,figure')) cur.classList.add('hot');
+    });
+    document.addEventListener('pointerout', function (e) {
+      if (e.target.closest && e.target.closest('a,button,figure')) cur.classList.remove('hot');
+    });
+  }
+
+  var lb = $('#lb'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
+  $$('.t').forEach(function (f) {
+    f.addEventListener('click', function () {
+      var src = f.getAttribute('data-src');
+      if (!src || !f.querySelector('img')) return;
+      lbImg.src = src;
+      lbImg.alt = f.querySelector('img').alt;
+      lbCap.textContent = f.getAttribute('data-credit');
+      if (lb.showModal) lb.showModal();
+    });
+  });
+  $('#lbClose').addEventListener('click', function () { lb.close(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+
+  if (hasGsap) {
+    gsap.to('#prod', {
+      yPercent: -12, rotate: -9, scale: 1.07, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: true }
+    });
+    gsap.to('.hero-title', {
+      opacity: 0, yPercent: -18, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top -600', end: 'top -1500', scrub: true }
+    });
+    ScrollTrigger.create({
+      trigger: '.hero', start: 'top top', end: 'bottom bottom',
+      onUpdate: function (s) { cancel = s.progress; }
+    });
+
+    var st = $('#statement');
+    st.innerHTML = st.textContent.trim().split(/\s+/).map(function (w) {
+      return '<span class=sw>' + w + '</span>';
+    }).join(' ');
+    gsap.fromTo($$('.sw'), { color: '#4b463f' }, {
+      color: '#eee8dc', ease: 'none', stagger: 0.04,
+      scrollTrigger: { trigger: st, start: 'top 78%', end: 'bottom 60%', scrub: true }
+    });
+
+    $$('[data-to]').forEach(function (el) {
+      var to = parseFloat(el.getAttribute('data-to')), suf = el.getAttribute('data-suf') || '';
+      el.textContent = '0' + suf;
+      ScrollTrigger.create({
+        trigger: el, start: 'top 86%', once: true,
+        onEnter: function () {
+          var o = { v: 0 };
+          gsap.to(o, {
+            v: to, duration: 1.8, ease: 'power3.out',
+            onUpdate: function () { el.textContent = Math.round(o.v) + suf; }
+          });
+        }
+      });
+    });
+
+    $$('.f').forEach(function (el, i) {
+      ScrollTrigger.create({
+        trigger: el, start: window.innerWidth <= 820 ? 'top 24%' : 'top 58%', end: window.innerWidth <= 820 ? 'bottom 24%' : 'bottom 58%',
+        onToggle: function (s) {
+          if (!s.isActive) return;
+          $$('.f').forEach(function (x) { x.classList.toggle('on', x === el); });
+          setStage(i);
+        }
+      });
+    });
+
+    var aura = $('#aura');
+    $$('[data-aura]').forEach(function (el) {
+      ScrollTrigger.create({
+        trigger: el, start: 'top 55%', end: 'bottom 45%',
+        onToggle: function (s) { if (s.isActive) aura.setAttribute('data-c', el.getAttribute('data-aura')); }
+      });
+    });
+
+    $$('.rv').forEach(function (el) {
+      gsap.from(el, {
+        y: 40, opacity: 0, duration: 1.2, ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 90%' }
+      });
+    });
+
+    if (wide) {
+      $$('.col').forEach(function (col, i) {
+        var s = [0.5, -0.35, 0.7, -0.2][i];
+        gsap.fromTo(col, { y: s * -160 }, {
+          y: s * 160, ease: 'none',
+          scrollTrigger: { trigger: '#galeria', start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+      });
+    }
+
+    var tiles = $$('.t'), tt = 0;
+    ScrollTrigger.create({
+      trigger: '#galeria', start: 'top bottom', end: 'bottom top',
+      onUpdate: function (s) {
+        var v = Math.max(-4, Math.min(4, s.getVelocity() / 500));
+        gsap.to(tiles, { skewY: v, duration: 0.5, ease: 'power3.out', overwrite: true });
+        clearTimeout(tt);
+        tt = setTimeout(function () {
+          gsap.to(tiles, { skewY: 0, duration: 0.9, ease: 'expo.out', overwrite: true });
+        }, 140);
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
