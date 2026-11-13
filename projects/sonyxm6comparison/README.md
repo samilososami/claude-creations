@@ -11,8 +11,9 @@ Lista de webs sobre los Sony WH-1000XM6. Todas salen del mismo prompt, hechas po
 | 01 | Haiku 5.5 | [/claude/sonyxm6comparison/haiku](https://www.samilososami.com/claude/sonyxm6comparison/haiku/) | [`haiku/`](haiku) |
 | 02 | Sonnet 5.5 | [/claude/sonyxm6comparison/sonnet](https://www.samilososami.com/claude/sonyxm6comparison/sonnet/) | [`sonnet/`](sonnet) |
 | 03 | Fable 5.2 | [/claude/sonyxm6comparison/fable](https://www.samilososami.com/claude/sonyxm6comparison/fable/) | [`fable/`](fable) |
+| 04 | Opus 5.5 | [/claude/sonyxm6comparison/opus](https://www.samilososami.com/claude/sonyxm6comparison/opus/) | [`opus/`](opus) |
 
-Cada carpeta tiene su propio README con los créditos de las imágenes. Las tres están también alojadas en AppDeploy (enlaces en cada README).
+Cada carpeta tiene su propio README con los créditos de las imágenes. Las cuatro están también alojadas en AppDeploy (enlaces en cada README).
 
 ## El prompt (el mismo para todas)
 
