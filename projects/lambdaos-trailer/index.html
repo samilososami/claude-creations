@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lambda OS · trailer</title>
+<meta name="description" content="Trailer de 46 segundos del sistema operativo de pentesting para Samsung Galaxy S10, en vertical 9:16, con narración en inglés.">
+<style>
+  :root{--ink:#F1F0EC;--mist:#D8D9D6;--grey:#687078;--raise:#171A1D;--line:rgba(241,240,236,.14)}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#000;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  body{min-height:100vh;display:grid;grid-template-rows:auto 1fr;padding:16px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:560px;width:100%;margin:0 auto 14px}
+  header a{color:var(--mist);font-size:13px;text-decoration:none;letter-spacing:.2px}
+  header a:hover{color:var(--ink)}
+  h1{font-size:15px;font-weight:600;margin:0;letter-spacing:.2px}
+  .info-btn{width:30px;height:30px;border:1.5px solid var(--ink);border-radius:50%;background:transparent;color:var(--ink);font:italic 500 16px/1 Georgia,serif;cursor:pointer;display:grid;place-items:center;padding:0}
+  .info-btn:hover,.info-btn[aria-expanded="true"]{background:var(--ink);color:#000}
+  main{display:grid;place-items:center}
+  video{display:block;width:min(100%,calc((100vh - 110px) * 9 / 16));max-width:560px;aspect-ratio:9/16;background:#000;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .scrim{position:fixed;inset:0;background:rgba(5,5,6,.6);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:9}
+  .info{position:fixed;left:50%;top:50%;width:min(92vw,560px);max-height:86vh;overflow:auto;transform:translate(-50%,-48%) scale(.98);opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility .3s;background:var(--raise);border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;z-index:10}
+  .open .scrim{opacity:1;visibility:visible}
+  .open .info{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+  .info h2{font-size:17px;margin:0 0 16px;font-weight:600}
+  .info dl{margin:0 0 18px;display:grid;gap:12px}
+  .info dt{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+  .info dd{font-size:14px;color:var(--mist);margin:0;line-height:1.5}
+  .info .prompt{white-space:pre-wrap;font-size:13px;line-height:1.55;color:var(--mist);background:#0C0E10;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0}
+  .info a{color:var(--ink)}
+  .info .close{margin-top:16px;display:flex;justify-content:space-between;gap:12px;font-size:13px}
+  .info .close button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <a href="/claude/">← Claude creations</a>
+  <h1>Lambda OS · trailer</h1>
+  <button class="info-btn" id="infoBtn" aria-controls="info" aria-expanded="false" aria-label="Información del proyecto">i</button>
+</header>
+
+<main>
+  <video src="trailer.mp4" poster="img/poster.jpg" controls playsinline preload="metadata"></video>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<section class="info" id="info" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+  <h2 id="infoTitle">Lambda OS · trailer</h2>
+  <dl>
+    <div><dt>Modelo</dt><dd>Claude Opus 5.5 (modelo de la sesión de creación)</dd></div>
+    <div><dt>Tiempo</dt><dd>No medido con precisión. El render final tardó 26,6 min; el resto de la sesión (guion, skills, 3D, audio y revisiones) no se midió.</dd></div>
+    <div><dt>Tokens</dt><dd>No medidos. El registro de la sesión no da el total consumido.</dd></div>
+    <div><dt>Prompt</dt><dd><p class="prompt">Vale, mira, te explico. Mira en mi repositorio de GitHub, ¿vale? Hay un repositorio llamado Lambda OS, ¿vale? Es básicamente un sistema operativo hecho para Samsung, bueno, para mí concretamente es para Samsung S10, ¿vale? El modelo. Y la idea es que es un sistema operativo completamente centrado en ciberseguridad, ¿vale? Es decir, que está hecho puramente para pentesting, ¿vale? Esto incluye pentesting de todo tipo, wifi, auditorías, OSINT, forense, de todo, ¿vale? Esa es la gracia, ¿ok? Y la idea es que el sistema operativo está como súper orientado a eso, ¿vale? Y también modifica el kernel, proporciona ruta al teléfono, le da de todo, ¿vale? Y la cosa es que también utiliza un modelo de IA que es el que estoy preparando, aún no está preparado del todo, pero se llamará LAMP con B. O sea, LAMP. Y la idea es que este modelo sea un modelo local que corre en el propio teléfono. Concretamente creo que era Gema de 2 billones de parámetros, ¿vale? El de Google. Y la cosa es que eso aún falta pulirlo, ¿vale? Pero la idea era como crear un sistema operativo full orientado a ciberseguridad, ¿vale? Que fuese estilo Watch Dogs 2, ¿vale? Es decir, como un sistema operativo rollo súper centrado en eso, ¿vale? Lo de, o sea, en hackear como con un par de clics, cosas así, súper autónomo todo, botón grande, interfaz bonita, minimalista, premium. Entonces quiero que le eches un ojo, ¿vale? Entonces te explico, lo que quiero que hagas es crear un vídeo de aproximadamente 15 segundos, bueno, no, mejor, que sean unos entre 30 y un minuto, ¿vale? O sea, entre 30 segundos y un minuto, explicando, o sea, con motion graphics, diseños, estilos y todo esto. ¿Sabes los típicos vídeos estilo tráiler, por decirlo así, de cosas guapísimas, rollo proyectos y cosas de estas? Pues quiero que sea eso, ¿vale? La idea es que entre esos 30 segundos y el minuto expliques en inglés, ¿vale? El idioma debe ser en inglés. Expliques Lambda OS, ¿vale? Es decir, que expliques de qué va, expliques que es para Samsung S10, todo con animaciones súper, súper, súper guapas, ¿vale? ¿A qué me refiero? Busca skills e instálalas de... O sea, busca skills de motion graphics, diseño, creación de vídeos y todo esto, e instálalas, ¿vale? La idea es esa, que crees como un vídeo súper guapo, súper movido, súper espectacular, manteniendo el tono minimalista del Lambda OS, ¿vale? Que es básicamente negros y blancos sin ser absolutos, ¿vale? Y que quede súper bonito. O sea, debes como incluso transiciones, debes mostrar, por ejemplo, una cosa que había pensado era como el modelo 3D del teléfono, concretamente el Samsung S10, y ver cómo pasa de ser un Samsung S10 a ser un sistema operativo nuevo, ¿vale? Y también mostrar un poco como... O sea, como mostrar el sistema operativo, pero desde... O sea, desde el móvil, ¿sabes? Es que no sé si me explico bien, pero por ejemplo, podrías empezar el vídeo como si fuese la booting screen del sistema operativo, ¿vale? Que sea súper bonito y tal, todo eso. Y después como que se convierta y se muestre el teléfono, el Samsung S10, como girado, ¿vale? Rollo con ángulo y tal, y que se vea como el sistema operativo, las cosas. Hay cosas que aún no están desarrolladas, invéntatelas, ¿vale? O sea, toma parte de las cosas que tenemos, pero añade cosas en caso de que no las tengamos, porque por ejemplo, tenemos Lambda Operator, que es como el centro de control, pero no tenemos como los módulos aún hechos y tal. Invéntatelos, ¿vale? O sea, mantén el diseño que tenemos y todo eso, pero como hay cosas sin acabar, pues ponte a crearlas. Y el vídeo debe ser en 16:9 vertical para redes sociales, ¿vale? Y debe tener efectos de sonido, música que le pegue y audio en inglés, ¿vale? Como estilo narrador. Utiliza Eleven Labs. Debe ser una voz masculina que joven, ¿vale? Que... Utiliza las taglines que ofrece Eleven Labs para que tenga como esos tonos chulos, ¿sabes? Como esa pronunciación, esa emoción al decir las cosas y todo eso, que sea profesional y esté guapísimo. Y que acabe como... O sea, que el vídeo acabe como con el eslogan, ¿vale? Que es The System for Hacking Systems, ¿vale? Y que muestre como el logo de Lambda OS y todo eso. Te dejo a ti todo, básicamente, ¿vale? Pero tiene que estar súper, súper guapo. Debe parecer una producción tochísima. Ponte a ello. Y cuando estés me proporcionas el .mp4 final. no te dejes influenciar por otros archivos o proyectos similares o iguales que tenga aqui en el portatil. quiero que trabajes tu por tu cuenta para ver como te desarrollas</p></dd></div>
+  </dl>
+  <div class="close">
+    <a href="https://www.samilososami.com/claude/">Volver al hub</a>
+    <button id="closeBtn" type="button">Cerrar</button>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var btn = document.getElementById('infoBtn');
+    var closeBtn = document.getElementById('closeBtn');
+    var scrim = document.getElementById('scrim');
+    function set(open) {
+      document.body.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    btn.addEventListener('click', function () { set(!document.body.classList.contains('open')); });
+    closeBtn.addEventListener('click', function () { set(false); });
+    scrim.addEventListener('click', function () { set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  })();
+</script>
+</body>
+</html>

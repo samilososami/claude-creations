@@ -19,6 +19,7 @@ Cada web lleva un botón **i** en la esquina superior derecha con el prompt exac
 | 03 | [GlassPhone](projects/glassphone) | Concepto de teléfono transparente: cristal con refracción real en WebGL y GlassOS, un sistema simulado con doce apps | Claude | 2 h 30 min | [/claude/glassphone](https://www.samilososami.com/claude/glassphone/) |
 | 04 | [Sony XM6 comparison](projects/sonyxm6comparison) | Lista de webs sobre los Sony WH-1000XM6, una por modelo: [Haiku 5.5](projects/sonyxm6comparison/haiku), [Sonnet 5.5](projects/sonyxm6comparison/sonnet), [Fable 5.2](projects/sonyxm6comparison/fable) y [Opus 5.5](projects/sonyxm6comparison/opus) | Haiku 5.5, Sonnet 5.5, Fable 5.2 y Opus 5.5 | | [/claude/sonyxm6comparison](https://www.samilososami.com/claude/sonyxm6comparison/) |
 | 05 | [lambdaOSpromo](projects/lambdaospromo) | Promo de 44 s del sistema de pentesting para Samsung S10, con narración en inglés y 3D | No indicado | 23 min | [/claude/lambdaospromo](https://www.samilososami.com/claude/lambdaospromo/) |
+| 06 | [Lambda OS trailer](projects/lambdaos-trailer) | Trailer de 46 s del sistema de pentesting para Samsung S10, en 3D, con narración en inglés. Sección Promos | Claude Opus 5.5 | 26 min (render) | [/claude/lambdaos-trailer](https://www.samilososami.com/claude/lambdaos-trailer/) |
 
 ## Estructura
 
