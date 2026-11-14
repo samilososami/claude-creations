@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barcelona Country · promo</title>
+<meta name="description" content="Vídeo promocional de 62 segundos del Barcelona Country Festival 2027, en vertical 9:16, con narración en español.">
+<style>
+  :root{--ink:#F1F0EC;--mist:#D8D9D6;--grey:#687078;--raise:#171A1D;--line:rgba(241,240,236,.14)}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#000;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  body{min-height:100vh;display:grid;grid-template-rows:auto 1fr;padding:16px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:560px;width:100%;margin:0 auto 14px}
+  header a{color:var(--mist);font-size:13px;text-decoration:none;letter-spacing:.2px}
+  header a:hover{color:var(--ink)}
+  h1{font-size:15px;font-weight:600;margin:0;letter-spacing:.2px}
+  .info-btn{width:30px;height:30px;border:1.5px solid var(--ink);border-radius:50%;background:transparent;color:var(--ink);font:italic 500 16px/1 Georgia,serif;cursor:pointer;display:grid;place-items:center;padding:0}
+  .info-btn:hover,.info-btn[aria-expanded="true"]{background:var(--ink);color:#000}
+  main{display:grid;place-items:center}
+  video{display:block;width:min(100%,calc((100vh - 110px) * 9 / 16));max-width:560px;aspect-ratio:9/16;background:#000;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .scrim{position:fixed;inset:0;background:rgba(5,5,6,.6);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:9}
+  .info{position:fixed;left:50%;top:50%;width:min(92vw,560px);max-height:86vh;overflow:auto;transform:translate(-50%,-48%) scale(.98);opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility .3s;background:var(--raise);border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;z-index:10}
+  .open .scrim{opacity:1;visibility:visible}
+  .open .info{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+  .info h2{font-size:17px;margin:0 0 16px;font-weight:600}
+  .info dl{margin:0 0 18px;display:grid;gap:12px}
+  .info dt{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+  .info dd{font-size:14px;color:var(--mist);margin:0;line-height:1.5}
+  .info .prompt{white-space:pre-wrap;font-size:13px;line-height:1.55;color:var(--mist);background:#0C0E10;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0}
+  .info a{color:var(--ink)}
+  .info .close{margin-top:16px;display:flex;justify-content:space-between;gap:12px;font-size:13px}
+  .info .close button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <a href="/claude/">← Claude creations</a>
+  <h1>Barcelona Country · promo</h1>
+  <button class="info-btn" id="infoBtn" aria-controls="info" aria-expanded="false" aria-label="Información del proyecto">i</button>
+</header>
+
+<main>
+  <video src="promo.mp4" poster="img/poster.jpg" controls playsinline preload="metadata"></video>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<section class="info" id="info" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+  <h2 id="infoTitle">Barcelona Country · promo</h2>
+  <dl>
+    <div><dt>Modelo</dt><dd>Claude Opus 5.5 (modelo de la sesión de creación)</dd></div>
+    <div><dt>Tiempo</dt><dd>Unos 35 min de sesión (guion, voz, música, mezcla, diseño y revisiones). El render de los 1.875 fotogramas tardó 1,6 min.</dd></div>
+    <div><dt>Tokens</dt><dd>No medidos. El registro de la sesión no da el total consumido.</dd></div>
+    <div><dt>Prompt</dt><dd><p class="prompt">Vale, te explico. Esto es Barcelona Country, ¿vale? Es un evento de country que se va a hacer en Barcelona. Entonces te explico, tienes que generar un vídeo en 16 novenos vertical. La idea es que sea un vídeo presentación del evento, ¿vale? El rollo de Barcelona Country. Entonces, ponte a mirar el repositorio en la web para que puedas entender de qué va, cómo se va a montar, dónde va a ser, un poco de todo, o sea, lo que se va a hacer y todo esto, ¿vale? Y básicamente es lo que te digo, tiene que ser un vídeo presentación, por decirlo así, como explicando el evento, un tanto promocional incluso. Y tiene que estar guapísimo, ¿vale? Entonces, utiliza todas las skills de motion graphics, diseño, creación de vídeo, lo que tú veas, tanto instaladas como no instaladas. Si no las tienes instaladas, las instalas y te pones a crear el vídeo, ¿vale? Entonces, la duración tiene que ser aproximadamente un minuto. No pasa nada si son 55 segundos, no pasa nada si es un minuto y 5 segundos. Entonces, la cosa, tienes que utilizar Eleven Labs, ¿vale? Que lo tengo conectado, para generar voces. Lo suyo sería una única voz con... Utiliza taglines de Eleven Labs para hacer las pronunciaciones y las emociones a la hora de hablar. En español de España peninsular. Y si consideras conveniente alguna otra cosa, la haces también. Que aparezcan en el vídeo como algunos de los artistas más importantes y tal, los que más caracterizan la web y tal, puedes poner las imágenes de GitHub o lo que sea, literalmente lo que tú veas. Encárgate de poner también música que quede concorde al vídeo, efectos de sonido, que se vea guapísimo, ¿vale? Nada de AI Slop, nada de Vibe Coded, nada de eso, ¿vale? Eres superior, eres Opus 5.5. Haz lo que tú veas, estilo country, bueno, porque la web al fin y al cabo es de eso, pero lo que tú veas, literalmente, eres un puto genio, honestamente. Eres Opus 5.5, bro. Me he pagado el plan de 20 pavos de Claude porque eres increíble. Entonces ponte a crear el vídeo, ¿vale? Eso, si ves que necesitas alguna pregunta, hazme las preguntas que veas convenientes en caso de que tengas alguna. Y te pones a generar el vídeo. Encárgate de mirar el espectrograma y todo para que todo concuerde perfectamente. Tiene que ser todo hiperfluido, animaciones súper chulas, diseño guapísimo, una producción hiper profesional, ¿vale? Entonces ponte a currar. Te quiero, proporcióname el punto MP4 final cuando lo tengas.</p></dd></div>
+  </dl>
+  <div class="close">
+    <a href="https://www.samilososami.com/claude/">Volver al hub</a>
+    <button id="closeBtn" type="button">Cerrar</button>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var btn = document.getElementById('infoBtn');
+    var closeBtn = document.getElementById('closeBtn');
+    var scrim = document.getElementById('scrim');
+    function set(open) {
+      document.body.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    btn.addEventListener('click', function () { set(!document.body.classList.contains('open')); });
+    closeBtn.addEventListener('click', function () { set(false); });
+    scrim.addEventListener('click', function () { set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  })();
+</script>
+</body>
+</html>
