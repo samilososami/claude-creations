@@ -8,13 +8,13 @@ Rediseño completo de [barcelonacountry.com](https://barcelonacountry.com), el f
 |------|-------|
 | Modelo | Claude |
 | Fecha | Nov 2026 |
-| Tiempo | ≈ 1 h 40 min en dos sesiones (≈ 56 min la primera, ≈ 45 min la segunda) |
-| Tokens | ≈ 520 k de salida · ≈ 95 M procesados en total, casi todo lectura de caché |
+| Tiempo | ≈ 1 h 50 min en dos sesiones (≈ 56 min la primera, ≈ 55 min la segunda) |
+| Tokens | ≈ 580 k de salida · ≈ 125 M procesados en total, casi todo lectura de caché |
 
 ## Qué incluye
 
 - Hero con una guirnalda de bombillas en canvas que se balancea con física de muelles y reacciona al cursor, «BARCELONA» con letras que caen una a una y «Country» en neón que parpadea al encenderse.
-- Capa elegante en la segunda pasada: Cormorant Garamond para titulares y cifras, filetes finos, marcos dorados dentro de las fotos en arco y una paleta más sobria de tinta, papel, rojo y oro.
+- Capa elegante en la segunda pasada: Cormorant Garamond para titulares y cifras, filetes finos y marcos finos dentro de las fotos en arco, con la paleta de la web original: negro #10100f, papel #f2f1eb y rojo #c40000.
 - Slider de los 17 artistas con los mismos retratos, encuadres, galerías y biografías que la web original: arrastre con ratón, autoplay que se para al tocarlo, contador, barra de progreso y galería a pantalla completa con miniaturas, teclado y swipe.
 - Programa en cuatro paradas con imagen fija que cambia al hacer scroll, cuenta atrás con tablero de persianas, mapa de Google que solo carga con consentimiento, ticket de suscripción a Barcelona Country News y páginas legales.
 - Seis idiomas: español, catalán, inglés, francés, italiano y alemán.
@@ -39,7 +39,7 @@ Para compilar desde `source/`: copia `resources/` a `source/public/resources/`, 
 
 ## Prompt
 
-Los dos mensajes literales del usuario están en el botón **i** de la esquina inferior derecha de la web.
+Los tres mensajes literales del usuario están en el botón **i** de la esquina inferior derecha de la web.
 
 ## Créditos
 
