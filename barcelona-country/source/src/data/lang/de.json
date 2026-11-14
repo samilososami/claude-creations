@@ -1,10 +1,21 @@
 {
   "name": "Deutsch",
-  "nav": ["START","FESTIVAL","KÜNSTLER","PROGRAMM","ORT","KONTAKT"],
+  "nav": [
+    "START",
+    "FESTIVAL",
+    "KÜNSTLER",
+    "PROGRAMM",
+    "ORT",
+    "KONTAKT"
+  ],
   "heroKicker": "FIRA CORNELLÀ · 22.–24. OKTOBER 2027",
   "heroCopy": "Das internationale Country-Event kommt nach Barcelona. Drei Tage Line Dance, Live-Musik und amerikanischer Spirit.",
   "cta": "Informiert bleiben",
-  "triad": ["TANZ","MUSIK","AMERIKA"],
+  "triad": [
+    "TANZ",
+    "MUSIK",
+    "AMERIKA"
+  ],
   "festivalTitle": "Das Festival",
   "festivalCopy": "Barcelona Country Festival vereint drei Tage lang das Beste aus internationalem Line Dance, Live-Musik, hochwertigen Western-Produkten und Foodtrucks mit echter amerikanischer Barbecue-Küche. Ein Event für Tänzer, Familien und Country-Fans, die den amerikanischen Spirit in Barcelona erleben möchten.",
   "days": "Tage",
@@ -18,34 +29,170 @@
     "card": "Noch zu entdecken"
   },
   "artists": [
-    {"name":"Pol F. Ryan","role":"Internationaler Choreograf","body":"Internationales Aushängeschild des Catalan Style Line Dance und weltweit gefragter Star. Seine europaweit getanzten Choreografien verbinden amerikanische Energie mit mediterranem Flair. Ein Wirbelsturm auf der Tanzfläche."},
-    {"name":"Algaly Fofana","role":"Choreograf & Trainer","body":"Eine der spannendsten jungen Persönlichkeiten des europäischen Line Dance. Bei den wichtigsten Events gefragt, hat er seinen Stil mit viralen Choreografien nach Belgien, Spanien und Italien gebracht."},
-    {"name":"David Villellas","role":"Choreograf & Trainer","body":"Eine Legende des Catalan Country Style und Wegbereiter dieses Stils in Europa. Seit über 20 Jahren erobern seine Choreografien internationale Festivals. Seine unverwechselbare Präsenz gehört zu jedem großen Event."},
-    {"name":"Sofía Balzano","role":"Choreografin & Trainerin","body":"Eine junge Stimme der europäischen Line-Dance-Szene. Ihre Choreografien verbinden Persönlichkeit, Energie und einen modernen Blick auf den Country Style."},
-    {"name":"Montse Moscardó","role":"Choreografin & Trainerin","body":"Ein unverzichtbarer Name im Catalan Country Style. Ihre detailreichen, energiegeladenen Choreografien werden bei Hunderten von Events in ganz Europa getanzt."},
-    {"name":"Johnny","role":"Line-Dance-Coach & Choreograf","body":"Gianmarco Rossato verbindet italienische Wurzeln mit internationaler Erfahrung. Seit 2013 entwickelt er Choreografien mit Musikalität, Struktur und einer besonderen Verbindung zu denen, die die Tanzfläche füllen."},
-    {"name":"David Prestor","role":"Internationaler Choreograf","body":"David Prestor ist ein anerkannter Country-Line-Dance-Choreograf slowenischer Herkunft. Er zeichnet sich durch seine Vielseitigkeit aus und entwickelt Choreografien von Einsteiger- bis zu fortgeschrittenen und dynamischen Niveaus. Zu seinen in der Szene beliebten Titeln gehören On The Road Again und Pay Me My Money Down."},
-    {"name":"Laura Jones","role":"Choreografin & Trainerin","body":"Laura Jones ist eine europaweit bekannte Persönlichkeit in der Country-Welt, Trainerin und Choreografin. In der internationalen Szene ist sie für ihre mitreißenden und leicht zugänglichen Choreografien bekannt. Seit zwei Jahrzehnten veranstaltet sie gemeinsam mit ihrem Mann Jonatan das große Event Western Experience in den Niederlanden, ein Pflichttermin auf der Country Tour."},
-    {"name":"Silvia Denise","role":"Choreografin & Trainerin","body":"Silvia Denise ist eine einflussreiche italienische Country-Line-Dance-Trainerin und Choreografin, die in der internationalen Szene für ihre dynamischen Kreationen und ihren leidenschaftlichen Unterricht bekannt ist. Ihr Stil verbindet Tänzerinnen und Tänzer aller Niveaus bei Festivals und Events. Sie ist eine herausragende Förderin des Voghera Country Festival und des Bologna Country Festival."},
-    {"name":"Virginie Barjaud","role":"Choreografin & Trainerin","body":"Virginie Barjaud ist eine bekannte französische Choreografin mit einer starken Verbindung zum Catalan Style. Als Gründerin der Truppe WANTED gibt sie Workshops in ganz Europa und vermittelt ihre Begeisterung und Leidenschaft für die Westernkultur mit beliebten Kreationen wie Backroad."},
-    {"name":"Silvia Calsina","role":"Choreografin & Trainerin","body":"Silvia Calsina ist eine herausragende Country-Line-Dance-Choreografin und -Trainerin und eine wichtige Referenz für die Verbreitung und Förderung des Country-Tanzes. Bekannt für ihre Technik und ihr Charisma, gibt sie internationale Workshops und zeichnet für beliebte Choreografien verantwortlich, die überall dort die Tanzflächen beleben, wo sie auftritt."},
-    {"name":"Neus Lloveras","role":"Choreografin & Trainerin","body":"Neus Lloveras ist eine Schlüsselfigur des Country Line Dance und eine der Pionierinnen des Catalan Style. Als Trainerin und Choreografin zeichnet sie sich durch Energie, technische Präzision und dynamische Choreografien aus, die die authentische Westernkultur auf Tanzflächen und internationalen Festivals voranbringen."},
-    {"name":"Edu Roldos","role":"Choreograf"},
-    {"name":"Jonathan Jones","role":"Folk-Country-Singer-Songwriter","body":"Ein DJ und eine echte Legende in Europa. Mit seiner Musikauswahl, seiner Ausstrahlung und seinem Humor bringt er jede Tanzfläche zum Kochen. Für uns unverzichtbar."},
-    {"name":"Steve Frapolli","role":"Internationaler Country-DJ","body":"Italienischer DJ und unverzichtbare Größe bei den großen europäischen Country-Festivals. Jahrzehntelange Erfahrung, Philosoph und Intellektueller der Countrymusik sowie Autor mehrerer Bücher über Musik. Mit präziser Musikauswahl und unerschöpflicher Energie hält er die Tanzfläche in Bewegung."},
-    {"name":"DJ Lu","role":"DJ"},
-    {"name":"Antoine","role":"DJ"}
+    {
+      "name": "Pol F. Ryan",
+      "role": "Internationaler Choreograf",
+      "body": "Internationales Aushängeschild des Catalan Style Line Dance und weltweit gefragter Star. Seine europaweit getanzten Choreografien verbinden amerikanische Energie mit mediterranem Flair. Ein Wirbelsturm auf der Tanzfläche."
+    },
+    {
+      "name": "Algaly Fofana",
+      "role": "Choreograf & Trainer",
+      "body": "Eine der spannendsten jungen Persönlichkeiten des europäischen Line Dance. Bei den wichtigsten Events gefragt, hat er seinen Stil mit viralen Choreografien nach Belgien, Spanien und Italien gebracht."
+    },
+    {
+      "name": "David Villellas",
+      "role": "Choreograf & Trainer",
+      "body": "Eine Legende des Catalan Country Style und Wegbereiter dieses Stils in Europa. Seit über 20 Jahren erobern seine Choreografien internationale Festivals. Seine unverwechselbare Präsenz gehört zu jedem großen Event."
+    },
+    {
+      "name": "Sofía Balzano",
+      "role": "Choreografin & Trainerin",
+      "body": "Eine junge Stimme der europäischen Line-Dance-Szene. Ihre Choreografien verbinden Persönlichkeit, Energie und einen modernen Blick auf den Country Style."
+    },
+    {
+      "name": "Montse Moscardó",
+      "role": "Choreografin & Trainerin",
+      "body": "Ein unverzichtbarer Name im Catalan Country Style. Ihre detailreichen, energiegeladenen Choreografien werden bei Hunderten von Events in ganz Europa getanzt."
+    },
+    {
+      "name": "Johnny",
+      "role": "Line-Dance-Coach & Choreograf",
+      "body": "Gianmarco Rossato verbindet italienische Wurzeln mit internationaler Erfahrung. Seit 2013 entwickelt er Choreografien mit Musikalität, Struktur und einer besonderen Verbindung zu denen, die die Tanzfläche füllen."
+    },
+    {
+      "name": "David Prestor",
+      "role": "Internationaler Choreograf",
+      "body": "David Prestor ist ein anerkannter Country-Line-Dance-Choreograf slowenischer Herkunft. Er zeichnet sich durch seine Vielseitigkeit aus und entwickelt Choreografien von Einsteiger- bis zu fortgeschrittenen und dynamischen Niveaus. Zu seinen in der Szene beliebten Titeln gehören On The Road Again und Pay Me My Money Down."
+    },
+    {
+      "name": "Laura Jones",
+      "role": "Choreografin & Trainerin",
+      "body": "Laura Jones ist eine europaweit bekannte Persönlichkeit in der Country-Welt, Trainerin und Choreografin. In der internationalen Szene ist sie für ihre mitreißenden und leicht zugänglichen Choreografien bekannt. Seit zwei Jahrzehnten veranstaltet sie gemeinsam mit ihrem Mann Jonatan das große Event Western Experience in den Niederlanden, ein Pflichttermin auf der Country Tour."
+    },
+    {
+      "name": "Silvia Denise",
+      "role": "Choreografin & Trainerin",
+      "body": "Silvia Denise ist eine einflussreiche italienische Country-Line-Dance-Trainerin und Choreografin, die in der internationalen Szene für ihre dynamischen Kreationen und ihren leidenschaftlichen Unterricht bekannt ist. Ihr Stil verbindet Tänzerinnen und Tänzer aller Niveaus bei Festivals und Events. Sie ist eine herausragende Förderin des Voghera Country Festival und des Bologna Country Festival."
+    },
+    {
+      "name": "Virginie Barjaud",
+      "role": "Choreografin & Trainerin",
+      "body": "Virginie Barjaud ist eine bekannte französische Choreografin mit einer starken Verbindung zum Catalan Style. Als Gründerin der Truppe WANTED gibt sie Workshops in ganz Europa und vermittelt ihre Begeisterung und Leidenschaft für die Westernkultur mit beliebten Kreationen wie Backroad."
+    },
+    {
+      "name": "Silvia Calsina",
+      "role": "Choreografin & Trainerin",
+      "body": "Silvia Calsina ist eine herausragende Country-Line-Dance-Choreografin und -Trainerin und eine wichtige Referenz für die Verbreitung und Förderung des Country-Tanzes. Bekannt für ihre Technik und ihr Charisma, gibt sie internationale Workshops und zeichnet für beliebte Choreografien verantwortlich, die überall dort die Tanzflächen beleben, wo sie auftritt."
+    },
+    {
+      "name": "Neus Lloveras",
+      "role": "Choreografin & Trainerin",
+      "body": "Neus Lloveras ist eine Schlüsselfigur des Country Line Dance und eine der Pionierinnen des Catalan Style. Als Trainerin und Choreografin zeichnet sie sich durch Energie, technische Präzision und dynamische Choreografien aus, die die authentische Westernkultur auf Tanzflächen und internationalen Festivals voranbringen."
+    },
+    {
+      "name": "Edu Roldos",
+      "role": "Choreograf"
+    },
+    {
+      "name": "Jonathan Jones",
+      "role": "Folk-Country-Singer-Songwriter",
+      "body": "Ein DJ und eine echte Legende in Europa. Mit seiner Musikauswahl, seiner Ausstrahlung und seinem Humor bringt er jede Tanzfläche zum Kochen. Für uns unverzichtbar."
+    },
+    {
+      "name": "Steve Frapolli",
+      "role": "Internationaler Country-DJ",
+      "body": "Italienischer DJ und unverzichtbare Größe bei den großen europäischen Country-Festivals. Jahrzehntelange Erfahrung, Philosoph und Intellektueller der Countrymusik sowie Autor mehrerer Bücher über Musik. Mit präziser Musikauswahl und unerschöpflicher Energie hält er die Tanzfläche in Bewegung."
+    },
+    {
+      "name": "DJ Lu",
+      "role": "DJ"
+    },
+    {
+      "name": "Antoine",
+      "role": "DJ"
+    }
   ],
   "find": {
     "kicker": "WAS DICH ERWARTET",
     "title": "DETAILS DES FESTIVALS",
     "intro": "Wähle einen Halt auf dem Weg. Jede Kategorie öffnet eine Tür zum echten Western-Spirit.",
-    "quotes": ["Wo Stiefel auf Rhythmus treffen.","Trag den Look. Lebe den Mythos."],
+    "quotes": [
+      "Wo Stiefel auf Rhythmus treffen.",
+      "Trag den Look. Lebe den Mythos."
+    ],
     "cards": [
-      {"title":"CATALAN STYLE & MUSIK","items":[["BEREICH FÜR CHOREOGRAFEN UND WORKSHOWS:","Das Kreativlabor der Legenden."],["LINE-DANCE-HALLEN:","Ununterbrochener Tanz während des gesamten Events."],["KINDER-WORKSHOP:","Eltern teilen ihre Leidenschaft mit ihren Kindern."],["VERLOSUNG GROSSER REISEN:","Reise mit deinen Lieblingschoreografen."],["GROSSE ABENDKONZERTE:","Country nonstop!"]]},
-      {"title":"SHOPPING & LIFESTYLE","items":[["WESTERN-LIFESTYLE- UND SHOPPING-BEREICH:","Das große kommerzielle Schaufenster."],["AUSSTELLUNG AMERIKANISCHER FAHRZEUGE:","Mit den legendären Harley-Davidson-Motorrädern."],["ERLEBNIS- UND SHOWBEREICH:","Vollständiges Eintauchen in die Kultur."],["WESTERN-MODESCHAU:","Ein Laufsteg für exklusive Country-Mode."]]},
-      {"title":"COUNTRY-GENUSS","items":[["COUNTRY-GASTRONOMIE:","Barbecue, Rippchen, Pulled Pork, Bourbon und handwerklich gebraute Biere."],["AMERIKANISCHE FOODTRUCKS:","Vom New Yorker Pretzel bis zum Texas-Chili."]]},
-      {"title":"COMMUNITY & FREUNDE","items":[["BIG DANCE BARCELONA:","Ein Aufruf zu einem gemeinsamen Massentanz im Herzen des Festivals und dazu, eine offene, eng verbundene Country-Community weiter wachsen zu lassen."],["TREFFEN DER COUNTRY-GRUPPEN:","Clubs aus ganz Europa vereint unter derselben Sonne."]]}
+      {
+        "title": "CATALAN STYLE & MUSIK",
+        "items": [
+          [
+            "BEREICH FÜR CHOREOGRAFEN UND WORKSHOWS:",
+            "Das Kreativlabor der Legenden."
+          ],
+          [
+            "LINE-DANCE-HALLEN:",
+            "Ununterbrochener Tanz während des gesamten Events."
+          ],
+          [
+            "KINDER-WORKSHOP:",
+            "Eltern teilen ihre Leidenschaft mit ihren Kindern."
+          ],
+          [
+            "VERLOSUNG GROSSER REISEN:",
+            "Reise mit deinen Lieblingschoreografen."
+          ],
+          [
+            "GROSSE ABENDKONZERTE:",
+            "Country nonstop!"
+          ]
+        ]
+      },
+      {
+        "title": "SHOPPING & LIFESTYLE",
+        "items": [
+          [
+            "WESTERN-LIFESTYLE- UND SHOPPING-BEREICH:",
+            "Das große kommerzielle Schaufenster."
+          ],
+          [
+            "AUSSTELLUNG AMERIKANISCHER FAHRZEUGE:",
+            "Mit den legendären Harley-Davidson-Motorrädern."
+          ],
+          [
+            "ERLEBNIS- UND SHOWBEREICH:",
+            "Vollständiges Eintauchen in die Kultur."
+          ],
+          [
+            "WESTERN-MODESCHAU:",
+            "Ein Laufsteg für exklusive Country-Mode."
+          ]
+        ]
+      },
+      {
+        "title": "COUNTRY-GENUSS",
+        "items": [
+          [
+            "COUNTRY-GASTRONOMIE:",
+            "Barbecue, Rippchen, Pulled Pork, Bourbon und handwerklich gebraute Biere."
+          ],
+          [
+            "AMERIKANISCHE FOODTRUCKS:",
+            "Vom New Yorker Pretzel bis zum Texas-Chili."
+          ]
+        ]
+      },
+      {
+        "title": "COMMUNITY & FREUNDE",
+        "items": [
+          [
+            "BIG DANCE BARCELONA:",
+            "Ein Aufruf zu einem gemeinsamen Massentanz im Herzen des Festivals und dazu, eine offene, eng verbundene Country-Community weiter wachsen zu lassen."
+          ],
+          [
+            "TREFFEN DER COUNTRY-GRUPPEN:",
+            "Clubs aus ganz Europa vereint unter derselben Sonne."
+          ]
+        ]
+      }
     ]
   },
   "locationKicker": "STANDORT",
@@ -102,7 +249,12 @@
     "newsletter": "Newsletter",
     "directions": "Anfahrt",
     "countdown": "Wir sehen uns in",
-    "units": ["Tagen","Stunden","Minuten","Sekunden"],
+    "units": [
+      "Tagen",
+      "Stunden",
+      "Minuten",
+      "Sekunden"
+    ],
     "started": "Der Tag ist da.",
     "storyBefore": "Der Song, der dich auf die Tanzfläche zieht. Eine Choreografie, die du endlich mit ihrem Schöpfer tanzt. Dieser letzte Tanz, auf den immer noch einer folgt. Das erwartet dich beim ",
     "storyAfter": ": drei Tage mit Workshows, in denen neue Choreografien vermittelt werden, Livemusik und Begegnungen rund um die Tanzfläche. Komm mit Freunden, entdecke die Western-Atmosphäre und gönn dir eine Pause mit Foodtrucks und amerikanischem Barbecue. Danach geht es zurück zum Tanzen."
@@ -167,5 +319,22 @@
     "policy": "Cookie-Richtlinie",
     "storage": "Dein Browser kann diese Wahl nicht speichern. Sie gilt auf dieser Seite, muss aber nach dem Neuladen erneut getroffen werden.",
     "details": "Wir binden keine Analyse- oder Werbewerkzeuge ein. Google Maps ist die einzige Drittanbieteroption in diesem Bereich. Ohne Zustimmung kannst du die übrige Website weiterhin nutzen."
+  },
+  "x": {
+    "nextStop": "Nächster Halt",
+    "prevStop": "Vorheriger Halt",
+    "reel": "Promovideo des Barcelona Country Festival",
+    "unmute": "Ton einschalten",
+    "mute": "Stummschalten",
+    "edition": "Sonderausgabe · Nr. 1",
+    "headline": "Willkommen auf der Tanzfläche, {name}!",
+    "headlineAnon": "Willkommen auf der Tanzfläche!",
+    "column": "Ab heute bekommst du die Festival-News per E-Mail: Künstler, Workshows, Tickets und alles, was in der Fira Cornellà passiert.",
+    "newsTitle": "Du stehst auf der Liste!",
+    "newsBody": "Deine erste Ausgabe von Barcelona Country News kommt frisch aus der Druckerei.",
+    "contactTitle": "Nachricht unterwegs!",
+    "contactBody": "Wir haben deinen Brief versiegelt. Wir antworten dir so schnell wie möglich.",
+    "done": "Weitertanzen",
+    "sealed": "Western-Post"
   }
 }

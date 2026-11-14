@@ -25,14 +25,13 @@ export function Hero({ onContact }: { onContact: () => void }) {
         .from('.hero-photo', { scale: 1.22, opacity: 0, duration: 2.6, ease: 'power3.out' }, 0)
         .from('.hero-title .ch', { yPercent: -130, rotate: (i) => (i % 2 ? 9 : -7), opacity: 0, duration: 1, ease: 'back.out(1.7)', stagger: 0.055 }, 0.45)
         .call(() => setLit(true), [], 1.25)
-        .from('.hero-kicker > *', { y: 18, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.08 }, 1.0)
-        .from('.hero-festival', { letterSpacing: '0.1em', opacity: 0, duration: 1.4, ease: 'expo.out' }, 1.35)
+        .from('.hero-country', { letterSpacing: '0.12em', opacity: 0, duration: 1.4, ease: 'expo.out' }, 1.0)
         .from('.hero-bottom > *', { y: 40, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1 }, 1.45)
         .from('.ribbon', { yPercent: 120, duration: 1.2, ease: 'expo.out' }, 1.6);
 
       gsap.to('.hero-photo-wrap', { yPercent: 18, scale: 1.08, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
       gsap.to('.hero-center', { yPercent: -28, opacity: 0.15, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
-      gsap.to('.hero-dim', { opacity: 0.75, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
+      gsap.to('.hero-dim', { opacity: 0.6, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
     }, el);
     return () => ctx.revert();
   }, []);
@@ -71,20 +70,10 @@ export function Hero({ onContact }: { onContact: () => void }) {
           fetchPriority="high"
         />
       </div>
-      <div className="hero-grade" aria-hidden="true" />
       <div className="hero-dim" aria-hidden="true" />
       <Festoon start={go} />
 
       <div className="hero-center">
-        <p className="hero-kicker">
-          <span>
-            <Star />
-          </span>
-          <span>{t.heroKicker}</span>
-          <span>
-            <Star />
-          </span>
-        </p>
         <div className="hero-title-wrap">
           <h1 id="hero-title" className="hero-title" aria-label="Barcelona Country Festival">
             <span className="hero-word" aria-hidden="true">
@@ -94,10 +83,10 @@ export function Hero({ onContact }: { onContact: () => void }) {
                 </span>
               ))}
             </span>
-            <Neon text="Country" lit={lit} className="hero-neon" />
-            <span className="hero-festival" aria-hidden="true">
-              Festival
+            <span className="hero-country" aria-hidden="true">
+              Country
             </span>
+            <Neon text="Festival" lit={lit} className="hero-neon" />
           </h1>
         </div>
       </div>

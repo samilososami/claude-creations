@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent, type MouseEvent as RMouseEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type FormEvent, type MouseEvent as RMouseEvent } from 'react';
 import { LANGS, T, res, sentence, useLang, type Lang } from '../i18n';
 import { finePointer, gsap, lockScroll, reduced, scrollToId, useReveal } from '../lib/motion';
 import { PreferencesButton } from './Consent';
@@ -198,7 +198,7 @@ const CREDITS: [string, string][] = [
   ['https://commons.wikimedia.org/wiki/File:Country_Music_Festival_1,_Mirande,_Gers,_France.jpg', 'Jamiecat · CC BY 2.0'],
   ['https://commons.wikimedia.org/wiki/File:George_Strait_Country_Music_Festival_in_Tampa_Florida.jpg', 'ckramer · CC BY 2.0'],
   ['https://commons.wikimedia.org/wiki/File:Cornell%C3%A1_de_Llobregat_-_Fira_de_Cornell%C3%A1_1.jpg', 'Zarateman · CC0 · Fira de Cornellà'],
-  ['https://www.pexels.com/photo/harley-davidson-motorcycle-on-new-mexico-road-31439816/', 'Dante Muñoz · Pexels']
+  ['https://www.pexels.com/photo/market-stall-with-cowboy-boots-and-cowboy-hats-9216217/', 'Noé Villalta · Pexels']
 ];
 
 export function Footer({ onContact, onNavigate }: { onContact: () => void; onNavigate: (hash: string) => void }) {
@@ -264,11 +264,13 @@ export function Footer({ onContact, onNavigate }: { onContact: () => void; onNav
 export function ContactDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useLang();
   const dialog = useRef<HTMLDialogElement>(null);
-  const [sent, setSent] = useState(false);
+  const inner = useRef<HTMLDivElement>(null);
+  const [phase, setPhase] = useState<'form' | 'sending' | 'sent'>('form');
+  const [letter, setLetter] = useState({ name: '', message: '' });
   useEffect(() => {
     const d = dialog.current!;
     if (open && !d.open) {
-      setSent(false);
+      setPhase('form');
       d.showModal();
       lockScroll(true);
     }
@@ -277,8 +279,48 @@ export function ContactDialog({ open, onClose }: { open: boolean; onClose: () =>
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // The client has not approved a recipient yet, so this remains frontend-only.
-    setSent(true);
+    const data = new FormData(e.currentTarget);
+    setLetter({ name: String(data.get('name') ?? '').trim(), message: String(data.get('message') ?? '').trim() });
+    setPhase(reduced() ? 'sent' : 'sending');
   };
+
+  // the message is folded into an airmail envelope, sealed with the festival star and posted
+  useLayoutEffect(() => {
+    const el = inner.current;
+    if (phase !== 'sending' || !el) return;
+    const q = gsap.utils.selector(el);
+    const ctx = gsap.context(() => {
+      gsap
+        .timeline({ onComplete: () => setPhase('sent') })
+        .from(q('.mail'), { opacity: 0, scale: 0.92, duration: 0.45, ease: 'expo.out' })
+        .from(q('.mail-letter'), { yPercent: -30, rotate: -4, opacity: 0, duration: 0.6, ease: 'expo.out' }, 0.05)
+        .to(q('.mail-letter'), { yPercent: 67, rotate: 0, duration: 0.85, ease: 'power2.inOut' }, 0.75)
+        .fromTo(q('.mail-flap'), { rotateX: 180 }, { rotateX: 0, duration: 0.55, ease: 'power2.in' }, 1.55)
+        .set(q('.mail-flap'), { zIndex: 4 }, 1.82)
+        .fromTo(q('.mail-seal'), { scale: 2.6, opacity: 0, rotate: -50 }, { scale: 1, opacity: 1, rotate: -8, duration: 0.28, ease: 'power4.in' }, 2.15)
+        .to(q('.mail-env'), { scaleY: 0.95, scaleX: 1.03, duration: 0.07, yoyo: true, repeat: 1, ease: 'power1.out' }, 2.43)
+        .fromTo(q('.mail-postmark'), { scale: 1.8, opacity: 0, rotate: 30 }, { scale: 1, opacity: 0.85, rotate: 12, duration: 0.24, ease: 'power4.in' }, 2.75)
+        .to(q('.mail-env'), { y: -26, rotate: -4, duration: 0.45, ease: 'power2.out' }, 3.15)
+        .to(q('.mail-env'), { x: () => window.innerWidth * 0.75, y: -320, rotate: 24, scale: 0.55, opacity: 0, duration: 0.75, ease: 'power3.in' }, 3.55)
+        .fromTo(q('.mail-trail i'), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, x: () => 80 + Math.random() * 220, y: () => -40 - Math.random() * 160, duration: 0.7, ease: 'power2.out', stagger: 0.04 }, 3.6)
+        .to(q('.mail-trail i'), { opacity: 0, duration: 0.4, stagger: 0.04 }, 4.0);
+    }, el);
+    return () => ctx.revert();
+  }, [phase]);
+
+  useLayoutEffect(() => {
+    const el = inner.current;
+    if (phase !== 'sent' || !el) return;
+    (el.querySelector('.sent button') as HTMLElement | null)?.focus();
+    if (reduced()) return;
+    const q = gsap.utils.selector(el);
+    const ctx = gsap.context(() => {
+      gsap.from(q('.sent-mark'), { scale: 0, rotate: -120, duration: 0.9, ease: 'back.out(2)' });
+      gsap.from(q('.sent > :not(.sent-mark)'), { y: 30, opacity: 0, duration: 0.8, ease: 'expo.out', stagger: 0.08, delay: 0.15 });
+    }, el);
+    return () => ctx.revert();
+  }, [phase]);
+
   return (
     <dialog
       ref={dialog}
@@ -291,41 +333,81 @@ export function ContactDialog({ open, onClose }: { open: boolean; onClose: () =>
       }}
       onClick={(e) => e.target === e.currentTarget && dialog.current?.close()}
     >
-      <div className="contact-inner">
+      <div className="contact-inner" ref={inner}>
         <button type="button" className="icon-btn contact-close" onClick={() => dialog.current?.close()} aria-label={t.ref.close}>
           <Close />
         </button>
-        <p className="kicker">
-          <Star /> Barcelona Country Festival
-        </p>
-        <h2 id="contact-title">{t.ref.contactTitle}</h2>
-        <p className="contact-msg">{t.ref.message}</p>
-        <form className="form" onSubmit={submit}>
-          <label className="field">
-            <span>{t.formName}</span>
-            <input name="name" autoComplete="name" required maxLength={160} />
-          </label>
-          <label className="field">
-            <span>{t.formEmail}</span>
-            <input name="email" type="email" autoComplete="email" required maxLength={320} />
-          </label>
-          <label className="field">
-            <span>{t.ref.message}</span>
-            <textarea name="message" rows={4} required maxLength={5000} />
-          </label>
-          <p className="preview-note" id="contact-note">
-            {t.ui.preview}
-          </p>
-          <button type="submit" className="btn btn-gold" aria-describedby="contact-note">
-            <span>{t.ref.send}</span>
-            <Arrow />
-          </button>
-          {sent && (
-            <p className="form-feedback" role="status">
-              {t.ui.preview}
-            </p>
-          )}
-        </form>
+        {phase === 'form' && (
+          <>
+            <h2 id="contact-title">{t.ref.contactTitle}</h2>
+            <p className="contact-msg">{t.ref.message}</p>
+            <form className="form" onSubmit={submit}>
+              <label className="field">
+                <span>{t.formName}</span>
+                <input name="name" autoComplete="name" required maxLength={160} />
+              </label>
+              <label className="field">
+                <span>{t.formEmail}</span>
+                <input name="email" type="email" autoComplete="email" required maxLength={320} />
+              </label>
+              <label className="field">
+                <span>{t.ref.message}</span>
+                <textarea name="message" rows={4} required maxLength={5000} />
+              </label>
+              <p className="preview-note" id="contact-note">
+                {t.ui.preview}
+              </p>
+              <button type="submit" className="btn btn-gold" aria-describedby="contact-note">
+                <span>{t.ref.send}</span>
+                <Arrow />
+              </button>
+            </form>
+          </>
+        )}
+        {phase === 'sending' && (
+          <div className="mail" aria-hidden="true">
+            <div className="mail-env">
+              <span className="mail-back" />
+              <span className="mail-flap" />
+              <div className="mail-letter">
+                <img src={res('img/isotype.webp')} alt="" />
+                <b>{letter.name}</b>
+                <p>{letter.message.slice(0, 160)}</p>
+                <i />
+                <i />
+                <i />
+              </div>
+              <span className="mail-front">
+                <small>{t.x.sealed}</small>
+              </span>
+              <span className="mail-seal">
+                <Star />
+              </span>
+              <img className="mail-postmark" src={res('img/stamp.webp')} alt="" />
+            </div>
+            <span className="mail-trail">
+              {Array.from({ length: 8 }, (_, i) => (
+                <i key={i}>
+                  <Star />
+                </i>
+              ))}
+            </span>
+          </div>
+        )}
+        {phase === 'sent' && (
+          <div className="sent" role="status">
+            <span className="sent-mark" aria-hidden="true">
+              <img src={res('img/stamp.webp')} alt="" />
+            </span>
+            <h2 id="contact-title">{t.x.contactTitle}</h2>
+            <p className="contact-msg">{t.x.contactBody}</p>
+            <p className="preview-note">{t.ui.preview}</p>
+            <button type="button" className="btn btn-gold" onClick={() => dialog.current?.close()}>
+              <span>{t.x.done}</span>
+              <Star />
+            </button>
+          </div>
+        )}
       </div>
     </dialog>
   );

@@ -5,6 +5,8 @@ fonts.textContent = `
 @font-face { font-family: 'Manrope'; src: url('resources/fonts/manrope.woff2') format('woff2'); font-weight: 400 800; font-display: swap; }
 @font-face { font-family: 'Cormorant Garamond'; src: url('resources/fonts/cormorant.woff2') format('woff2'); font-weight: 300 700; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Cormorant Garamond'; src: url('resources/fonts/cormorant-italic.woff2') format('woff2'); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Instrument Serif'; src: url('resources/fonts/instrument.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Instrument Serif'; src: url('resources/fonts/instrument-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Sacramento'; src: url('resources/fonts/sacramento.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 `;
 document.head.appendChild(fonts);

@@ -103,7 +103,6 @@ function MapBlock() {
           </span>
         </div>
         <div className="map-off-copy">
-          <p className="map-eyebrow">Fira Cornellà · Barcelona</p>
           <h3>{t.reg.mapTitle}</h3>
           <p>{t.reg.mapDescription}</p>
           <button type="button" className="btn btn-gold btn-sm" onClick={openPreferences}>
@@ -155,12 +154,6 @@ export function Place() {
           <i />
           <i />
           <i />
-        </div>
-        <div className="sec-head">
-          <p className="kicker kicker-light" data-reveal>
-            <span className="kicker-num">04</span>
-            {t.locationKicker}
-          </p>
         </div>
         <h2 id="place-title" className="sr-only">
           {t.date.city} · {t.date.days} {t.date.month} {t.date.year}

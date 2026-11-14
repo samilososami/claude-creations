@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { STATS, res, useLang } from '../i18n';
 import { gsap, reduced, useReveal } from '../lib/motion';
 import { Star, Words } from '../components/ui';
+import { Reel } from './Reel';
 
 export function Festival() {
   const { t, lang } = useLang();
@@ -69,10 +70,6 @@ export function Festival() {
   return (
     <section id="festival" className="festival paper" ref={root} aria-labelledby="festival-title">
       <div className="sec-head">
-        <p className="kicker" data-reveal>
-          <span className="kicker-num">01</span>
-          {t.festivalTitle}
-        </p>
         <span className="sec-stars" aria-hidden="true">
           <Star />
           <Star />
@@ -80,6 +77,7 @@ export function Festival() {
         </span>
       </div>
 
+      <div className="festival-intro">
       <h2 id="festival-title" className="statement">
         {split(first, /Barcelon/i)}
         <span className="pill pill-a" aria-hidden="true">
@@ -90,13 +88,12 @@ export function Festival() {
           <img src={res('img/isotype.webp')} alt="" loading="lazy" />
         </span>
       </h2>
+      <Reel />
+      </div>
 
       <div className="story">
         <figure className="story-photo" data-reveal>
           <img src={res('img/live.webp')} alt="" loading="lazy" />
-          <figcaption aria-hidden="true">
-            <Star /> {t.triad.join(' · ')}
-          </figcaption>
         </figure>
         <div className="story-copy">
           <p className="lead" data-words>

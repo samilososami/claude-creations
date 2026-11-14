@@ -211,10 +211,6 @@ export function Lineup() {
   return (
     <section id="artists" className="lineup dark" ref={root} aria-labelledby="artists-title">
       <div className="lineup-head">
-        <p className="kicker" data-reveal>
-          <span className="kicker-num">02</span>
-          {t.nav[2]}
-        </p>
         <h2 id="artists-title" className="lineup-title" ref={titleRef}>
           <span className="lineup-lead" data-words>
             <span className="w">
