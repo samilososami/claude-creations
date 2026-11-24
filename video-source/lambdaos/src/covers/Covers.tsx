@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { Fingerprint } from "lucide-react";
+import { Phone } from "../device/Phone";
+import { OperatorHome } from "../ui/Screens";
 import { C, F } from "../theme";
 import { DotGrid, Grain, Vignette } from "../fx/Fx";
 import { LambdaMark, Wordmark } from "../brand/Brand";
@@ -35,16 +36,13 @@ const Frame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 export const Cover: React.FC<{ id: CoverId }> = ({ id }) => {
   if (id === "explainer")
     return (
-      <AbsoluteFill style={{ background: "#070707" }}>
-        <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 48%, rgba(241,240,236,0.08) 0%, transparent 45%)" }} />
+      <AbsoluteFill style={{ background: "#000" }}>
         <div style={{ position: "absolute", top: 880, width: "100%", display: "flex", justifyContent: "center" }}>
           <Wordmark width={860} />
         </div>
         <div style={{ position: "absolute", top: 1070, width: "100%", textAlign: "center", fontFamily: F.ui, fontSize: 52, color: C.mist, letterSpacing: 0.3 }}>
           The system for hacking systems.
         </div>
-        <Vignette strength={0.45} />
-        <Grain opacity={0.05} />
       </AbsoluteFill>
     );
   if (id === "lamb")
@@ -59,16 +57,12 @@ export const Cover: React.FC<{ id: CoverId }> = ({ id }) => {
   if (id === "operator")
     return (
       <Frame>
-        <div style={{ position: "absolute", top: 440, left: 540 - 270, width: 540, height: 540 }}>
-          <svg width={540} height={540} viewBox="-270 -270 540 540" style={{ position: "absolute", inset: 0 }}>
-            <circle r={250} fill="none" stroke="rgba(241,240,236,0.12)" strokeWidth={16} />
-            <circle r={250} fill="none" stroke={C.ink} strokeWidth={16} strokeLinecap="round" strokeDasharray={2 * Math.PI * 250} strokeDashoffset={2 * Math.PI * 250 * 0.3} transform="rotate(-90)" />
-          </svg>
-          <div style={{ position: "absolute", left: 80, top: 80, width: 380, height: 380, borderRadius: 190, background: C.ink, display: "grid", placeItems: "center", boxShadow: "0 0 120px rgba(241,240,236,0.3)" }}>
-            <Fingerprint size={190} strokeWidth={1.5} color="#0B0B0B" />
-          </div>
+        <div style={{ position: "absolute", top: 215, left: 540 - 225 }}>
+          <Phone width={450} ry={-10} rx={4} glare={0.55}>
+            <OperatorHome hi={{ wifi: 1 }} />
+          </Phone>
         </div>
-        <Title t="Operator" s="One target. One tap." y={1050} />
+        <Title t="Operator" s="One target. One tap." y={1225} />
       </Frame>
     );
   return (
