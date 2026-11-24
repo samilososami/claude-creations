@@ -4,6 +4,7 @@ import {
   Briefcase,
   Check,
   ChevronRight,
+  CircleDashed,
   FileCheck2,
   Fingerprint,
   Folder,
@@ -20,17 +21,21 @@ import { LambdaGlyph } from "../brand/Brand";
 import { Phone } from "../device/Phone";
 import { OP, OperatorHome, StatusBar, TileIcon, TileId } from "../ui/Screens";
 import { WifiOp } from "../explainer/WifiOp";
-import { Card, Head, Leader, Mono, Outro, Scene, Shell, Status, Tap, Word, at } from "./Kit";
+import { Card, Head, Leader, Mono, Outro, Scene, Shell, Tap, Word, at, remapN, remapper } from "./Kit";
 import words from "./words-operator.json";
+import edit from "./edit-operator.json";
 
-export const OPX_DURATION = 1305; // 43.5 s
+export const OPX_DURATION = 1232; // 41.1 s
 
-const N = {
+const N0 = {
   lambda: 0.68, control: 2.02, everything: 4.3, preferences: 6.0, settings: 6.92, tools: 7.72, all: 8.36, and: 10.2, every: 10.48, pentesting: 11.0,
   wifi: 12.46, bt: 13.54, usb: 13.94, radio: 14.84, net: 16.0, can: 16.62, each: 17.24, catalog: 18.34, built: 19.88, interface: 20.68,
   pick: 21.78, tool: 22.04, choose: 22.56, target: 22.96, operator2: 23.5, needs: 24.6, doing: 25.44, found: 26.64, every2: 27.24, result: 27.98,
-  saved: 28.64, receipt: 29.28, opDev: 30.68, dev: 31.76, os: 33.56, follow: 34.76, outro: 36.28, tag: [37.4, 37.58, 37.94, 38.3, 38.64],
+  saved: 28.64, receipt: 29.28, outro: 36.28, tag: [37.4, 37.58, 37.94, 38.3, 38.64],
 };
+/* narration edit: "And much more, still in development." spliced in after "CAN.", status sentence cut.
+   N0 is in original-take seconds; `more`/`development` are already in edited seconds. */
+const N = { ...remapN(N0, remapper(edit.segments)), more: 17.39, development: 18.91 };
 
 type Rect = { x: number; y: number; w: number; h: number };
 const lerpRect = (a: Rect, b: Rect, t: number): Rect => ({ x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), w: lerp(a.w, b.w, t), h: lerp(a.h, b.h, t) });
@@ -99,10 +104,15 @@ const LIGHT: [TileId, number][] = [
 
 /* ───────────── 1–3 · the hub (one continuous phone) ───────────── */
 const Hub: React.FC<{ f: number }> = ({ f }) => {
-  const T = [0, 24, at(N.everything) - 4, at(N.everything) + 14, at(N.all) - 2, at(N.all) + 16, at(N.and) - 2, at(N.and) + 24];
-  const cx = kf(f, T, [540, 540, 540, 290, 290, 540, 540, 540]);
-  const top = kf(f, T, [1500, 450, 450, 420, 420, 450, 450, 56]);
-  const w = kf(f, T, [430, 430, 430, 400, 400, 430, 430, 760]);
+  const T = [0, 24, at(N.everything) - 4, at(N.everything) + 14, at(N.all) - 2, at(N.all) + 16, at(N.and) - 2, at(N.and) + 24, at(N.more) - 4, at(N.more) + 14];
+  const cx = kf(f, T, [540, 540, 540, 290, 290, 540, 540, 540, 540, 540]);
+  const top = kf(f, T, [1500, 450, 450, 420, 420, 450, 450, 56, 56, 16]);
+  const w = kf(f, T, [430, 430, 430, 400, 400, 430, 430, 760, 760, 680]);
+  const maskTop = kf(f, [at(N.more) - 4, at(N.more) + 14], [250, 200]);
+  const maskTopW = kf(f, [at(N.more) - 4, at(N.more) + 14], [80, 55]);
+  const maskBot = kf(f, [at(N.more) - 4, at(N.more) + 14], [1360, 1212]);
+  const maskBotW = kf(f, [at(N.more) - 4, at(N.more) + 14], [80, 30]);
+  const morePill = prog(f, at(N.more) + 2, at(N.more) + 14, ease.snap);
   const ry = kf(f, [0, 30, T[3], T[5], T[7]], [-22, -10, -14, -8, 0]);
   const rx = kf(f, [0, 30, T[7]], [10, 4, 0]);
   const expand = prog(f, at(N.each) - 4, at(N.each) + 14, ease.inOut);
@@ -129,7 +139,7 @@ const Hub: React.FC<{ f: number }> = ({ f }) => {
     <AbsoluteFill style={{ opacity: Math.min(prog(f, a, a + 6), 1 - prog(f, b - 6, b)) }}>
       <Head f={f} kicker="LambdaOS" title="Lambda Operator" sub="The control center" tk={4} tt={at(N.lambda) - 6} ts={at(N.control) - 2} out={head1Out} />
       <Head f={f} kicker="Control" title="Everything" sub="starts here" tk={at(N.everything) - 2} tt={at(N.everything) + 2} ts={at(N.everything) + 8} out={head2Out} size={88} />
-      <Head f={f} kicker="Pentesting" title="Every tab" tk={at(N.and) + 20} tt={at(N.and) + 24} out={prog(f, at(N.each) - 6, at(N.each) + 2, ease.in)} size={84} top={130} />
+      <Head f={f} kicker="Pentesting" title="Every tab" tk={at(N.and) + 20} tt={at(N.and) + 24} out={prog(f, at(N.each) - 6, at(N.each) + 2, ease.in)} size={84} top={112} />
       {/* phone */}
       <div
         style={{
@@ -137,8 +147,8 @@ const Hub: React.FC<{ f: number }> = ({ f }) => {
           left: cx - w / 2,
           top,
           opacity: 1 - prog(expand, 0.4, 0.9),
-          WebkitMaskImage: `linear-gradient(180deg, transparent ${250 - top}px, #000 ${330 - top}px, #000 ${1360 - top}px, transparent ${1440 - top}px)`,
-          maskImage: `linear-gradient(180deg, transparent ${250 - top}px, #000 ${330 - top}px, #000 ${1360 - top}px, transparent ${1440 - top}px)`,
+          WebkitMaskImage: `linear-gradient(180deg, transparent ${maskTop - top}px, #000 ${maskTop + maskTopW - top}px, #000 ${maskBot - top}px, transparent ${maskBot + maskBotW - top}px)`,
+          maskImage: `linear-gradient(180deg, transparent ${maskTop - top}px, #000 ${maskTop + maskTopW - top}px, #000 ${maskBot - top}px, transparent ${maskBot + maskBotW - top}px)`,
         }}
       >
         <Phone width={w} ry={ry} rx={rx} glare={kf(f, [10, 60], [0, 1])}>
@@ -188,6 +198,18 @@ const Hub: React.FC<{ f: number }> = ({ f }) => {
           </React.Fragment>
         );
       })}
+      {/* more tabs on the way */}
+      <div style={{ position: "absolute", top: 1226, width: "100%", display: "flex", justifyContent: "center", opacity: morePill * (1 - prog(f, at(N.each) - 6, at(N.each) + 2)), transform: `translateY(${(1 - morePill) * 40}px)` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 22, padding: "22px 40px", borderRadius: 999, border: `3px dashed rgba(241,240,236,${0.4 + 0.4 * env(f, at(N.more), at(N.development) + 10, 6, 10)})`, background: "rgba(20,22,24,0.9)", fontFamily: F.ui, color: C.ink }}>
+          <CircleDashed size={42} strokeWidth={2.2} style={{ transform: `rotate(${f * 3}deg)` }} />
+          <span style={{ fontSize: 40, fontWeight: 600 }}>{"+ More tabs"}</span>
+          <span style={{ opacity: prog(f, at(N.development) - 4, at(N.development) + 6) }}>
+            <Mono size={24} color={C.mist}>
+              in development
+            </Mono>
+          </span>
+        </div>
+      </div>
       <div style={{ position: "absolute", top: 1300, width: "100%", textAlign: "center", opacity: env(f, at(N.all) + 6, at(N.and) - 2, 8, 8) }}>
         <Mono size={26} color={C.mist}>
           All in one place
@@ -257,7 +279,7 @@ const Catalog: React.FC<{ f: number }> = ({ f }) => {
   const b = at(N.choose) + 2;
   if (f < a || f > b + 1) return null;
   const expand = prog(f, at(N.each) - 4, at(N.each) + 14, ease.inOut);
-  const from: Rect = { x: 212, y: 330, w: 318, h: 336 };
+  const from: Rect = { x: 246, y: 261, w: 284, h: 301 }; // Wi-Fi tile at the "and much more" framing (phone 680 wide, top 16)
   const to: Rect = { x: 60, y: 330, w: 960, h: 1040 };
   const r = lerpRect(from, to, expand);
   const out = prog(f, b - 10, b, ease.in);
@@ -496,7 +518,7 @@ const RECEIPT: [string, string][] = [
 ];
 const Receipt: React.FC<{ f: number }> = ({ f }) => {
   const a = at(N.every2) - 4;
-  const b = at(N.opDev) + 2;
+  const b = at(N.outro) - 2;
   const slotY = 420;
   const H = 880;
   const vis = kf(f, [at(N.every2), at(N.saved) + 20], [0, H], ease.out);
@@ -568,7 +590,6 @@ export const OperatorExplainer: React.FC<{ withAudio?: boolean }> = ({ withAudio
       <Catalog f={f} />
       <Run f={f} />
       <Receipt f={f} />
-      <Status f={f} a={at(N.opDev) - 2} b={at(N.outro) + 4} dev={at(N.dev)} os={at(N.os)} follow={at(N.follow)} what="Operator" version="0.2.0-operator.4" />
       <Outro f={f} a={at(N.outro) - 4} end={OPX_DURATION} lambdaos={at(N.outro)} tag={N.tag.map(at)} />
     </Shell>
   );

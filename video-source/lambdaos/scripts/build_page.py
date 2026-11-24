@@ -27,7 +27,7 @@ NEW = {
     "lambdaos-lex-mode.mp4": ("poster-lex.jpg", 22.5),
     "lambdaos-lex-mode-vertical.mp4": ("poster-lexv.jpg", 14.6),
     "lambdaos-lamb.mp4": ("poster-lamb.jpg", 2.9),
-    "lambdaos-operator.mp4": ("poster-operator.jpg", 19.5),
+    "lambdaos-operator.mp4": ("poster-operator.jpg", 22.3),
     "lambdaos-lamb-states.mp4": ("poster-lambstates.jpg", 5.2),
     "lambdaos-logo-sting.mp4": ("poster-sting.jpg", 3.6),
     "lambdaos-logo-sting-square.mp4": ("poster-stingsq.jpg", 3.6),

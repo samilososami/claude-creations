@@ -18,7 +18,9 @@ from sfx import *  # noqa: E402,F403
 from sfx import hp as _hp  # noqa: E402
 
 NARR = 1.0
-W = lambda s: s + NARR  # narration → video seconds
+R = lambda s: s  # original-take seconds → edited-narration seconds (set per video below)
+W = lambda s: R(s) + NARR  # narration → video seconds
+E = lambda s: s + NARR  # edited-narration seconds → video seconds
 meter = pyln.Meter(SR)
 
 
@@ -50,12 +52,7 @@ def tail_pitch(music, start, length=2.0):
 
 
 def common_end(fx, ev, music, m_off):
-    """Status beat + outro shared by all three: row ticks, follow tap, logo bell."""
-    fx.add(W(ev["status"]) - 0.15, whoosh(0.6, 300, 4000, 0.4), -20)
-    for k, s in enumerate((ev["dev"], ev["os"], ev["os"] + 16 / 30)):
-        fx.add(W(s), tick(0.3, 2600 + 300 * k), -21)
-    fx.add(W(ev["follow"]) + 8 / 30, click(0.5), -15)
-    fx.add(W(ev["follow"]) + 12 / 30, ui_confirm(0.3), -18)
+    """Outro shared by all three: a soft swell into a bell tuned to the music's last chord."""
     o = W(ev["outro"])
     fx.add(o - 0.9, reverse_swell(0.9, 0.4, 110), -20)
     fx.add(o - 0.1, sub_swell(0.5, 0.5), -18)
@@ -145,6 +142,10 @@ def operator_fx(fx):
     fx.add(W(27.24) - 0.15, whoosh(0.5, 300, 3000, 0.35), -22)
     fx.add(W(27.3), printer(1.5, 0.25), -23)
     fx.add(W(29.28), ui_confirm(0.3), -19)
+    # "And much more, still in development." (spliced line, edited-narration seconds)
+    fx.add(E(17.39) - 0.1, whoosh(0.6, 2200, 500, 0.3, rev=False), -23)
+    fx.add(E(17.39) + 0.1, blip(988, 0.2, 0.12, second=1319), -22)
+    fx.add(E(18.91), tick(0.26, 2600), -23)
 
 
 def lamb_fx(fx):
@@ -196,18 +197,26 @@ def lamb_fx(fx):
 
 
 CFG = {
-    "lex": dict(dur=45.5, voice="narration-lex", music="music-lex2", m_off=1.5, m_skip=0.0, out="lexx-mix", fx=lex_fx,
-                ev=dict(status=33.18, dev=33.86, os=35.64, follow=36.8, outro=38.46)),
-    "operator": dict(dur=43.5, voice="narration-operator", music="music-operator", m_off=0.0, m_skip=2.4, out="opx-mix", fx=operator_fx,
-                     ev=dict(status=30.68, dev=31.76, os=33.56, follow=34.76, outro=36.28)),
-    "lamb": dict(dur=52.5, voice="narration-lamb", music="music-lamb2", m_off=1.0, m_skip=0.0, out="lambx-mix", fx=lamb_fx,
-                 ev=dict(status=39.96, dev=40.66, os=42.56, follow=43.8, outro=45.4)),
+    # music endings land right after "…hacking systems."; m_off = where the music starts in the video,
+    # m_skip = seconds skipped from the start of the track
+    "lex": dict(dur=40.65, music="music-lex2", m_off=0.5, m_skip=0.0, out="lexx-mix", fx=lex_fx, ev=dict(outro=38.46)),
+    "operator": dict(dur=41.07, music="music-operator", m_off=0.0, m_skip=4.7, out="opx-mix", fx=operator_fx, ev=dict(outro=36.28)),
+    "lamb": dict(dur=47.6, music="music-lamb2", m_off=0.5, m_skip=0.0, out="lambx-mix", fx=lamb_fx, ev=dict(outro=45.4)),
 }
 
 name = sys.argv[1]
 c = CFG[name]
 DUR = c["dur"]
-voice = load(f"audio-src/{c['voice']}.mp3")
+voice = load(f"public/audio/{name}-voice.wav")  # edited take, see scripts/edit_narration.py
+_segs = json.load(open(f"src/social/edit-{name}.json"))["segments"]
+
+
+def R(s):  # noqa: F811
+    for a, b, n in _segs:
+        if a <= s < b:
+            return n + (s - a)
+    raise ValueError(f"{s} s falls in a cut")
+
 music = load(f"audio-src/{c['music']}.mp3")
 
 vt = Track(DUR)

@@ -1,11 +1,10 @@
 import React from "react";
 import { AbsoluteFill, Audio, Img, staticFile, useCurrentFrame } from "remotion";
-import { Check, CircleDashed, GitBranch, Lock, Plus } from "lucide-react";
-import { C, F, ease, env, kf, prog } from "../theme";
+import { C, F, ease, kf, prog } from "../theme";
 import { DotGrid, Glow, Grain, Vignette } from "../fx/Fx";
 import { Wordmark } from "../brand/Brand";
 import { Captions } from "../ui/Captions";
-import { MaskLine, Tag, TypeOn } from "../ui/Kinetic";
+import { MaskLine, Tag } from "../ui/Kinetic";
 
 /**
  * Shared kit for the narrated social explainers (LEX, Lamb, Operator).
@@ -146,72 +145,13 @@ export const Shell: React.FC<{ words: Word[]; audio: string; withAudio: boolean;
   );
 };
 
-/**
- * "Status" beat: in development / open source / no public build / follow along.
- * dev, os, follow are narration-derived frames.
- */
-export const Status: React.FC<{ f: number; a: number; b: number; dev: number; os: number; follow: number; what: string; version?: string }> = ({
-  f,
-  a,
-  b,
-  dev,
-  os,
-  follow,
-  what,
-  version,
-}) => {
-  const rows: { at: number; icon: React.ReactNode; t: string; s: string }[] = [
-    { at: dev, icon: <CircleDashed size={46} strokeWidth={2} style={{ transform: `rotate(${f * 3}deg)` }} />, t: "In development", s: version ?? "Being built right now" },
-    { at: os, icon: <GitBranch size={46} strokeWidth={2} />, t: "Open source", s: "github.com/samilososami/lambdaos" },
-    { at: os + 16, icon: <Lock size={44} strokeWidth={2} />, t: "No public build yet", s: "Not available to try" },
-  ];
-  const fp = prog(f, follow, follow + 10, ease.snap);
-  const tapped = f >= follow + 12;
-  return (
-    <Scene f={f} a={a} b={b}>
-      <Head f={f} kicker="Status" title={what} tk={a + 2} tt={a + 6} />
-      <div style={{ position: "absolute", left: 80, right: 80, top: 470, display: "flex", flexDirection: "column", gap: 26 }}>
-        {rows.map((r) => {
-          const p = prog(f, r.at, r.at + 12, ease.out);
-          return (
-            <Card key={r.t} hi={env(f, r.at, r.at + 30, 4, 16) * 0.6} style={{ display: "flex", alignItems: "center", gap: 34, padding: "34px 40px", opacity: p, transform: `translateX(${(1 - p) * 60}px)` }}>
-              <span style={{ display: "flex", color: C.ink }}>{r.icon}</span>
-              <div>
-                <div style={{ fontSize: 50, fontWeight: 600 }}>{r.t}</div>
-                <div style={{ fontFamily: F.mono, fontSize: 25, color: C.grey, marginTop: 6, letterSpacing: "0.04em" }}>
-                  {r.t === "Open source" ? <TypeOn text={r.s} p={prog(f, r.at + 4, r.at + 34, ease.soft)} frame={f} cursor={false} /> : r.s}
-                </div>
-              </div>
-            </Card>
-          );
-        })}
-      </div>
-      {/* follow button */}
-      <div style={{ position: "absolute", top: 1120, width: "100%", display: "flex", justifyContent: "center", opacity: fp, transform: `translateY(${(1 - fp) * 40}px)` }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 20,
-            padding: "26px 52px",
-            borderRadius: 999,
-            background: tapped ? "transparent" : C.ink,
-            border: `3px solid ${C.ink}`,
-            color: tapped ? C.ink : "#0B0B0B",
-            fontFamily: F.ui,
-            fontWeight: 600,
-            fontSize: 46,
-            transform: `scale(${1 - 0.06 * env(f, follow + 8, follow + 16, 3, 5)})`,
-          }}
-        >
-          {tapped ? <Check size={46} strokeWidth={3} /> : <Plus size={46} strokeWidth={3} />}
-          {tapped ? "Following" : "Follow along"}
-        </div>
-      </div>
-      <Tap f={f} a={follow + 8} x={540} y={1170} size={160} />
-    </Scene>
-  );
+/** Time map from an edited narration: segments of [original start, original end, new start]. */
+export const remapper = (segs: number[][]) => (s: number) => {
+  for (const [a, b, n] of segs) if (s >= a && s < b) return n + (s - a);
+  return s;
 };
+export const remapN = <T extends Record<string, number | number[]>>(n: T, r: (s: number) => number): T =>
+  Object.fromEntries(Object.entries(n).map(([k, v]) => [k, Array.isArray(v) ? v.map(r) : r(v)])) as T;
 
 /** Wordmark outro. `tag` = narration-derived frames of the five tagline words. */
 export const Outro: React.FC<{ f: number; a: number; end: number; lambdaos: number; tag: number[] }> = ({ f, a, end, lambdaos, tag }) => {

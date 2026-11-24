@@ -7,19 +7,22 @@ import { Phone } from "../device/Phone";
 import { LockScreen, OperatorHome } from "../ui/Screens";
 import { Tag, TypeOn } from "../ui/Kinetic";
 import { Cursor, DesktopChrome, LambWin, OperatorWin, TerminalWin } from "../lex/Desktop";
-import { Card, Head, Mono, Outro, Scene, Shell, Status, Word, at, camera } from "./Kit";
+import { Card, Head, Mono, Outro, Scene, Shell, Word, at, camera, remapN, remapper } from "./Kit";
 import words from "./words-lex.json";
+import edit from "./edit-lex.json";
 
-export const LEXX_DURATION = 1365; // 45.5 s
+export const LEXX_DURATION = 1220; // 40.7 s
 
 /* narration times (s) */
-const N = {
+const N0 = {
   lex: 0.6, desktop: 1.44, lambdaos: 2.4, it: 3.78, phone: 4.26, full: 5.08, real: 6.92, taskbar: 7.82, keyboard: 8.64, mouse: 9.26,
   operator: 10.42, terminal: 10.88, lamb: 11.54, side: 12.18, big: 13.3, and: 14.38, three: 14.9, wired: 16.54, plug: 16.94, monitor: 19.02,
   wireless: 20.22, cast: 20.84, tv: 21.46, noCables: 22.74, web: 24.16, open: 24.86, browser: 25.9, becomes: 26.68, bridge: 27.12, shows: 27.66,
-  everything: 28.76, runs: 29.96, bigger: 31.92, screen2: 31.2, lex2: 33.18, dev: 33.86, os: 35.64, follow: 36.8, outro: 38.46,
+  everything: 28.76, runs: 29.96, bigger: 31.92, screen2: 31.2, outro: 38.46,
   tag: [39.56, 39.72, 40.1, 40.42, 40.74],
 };
+/* the status sentence was cut from the narration: original times → edited times */
+const N = remapN(N0, remapper(edit.segments));
 
 type Rect = { x: number; y: number; w: number; h: number };
 const lerpRect = (a: Rect, b: Rect, t: number): Rect => ({ x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), w: lerp(a.w, b.w, t), h: lerp(a.h, b.h, t) });
@@ -437,7 +440,7 @@ const OUTS = [
 ];
 const Runs: React.FC<{ f: number }> = ({ f }) => {
   const a = at(N.everything) - 2;
-  const b = at(N.lex2) + 2;
+  const b = at(N.outro) - 2;
   const big = prog(f, at(N.bigger) - 10, at(N.bigger) + 12, ease.inOut);
   const phone: Rect = { x: 400, y: 690, w: 280, h: 596 };
   const scr: Rect = { x: phone.x + 7, y: phone.y + 16, w: 266, h: 562 };
@@ -508,7 +511,6 @@ export const LexExplainer: React.FC<{ withAudio?: boolean }> = ({ withAudio = fa
       <Setup f={f} />
       <Ways f={f} />
       <Runs f={f} />
-      <Status f={f} a={at(N.lex2) - 2} b={at(N.outro) + 4} dev={at(N.dev)} os={at(N.os)} follow={at(N.follow)} what="LEX" />
       <Outro f={f} a={at(N.outro) - 4} end={LEXX_DURATION} lambdaos={at(N.outro)} tag={N.tag.map(at)} />
     </Shell>
   );

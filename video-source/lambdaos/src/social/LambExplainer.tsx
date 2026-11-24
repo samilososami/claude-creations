@@ -6,18 +6,21 @@ import { Lamb, LambFace } from "../lamb/Lamb";
 import { Phone } from "../device/Phone";
 import { OP, StatusBar } from "../ui/Screens";
 import { MaskLine, Tag, TypeOn } from "../ui/Kinetic";
-import { Card, Head, Mono, Outro, Scene, Shell, Status, Word, at } from "./Kit";
+import { Card, Head, Mono, Outro, Scene, Shell, Word, at, remapN, remapper } from "./Kit";
 import words from "./words-lamb.json";
+import edit from "./edit-lamb.json";
 
-export const LAMBX_DURATION = 1575; // 52.5 s
+export const LAMBX_DURATION = 1428; // 47.6 s
 
-const N = {
+const N0 = {
   lamb: 0.34, ai: 1.28, built: 2.06, lambdaos: 2.8, lamb2: 4.66, local: 5.1, abl: 6.74, which: 7.62, unc: 8.26, refuse: 9.42, refuse2: 9.82,
   runs: 11.16, phone: 12.4, internet: 13.7, external: 14.9, data: 16.42, leaves: 17.08, completely: 18.96, free: 19.4, lamb3: 20.62, retrained: 21.18,
   adapted: 21.96, ground: 22.8, cover: 23.64, needs: 24.88, deep: 25.86, knowledge: 26.36, low: 27.24, thats: 27.88, ideal: 29.1, cyber: 29.82,
-  and: 31.34, chatbot: 32.32, its: 33.2, agent: 33.54, chat: 34.54, ask: 35.24, automate: 36.38, let: 37.58, audit: 38.42, lamb4: 39.96, dev: 40.66,
-  os: 42.56, follow: 43.8, outro: 45.4, tag: [46.52, 46.7, 47.04, 47.38, 47.7],
+  and: 31.34, chatbot: 32.32, its: 33.2, agent: 33.54, chat: 34.54, ask: 35.24, automate: 36.38, let: 37.58, audit: 38.42,
+  outro: 45.4, tag: [46.52, 46.7, 47.04, 47.38, 47.7],
 };
+/* the status sentence was cut from the narration: original times → edited times */
+const N = remapN(N0, remapper(edit.segments));
 
 /* ───────────── shared bits ───────────── */
 const Bubble: React.FC<{ me?: boolean; p: number; children: React.ReactNode; size?: number }> = ({ me, p, children, size = 74 }) => (
@@ -424,7 +427,7 @@ const CAPS = [
 const STEPS = ["Discover hosts", "Scan services", "Check Wi-Fi", "Write report"];
 const Agent: React.FC<{ f: number }> = ({ f }) => {
   const a = at(N.and) - 2;
-  const b = at(N.lamb4) - 2;
+  const b = at(N.outro) - 2;
   const swap = prog(f, at(N.its) - 6, at(N.its) + 2, ease.in);
   const strike = prog(f, at(N.chatbot) + 2, at(N.chatbot) + 12, ease.inOut);
   let mode = -1;
@@ -552,7 +555,6 @@ export const LambExplainer: React.FC<{ withAudio?: boolean }> = ({ withAudio = f
       <Retrained f={f} />
       <Profile f={f} />
       <Agent f={f} />
-      <Status f={f} a={at(N.lamb4) - 2} b={at(N.outro) + 4} dev={at(N.dev)} os={at(N.os)} follow={at(N.follow)} what="Lamb" />
       <Outro f={f} a={at(N.outro) - 4} end={LAMBX_DURATION} lambdaos={at(N.outro)} tag={N.tag.map(at)} />
     </Shell>
   );
