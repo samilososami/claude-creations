@@ -27,7 +27,7 @@ Las antiguas direcciones `/claude/lambdaospromo/` y `/claude/lambdaos-trailer/` 
 |------|-------|
 | Modelo | Claude Opus 5.5 (modelo de la sesión) |
 | Fecha | Nov 2026 |
-| Tiempo | ≈ 1 h 15 min de reloj la primera tanda, y ≈ 1 h más para rehacer LEX vertical, Lamb y Operator como explicaciones con voz |
+| Tiempo | ≈ 1 h 15 min de reloj la primera tanda, y ≈ 1 h 30 min más para rehacer LEX vertical, Lamb y Operator como explicaciones con voz y ajustarlos |
 | Tokens | No medidos |
 
 - Hechos con [Remotion](https://www.remotion.dev) y sus skills oficiales. El código está en [`video-source/lambdaos`](../../video-source/lambdaos).
