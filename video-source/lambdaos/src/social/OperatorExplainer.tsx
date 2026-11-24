@@ -129,7 +129,7 @@ const Hub: React.FC<{ f: number }> = ({ f }) => {
     <AbsoluteFill style={{ opacity: Math.min(prog(f, a, a + 6), 1 - prog(f, b - 6, b)) }}>
       <Head f={f} kicker="LambdaOS" title="Lambda Operator" sub="The control center" tk={4} tt={at(N.lambda) - 6} ts={at(N.control) - 2} out={head1Out} />
       <Head f={f} kicker="Control" title="Everything" sub="starts here" tk={at(N.everything) - 2} tt={at(N.everything) + 2} ts={at(N.everything) + 8} out={head2Out} size={88} />
-      <Head f={f} kicker="Pentesting" title="Every tab" tk={at(N.and)} tt={at(N.every)} out={prog(f, at(N.each) - 6, at(N.each) + 2, ease.in)} size={84} top={130} />
+      <Head f={f} kicker="Pentesting" title="Every tab" tk={at(N.and) + 20} tt={at(N.and) + 24} out={prog(f, at(N.each) - 6, at(N.each) + 2, ease.in)} size={84} top={130} />
       {/* phone */}
       <div
         style={{
