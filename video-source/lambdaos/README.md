@@ -10,9 +10,9 @@ Proyecto de [Remotion](https://www.remotion.dev) (React) con el que se han hecho
 | `Boot` | Animación de arranque (intro + bucle ×2 + salida) | 1440 × 3040 · 60 fps, exportada a 1080 × 2280 | 12 s |
 | `BootZip` | La misma animación con un solo bucle, para el `bootanimation.zip` | 1440 × 3040 · 60 fps → 30 fps | 10 s |
 | `Lex` | Modo LEX: del móvil vertical al escritorio en un monitor | 1920 × 1080 · 30 fps | 36,5 s |
-| `LexVertical` | Modo LEX en vertical, más movido, para TikTok y Reels | 1080 × 1920 · 30 fps | 36,5 s |
-| `Lamb` | Lamb, el asistente: plan, aprobación y ejecución | 1080 × 1920 · 30 fps | 33 s |
-| `OperatorFlow` | Operator: escanear, objetivo, confirmar, capturar, verificar, recibo | 1080 × 1920 · 30 fps | 22 s |
+| `LexExplainer` | Modo LEX explicado, con voz: escritorio y conexión por cable, inalámbrica y web | 1080 × 1920 · 30 fps | 45,5 s |
+| `LambExplainer` | Lamb explicado, con voz: modelo local y abliterated, ventajas y modo agente | 1080 × 1920 · 30 fps | 52,5 s |
+| `OperatorExplainer` | Operator explicado, con voz: centro de control, pestañas, catálogos y recibos | 1080 × 1920 · 30 fps | 43,5 s |
 | `LambStates` | Estados de Lamb, en bucle | 1080 × 1080 · 30 fps | 8 s |
 | `Sting` / `StingSquare` | Sting del logo | 1920 × 1080 y 1080 × 1080 · 60 fps | 5 s |
 | `LiveWallpaper` | Fondo animado en bucle | 1080 × 2280 · 30 fps | 12 s |
@@ -25,13 +25,15 @@ src/
   lamb/         Lamb vectorizado por piezas (lana, ojos, pupilas, nariz, boca)
   device/       Galaxy S10 dibujado con sus proporciones, con grosor en 3D
   ui/           Pantallas de LambdaOS (Operator, bloqueo), tipografía cinética, subtítulos
-  explainer/ boot/ lex/ lambvid/ operator/ sting/ wallpaper/   un vídeo por carpeta
+  explainer/ boot/ lex/ lambvid/ sting/ wallpaper/   un vídeo por carpeta
+  social/       LEX, Lamb y Operator explicados: kit común (titulares, estado, outro) y un archivo por vídeo
 scripts/
   trace_lamb.py, trace_wordmark.py   vectorizado con potrace a partir de los PNG del repo
   wallpaper_masks.py                 máscaras de luz para el fondo animado
   sfx.py                             síntesis de efectos (whooshes, impactos, UI, sonido de marca) y mastering
   mix_*.py                           mezcla de cada vídeo: música, voz, efectos, ducking y loudness
-  words.py                           tiempos palabra a palabra de la narración (faster-whisper)
+  mix_social.py                      mezcla de LEX, Lamb y Operator explicados (lex | lamb | operator)
+  words.py, fix_words.py             tiempos palabra a palabra (faster-whisper) y limpieza para los subtítulos
   render_queue.sh, mux_all.sh        render sin audio y unión con el audio masterizado
   make_bootzip.sh                    empaqueta el bootanimation.zip de Android
   qa.sh, bands.py, analyze_music.py  comprobaciones: loudness, true peak, espectrograma, hojas de contacto
@@ -44,7 +46,8 @@ public/         tipografías, imágenes de LambdaOS, iconos, máscaras y audio m
 ```sh
 npm install
 python3 scripts/mix_explainer.py      # y el resto de mix_*.py → public/audio/*.wav
-scripts/render_queue.sh lamb lex boot operator sting stingsq wallpaper lambstates
+python3 scripts/mix_social.py lex       # y lamb, operator
+scripts/render_queue.sh lexv lamb operator lex boot sting stingsq wallpaper lambstates
 npx remotion render Explainer out/explainer-silent.mp4 --muted
 scripts/mux_all.sh                    # final/*.mp4
 scripts/make_bootzip.sh               # final/bootanimation.zip
@@ -55,9 +58,9 @@ Requisitos: Node 22, Python 3 con `numpy`, `scipy`, `pyloudnorm` y `faster-whisp
 
 ## Audio
 
-- Voz: ElevenLabs `eleven_v4`, voz «Joe - Cool Presenter», en inglés, una sola toma. Se transcribe con faster-whisper para sincronizar escenas y subtítulos palabra a palabra, y se vuelve a transcribir sobre el mp4 final para comprobar que se entiende con la música.
-- Música: ElevenLabs Music v2.5 (explicación, LEX y Lamb; Operator reutiliza un tramo de la de la explicación).
-- Efectos: sintetizados en `scripts/sfx.py`, colocados al fotograma.
+- Voz: ElevenLabs `eleven_v4`, voz «Joe - Cool Presenter», en inglés, una toma por vídeo (explicación, LEX, Lamb y Operator). Se transcribe con faster-whisper para sincronizar escenas y subtítulos palabra a palabra, y se vuelve a transcribir sobre el mp4 final para comprobar que se entiende con la música.
+- Música: ElevenLabs Music v2.5, una pista por vídeo con voz y otra para el LEX horizontal.
+- Efectos: sintetizados en `scripts/sfx.py`, colocados al fotograma. En LEX, Lamb y Operator van por debajo de la voz: ticks, whooshes suaves y confirmaciones, sin impactos.
 - Mastering: filtro paso alto a 28 Hz, limitador con sobremuestreo ×4 y `loudnorm` en dos pasadas. Objetivo −14 LUFS (−15,6 la animación de arranque) y true peak ≤ −1 dBTP medido en el mp4 final.
 
 ## bootanimation.zip

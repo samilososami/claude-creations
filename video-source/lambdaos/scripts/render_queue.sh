@@ -12,14 +12,14 @@ mux() { # video audio out
 }
 for job in "$@"; do
   case $job in
-    lamb) r Lamb out/lamb-silent.mp4 && mux out/lamb-silent.mp4 public/audio/lamb-mix.wav final/lambdaos-lamb.mp4 ;;
-    lexv) r LexVertical out/lexv-silent.mp4 && mux out/lexv-silent.mp4 public/audio/lexv-mix.wav final/lambdaos-lex-mode-vertical.mp4 ;;
+    lamb) r LambExplainer out/lambx-silent.mp4 && mux out/lambx-silent.mp4 public/audio/lambx-mix.wav final/lambdaos-lamb.mp4 ;;
+    lexv) r LexExplainer out/lexx-silent.mp4 && mux out/lexx-silent.mp4 public/audio/lexx-mix.wav final/lambdaos-lex-mode-vertical.mp4 ;;
     lex) r Lex out/lex-silent.mp4 && mux out/lex-silent.mp4 public/audio/lex-mix.wav final/lambdaos-lex-mode.mp4 ;;
     boot) r Boot out/boot-silent.mp4 --scale=0.75 && mux out/boot-silent.mp4 public/audio/boot-mix.wav final/lambdaos-boot-animation.mp4 ;;
     sting) r Sting out/sting-silent.mp4 && mux out/sting-silent.mp4 public/audio/sting-mix.wav final/lambdaos-logo-sting.mp4 ;;
     stingsq) r StingSquare out/stingsq-silent.mp4 && mux out/stingsq-silent.mp4 public/audio/sting-mix.wav final/lambdaos-logo-sting-square.mp4 ;;
     wallpaper) r LiveWallpaper final/lambdaos-live-wallpaper.mp4 ;;
-    operator) r OperatorFlow out/operator-silent.mp4 && mux out/operator-silent.mp4 public/audio/operator-mix.wav final/lambdaos-operator.mp4 ;;
+    operator) r OperatorExplainer out/opx-silent.mp4 && mux out/opx-silent.mp4 public/audio/opx-mix.wav final/lambdaos-operator.mp4 ;;
     lambstates) r LambStates final/lambdaos-lamb-states.mp4 ;;
   esac
   echo "[$(date +%T)] done $job"

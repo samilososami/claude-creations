@@ -12,6 +12,9 @@ import { LogoSting, STING_SECONDS } from "./sting/Sting";
 import { LiveWallpaper, WP_SECONDS } from "./wallpaper/LiveWallpaper";
 import { OperatorFlow, OPFLOW_DURATION } from "./operator/OperatorFlow";
 import { LambStates, LAMB_STATES_DURATION } from "./lambvid/LambStates";
+import { LexExplainer, LEXX_DURATION } from "./social/LexExplainer";
+import { OperatorExplainer, OPX_DURATION } from "./social/OperatorExplainer";
+import { LambExplainer, LAMBX_DURATION } from "./social/LambExplainer";
 
 loadAllFonts();
 
@@ -30,6 +33,9 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="LiveWallpaper" component={LiveWallpaper} durationInFrames={WP_SECONDS * 30} fps={30} width={1080} height={2280} />
       <Composition id="OperatorFlow" component={OperatorFlow} durationInFrames={OPFLOW_DURATION} fps={30} width={1080} height={1920} />
       <Composition id="LambStates" component={LambStates} durationInFrames={LAMB_STATES_DURATION} fps={30} width={1080} height={1080} />
+      <Composition id="LexExplainer" component={LexExplainer} durationInFrames={LEXX_DURATION} fps={30} width={1080} height={1920} defaultProps={{ withAudio: false }} />
+      <Composition id="OperatorExplainer" component={OperatorExplainer} durationInFrames={OPX_DURATION} fps={30} width={1080} height={1920} defaultProps={{ withAudio: false }} />
+      <Composition id="LambExplainer" component={LambExplainer} durationInFrames={LAMBX_DURATION} fps={30} width={1080} height={1920} defaultProps={{ withAudio: false }} />
     </>
   );
 };

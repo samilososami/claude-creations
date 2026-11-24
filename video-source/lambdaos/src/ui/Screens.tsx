@@ -107,7 +107,9 @@ export const OperatorHome: React.FC<{
   press?: Partial<Record<TileId, number>>;
   tileIn?: (i: number) => number;
   mono?: boolean;
-}> = ({ hi = {}, press = {}, tileIn, mono }) => (
+  /** optional small line under each tile label, with its opacity */
+  sub?: Partial<Record<TileId, [string, number]>>;
+}> = ({ hi = {}, press = {}, tileIn, mono, sub }) => (
   <AbsoluteFill style={{ background: OP.bg, fontFamily: F.ui, color: C.ink }}>
     <StatusBar time="11:01" />
     <div style={{ position: "absolute", left: 56, top: 168, fontSize: 92, fontWeight: 600, letterSpacing: -1 }}>Lambda</div>
@@ -149,6 +151,9 @@ export const OperatorHome: React.FC<{
           >
             <TileIcon id={t.id} size={150} color={h > 0.5 ? "#111" : C.ink} mono={mono || h > 0.5} />
             <span style={{ fontSize: 62, fontWeight: 600 }}>{t.label}</span>
+            {sub?.[t.id] && (
+              <span style={{ fontFamily: F.mono, fontSize: 34, letterSpacing: "0.08em", marginTop: -36, opacity: sub[t.id]![1], color: h > 0.5 ? "#222" : C.mist }}>{sub[t.id]![0]}</span>
+            )}
           </div>
         );
       })}
