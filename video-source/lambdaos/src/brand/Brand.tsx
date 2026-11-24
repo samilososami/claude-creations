@@ -77,3 +77,11 @@ export const Wordmark: React.FC<{
 
 /** Letter bboxes (in wordmark source units) for layout maths. */
 export const WM_LETTERS = W.letters.map((l) => l.bbox);
+
+/** λ as drawn in the wordmark (the one used on the profile picture). */
+const MARK_PTS = "387.9,324.8 387.9,387.1 466.4,387.1 501.5,457.5 327.3,755.5 430.2,755.5 546.9,552.7 648.3,755.8 752.7,755.8 543.3,324.8";
+export const LambdaMark: React.FC<{ size: number; color?: string }> = ({ size, color = C.ink }) => (
+  <svg viewBox="327.3 324.8 425.4 431.0" width={size} height={(size * 431.0) / 425.4}>
+    <polygon points={MARK_PTS} fill={color} />
+  </svg>
+);

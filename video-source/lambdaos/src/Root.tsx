@@ -6,6 +6,8 @@ import { BootAnimation, BOOT, bootDuration } from "./boot/Boot";
 import { LambVideo, LAMB_DURATION } from "./lambvid/LambVideo";
 import { LexMode, LEX_DURATION } from "./lex/Lex";
 import { LexVertical, LEXV_DURATION } from "./lex/LexVertical";
+import { Cover } from "./covers/Covers";
+import { Still } from "remotion";
 import { LogoSting, STING_SECONDS } from "./sting/Sting";
 import { LiveWallpaper, WP_SECONDS } from "./wallpaper/LiveWallpaper";
 import { OperatorFlow, OPFLOW_DURATION } from "./operator/OperatorFlow";
@@ -22,6 +24,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="Lamb" component={LambVideo} durationInFrames={LAMB_DURATION} fps={30} width={1080} height={1920} defaultProps={{ withAudio: false }} />
       <Composition id="Lex" component={LexMode} durationInFrames={LEX_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="LexVertical" component={LexVertical} durationInFrames={LEXV_DURATION} fps={30} width={1080} height={1920} />
+      <Still id="Cover" component={Cover} width={1080} height={1920} defaultProps={{ id: "explainer" as const }} />
       <Composition id="Sting" component={LogoSting} durationInFrames={STING_SECONDS * 60} fps={60} width={1920} height={1080} />
       <Composition id="StingSquare" component={LogoSting} durationInFrames={STING_SECONDS * 60} fps={60} width={1080} height={1080} />
       <Composition id="LiveWallpaper" component={LiveWallpaper} durationInFrames={WP_SECONDS * 30} fps={30} width={1080} height={2280} />
