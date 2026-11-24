@@ -9,6 +9,7 @@ Los vídeos de [LambdaOS](https://github.com/samilososami/lambdaos), el sistema 
 | 01 | Qué es LambdaOS, con voz en inglés y subtítulos | 9:16 · 1080 × 1920 · 30 fps | 1:05 | [`lambdaos-explainer.mp4`](videos/lambdaos-explainer.mp4) |
 | 02 | Animación de arranque | S10 19:9 · 1080 × 2280 · 60 fps | 0:12 | [`lambdaos-boot-animation.mp4`](videos/lambdaos-boot-animation.mp4) · [`bootanimation.zip`](downloads/bootanimation.zip) |
 | 03 | Modo Lex: del móvil al escritorio | 16:9 · 1920 × 1080 · 30 fps | 0:36 | [`lambdaos-lex-mode.mp4`](videos/lambdaos-lex-mode.mp4) |
+| 03b | Modo Lex en vertical, para TikTok y Reels | 9:16 · 1080 × 1920 · 30 fps | 0:36 | [`lambdaos-lex-mode-vertical.mp4`](videos/lambdaos-lex-mode-vertical.mp4) |
 | 04 | Lamb, el asistente | 9:16 · 1080 × 1920 · 30 fps | 0:33 | [`lambdaos-lamb.mp4`](videos/lambdaos-lamb.mp4) |
 | 05 | Operator: un toque | 9:16 · 1080 × 1920 · 30 fps | 0:22 | [`lambdaos-operator.mp4`](videos/lambdaos-operator.mp4) |
 | 06 | Estados de Lamb (bucle) | 1:1 · 1080 × 1080 · 30 fps | 0:08 | [`lambdaos-lamb-states.mp4`](videos/lambdaos-lamb-states.mp4) |

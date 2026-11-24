@@ -25,6 +25,7 @@ NEW = {
     "lambdaos-explainer.mp4": ("poster-explainer.jpg", 30.9),
     "lambdaos-boot-animation.mp4": ("poster-boot.jpg", 2.25),
     "lambdaos-lex-mode.mp4": ("poster-lex.jpg", 22.5),
+    "lambdaos-lex-mode-vertical.mp4": ("poster-lexv.jpg", 18.6),
     "lambdaos-lamb.mp4": ("poster-lamb.jpg", 5.4),
     "lambdaos-operator.mp4": ("poster-operator.jpg", 12.6),
     "lambdaos-lamb-states.mp4": ("poster-lambstates.jpg", 5.2),
@@ -88,7 +89,7 @@ paths = "".join(f'<path d="{l["d"]}"/>' for l in wm["letters"])
 wordmark_svg = (f'<svg class="wm" viewBox="850 330 2155 345" role="img" aria-label="LambdaOS">'
                 f'<g transform="{wm["transform"]}" fill="currentColor">{paths}</g></svg>')
 tpl = (HERE / "web" / "index.template.html").read_text().replace("{{WORDMARK_SVG}}", wordmark_svg)
-out = (tpl.replace("{{COUNT}}", "11")
+out = (tpl.replace("{{COUNT}}", "12")
           .replace("{{MODEL}}", "Claude Opus 5.5 (modelo de la sesión)")
           .replace("{{TIME}}", html.escape(time_text, quote=False))
           .replace("{{PROMPT_NEW}}", html.escape(new_prompt, quote=False))

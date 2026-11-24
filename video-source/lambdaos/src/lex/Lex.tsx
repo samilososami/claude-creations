@@ -20,7 +20,7 @@ const MON = { x: 480, y: 112, w: 1180, h: 680, bez: 16 };
 const SCR = { x: MON.x + MON.bez, y: MON.y + MON.bez, w: MON.w - MON.bez * 2, h: MON.h - MON.bez * 2 };
 
 /* timeline */
-const T = {
+export const T = {
   plug: 200,
   toast: 212,
   tap: 240,
@@ -42,7 +42,7 @@ const T = {
 };
 
 /** Phone's landscape screen: Lex touchpad. Authored 2280 × 1080, rotated into the portrait screen. */
-const Trackpad: React.FC<{ f: number; touch: { x: number; y: number; on: number } }> = ({ f, touch }) => (
+export const Trackpad: React.FC<{ f: number; touch: { x: number; y: number; on: number } }> = ({ f, touch }) => (
   <div style={{ position: "absolute", left: 0, top: 0, width: 2280, height: 1080, transform: "translate(1080px,0) rotate(90deg)", transformOrigin: "0 0", background: "#0B0C0D", fontFamily: F.ui, color: C.ink }}>
     <div style={{ position: "absolute", left: 90, top: 70, display: "flex", alignItems: "center", gap: 22 }}>
       <LambdaGlyph size={60} />
@@ -64,7 +64,7 @@ const Trackpad: React.FC<{ f: number; touch: { x: number; y: number; on: number 
   </div>
 );
 
-const Toast: React.FC<{ f: number }> = ({ f }) => {
+export const Toast: React.FC<{ f: number }> = ({ f }) => {
   const p = prog(f, T.toast, T.toast + 12, ease.out) * (1 - prog(f, T.tap + 6, T.tap + 18, ease.in));
   const press = env(f, T.tap - 4, T.tap + 6, 3, 5);
   return (
