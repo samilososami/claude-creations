@@ -1,6 +1,6 @@
 # LambdaOS · código de los vídeos
 
-Proyecto de [Remotion](https://www.remotion.dev) (React) con el que se han hecho los vídeos de [`projects/lambdaos`](../../projects/lambdaos). Todo lo visual está programado: el S10, las pantallas de LambdaOS, Lamb, el escritorio de Lex y los gráficos. El sonido también, salvo la voz y la música de ElevenLabs.
+Proyecto de [Remotion](https://www.remotion.dev) (React) con el que se han hecho los vídeos de [`projects/lambdaos`](../../projects/lambdaos). Todo lo visual está programado: el S10, las pantallas de LambdaOS, Lamb, el escritorio de LEX y los gráficos. El sonido también, salvo la voz y la música de ElevenLabs.
 
 ## Composiciones
 
@@ -9,7 +9,8 @@ Proyecto de [Remotion](https://www.remotion.dev) (React) con el que se han hecho
 | `Explainer` | Qué es LambdaOS, con voz en inglés y subtítulos | 1080 × 1920 · 30 fps | 65 s |
 | `Boot` | Animación de arranque (intro + bucle ×2 + salida) | 1440 × 3040 · 60 fps, exportada a 1080 × 2280 | 12 s |
 | `BootZip` | La misma animación con un solo bucle, para el `bootanimation.zip` | 1440 × 3040 · 60 fps → 30 fps | 10 s |
-| `Lex` | Modo Lex: del móvil vertical al escritorio en un monitor | 1920 × 1080 · 30 fps | 36,5 s |
+| `Lex` | Modo LEX: del móvil vertical al escritorio en un monitor | 1920 × 1080 · 30 fps | 36,5 s |
+| `LexVertical` | Modo LEX en vertical, más movido, para TikTok y Reels | 1080 × 1920 · 30 fps | 36,5 s |
 | `Lamb` | Lamb, el asistente: plan, aprobación y ejecución | 1080 × 1920 · 30 fps | 33 s |
 | `OperatorFlow` | Operator: escanear, objetivo, confirmar, capturar, verificar, recibo | 1080 × 1920 · 30 fps | 22 s |
 | `LambStates` | Estados de Lamb, en bucle | 1080 × 1080 · 30 fps | 8 s |
@@ -55,7 +56,7 @@ Requisitos: Node 22, Python 3 con `numpy`, `scipy`, `pyloudnorm` y `faster-whisp
 ## Audio
 
 - Voz: ElevenLabs `eleven_v4`, voz «Joe - Cool Presenter», en inglés, una sola toma. Se transcribe con faster-whisper para sincronizar escenas y subtítulos palabra a palabra, y se vuelve a transcribir sobre el mp4 final para comprobar que se entiende con la música.
-- Música: ElevenLabs Music v2.5 (explicación, Lex y Lamb; Operator reutiliza un tramo de la de la explicación).
+- Música: ElevenLabs Music v2.5 (explicación, LEX y Lamb; Operator reutiliza un tramo de la de la explicación).
 - Efectos: sintetizados en `scripts/sfx.py`, colocados al fotograma.
 - Mastering: filtro paso alto a 28 Hz, limitador con sobremuestreo ×4 y `loudnorm` en dos pasadas. Objetivo −14 LUFS (−15,6 la animación de arranque) y true peak ≤ −1 dBTP medido en el mp4 final.
 

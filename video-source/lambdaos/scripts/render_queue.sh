@@ -13,7 +13,7 @@ mux() { # video audio out
 for job in "$@"; do
   case $job in
     lamb) r Lamb out/lamb-silent.mp4 && mux out/lamb-silent.mp4 public/audio/lamb-mix.wav final/lambdaos-lamb.mp4 ;;
-    lexv) r LexVertical out/lexv-silent.mp4 && mux out/lexv-silent.mp4 public/audio/lex-mix.wav final/lambdaos-lex-mode-vertical.mp4 ;;
+    lexv) r LexVertical out/lexv-silent.mp4 && mux out/lexv-silent.mp4 public/audio/lexv-mix.wav final/lambdaos-lex-mode-vertical.mp4 ;;
     lex) r Lex out/lex-silent.mp4 && mux out/lex-silent.mp4 public/audio/lex-mix.wav final/lambdaos-lex-mode.mp4 ;;
     boot) r Boot out/boot-silent.mp4 --scale=0.75 && mux out/boot-silent.mp4 public/audio/boot-mix.wav final/lambdaos-boot-animation.mp4 ;;
     sting) r Sting out/sting-silent.mp4 && mux out/sting-silent.mp4 public/audio/sting-mix.wav final/lambdaos-logo-sting.mp4 ;;

@@ -197,7 +197,7 @@ const TERM = [
   { t: "wlan1    RTL8812AU   usb       monitor", c: C.grey, d: 42 },
   { t: "hci0     bluetooth   up", c: C.grey, d: 46 },
   { t: "can0     socketcan   down", c: C.grey, d: 50 },
-  { t: "lex      display     1920x1080 @ 60", c: C.mist, d: 54 },
+  { t: "lex      LEX display 1920x1080 @ 60", c: C.mist, d: 54 },
   { t: "lambda@s10:~$ lambda wifi capture --target LAB-NET", c: C.ink, d: 92 },
 ];
 
@@ -237,7 +237,7 @@ export const LambWin: React.FC<{ f: number; p: number; start: number; x?: number
         <div style={{ fontFamily: F.mono, fontSize: 13, color: C.grey, letterSpacing: "0.12em" }}>ON-DEVICE · OFFLINE</div>
       </div>
       <div style={{ background: "#1C1F22", borderRadius: "20px 20px 20px 6px", padding: "14px 18px", fontSize: 19, lineHeight: 1.35, opacity: prog(f, start + 12, start + 22) }}>
-        <TypeOn text="Lex is on. I put the capture on the big screen." p={prog(f, start + 12, start + 44, ease.soft)} cursor={false} />
+        <TypeOn text="LEX is on. I put the capture on the big screen." p={prog(f, start + 12, start + 44, ease.soft)} cursor={false} />
       </div>
       <div style={{ alignSelf: "flex-end", background: C.ink, color: "#0B0B0B", borderRadius: "20px 20px 6px 20px", padding: "14px 18px", fontSize: 19, opacity: prog(f, start + 54, start + 62) }}>Nice. Keep it running.</div>
       <div style={{ background: "#1C1F22", borderRadius: "20px 20px 20px 6px", padding: "14px 18px", fontSize: 19, lineHeight: 1.35, opacity: prog(f, start + 70, start + 80) }}>
@@ -305,7 +305,7 @@ export const DesktopChrome: React.FC<{ f: number; dockIn: number; activeApp?: nu
       <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 44, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 22px", background: "rgba(8,8,8,0.55)", backdropFilter: "blur(16px)", fontFamily: F.ui, fontSize: 17, color: C.ink, borderBottom: "1px solid rgba(241,240,236,0.08)" }}>
         <span style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <LambdaGlyph size={22} />
-          <b style={{ fontWeight: 600 }}>Lex</b>
+          <b style={{ fontWeight: 600 }}>LEX</b>
           <span style={{ color: C.grey }}>Operator</span>
           <span style={{ color: C.grey }}>Window</span>
         </span>

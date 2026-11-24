@@ -46,7 +46,7 @@ export const Trackpad: React.FC<{ f: number; touch: { x: number; y: number; on: 
   <div style={{ position: "absolute", left: 0, top: 0, width: 2280, height: 1080, transform: "translate(1080px,0) rotate(90deg)", transformOrigin: "0 0", background: "#0B0C0D", fontFamily: F.ui, color: C.ink }}>
     <div style={{ position: "absolute", left: 90, top: 70, display: "flex", alignItems: "center", gap: 22 }}>
       <LambdaGlyph size={60} />
-      <span style={{ fontSize: 56, fontWeight: 600 }}>Lex</span>
+      <span style={{ fontSize: 56, fontWeight: 600 }}>LEX</span>
       <span style={{ fontFamily: F.mono, fontSize: 30, color: C.grey, letterSpacing: "0.12em", marginLeft: 20 }}>1920×1080 · USB-C</span>
     </div>
     <div style={{ position: "absolute", right: 90, top: 60, display: "flex", gap: 26 }}>
@@ -73,10 +73,10 @@ export const Toast: React.FC<{ f: number }> = ({ f }) => {
         <MonitorSmartphone size={64} strokeWidth={1.6} />
         <div>
           <div style={{ fontSize: 50, fontWeight: 600 }}>Display connected</div>
-          <div style={{ fontSize: 38, color: C.grey, marginTop: 6 }}>Start Lex on 1920×1080?</div>
+          <div style={{ fontSize: 38, color: C.grey, marginTop: 6 }}>Start LEX on 1920×1080?</div>
         </div>
       </div>
-      <div style={{ marginTop: 36, height: 112, borderRadius: 56, background: C.ink, color: "#0B0B0B", display: "grid", placeItems: "center", fontSize: 44, fontWeight: 600, transform: `scale(${1 - press * 0.06})` }}>Start Lex</div>
+      <div style={{ marginTop: 36, height: 112, borderRadius: 56, background: C.ink, color: "#0B0B0B", display: "grid", placeItems: "center", fontSize: 44, fontWeight: 600, transform: `scale(${1 - press * 0.06})` }}>Start LEX</div>
     </div>
   );
 };
@@ -149,7 +149,7 @@ export const LexMode: React.FC = () => {
             <Tag size={22}>LambdaOS · Concept</Tag>
           </MaskLine>
           <MaskLine p={prog(f, 30, 48)} style={{ fontFamily: F.display, fontWeight: 600, fontSize: 190, color: C.ink, lineHeight: 1 }}>
-            Lex
+            LEX
           </MaskLine>
           <MaskLine p={prog(f, 40, 56)} style={{ fontFamily: F.ui, fontSize: 40, color: C.grey, marginTop: 8 }}>
             desktop mode
@@ -248,7 +248,7 @@ export const LexMode: React.FC = () => {
               <Tag size={24}>LambdaOS · Concept</Tag>
             </MaskLine>
             <MaskLine p={prog(f, T.end + 8, T.end + 26)} style={{ fontFamily: F.display, fontWeight: 600, fontSize: 210, color: C.ink, lineHeight: 1 }}>
-              Lex
+              LEX
             </MaskLine>
             <MaskLine p={prog(f, T.end + 16, T.end + 32)} style={{ fontFamily: F.ui, fontSize: 54, color: C.mist, marginTop: 14 }}>
               Your S10, as a full desktop.

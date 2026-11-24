@@ -42,6 +42,21 @@ fx.add(fr(900), impact(0.6, 1.2, 2.2, 0.4), -12)
 fx.add(fr(904), shimmer(2.2, 0.28, 1046), -13)
 for k, at in enumerate((930, 936, 942)):
     fx.add(fr(at), tick(0.25, 2600 + 300 * k), -14)
+VERT = len(sys.argv) > 1 and sys.argv[1] == "vertical"
+if VERT:  # extra hits for the vertical cut: L-E-X slams, kinetic words, beat-synced window punches
+    for at in (15, 31, 48):
+        fx.add(fr(at), impact(0.7, 0.8, 1.2, 1.0), -9)
+        fx.add(fr(at), glitch(0.12, 0.3, at), -18)
+    fx.add(fr(52), whoosh(0.9, 120, 3000, 0.5), -10)
+    for at in (200, 270, 300, 368):
+        fx.add(fr(at), thud(0.8), -12)
+    fx.add(fr(390), impact(1.0, 1.6, 2.6, 1.2), -4)
+    fx.add(fr(404), whoosh(0.5, 3000, 300, 0.4), -12)
+    for at in (450, 505, 560, 615):
+        fx.add(fr(at), thud(0.6), -16)
+    fx.add(fr(868), impact(0.6, 1.0, 1.4, 0.8), -12)
+    for i, at in enumerate((904, 908, 912)):
+        fx.add(fr(at), impact(0.6, 0.6, 1.0, 1.0), -12)
 mix = mt.out() + fx.out() * 10 ** (-3 / 20)
 mix = fade(mix, 0.02, 0.8)
-print(json.dumps(master(mix, "public/audio/lex-mix.wav", lufs=-14.0, tp=-3.0)))
+print(json.dumps(master(mix, "public/audio/lexv-mix.wav" if VERT else "public/audio/lex-mix.wav", lufs=-14.0, tp=-3.0)))

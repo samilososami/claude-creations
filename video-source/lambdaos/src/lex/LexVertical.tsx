@@ -12,7 +12,7 @@ import { Cursor, DesktopChrome, LambWin, NetWin, OperatorWin, TerminalWin } from
 import { T, Toast, Trackpad, LEX_DURATION } from "./Lex";
 
 /**
- * Lex mode, vertical cut (1080 × 1920) for TikTok / Reels.
+ * LEX mode, vertical cut (1080 × 1920) for TikTok / Reels.
  * Same timeline as the 16:9 version, so it shares its audio mix.
  */
 export const LEXV_DURATION = LEX_DURATION;
@@ -64,8 +64,74 @@ const LABELS: [number, string, string][] = [
   [T.term + 20, "Terminal", "Same operations, typed"],
   [T.lamb, "Lamb", "On-device assistant"],
   [T.net, "Network map", "Passive, LAB-NET only"],
-  [760, "Lex", "1920×1080 from your S10"],
+  [760, "LEX", "1920×1080 from your S10"],
 ];
+
+
+/* ───── epic helpers ───── */
+const IMPULSES: [number, number][] = [
+  [15, 10], [31, 10], [48, 14], [T.plug, 9], [T.tap, 4], [T.widen + 2, 6], [T.monIn + 8, 8],
+  [T.drop, 26], [T.op, 6], [T.term, 6], [T.lamb, 6], [T.net, 6], [T.pullEnd, 10], [T.end, 12],
+];
+const shake = (f: number) => {
+  let x = 0, y = 0, r = 0;
+  for (const [at, amp] of IMPULSES) {
+    const d = f - at;
+    if (d < 0 || d > 22) continue;
+    const k = amp * Math.exp(-d / 5);
+    x += Math.sin(d * 2.7 + at) * k;
+    y += Math.cos(d * 3.1 + at * 0.7) * k;
+    r += Math.sin(d * 1.9 + at) * k * 0.05;
+  }
+  // tension build before the drop
+  const b = prog(f, 340, T.drop, (t) => t * t) * (f < T.drop ? 1 : 0);
+  x += Math.sin(f * 2.3) * 5 * b;
+  y += Math.cos(f * 2.9) * 5 * b;
+  return { x, y, r };
+};
+const BEAT0 = 15.4;
+const BEAT = 16.37;
+const beatPulse = (f: number) => {
+  if (f < T.drop || f > T.pull) return 0;
+  const ph = (((f - BEAT0) % BEAT) + BEAT) % BEAT;
+  return Math.exp(-ph / 3.2);
+};
+
+/** Big display word with trailing ghost copies (monochrome "RGB split"). */
+const Slam: React.FC<{ text: string; p: number; size: number; ghost?: number; style?: React.CSSProperties }> = ({ text, p, size, ghost = 1, style }) => {
+  const s = 1.55 - 0.55 * p;
+  const g = (1 - p) * 40 * ghost + 6 * ghost;
+  return (
+    <div style={{ position: "relative", whiteSpace: "nowrap", fontFamily: F.display, fontWeight: 600, fontSize: size, lineHeight: 0.9, letterSpacing: size * 0.02, color: C.ink, transform: `scale(${s})`, opacity: Math.min(1, p * 2), filter: `blur(${(1 - p) * 14}px)`, ...style }}>
+      <span style={{ position: "absolute", left: -g, top: 0, opacity: 0.22 * ghost, color: C.ink }}>{text}</span>
+      <span style={{ position: "absolute", left: g, top: 0, opacity: 0.22 * ghost, color: C.ink }}>{text}</span>
+      <span style={{ position: "relative" }}>{text}</span>
+    </div>
+  );
+};
+
+/** Speed lines converging on a point. */
+const Speed: React.FC<{ f: number; k: number; cx: number; cy: number }> = ({ f, k, cx, cy }) => {
+  if (k <= 0.01) return null;
+  const lines = Array.from({ length: 46 }).map((_, i) => {
+    const a = (i / 46) * Math.PI * 2 + Math.sin(i * 7.1) * 0.08;
+    const r0 = 700 + ((i * 137) % 400);
+    const len = 160 + ((i * 53) % 260);
+    const travel = ((f * (26 + (i % 5) * 6) + i * 97) % 900);
+    const r1 = r0 + 600 - travel;
+    const x1 = cx + Math.cos(a) * r1, y1 = cy + Math.sin(a) * r1;
+    const x2 = cx + Math.cos(a) * (r1 + len), y2 = cy + Math.sin(a) * (r1 + len);
+    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={C.ink} strokeWidth={1.5 + (i % 3)} opacity={0.08 + 0.35 * k * ((i % 4) / 4 + 0.25)} strokeLinecap="round" />;
+  });
+  return <svg width={1080} height={1920} style={{ position: "absolute", inset: 0, opacity: k }}>{lines}</svg>;
+};
+
+const Ring: React.FC<{ f: number; at: number; x: number; y: number; max?: number }> = ({ f, at, x, y, max = 900 }) => {
+  const p = prog(f, at, at + 26, ease.out);
+  if (f < at || p >= 1) return null;
+  const r = 40 + p * max;
+  return <div style={{ position: "absolute", left: x - r, top: y - r, width: r * 2, height: r * 2, borderRadius: "50%", border: `${3 + 6 * (1 - p)}px solid rgba(241,240,236,${0.7 * (1 - p)})` }} />;
+};
 
 export const LexVertical: React.FC = () => {
   const f = useCurrentFrame();
@@ -77,7 +143,11 @@ export const LexVertical: React.FC = () => {
   const pcx = kf(rot, [0, 1], [540, 540]);
   const pcy = kf(rot, [0, 1], [980, 1400]);
   const rz = -90 * rot;
-  const ry = kf(f, [0, T.widen, T.widenEnd], [-8, 0, 0]);
+  const rise = prog(f, 52, 100, ease.out);
+  const ry = kf(f, [52, 100, T.widen, T.widenEnd], [80, -8, 0, 0], ease.out);
+  const rotAt = (x: number) => prog(x, T.widen + 6, T.widenEnd + 6, ease.inOut);
+  const rotVel = Math.abs(rotAt(f + 1) - rotAt(f - 1)) * 45;
+  const spinVel = Math.abs(kf(f + 1, [52, 100], [80, -8], ease.out) - kf(f - 1, [52, 100], [80, -8], ease.out)) / 2;
   const rx = kf(rot, [0, 1], [4, 18]);
 
   /* cable into the port */
@@ -96,6 +166,11 @@ export const LexVertical: React.FC = () => {
 
   /* camera */
   const cam = camera(f);
+  const bp = beatPulse(f);
+  const punch = [T.op, T.term, T.lamb, T.net].reduce((m, a) => Math.max(m, f >= a ? Math.exp(-(f - a) / 5) : 0), 0);
+  const camS = 1 + 0.012 * bp + 0.05 * punch;
+  const whip = Math.abs(Math.log(camera(f + 1).s) - Math.log(camera(f - 1).s)) * 60;
+  const sh = shake(f);
   const inDesk = prog(f, T.push, T.pushEnd, ease.inOut) * (1 - prog(f, T.pull, T.pullEnd, ease.inOut));
 
   /* cursor (desktop coords) */
@@ -122,6 +197,9 @@ export const LexVertical: React.FC = () => {
     <AbsoluteFill style={{ background: "#060606", overflow: "hidden" }}>
       <DotGrid gap={30} opacity={0.12} mask="radial-gradient(ellipse 80% 60% at 50% 45%, #000 0%, transparent 80%)" />
       {/* stage with camera */}
+      {/* god rays behind the phone (intro) */}
+      <AbsoluteFill style={{ opacity: 0.55 * prog(f, 40, 90) * (1 - prog(f, T.widen, T.widen + 40)), background: `conic-gradient(from ${f * 0.6}deg at 50% 62%, transparent 0deg, rgba(241,240,236,0.10) 8deg, transparent 18deg, transparent 40deg, rgba(241,240,236,0.07) 50deg, transparent 62deg, transparent 100deg, rgba(241,240,236,0.09) 110deg, transparent 122deg, transparent 180deg, rgba(241,240,236,0.08) 190deg, transparent 200deg, transparent 260deg, rgba(241,240,236,0.1) 270deg, transparent 282deg, transparent 360deg)`, WebkitMaskImage: "radial-gradient(circle at 50% 62%, #000 0%, transparent 60%)", maskImage: "radial-gradient(circle at 50% 62%, #000 0%, transparent 60%)" }} />
+      <div style={{ position: "absolute", inset: 0, transform: `translate(${sh.x}px, ${sh.y}px) rotate(${sh.r}deg) scale(${camS})`, transformOrigin: "540px 960px", filter: `blur(${Math.min(12, whip)}px)` }}>
       <div style={{ position: "absolute", inset: 0, transformOrigin: "0 0", transform: `translate(${cam.tx}px, ${cam.ty}px) scale(${cam.s})` }}>
         <AbsoluteFill style={{ background: `radial-gradient(ellipse 70% 40% at 50% 38%, rgba(241,240,236,${0.05 + 0.1 * openP}) 0%, transparent 70%)` }} />
         {/* monitor */}
@@ -161,7 +239,7 @@ export const LexVertical: React.FC = () => {
           </svg>
         )}
         {/* phone */}
-        <div style={{ position: "absolute", left: pcx - pW / 2, top: pcy - pH / 2, opacity: 1 - inDesk }}>
+        <div style={{ position: "absolute", left: pcx - pW / 2, top: pcy - pH / 2 + (1 - rise) * 1400, opacity: (1 - inDesk) * (f < 50 ? 0 : 1), filter: `blur(${Math.min(10, rotVel * 2 + spinVel * 0.5)}px)` }}>
           <Phone width={pW} rz={rz} ry={ry} rx={rx} glare={kf(f, [10, 120], [0, 1])}>
             <div style={{ position: "absolute", inset: 0, opacity: 1 - prog(f, T.widen + 10, T.widen + 30) }}>
               <OperatorHome />
@@ -174,16 +252,22 @@ export const LexVertical: React.FC = () => {
         </div>
       </div>
 
+      </div>
+      {/* speed lines: phone turn + pre-drop build */}
+      <Speed f={f} k={Math.max(env(f, T.widen, T.widenEnd + 10, 12, 16) * 0.8, prog(f, 340, T.drop, (t) => t * t) * (f < T.drop + 2 ? 1 : 0))} cx={540} cy={f < T.monIn ? 1100 : 760} />
+      <Ring f={f} at={T.plug} x={540} y={980 + phoneHeight(520) / 2} max={700} />
+      <Ring f={f} at={T.drop} x={540} y={760} max={1300} />
+      <Ring f={f} at={T.drop + 5} x={540} y={760} max={1000} />
       {/* opening titles */}
       <AbsoluteFill style={{ opacity: 1 - prog(f, T.widen, T.widen + 24) }}>
         <div style={{ position: "absolute", left: 80, top: 150 }}>
-          <MaskLine p={prog(f, 24, 40)}>
+          <MaskLine p={prog(f, 66, 80)}>
             <Tag size={24}>LambdaOS · Concept</Tag>
           </MaskLine>
-          <MaskLine p={prog(f, 30, 48)} style={{ fontFamily: F.display, fontWeight: 600, fontSize: 150, color: C.ink, lineHeight: 1 }}>
-            Lex
+          <MaskLine p={prog(f, 70, 86)} style={{ fontFamily: F.display, fontWeight: 600, fontSize: 150, color: C.ink, lineHeight: 1, letterSpacing: 4 }}>
+            LEX
           </MaskLine>
-          <MaskLine p={prog(f, 40, 56)} style={{ fontFamily: F.ui, fontSize: 44, color: C.grey, marginTop: 6 }}>
+          <MaskLine p={prog(f, 78, 92)} style={{ fontFamily: F.ui, fontSize: 44, color: C.grey, marginTop: 6 }}>
             desktop mode
           </MaskLine>
         </div>
@@ -197,26 +281,52 @@ export const LexVertical: React.FC = () => {
         </div>
       </AbsoluteFill>
 
-      {/* "one phone → one desktop" line during the turn */}
-      <div style={{ position: "absolute", left: 80, top: 170, opacity: env(f, T.widen + 10, T.push + 4, 12, 10) }}>
-        <Tag size={24}>Vertical to horizontal</Tag>
-        <div style={{ fontFamily: F.display, fontWeight: 600, fontSize: 88, color: C.ink, marginTop: 10, lineHeight: 1.05 }}>
-          One phone.
-          <br />
-          One desktop.
+      {/* intro: L, E, X slam on the first beats */}
+      {f < 80 && (
+        <div style={{ position: "absolute", top: 560, width: "100%", display: "flex", justifyContent: "center", gap: 10, opacity: 1 - prog(f, 60, 74, ease.in), transform: `translateY(${-prog(f, 60, 76, ease.in) * 300}px) scale(${1 - prog(f, 60, 76, ease.in) * 0.4})` }}>
+          {["L", "E", "X"].map((ch, i) => (
+            <Slam key={ch} text={ch} p={prog(f, [15, 31, 48][i], [15, 31, 48][i] + 8, ease.out)} size={380} />
+          ))}
         </div>
-      </div>
-
+      )}
+      <AbsoluteFill style={{ background: "#fff", opacity: Math.max(env(f, 15, 19, 1, 3), env(f, 31, 35, 1, 3), env(f, 48, 53, 1, 4)) * 0.18 }} />
+      {/* kinetic words on the beat */}
+      {([
+        [T.plug, T.widen - 2, "PLUG IN."],
+        [T.widen, T.monIn - 2, "TURN."],
+        [T.monIn, T.line - 6, "SCALE UP."],
+        [T.line - 4, T.drop, "POWER ON."],
+      ] as [number, number, string][]).map(([a, b, w]) => (
+        <div key={w} style={{ position: "absolute", bottom: 210, width: "100%", display: "flex", justifyContent: "center", opacity: env(f, a, b, 4, 4) }}>
+          <Slam text={w} p={prog(f, a, a + 8, ease.out)} size={120} ghost={0.8} />
+        </div>
+      ))}
+      {/* the drop: giant LEX that splits open */}
+      {f >= T.drop && f < T.desk + 14 && (
+        <AbsoluteFill style={{ pointerEvents: "none" }}>
+          {[0, 1].map((half) => {
+            const split = prog(f, T.desk - 4, T.desk + 12, ease.in);
+            return (
+              <div key={half} style={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0, clipPath: half === 0 ? "inset(0 0 50% 0)" : "inset(50% 0 0 0)", transform: `translateY(${(half === 0 ? -1 : 1) * split * 700}px)`, display: "grid", placeItems: "center" }}>
+                <div style={{ marginTop: -200 }}>
+                  <Slam text="LEX" p={prog(f, T.drop, T.drop + 7, ease.out)} size={430} />
+                </div>
+              </div>
+            );
+          })}
+        </AbsoluteFill>
+      )}
       {/* desktop-phase labels top & bottom */}
       <div style={{ position: "absolute", left: 80, right: 80, top: 120, opacity: inDesk * (1 - endP) }}>
-        <Tag size={24}>Lex · on the big screen</Tag>
+        <Tag size={24}>LEX · on the big screen</Tag>
         <div style={{ position: "relative", height: 110, marginTop: 10 }}>
           {LABELS.map(([at, t], i) => {
-            const p = prog(f, at + 3, at + 13, ease.out);
+            const p = prog(f, at + 2, at + 9, ease.out);
             const o = i < li ? prog(f, LABELS[i + 1][0], LABELS[i + 1][0] + 4, ease.in) : 0;
             return (
-              <div key={t} style={{ position: "absolute", fontFamily: F.display, fontWeight: 600, fontSize: 92, color: C.ink, opacity: p * (1 - o), transform: `translateY(${(1 - p) * 50 - o * 50}px)` }}>
-                {t}
+              <div key={t} style={{ position: "absolute", display: "flex", alignItems: "baseline", gap: 24, opacity: p * (1 - o), transform: `translateY(${-o * 50}px)`, transformOrigin: "0 50%" }}>
+                <Slam text={t} p={p} size={96} ghost={0.7} style={{ transformOrigin: "0 50%" }} />
+                <span style={{ fontFamily: F.mono, fontSize: 26, color: C.grey, letterSpacing: "0.1em" }}>{String(i + 1).padStart(2, "0")}/05</span>
               </div>
             );
           })}
@@ -237,9 +347,11 @@ export const LexVertical: React.FC = () => {
             <MaskLine p={prog(f, T.end + 4, T.end + 20)}>
               <Tag size={24}>LambdaOS · Concept</Tag>
             </MaskLine>
-            <MaskLine p={prog(f, T.end + 8, T.end + 26)} style={{ fontFamily: F.display, fontWeight: 600, fontSize: 200, color: C.ink, lineHeight: 1 }}>
-              Lex
-            </MaskLine>
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, margin: "10px 0 6px" }}>
+              {["L", "E", "X"].map((ch, i) => (
+                <Slam key={ch} text={ch} p={prog(f, T.end + 4 + i * 4, T.end + 12 + i * 4, ease.out)} size={230} />
+              ))}
+            </div>
             <MaskLine p={prog(f, T.end + 16, T.end + 32)} style={{ fontFamily: F.ui, fontSize: 52, color: C.mist, marginTop: 14 }}>
               Your S10, as a full desktop.
             </MaskLine>
@@ -260,6 +372,9 @@ export const LexVertical: React.FC = () => {
           </div>
         </AbsoluteFill>
       )}
+      <AbsoluteFill style={{ background: "#fff", opacity: Math.max(env(f, T.pullEnd - 2, T.pullEnd + 6, 2, 6) * 0.25, env(f, T.end, T.end + 6, 1, 5) * 0.2) }} />
+      {/* scanline sweep on the beat during the desktop */}
+      <AbsoluteFill style={{ pointerEvents: "none", opacity: inDesk * 0.5, background: `linear-gradient(180deg, transparent ${(((f - T.push) * 3.1) % 140) - 20}%, rgba(241,240,236,0.06) ${(((f - T.push) * 3.1) % 140) - 18}%, transparent ${(((f - T.push) * 3.1) % 140) - 16}%)` }} />
       <AbsoluteFill style={{ background: "#000", opacity: fadeOut }} />
       <Vignette strength={0.45} />
       <Grain opacity={0.05} />

@@ -6,7 +6,7 @@ m() { if [ -f "out/$1-silent.mp4" ]; then ffmpeg -hide_banner -v error -y -i "ou
 m explainer explainer lambdaos-explainer
 m lamb lamb lambdaos-lamb
 m lex lex lambdaos-lex-mode
-m lexv lex lambdaos-lex-mode-vertical
+m lexv lexv lambdaos-lex-mode-vertical
 m boot boot lambdaos-boot-animation
 m operator operator lambdaos-operator
 m sting sting lambdaos-logo-sting
