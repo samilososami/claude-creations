@@ -2,25 +2,81 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
   "redirects": [
-    { "source": "/", "destination": "/claude/", "permanent": false }
+    {
+      "source": "/",
+      "destination": "/claude/",
+      "permanent": false
+    },
+    {
+      "source": "/claude/lambdaospromo",
+      "destination": "/claude/lambdaos/#promo",
+      "permanent": false
+    },
+    {
+      "source": "/claude/lambdaospromo/:path*",
+      "destination": "/claude/lambdaos/#promo",
+      "permanent": false
+    },
+    {
+      "source": "/claude/lambdaos-trailer",
+      "destination": "/claude/lambdaos/#trailer",
+      "permanent": false
+    },
+    {
+      "source": "/claude/lambdaos-trailer/:path*",
+      "destination": "/claude/lambdaos/#trailer",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/claude/", "destination": "/hub/index.html" },
-    { "source": "/claude/:slug/", "destination": "/projects/:slug/index.html" },
-    { "source": "/claude/:slug/:sub/", "destination": "/projects/:slug/:sub/index.html" },
-    { "source": "/claude/:slug/:path*", "destination": "/projects/:slug/:path*" }
+    {
+      "source": "/claude/",
+      "destination": "/hub/index.html"
+    },
+    {
+      "source": "/claude/:slug/",
+      "destination": "/projects/:slug/index.html"
+    },
+    {
+      "source": "/claude/:slug/:sub/",
+      "destination": "/projects/:slug/:sub/index.html"
+    },
+    {
+      "source": "/claude/:slug/:path*",
+      "destination": "/projects/:slug/:path*"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     },
     {
       "source": "/projects/:slug/img/:path*",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/projects/lambdaos/videos/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lambda OS · Claude creations</title>
+<meta name="description" content="Los vídeos de LambdaOS, el sistema de pentesting para el Galaxy S10: explicación con voz, animación de arranque, modo Lex, Lamb, Operator y piezas de marca.">
+<meta name="theme-color" content="#080808">
+<meta property="og:title" content="Lambda OS · vídeos">
+<meta property="og:description" content="Motion graphics de LambdaOS, el sistema de pentesting para el Galaxy S10.">
+<meta property="og:image" content="https://www.samilososami.com/claude/lambdaos/img/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 108 108'%3E%3Crect width='108' height='108' rx='18' fill='%23080808'/%3E%3Cpath fill='%23F1F0EC' transform='translate(8)' d='M33 24h16l29 60H63L47 51 29 84H14l26-46-4-7h-3z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#050505;--bg:#080808;--raise:#101112;--card:#141618;
+  --ink:#F1F0EC;--mist:#D8D9D6;--grey:#8A9096;--dim:#5A6066;
+  --line:rgba(241,240,236,.12);--line2:rgba(241,240,236,.28);
+  --display:'Montserrat',system-ui,sans-serif;--ui:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(16px,5vw,72px);--ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+::selection{background:var(--ink);color:var(--bg)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.wrap{width:min(1320px,100% - 2*var(--pad));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.dot{display:inline-flex;align-items:center;gap:.8em}
+.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
+
+/* texture */
+.grid-tex{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(241,240,236,.09) 1px,transparent 1.4px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 70% 55% at 20% 10%,#000 0%,transparent 75%);mask-image:radial-gradient(ellipse 70% 55% at 20% 10%,#000 0%,transparent 75%)}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 15% 0%,rgba(241,240,236,.08),transparent 55%)}
+header,main,footer{position:relative;z-index:1}
+
+/* top */
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad)}
+.top a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+.top a:hover{color:var(--ink)}
+.top-r{display:flex;align-items:center;gap:22px}
+.info-btn{width:32px;height:32px;border:1.5px solid var(--ink);border-radius:50%;background:transparent;color:var(--ink);font:italic 500 16px/1 Georgia,serif;cursor:pointer;display:grid;place-items:center}
+.info-btn:hover,.info-btn[aria-expanded="true"]{background:var(--ink);color:var(--bg)}
+
+/* hero */
+.hero{padding:clamp(40px,9vh,110px) 0 clamp(50px,8vh,90px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(28px,6vw,90px);align-items:end}
+.wm{display:block;width:min(680px,100%);height:auto;margin:26px 0 34px;color:var(--ink)}
+.lede{font-size:clamp(1.08rem,1.6vw,1.32rem);line-height:1.45;color:var(--mist);max-width:34em}
+.lede b{color:var(--ink);font-weight:600}
+.meta{display:flex;gap:clamp(22px,4vw,54px);margin-top:34px;padding-top:24px;border-top:1px solid var(--line2)}
+.meta b{display:block;font:600 clamp(1.9rem,3.4vw,2.8rem)/1 var(--display);letter-spacing:-.01em;color:var(--ink);margin-bottom:8px}
+.status{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:9px 15px;border:1px solid var(--line2);border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist)}
+.pill.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill:hover{border-color:var(--ink)}
+.phone{justify-self:end;width:min(300px,100%);aspect-ratio:1080/2280;border-radius:44px;padding:10px;background:linear-gradient(140deg,#2a2c2e,#0c0d0e 45%,#050505);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16),0 40px 90px rgba(0,0,0,.7);position:relative}
+.phone video{width:100%;height:100%;object-fit:cover;border-radius:36px;background:#000}
+.phone::after{content:"";position:absolute;right:13%;top:3.4%;width:5.6%;aspect-ratio:1;border-radius:50%;background:#050505;box-shadow:0 0 0 2px #000}
+.phone-cap{justify-self:end;margin-top:14px;text-align:right}
+
+/* sections */
+.sec{padding:clamp(30px,6vh,70px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;border-bottom:1px solid var(--line2);padding-bottom:16px;margin-bottom:clamp(22px,4vh,40px)}
+.sec-head h2{font:600 clamp(2rem,5vw,3.6rem)/.95 var(--display);letter-spacing:-.02em}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{appearance:none;background:transparent;border:1px solid var(--line2);color:var(--mist);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* featured */
+.feat{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center}
+.feat .shot{max-width:400px}
+.feat h3{font:600 clamp(2.2rem,5vw,4.2rem)/.95 var(--display);letter-spacing:-.02em;margin:16px 0 18px}
+.feat p{color:var(--mist);max-width:32em}
+.feat dl{display:flex;flex-wrap:wrap;gap:12px 34px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+dd{font-weight:500}
+.play-cta{display:inline-flex;align-items:center;gap:12px;margin-top:28px;padding:14px 22px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:600;cursor:pointer;border:0;font-size:16px}
+.play-cta svg{width:16px;height:16px}
+
+/* contact sheet */
+.sheet{display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,24px);align-items:flex-end}
+.clip{--h:clamp(260px,34vw,400px);height:auto;display:flex;flex-direction:column;gap:12px;cursor:pointer;text-align:left;background:none;border:0;color:inherit;font:inherit;padding:0}
+.clip[hidden]{display:none}
+.shot{position:relative;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 0 0 1px var(--line)}
+.clip .shot{width:calc(var(--h) * var(--arn));max-width:calc(100vw - 2 * var(--pad));aspect-ratio:var(--ar)}
+.shot img,.shot video{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.clip:hover .shot img,.clip:focus-visible .shot img{transform:scale(1.04)}
+.shot .fmt{position:absolute;left:10px;top:10px;padding:5px 9px;border-radius:7px;background:rgba(8,8,8,.72);backdrop-filter:blur(8px);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink)}
+.shot .dur{position:absolute;right:10px;bottom:10px;padding:4px 8px;border-radius:6px;background:rgba(8,8,8,.72);font-family:var(--mono);font-size:11px;color:var(--ink)}
+.shot .go{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .4s}
+.shot .go span{width:58px;height:58px;border-radius:50%;background:var(--ink);display:grid;place-items:center;transform:scale(.8);transition:transform .5s var(--ease)}
+.shot .go svg{width:18px;height:18px;margin-left:3px;fill:var(--bg)}
+.clip:hover .go,.clip:focus-visible .go{opacity:1}
+.clip:hover .go span{transform:scale(1)}
+.cap{max-width:max(210px,calc(var(--h) * var(--arn)));min-width:min(210px,100%)}
+.cap .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--grey)}
+.cap h3{font:600 1.15rem/1.15 var(--display);margin:4px 0 4px;letter-spacing:-.005em}
+.cap p{font-size:.92rem;color:var(--grey);line-height:1.4}
+.tag-old{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--dim);margin-left:6px}
+
+/* downloads */
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.dl a{display:flex;flex-direction:column;gap:10px;padding:24px;border:1px solid var(--line2);border-radius:16px;background:rgba(16,17,18,.6);transition:border-color .3s,background .3s}
+.dl a:hover{border-color:var(--ink);background:rgba(24,26,28,.8)}
+.dl b{font:600 1.25rem/1.1 var(--display)}
+.dl span{color:var(--grey);font-size:.92rem}
+
+/* note */
+.note{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;padding:clamp(22px,3vw,34px);border:1px dashed var(--line2);border-radius:18px;color:var(--mist)}
+.note svg{width:44px;height:44px}
+.note b{color:var(--ink)}
+.note a{text-decoration:underline;text-underline-offset:3px}
+
+footer{border-top:1px solid var(--line);padding:30px 0 44px;margin-top:clamp(40px,8vh,90px)}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot a{color:var(--mist);border-bottom:1px solid var(--line2)}
+.foot a:hover{color:var(--ink);border-color:var(--ink)}
+
+/* player */
+.player{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:16px;background:rgba(3,3,3,.86);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.player.open{opacity:1;visibility:visible}
+.player-box{display:flex;gap:28px;align-items:center;max-width:100%;max-height:100%}
+.player video{max-height:calc(100svh - 120px);max-width:calc(100vw - 32px - 328px);width:auto;min-width:0;border-radius:14px;background:#000;box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.player-side{width:300px;flex:none}
+.player-side h3{font:600 1.7rem/1.05 var(--display);margin:8px 0 10px}
+.player-side p{color:var(--mist);font-size:.95rem}
+.player-side dl{display:grid;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.player-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.player-actions a,.player-actions button{appearance:none;background:transparent;border:1px solid var(--line2);color:var(--ink);border-radius:999px;padding:9px 15px;font:500 13px var(--ui);cursor:pointer}
+.player-actions a:hover,.player-actions button:hover{border-color:var(--ink)}
+.player-close{position:absolute;right:18px;top:16px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:rgba(8,8,8,.6);color:var(--ink);font-size:20px;cursor:pointer}
+.prompt-box{display:none;margin-top:14px;max-height:30vh;overflow:auto;white-space:pre-wrap;font-size:12.5px;line-height:1.55;color:var(--mist);background:#0C0E10;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.prompt-box.show{display:block}
+
+/* info sheet */
+.scrim{position:fixed;inset:0;background:rgba(5,5,6,.6);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:30}
+.info{position:fixed;left:50%;top:50%;width:min(92vw,620px);max-height:86vh;overflow:auto;transform:translate(-50%,-48%) scale(.98);opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility .3s;background:#16181B;border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;z-index:31}
+.info-open .scrim,.info-open .info{opacity:1;visibility:visible}
+.info-open .info{transform:translate(-50%,-50%) scale(1)}
+.info h2{font:600 1.3rem var(--display);margin-bottom:16px}
+.info dl{display:grid;gap:13px;margin-bottom:16px}
+.info dd{font-size:14px;color:var(--mist);font-weight:400;line-height:1.5}
+.info .prompt{white-space:pre-wrap;font-size:13px;line-height:1.55;color:var(--mist);background:#0C0E10;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.info .close{margin-top:16px;display:flex;justify-content:flex-end}
+.info .close button{background:none;border:1px solid var(--line2);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero-grid,.feat{grid-template-columns:1fr}
+  .phone{justify-self:start;width:min(240px,70vw)}
+  .phone-cap{justify-self:start;text-align:left}
+  .player-box{flex-direction:column;gap:14px}
+  .player-side{width:min(100%,520px)}
+  .player video{max-height:calc(100svh - 280px);max-width:calc(100vw - 32px)}
+  .sheet{display:grid;grid-template-columns:1fr 1fr;gap:26px 12px;align-items:start}
+  .clip .shot{width:100%;max-width:none}
+  .clip[data-fmt="16:9"]{grid-column:span 2}
+  .cap{max-width:none;min-width:0}
+  .sec-head{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.shot img{transition:none}}
+</style>
+<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div class="grid-tex" aria-hidden="true"></div>
+
+<header class="top">
+  <a href="/claude/">← Claude creations</a>
+  <div class="top-r">
+    <a href="https://github.com/samilososami/claude-creations/tree/main/projects/lambdaos" target="_blank" rel="noopener">GitHub ↗</a>
+    <button class="info-btn" id="infoBtn" aria-controls="info" aria-expanded="false" aria-label="Información del proyecto">i</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="mono dot rv">samilososami.com / claude / lambdaos</span>
+        <h1 class="rv">{{WORDMARK_SVG}}</h1>
+        <p class="lede rv">Los vídeos de <b>LambdaOS</b>, el sistema operativo de pentesting para el Galaxy S10: una explicación con voz, la animación de arranque del teléfono, el modo <b>Lex</b>, <b>Lamb</b>, <b>Operator</b> y piezas de marca. Motion graphics hechos en código, con música y sonido propios.</p>
+        <div class="meta rv">
+          <span class="mono"><b>{{COUNT}}</b>Vídeos</span>
+          <span class="mono"><b>4</b>Formatos</span>
+          <span class="mono"><b>1</b>Bootanimation</span>
+        </div>
+        <div class="status rv">
+          <span class="pill on">Open source</span>
+          <span class="pill">Alpha · en desarrollo</span>
+          <a class="pill" href="https://github.com/samilososami/lambdaos" target="_blank" rel="noopener">Repo ↗</a>
+          <a class="pill" href="https://lambdaos.samilososami.com/" target="_blank" rel="noopener">Web ↗</a>
+        </div>
+      </div>
+      <div style="display:grid">
+        <div class="phone rv" aria-hidden="true">
+          <video src="videos/lambdaos-live-wallpaper.mp4" poster="img/poster-wallpaper.jpg" autoplay muted loop playsinline preload="metadata"></video>
+        </div>
+        <span class="mono phone-cap rv">Fondo animado · loop 12 s</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="destacado">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="rv">Qué es LambdaOS</h2><span class="mono rv">Destacado</span></div>
+      <div class="feat">
+        <button class="clip shot rv" data-id="explainer" aria-label="Reproducir: Qué es LambdaOS" style="aspect-ratio:9/16;padding:0;border:0;cursor:pointer;width:100%">
+          <img src="img/poster-explainer.jpg" alt="Fotograma del vídeo explicativo: el Galaxy S10 con Lambda Operator" loading="lazy">
+          <span class="fmt">9:16</span><span class="dur">1:05</span>
+          <span class="go"><span><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></span>
+        </button>
+        <div class="rv">
+          <span class="mono">01 · Explicación con voz</span>
+          <h3>El sistema, en un minuto.</h3>
+          <p>De qué va LambdaOS, para qué teléfono es, el kernel propio, Lambda Operator, el terminal sobre Lambda Core y Lamb, el asistente local. Termina con lo importante: es código abierto y todavía está en alpha, así que aún no hay versión pública para probarlo.</p>
+          <dl>
+            <div><dt>Formato</dt><dd>1080 × 1920 · 30 fps</dd></div>
+            <div><dt>Voz</dt><dd>ElevenLabs, inglés</dd></div>
+            <div><dt>Subtítulos</dt><dd>Integrados</dd></div>
+          </dl>
+          <button class="play-cta" data-id="explainer"><svg viewBox="0 0 10 12"><path fill="currentColor" d="M0 0l10 6-10 6z"/></svg>Ver el vídeo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="videos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="rv">Todos los vídeos</h2>
+        <div class="filters rv" role="group" aria-label="Filtrar por formato">
+          <button aria-pressed="true" data-f="all">Todos</button>
+          <button aria-pressed="false" data-f="9:16">9:16</button>
+          <button aria-pressed="false" data-f="16:9">16:9</button>
+          <button aria-pressed="false" data-f="1:1">1:1</button>
+          <button aria-pressed="false" data-f="19:9">S10 19:9</button>
+        </div>
+      </div>
+      <div class="sheet" id="sheet"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="descargas">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="rv">Para el teléfono</h2><span class="mono rv">Descargas</span></div>
+      <div class="dl">
+        <a class="rv" href="downloads/bootanimation.zip" download>
+          <span class="mono">bootanimation.zip · 1440 × 3040 · 30 fps</span>
+          <b>Animación de arranque</b>
+          <span>Formato de Android: intro, bucle mientras arranca y salida, con sonido. Lista para <code>TARGET_BOOTANIMATION</code> del build.</span>
+        </a>
+        <a class="rv" href="videos/lambdaos-live-wallpaper.mp4" download>
+          <span class="mono">mp4 · 1080 × 2280 · loop</span>
+          <b>Fondo animado</b>
+          <span>El fondo oscuro de LambdaOS con luz que recorre el pliegue. Bucle perfecto de 12 segundos.</span>
+        </a>
+        <a class="rv" href="videos/lambdaos-logo-sting.mp4" download>
+          <span class="mono">mp4 · 1920 × 1080 y 1080 × 1080</span>
+          <b>Sting del logo</b>
+          <span>Cinco segundos con el sonido de marca, para abrir o cerrar vídeos.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="note rv">
+        <svg viewBox="0 0 108 108" aria-hidden="true"><rect width="108" height="108" rx="18" fill="#F1F0EC"/><path fill="#080808" transform="translate(8)" d="M33 24h16l29 60H63L47 51 29 84H14l26-46-4-7h-3z"/></svg>
+        <p><b>LambdaOS está en desarrollo.</b> Arranca en el Galaxy S10 de referencia (SM-G973F) con Android 15 y LineageOS 22.2, pero todavía no hay ROM pública: las primeras versiones llegarán con requisitos, instrucciones y checksums. Lex es una idea del roadmap y Lamb está en pausa; en los vídeos aparecen como concepto. Pensado para pruebas autorizadas. <a href="https://github.com/samilososami/lambdaos" target="_blank" rel="noopener">Código en GitHub</a> · <a href="https://lambdaos.samilososami.com/" target="_blank" rel="noopener">lambdaos.samilososami.com</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="mono">Hecho con Claude · samilososami</span>
+    <span class="mono"><a href="/claude/">Claude creations</a> · <a href="https://github.com/samilososami/claude-creations/tree/main/video-source/lambdaos" target="_blank" rel="noopener">Código de los vídeos</a></span>
+  </div>
+</footer>
+
+<!-- player -->
+<div class="player" id="player" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+  <button class="player-close" id="pClose" aria-label="Cerrar">×</button>
+  <div class="player-box">
+    <video id="pVideo" controls playsinline preload="metadata"></video>
+    <div class="player-side">
+      <span class="mono" id="pN"></span>
+      <h3 id="pTitle"></h3>
+      <p id="pDesc"></p>
+      <dl id="pMeta"></dl>
+      <div class="player-actions">
+        <a id="pDl" download>Descargar mp4</a>
+        <button id="pPromptBtn" type="button" aria-expanded="false">Ver el prompt</button>
+      </div>
+      <div class="prompt-box" id="pPrompt"></div>
+    </div>
+  </div>
+</div>
+
+<!-- project info -->
+<div class="scrim" id="scrim"></div>
+<section class="info" id="info" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+  <h2 id="infoTitle">Lambda OS · vídeos</h2>
+  <dl>
+    <div><dt>Modelo</dt><dd>{{MODEL}}</dd></div>
+    <div><dt>Tiempo</dt><dd>{{TIME}}</dd></div>
+    <div><dt>Tokens</dt><dd>No medidos. El registro de la sesión no da el total consumido.</dd></div>
+    <div><dt>Herramientas</dt><dd>Remotion (React), skills oficiales de Remotion, ElevenLabs (voz y música), sonido sintetizado en Python, faster-whisper para sincronizar subtítulos y comprobar la voz, ffmpeg para medir loudness y espectrogramas.</dd></div>
+    <div><dt>Prompt</dt><dd><p class="prompt">{{PROMPT_NEW}}</p></dd></div>
+  </dl>
+  <div class="close"><button id="closeBtn" type="button">Cerrar</button></div>
+</section>
+
+<template id="prompt-new">{{PROMPT_NEW}}</template>
+<template id="prompt-promo">{{PROMPT_PROMO}}</template>
+<template id="prompt-trailer">{{PROMPT_TRAILER}}</template>
+
+<script>
+(() => {
+'use strict';
+const V = [
+  {id:'explainer', n:'01', t:'Qué es LambdaOS', fmt:'9:16', ar:'9/16', dur:'1:05', src:'videos/lambdaos-explainer.mp4', poster:'img/poster-explainer.jpg', d:'Explicación con voz en inglés y subtítulos: el S10, el kernel, Operator, Core, Lamb y el estado del proyecto.', meta:[['Formato','1080 × 1920 · 30 fps'],['Audio','Voz y música de ElevenLabs, efectos sintetizados']], p:'new'},
+  {id:'boot', n:'02', t:'Animación de arranque', fmt:'19:9', ar:'1080/2280', dur:'0:12', src:'videos/lambdaos-boot-animation.mp4', poster:'img/poster-boot.jpg', d:'La λ se construye con sus guías, se rellena, espera en bucle mientras Android arranca y se une al wordmark.', meta:[['Formato','1080 × 2280 · 60 fps (zip a 1440 × 3040)'],['Audio','Sonido de marca sintetizado']], p:'new', zip:true},
+  {id:'lex', n:'03', t:'Modo Lex', fmt:'16:9', ar:'16/9', dur:'0:36', src:'videos/lambdaos-lex-mode.mp4', poster:'img/poster-lex.jpg', d:'Del móvil en vertical al escritorio: cable USB-C, el encuadre se abre a horizontal, el monitor se enciende en el drop y aparece el escritorio de LambdaOS.', meta:[['Formato','1920 × 1080 · 30 fps'],['Estado','Concepto del roadmap']], p:'new'},
+  {id:'lamb', n:'04', t:'Lamb, el asistente', fmt:'9:16', ar:'9/16', dur:'0:33', src:'videos/lambdaos-lamb.mp4', poster:'img/poster-lamb.jpg', d:'Lamb pide un plan, tú lo apruebas y lo ejecuta en el propio teléfono. Expresiones y la risa del archivo de diseño.', meta:[['Formato','1080 × 1920 · 30 fps'],['Estado','Concepto, investigación en pausa']], p:'new'},
+  {id:'operator', n:'05', t:'Operator: un toque', fmt:'9:16', ar:'9/16', dur:'0:22', src:'videos/lambdaos-operator.mp4', poster:'img/poster-operator.jpg', d:'Escanear, elegir objetivo autorizado, mantener para confirmar, capturar, verificar y guardar el recibo.', meta:[['Formato','1080 × 1920 · 30 fps'],['Base','Flujos reales de Operator 0.2.0']], p:'new'},
+  {id:'lambstates', n:'06', t:'Estados de Lamb', fmt:'1:1', ar:'1/1', dur:'0:08', src:'videos/lambdaos-lamb-states.mp4', poster:'img/poster-lambstates.jpg', d:'Bucle con los estados del asistente: en reposo, escuchando, pensando, trabajando y listo.', meta:[['Formato','1080 × 1080 · loop']], p:'new'},
+  {id:'sting', n:'07', t:'Sting del logo', fmt:'16:9', ar:'16/9', dur:'0:05', src:'videos/lambdaos-logo-sting.mp4', poster:'img/poster-sting.jpg', d:'Los dos trazos de la λ encajan con el sonido de marca y aparece el wordmark.', meta:[['Formato','1920 × 1080 · 60 fps'],['También','1080 × 1080']], p:'new', alt:'videos/lambdaos-logo-sting-square.mp4'},
+  {id:'stingsq', n:'08', t:'Sting del logo (1:1)', fmt:'1:1', ar:'1/1', dur:'0:05', src:'videos/lambdaos-logo-sting-square.mp4', poster:'img/poster-stingsq.jpg', d:'La misma pieza en cuadrado para publicaciones.', meta:[['Formato','1080 × 1080 · 60 fps']], p:'new'},
+  {id:'wallpaper', n:'09', t:'Fondo animado', fmt:'19:9', ar:'1080/2280', dur:'0:12', src:'videos/lambdaos-live-wallpaper.mp4', poster:'img/poster-wallpaper.jpg', d:'El fondo oscuro del sistema con un brillo que recorre el pliegue y la λ respirando. Bucle sin cortes.', meta:[['Formato','1080 × 2280 · 30 fps · sin audio']], p:'new'},
+  {id:'trailer', n:'10', t:'Trailer', fmt:'9:16', ar:'9/16', dur:'0:46', src:'videos/lambdaos-trailer.mp4', poster:'img/poster-trailer.jpg', d:'Trailer anterior: arranque, el S10 en 3D que se convierte en LambdaOS, módulos, Lamb y el eslogan.', meta:[['Formato','1080 × 1920 · 60 fps'],['Modelo','Claude Opus 5.5'],['Tiempo','26,6 min de render']], p:'trailer', old:true},
+  {id:'promo', n:'11', t:'Promo', fmt:'9:16', ar:'9/16', dur:'0:44', src:'videos/lambdaos-promo.mp4', poster:'img/poster-promo.jpg', d:'Primera promo: arranque, el S10 en 3D, Operator, Wi-Fi, módulos y Lamb, con narración en inglés.', meta:[['Formato','1080 × 1920 · 30 fps'],['Modelo','No indicado'],['Tiempo','≈ 23 min']], p:'promo', old:true},
+];
+const $ = (s, c = document) => c.querySelector(s);
+const sheet = $('#sheet');
+const arNum = a => { const [x, y] = a.split('/').map(Number); return x / y; };
+V.filter(v => v.id !== 'explainer').forEach(v => {
+  const b = document.createElement('button');
+  b.className = 'clip rv';
+  b.dataset.id = v.id; b.dataset.fmt = v.fmt;
+  b.style.setProperty('--ar', v.ar); b.style.setProperty('--arn', arNum(v.ar));
+  b.setAttribute('aria-label', 'Reproducir: ' + v.t);
+  b.innerHTML = `<div class="shot"><img src="${v.poster}" alt="" loading="lazy"><span class="fmt">${v.fmt === '19:9' ? 'S10 19:9' : v.fmt}</span><span class="dur">${v.dur}</span><span class="go"><span><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></span></div><div class="cap"><span class="n">${v.n}${v.old ? '<span class="tag-old">ANTERIOR</span>' : ''}</span><h3>${v.t}</h3><p>${v.d}</p></div>`;
+  sheet.appendChild(b);
+});
+
+/* filters */
+document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', String(x === btn)));
+  const f = btn.dataset.f;
+  sheet.querySelectorAll('.clip').forEach(c => { c.hidden = !(f === 'all' || c.dataset.fmt === f); });
+}));
+
+/* player */
+const player = $('#player'), pv = $('#pVideo'), pPrompt = $('#pPrompt'), pPromptBtn = $('#pPromptBtn');
+let lastFocus = null;
+function open(id, push = true) {
+  const v = V.find(x => x.id === id); if (!v) return;
+  lastFocus = document.activeElement;
+  $('#pN').textContent = v.n + ' · ' + (v.fmt === '19:9' ? 'S10 19:9' : v.fmt) + ' · ' + v.dur;
+  $('#pTitle').textContent = v.t;
+  $('#pDesc').textContent = v.d;
+  $('#pMeta').innerHTML = v.meta.map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join('') + (v.zip ? '<div><dt>Para el teléfono</dt><dd><a href="downloads/bootanimation.zip" download style="text-decoration:underline">bootanimation.zip</a></dd></div>' : '');
+  $('#pDl').href = v.src;
+  pPrompt.textContent = $('#prompt-' + v.p).content.textContent.trim();
+  pPrompt.classList.remove('show'); pPromptBtn.setAttribute('aria-expanded', 'false'); pPromptBtn.textContent = 'Ver el prompt';
+  pv.poster = v.poster; pv.src = v.src;
+  pv.loop = v.id === 'wallpaper' || v.id === 'lambstates';
+  player.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  pv.play().catch(() => {});
+  $('#pClose').focus();
+  if (push) history.replaceState(null, '', '#' + id);
+}
+function close() {
+  player.classList.remove('open'); pv.pause(); pv.removeAttribute('src'); pv.load();
+  document.body.style.overflow = '';
+  history.replaceState(null, '', location.pathname);
+  if (lastFocus) lastFocus.focus();
+}
+document.addEventListener('click', e => { const c = e.target.closest('[data-id]'); if (c) open(c.dataset.id); });
+$('#pClose').addEventListener('click', close);
+player.addEventListener('click', e => { if (e.target === player) close(); });
+pPromptBtn.addEventListener('click', () => { const s = pPrompt.classList.toggle('show'); pPromptBtn.setAttribute('aria-expanded', String(s)); pPromptBtn.textContent = s ? 'Ocultar el prompt' : 'Ver el prompt'; });
+
+/* project info */
+const infoBtn = $('#infoBtn');
+const setInfo = o => { document.body.classList.toggle('info-open', o); infoBtn.setAttribute('aria-expanded', String(o)); };
+infoBtn.addEventListener('click', () => setInfo(!document.body.classList.contains('info-open')));
+$('#closeBtn').addEventListener('click', () => setInfo(false));
+$('#scrim').addEventListener('click', () => setInfo(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (player.classList.contains('open')) close(); else setInfo(false); } });
+
+/* deep links: /claude/lambdaos/#trailer */
+const h = location.hash.slice(1); if (h && V.some(v => v.id === h)) open(h, false);
+
+/* reveal */
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), {rootMargin: '0px 0px -8% 0px'}) : null;
+document.querySelectorAll('.rv').forEach((el, i) => { if (io) { el.style.transitionDelay = (Math.min(i % 6, 5) * 60) + 'ms'; io.observe(el); } else el.classList.add('in'); });
+})();
+</script>
+</body>
+</html>

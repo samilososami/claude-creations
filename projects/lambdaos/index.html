@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lambda OS · Claude creations</title>
+<meta name="description" content="Los vídeos de LambdaOS, el sistema de pentesting para el Galaxy S10: explicación con voz, animación de arranque, modo Lex, Lamb, Operator y piezas de marca.">
+<meta name="theme-color" content="#080808">
+<meta property="og:title" content="Lambda OS · vídeos">
+<meta property="og:description" content="Motion graphics de LambdaOS, el sistema de pentesting para el Galaxy S10.">
+<meta property="og:image" content="https://www.samilososami.com/claude/lambdaos/img/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 108 108'%3E%3Crect width='108' height='108' rx='18' fill='%23080808'/%3E%3Cpath fill='%23F1F0EC' transform='translate(8)' d='M33 24h16l29 60H63L47 51 29 84H14l26-46-4-7h-3z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#050505;--bg:#080808;--raise:#101112;--card:#141618;
+  --ink:#F1F0EC;--mist:#D8D9D6;--grey:#8A9096;--dim:#5A6066;
+  --line:rgba(241,240,236,.12);--line2:rgba(241,240,236,.28);
+  --display:'Montserrat',system-ui,sans-serif;--ui:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(16px,5vw,72px);--ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+::selection{background:var(--ink);color:var(--bg)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.wrap{width:min(1320px,100% - 2*var(--pad));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.dot{display:inline-flex;align-items:center;gap:.8em}
+.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
+
+/* texture */
+.grid-tex{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(241,240,236,.09) 1px,transparent 1.4px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 70% 55% at 20% 10%,#000 0%,transparent 75%);mask-image:radial-gradient(ellipse 70% 55% at 20% 10%,#000 0%,transparent 75%)}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 15% 0%,rgba(241,240,236,.08),transparent 55%)}
+header,main,footer{position:relative;z-index:1}
+
+/* top */
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad)}
+.top a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+.top a:hover{color:var(--ink)}
+.top-r{display:flex;align-items:center;gap:22px}
+.info-btn{width:32px;height:32px;border:1.5px solid var(--ink);border-radius:50%;background:transparent;color:var(--ink);font:italic 500 16px/1 Georgia,serif;cursor:pointer;display:grid;place-items:center}
+.info-btn:hover,.info-btn[aria-expanded="true"]{background:var(--ink);color:var(--bg)}
+
+/* hero */
+.hero{padding:clamp(40px,9vh,110px) 0 clamp(50px,8vh,90px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(28px,6vw,90px);align-items:end}
+.wm{display:block;width:min(680px,100%);height:auto;margin:26px 0 34px;color:var(--ink)}
+.lede{font-size:clamp(1.08rem,1.6vw,1.32rem);line-height:1.45;color:var(--mist);max-width:34em}
+.lede b{color:var(--ink);font-weight:600}
+.meta{display:flex;gap:clamp(22px,4vw,54px);margin-top:34px;padding-top:24px;border-top:1px solid var(--line2)}
+.meta b{display:block;font:600 clamp(1.9rem,3.4vw,2.8rem)/1 var(--display);letter-spacing:-.01em;color:var(--ink);margin-bottom:8px}
+.status{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:9px 15px;border:1px solid var(--line2);border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist)}
+.pill.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill:hover{border-color:var(--ink)}
+.phone{justify-self:end;width:min(300px,100%);aspect-ratio:1080/2280;border-radius:44px;padding:10px;background:linear-gradient(140deg,#2a2c2e,#0c0d0e 45%,#050505);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16),0 40px 90px rgba(0,0,0,.7);position:relative}
+.phone video{width:100%;height:100%;object-fit:cover;border-radius:36px;background:#000}
+.phone::after{content:"";position:absolute;right:13%;top:3.4%;width:5.6%;aspect-ratio:1;border-radius:50%;background:#050505;box-shadow:0 0 0 2px #000}
+.phone-cap{justify-self:end;margin-top:14px;text-align:right}
+
+/* sections */
+.sec{padding:clamp(30px,6vh,70px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;border-bottom:1px solid var(--line2);padding-bottom:16px;margin-bottom:clamp(22px,4vh,40px)}
+.sec-head h2{font:600 clamp(2rem,5vw,3.6rem)/.95 var(--display);letter-spacing:-.02em}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{appearance:none;background:transparent;border:1px solid var(--line2);color:var(--mist);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* featured */
+.feat{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center}
+.feat .shot{max-width:400px}
+.feat h3{font:600 clamp(2.2rem,5vw,4.2rem)/.95 var(--display);letter-spacing:-.02em;margin:16px 0 18px}
+.feat p{color:var(--mist);max-width:32em}
+.feat dl{display:flex;flex-wrap:wrap;gap:12px 34px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+dd{font-weight:500}
+.play-cta{display:inline-flex;align-items:center;gap:12px;margin-top:28px;padding:14px 22px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:600;cursor:pointer;border:0;font-size:16px}
+.play-cta svg{width:16px;height:16px}
+
+/* contact sheet */
+.sheet{display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,24px);align-items:flex-end}
+.clip{--h:clamp(260px,34vw,400px);height:auto;display:flex;flex-direction:column;gap:12px;cursor:pointer;text-align:left;background:none;border:0;color:inherit;font:inherit;padding:0}
+.clip[hidden]{display:none}
+.shot{position:relative;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 0 0 1px var(--line)}
+.clip .shot{width:calc(var(--h) * var(--arn));max-width:calc(100vw - 2 * var(--pad));aspect-ratio:var(--ar)}
+.shot img,.shot video{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.clip:hover .shot img,.clip:focus-visible .shot img{transform:scale(1.04)}
+.shot .fmt{position:absolute;left:10px;top:10px;padding:5px 9px;border-radius:7px;background:rgba(8,8,8,.72);backdrop-filter:blur(8px);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink)}
+.shot .dur{position:absolute;right:10px;bottom:10px;padding:4px 8px;border-radius:6px;background:rgba(8,8,8,.72);font-family:var(--mono);font-size:11px;color:var(--ink)}
+.shot .go{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .4s}
+.shot .go span{width:58px;height:58px;border-radius:50%;background:var(--ink);display:grid;place-items:center;transform:scale(.8);transition:transform .5s var(--ease)}
+.shot .go svg{width:18px;height:18px;margin-left:3px;fill:var(--bg)}
+.clip:hover .go,.clip:focus-visible .go{opacity:1}
+.clip:hover .go span{transform:scale(1)}
+.cap{max-width:max(210px,calc(var(--h) * var(--arn)));min-width:min(210px,100%)}
+.cap .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--grey)}
+.cap h3{font:600 1.15rem/1.15 var(--display);margin:4px 0 4px;letter-spacing:-.005em}
+.cap p{font-size:.92rem;color:var(--grey);line-height:1.4}
+.tag-old{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--dim);margin-left:6px}
+
+/* downloads */
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.dl a{display:flex;flex-direction:column;gap:10px;padding:24px;border:1px solid var(--line2);border-radius:16px;background:rgba(16,17,18,.6);transition:border-color .3s,background .3s}
+.dl a:hover{border-color:var(--ink);background:rgba(24,26,28,.8)}
+.dl b{font:600 1.25rem/1.1 var(--display)}
+.dl span{color:var(--grey);font-size:.92rem}
+
+/* note */
+.note{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;padding:clamp(22px,3vw,34px);border:1px dashed var(--line2);border-radius:18px;color:var(--mist)}
+.note svg{width:44px;height:44px}
+.note b{color:var(--ink)}
+.note a{text-decoration:underline;text-underline-offset:3px}
+
+footer{border-top:1px solid var(--line);padding:30px 0 44px;margin-top:clamp(40px,8vh,90px)}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot a{color:var(--mist);border-bottom:1px solid var(--line2)}
+.foot a:hover{color:var(--ink);border-color:var(--ink)}
+
+/* player */
+.player{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:16px;background:rgba(3,3,3,.86);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.player.open{opacity:1;visibility:visible}
+.player-box{display:flex;gap:28px;align-items:center;max-width:100%;max-height:100%}
+.player video{max-height:calc(100svh - 120px);max-width:calc(100vw - 32px - 328px);width:auto;min-width:0;border-radius:14px;background:#000;box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.player-side{width:300px;flex:none}
+.player-side h3{font:600 1.7rem/1.05 var(--display);margin:8px 0 10px}
+.player-side p{color:var(--mist);font-size:.95rem}
+.player-side dl{display:grid;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.player-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.player-actions a,.player-actions button{appearance:none;background:transparent;border:1px solid var(--line2);color:var(--ink);border-radius:999px;padding:9px 15px;font:500 13px var(--ui);cursor:pointer}
+.player-actions a:hover,.player-actions button:hover{border-color:var(--ink)}
+.player-close{position:absolute;right:18px;top:16px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:rgba(8,8,8,.6);color:var(--ink);font-size:20px;cursor:pointer}
+.prompt-box{display:none;margin-top:14px;max-height:30vh;overflow:auto;white-space:pre-wrap;font-size:12.5px;line-height:1.55;color:var(--mist);background:#0C0E10;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.prompt-box.show{display:block}
+
+/* info sheet */
+.scrim{position:fixed;inset:0;background:rgba(5,5,6,.6);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:30}
+.info{position:fixed;left:50%;top:50%;width:min(92vw,620px);max-height:86vh;overflow:auto;transform:translate(-50%,-48%) scale(.98);opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility .3s;background:#16181B;border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;z-index:31}
+.info-open .scrim,.info-open .info{opacity:1;visibility:visible}
+.info-open .info{transform:translate(-50%,-50%) scale(1)}
+.info h2{font:600 1.3rem var(--display);margin-bottom:16px}
+.info dl{display:grid;gap:13px;margin-bottom:16px}
+.info dd{font-size:14px;color:var(--mist);font-weight:400;line-height:1.5}
+.info .prompt{white-space:pre-wrap;font-size:13px;line-height:1.55;color:var(--mist);background:#0C0E10;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.info .close{margin-top:16px;display:flex;justify-content:flex-end}
+.info .close button{background:none;border:1px solid var(--line2);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero-grid,.feat{grid-template-columns:1fr}
+  .phone{justify-self:start;width:min(240px,70vw)}
+  .phone-cap{justify-self:start;text-align:left}
+  .player-box{flex-direction:column;gap:14px}
+  .player-side{width:min(100%,520px)}
+  .player video{max-height:calc(100svh - 280px);max-width:calc(100vw - 32px)}
+  .sheet{display:grid;grid-template-columns:1fr 1fr;gap:26px 12px;align-items:start}
+  .clip .shot{width:100%;max-width:none}
+  .clip[data-fmt="16:9"]{grid-column:span 2}
+  .cap{max-width:none;min-width:0}
+  .sec-head{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.shot img{transition:none}}
+</style>
+<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div class="grid-tex" aria-hidden="true"></div>
+
+<header class="top">
+  <a href="/claude/">← Claude creations</a>
+  <div class="top-r">
+    <a href="https://github.com/samilososami/claude-creations/tree/main/projects/lambdaos" target="_blank" rel="noopener">GitHub ↗</a>
+    <button class="info-btn" id="infoBtn" aria-controls="info" aria-expanded="false" aria-label="Información del proyecto">i</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="mono dot rv">samilososami.com / claude / lambdaos</span>
+        <h1 class="rv"><svg class="wm" viewBox="850 330 2155 345" role="img" aria-label="LambdaOS"><g transform="translate(0.000000,1020.000000) scale(0.100000,-0.100000)" fill="currentColor"><path d="M8646 6597 l-17 -12 -6 -1457 c-5 -1169 -3 -1460 7 -1473 11 -13 126 -15 995 -15 l983 0 6 16 c13 35 7 551 -7 563 -10 8 -204 12 -663 13 l-649 3 -2 1175 -3 1175 -17 13 c-24 18 -602 17 -627 -1z"/><path d="M11940 6770 l-525 -5 -3 -224 c-2 -156 1 -228 9 -237 9 -11 66 -14 289 -14 l277 0 17 -19 c21 -23 246 -470 246 -488 0 -7 -11 -30 -24 -51 -13 -20 -35 -56 -48 -78 -13 -23 -70 -124 -127 -225 -57 -101 -153 -269 -214 -374 -61 -104 -141 -245 -179 -313 -37 -67 -90 -157 -117 -200 -28 -42 -105 -169 -171 -282 -229 -386 -318 -535 -359 -598 -46 -70 -49 -82 -23 -82 109 -3 734 1 744 5 14 6 52 69 187 318 49 89 128 229 175 310 47 82 86 150 86 153 0 7 135 245 215 379 39 66 96 166 126 222 31 60 60 103 69 103 16 0 46 -54 130 -235 53 -113 111 -232 193 -390 25 -49 73 -148 107 -220 34 -71 92 -191 129 -265 37 -74 87 -180 111 -235 24 -55 56 -112 71 -127 l27 -27 373 5 c206 3 377 8 381 12 6 6 -415 871 -482 989 -5 10 -42 86 -81 168 -68 143 -168 345 -203 410 -9 17 -44 89 -77 160 -58 124 -102 214 -407 835 -270 549 -303 614 -315 622 -6 4 -28 7 -47 5 -19 -1 -271 -4 -560 -7z"/><path d="M15402 5870 c-40 -10 -96 -32 -124 -47 -60 -32 -202 -163 -224 -205 -8 -15 -21 -28 -29 -28 -12 0 -15 21 -15 118 0 64 -4 123 -9 130 -7 11 -62 14 -275 14 -146 -1 -270 -4 -276 -7 -16 -10 -14 -2177 2 -2193 18 -18 531 -17 546 1 8 9 12 225 14 687 l3 675 22 56 c47 124 103 194 195 240 49 25 69 29 137 29 147 0 246 -60 305 -185 39 -83 46 -211 45 -924 0 -463 2 -576 13 -582 7 -5 128 -9 269 -9 216 0 259 2 269 15 10 12 13 164 15 673 2 705 1 694 55 808 62 128 165 197 300 198 181 2 300 -100 329 -285 7 -40 11 -315 11 -725 0 -500 3 -663 12 -672 20 -20 522 -17 542 4 23 22 24 1423 1 1582 -31 217 -81 328 -205 453 -146 147 -275 199 -497 199 -260 0 -467 -95 -601 -277 -53 -70 -73 -78 -93 -32 -45 111 -195 238 -328 280 -99 31 -310 36 -409 9z"/><path d="M17902 6663 c-5 -10 -10 -661 -11 -1510 l-2 -1492 20 -10 c12 -7 110 -11 265 -11 l245 0 10 18 c5 9 9 69 10 132 0 63 0 118 1 123 1 22 33 -1 78 -58 129 -160 296 -243 508 -252 263 -12 446 59 635 247 225 223 349 538 349 886 0 446 -192 850 -492 1037 -238 149 -591 158 -808 22 -66 -41 -153 -118 -185 -165 -15 -22 -36 -40 -45 -40 l-18 0 -1 537 c-1 295 -4 540 -7 545 -3 4 -126 8 -274 8 l-269 0 -9 -17z m1233 -1358 c180 -86 279 -256 291 -504 18 -376 -190 -661 -485 -661 -197 0 -354 121 -442 342 l-33 83 0 180 0 180 26 67 c56 147 151 264 255 314 74 36 118 43 223 40 74 -3 95 -8 165 -41z"/><path d="M21743 6675 c-11 -8 -14 -99 -14 -528 -1 -587 3 -563 -77 -480 -159 165 -332 230 -592 220 -154 -6 -218 -20 -318 -70 -353 -178 -552 -571 -552 -1092 0 -88 5 -178 10 -200 5 -22 14 -68 20 -101 23 -138 110 -344 192 -454 211 -279 460 -396 794 -369 181 14 348 105 461 252 30 39 49 55 55 49 6 -6 10 -58 9 -122 -2 -73 2 -116 10 -126 16 -19 518 -21 537 -2 14 14 17 2994 3 3017 -11 17 -515 22 -538 6z m-403 -1336 c167 -38 299 -171 366 -369 16 -45 19 -84 18 -215 l0 -160 -27 -80 c-91 -276 -314 -422 -547 -360 -186 49 -283 148 -355 360 -36 105 -45 271 -22 393 24 127 106 277 189 347 88 75 256 112 378 84z"/><path d="M23320 5874 c-178 -29 -356 -107 -528 -234 -96 -70 -102 -81 -75 -129 11 -20 37 -67 57 -104 91 -169 159 -277 175 -277 9 0 35 18 56 41 145 149 273 204 480 204 152 0 192 -14 274 -90 62 -58 89 -120 100 -232 11 -104 3 -128 -37 -119 -184 44 -610 47 -757 7 -193 -54 -364 -187 -437 -341 -85 -178 -85 -458 1 -627 103 -206 269 -327 502 -368 296 -52 557 46 715 270 34 48 44 26 44 -100 0 -103 2 -115 19 -125 29 -15 493 -14 509 2 19 19 17 1310 -3 1449 -27 191 -87 358 -171 475 -93 131 -295 256 -464 289 -122 24 -343 28 -460 9z m516 -1315 l29 -14 3 -60 c9 -155 -65 -315 -182 -394 -132 -89 -374 -78 -482 21 -79 73 -96 208 -39 324 29 59 73 92 162 124 l58 21 211 -4 c153 -3 218 -8 240 -18z"/><path d="M25895 6665 c-410 -73 -758 -297 -972 -627 -301 -465 -348 -1096 -115 -1577 134 -278 308 -476 577 -658 164 -110 360 -179 595 -209 284 -36 632 36 865 179 289 177 438 341 597 657 73 143 93 201 130 370 31 143 34 559 4 680 -41 167 -103 328 -182 467 -80 141 -140 218 -265 337 -208 199 -413 310 -681 367 -124 27 -436 35 -553 14z m446 -614 c290 -75 523 -320 606 -635 30 -115 41 -305 24 -430 -49 -363 -312 -679 -640 -769 -114 -31 -319 -31 -420 1 -171 54 -276 123 -397 260 -162 185 -229 383 -229 672 1 313 101 552 304 726 205 176 492 243 752 175z"/><path d="M28585 6656 c-219 -43 -401 -139 -550 -290 -108 -109 -155 -192 -208 -361 -31 -102 -32 -386 0 -491 67 -225 208 -379 457 -499 122 -58 239 -100 478 -169 437 -128 523 -190 523 -376 0 -177 -91 -271 -300 -315 -172 -35 -369 -3 -564 93 -94 46 -150 88 -261 196 -49 47 -95 86 -103 86 -19 0 -79 -67 -161 -178 -33 -46 -94 -126 -133 -178 -40 -52 -73 -98 -73 -103 0 -13 99 -103 180 -162 188 -139 420 -241 655 -288 259 -52 624 -30 811 49 270 116 420 249 508 454 143 334 88 725 -134 946 -132 133 -362 259 -545 300 -165 37 -429 118 -523 161 -156 70 -212 140 -212 263 0 134 73 231 208 278 103 35 339 32 467 -6 100 -30 196 -81 299 -159 38 -29 80 -59 93 -67 l25 -15 41 46 c36 39 97 118 265 345 17 24 32 50 32 58 0 18 -87 92 -182 155 -148 97 -322 173 -488 213 -112 26 -496 35 -605 14z"/></g></svg></h1>
+        <p class="lede rv">Los vídeos de <b>LambdaOS</b>, el sistema operativo de pentesting para el Galaxy S10: una explicación con voz, la animación de arranque del teléfono, el modo <b>Lex</b>, <b>Lamb</b>, <b>Operator</b> y piezas de marca. Motion graphics hechos en código, con música y sonido propios.</p>
+        <div class="meta rv">
+          <span class="mono"><b>11</b>Vídeos</span>
+          <span class="mono"><b>4</b>Formatos</span>
+          <span class="mono"><b>1</b>Bootanimation</span>
+        </div>
+        <div class="status rv">
+          <span class="pill on">Open source</span>
+          <span class="pill">Alpha · en desarrollo</span>
+          <a class="pill" href="https://github.com/samilososami/lambdaos" target="_blank" rel="noopener">Repo ↗</a>
+          <a class="pill" href="https://lambdaos.samilososami.com/" target="_blank" rel="noopener">Web ↗</a>
+        </div>
+      </div>
+      <div style="display:grid">
+        <div class="phone rv" aria-hidden="true">
+          <video src="videos/lambdaos-live-wallpaper.mp4" poster="img/poster-wallpaper.jpg" autoplay muted loop playsinline preload="metadata"></video>
+        </div>
+        <span class="mono phone-cap rv">Fondo animado · loop 12 s</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="destacado">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="rv">Qué es LambdaOS</h2><span class="mono rv">Destacado</span></div>
+      <div class="feat">
+        <button class="clip shot rv" data-id="explainer" aria-label="Reproducir: Qué es LambdaOS" style="aspect-ratio:9/16;padding:0;border:0;cursor:pointer;width:100%">
+          <img src="img/poster-explainer.jpg" alt="Fotograma del vídeo explicativo: el Galaxy S10 con Lambda Operator" loading="lazy">
+          <span class="fmt">9:16</span><span class="dur">1:05</span>
+          <span class="go"><span><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></span>
+        </button>
+        <div class="rv">
+          <span class="mono">01 · Explicación con voz</span>
+          <h3>El sistema, en un minuto.</h3>
+          <p>De qué va LambdaOS, para qué teléfono es, el kernel propio, Lambda Operator, el terminal sobre Lambda Core y Lamb, el asistente local. Termina con lo importante: es código abierto y todavía está en alpha, así que aún no hay versión pública para probarlo.</p>
+          <dl>
+            <div><dt>Formato</dt><dd>1080 × 1920 · 30 fps</dd></div>
+            <div><dt>Voz</dt><dd>ElevenLabs, inglés</dd></div>
+            <div><dt>Subtítulos</dt><dd>Integrados</dd></div>
+          </dl>
+          <button class="play-cta" data-id="explainer"><svg viewBox="0 0 10 12"><path fill="currentColor" d="M0 0l10 6-10 6z"/></svg>Ver el vídeo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="videos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="rv">Todos los vídeos</h2>
+        <div class="filters rv" role="group" aria-label="Filtrar por formato">
+          <button aria-pressed="true" data-f="all">Todos</button>
+          <button aria-pressed="false" data-f="9:16">9:16</button>
+          <button aria-pressed="false" data-f="16:9">16:9</button>
+          <button aria-pressed="false" data-f="1:1">1:1</button>
+          <button aria-pressed="false" data-f="19:9">S10 19:9</button>
+        </div>
+      </div>
+      <div class="sheet" id="sheet"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="descargas">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="rv">Para el teléfono</h2><span class="mono rv">Descargas</span></div>
+      <div class="dl">
+        <a class="rv" href="downloads/bootanimation.zip" download>
+          <span class="mono">bootanimation.zip · 1440 × 3040 · 30 fps</span>
+          <b>Animación de arranque</b>
+          <span>Formato de Android: intro, bucle mientras arranca y salida, con sonido. Lista para <code>TARGET_BOOTANIMATION</code> del build.</span>
+        </a>
+        <a class="rv" href="videos/lambdaos-live-wallpaper.mp4" download>
+          <span class="mono">mp4 · 1080 × 2280 · loop</span>
+          <b>Fondo animado</b>
+          <span>El fondo oscuro de LambdaOS con luz que recorre el pliegue. Bucle perfecto de 12 segundos.</span>
+        </a>
+        <a class="rv" href="videos/lambdaos-logo-sting.mp4" download>
+          <span class="mono">mp4 · 1920 × 1080 y 1080 × 1080</span>
+          <b>Sting del logo</b>
+          <span>Cinco segundos con el sonido de marca, para abrir o cerrar vídeos.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="note rv">
+        <svg viewBox="0 0 108 108" aria-hidden="true"><rect width="108" height="108" rx="18" fill="#F1F0EC"/><path fill="#080808" transform="translate(8)" d="M33 24h16l29 60H63L47 51 29 84H14l26-46-4-7h-3z"/></svg>
+        <p><b>LambdaOS está en desarrollo.</b> Arranca en el Galaxy S10 de referencia (SM-G973F) con Android 15 y LineageOS 22.2, pero todavía no hay ROM pública: las primeras versiones llegarán con requisitos, instrucciones y checksums. Lex es una idea del roadmap y Lamb está en pausa; en los vídeos aparecen como concepto. Pensado para pruebas autorizadas. <a href="https://github.com/samilososami/lambdaos" target="_blank" rel="noopener">Código en GitHub</a> · <a href="https://lambdaos.samilososami.com/" target="_blank" rel="noopener">lambdaos.samilososami.com</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="mono">Hecho con Claude · samilososami</span>
+    <span class="mono"><a href="/claude/">Claude creations</a> · <a href="https://github.com/samilososami/claude-creations/tree/main/video-source/lambdaos" target="_blank" rel="noopener">Código de los vídeos</a></span>
+  </div>
+</footer>
+
+<!-- player -->
+<div class="player" id="player" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+  <button class="player-close" id="pClose" aria-label="Cerrar">×</button>
+  <div class="player-box">
+    <video id="pVideo" controls playsinline preload="metadata"></video>
+    <div class="player-side">
+      <span class="mono" id="pN"></span>
+      <h3 id="pTitle"></h3>
+      <p id="pDesc"></p>
+      <dl id="pMeta"></dl>
+      <div class="player-actions">
+        <a id="pDl" download>Descargar mp4</a>
+        <button id="pPromptBtn" type="button" aria-expanded="false">Ver el prompt</button>
+      </div>
+      <div class="prompt-box" id="pPrompt"></div>
+    </div>
+  </div>
+</div>
+
+<!-- project info -->
+<div class="scrim" id="scrim"></div>
+<section class="info" id="info" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+  <h2 id="infoTitle">Lambda OS · vídeos</h2>
+  <dl>
+    <div><dt>Modelo</dt><dd>Claude Opus 5.5 (modelo de la sesión)</dd></div>
+    <div><dt>Tiempo</dt><dd>≈ 1 h 15 min de reloj, desde el inicio de la sesión hasta la publicación. Incluye guion, diseño, voz, música, sonido, renders y revisiones.</dd></div>
+    <div><dt>Tokens</dt><dd>No medidos. El registro de la sesión no da el total consumido.</dd></div>
+    <div><dt>Herramientas</dt><dd>Remotion (React), skills oficiales de Remotion, ElevenLabs (voz y música), sonido sintetizado en Python, faster-whisper para sincronizar subtítulos y comprobar la voz, ffmpeg para medir loudness y espectrogramas.</dd></div>
+    <div><dt>Prompt</dt><dd><p class="prompt">mira mi repositorio
+
+github.com/samilososami/lambdaos
+
+y la web lambdaos.samilososami.com
+
+te explico
+
+Vale, la cosa es que quiero que utilizando motion graphics, skills de todo tipo, ¿vale? Crees un vídeo, ¿vale? Bueno, de hecho, crea varios vídeos, no sé, que crea unos entre 5 y 10, ¿vale? De diferentes tipos, ¿vale? El primero es crear un vídeo en 16:9 vertical, ¿vale? Lo típico para redes sociales, que explique qué es Lambda OS y todo el rollo. Puedes usar voces de Eleven Labs en español para explicarlo, o en inglés, si quiere, de hecho, explícalo en inglés mejor, que suena más natural y tal. Y tiene que estar guapísimo, ¿vale? Tienes que usar Remotion, Motion Graphics, Skills, de todo tipo, ¿vale? Luego otros vídeos que serían, por ejemplo, una boot animation, ¿vale? Para la boot screen del teléfono, para cuando inicia. Tiene que verse profesional, serio, guapo, tal. Otra animación que sea, por ejemplo, de Lambda, diferentes animaciones de Lamp, ¿vale? El asistente de IA ayudando y tal. Y luego tienes que crear otra animación que sea como el modo Lex, ¿vale? Que el modo Lex es como el Dex de Lambda OS, que es como para crear un escritorio virtual y transmitirlo mediante cable o de forma inalámbrica o lo que sea, ¿vale? Como la animación de transformación de móvil al escritorio virtual o algo así rollo, lo típico que se enciende una televisión y se abre y aparece el logo o cosas por el estilo, y crea un par de... Eso tendría que ser en horizontal, estaría guay, o algo de que pase como de vertical a horizontal, y un par de animaciones más, así. La longitud ya la verás tú. Para la animación está, por ejemplo, del Dex o del Boot Animation. Obviamente no tienes que usar Eleven Labs porque no hay que poner voces ni nada. Mete efectos de sonido y tal, supongo que quedarían bien, o por lo menos para la Boot Animation. Y mete un par de cosas más, la verdad. O sea, ponte a crear varias cosas, honestamente. Lo que tú veas que crees que puede quedar súper bien para el proyecto. Como verás, es un sistema operativo y tal, orientado a pentesting, entonces cúrratelo mucho, todas las animaciones, todas las cosas, y debes brindarme los .mp4 finales para que los vea yo. Revísalos, verifícalos, mira los espectrogramas, revisa las voces, etcétera, etcétera. Lo que creas conveniente para usar, ¿vale? Tienes que currártelo un montón, ¿vale? Es un proyecto bastante ambicioso, pero en GitHub tienes todo lo importante y en la web también. Todo lo relevante para ver todas las funciones, para explicar lo que integra, etcétera, etcétera. Debes añadir que es de código abierto, que está ahora mismo en desarrollo. Aún no... que para probarlo, si la gente quiere probarlo, debe esperar el rollo, no sé, en plan, que aún no, sigue en desarrollo y no está completado. Y poco más. Entonces ponte a currar y usa todas las skills que quieras, herramientas que quieras, instala lo que veas necesario, etcétera, etcétera.
+
+y respecto a claude creations, sea, sube los vídeos y tal al repositorio en una nueva carpeta. Y de hecho sí, cuando lo tengas, mejor haz una cosa. Cuando lo tengas, sube los vídeos a los repositorios, todo el código y tal. Y en Cloud Creations, ¿vale? En la página web, crea un nuevo, bueno, dentro del apartado de Lambda OS, ¿vale? Que ya hay varios vídeos de comparación. De hecho, unifica los dos vídeos que ya existen para crear como un nuevo proyecto dentro del Cloud Creations llamado Lambda OS, y ahí mete los dos vídeos que ya existen y todos los vídeos que vayas a crear tú, ¿vale?</p></dd></div>
+  </dl>
+  <div class="close"><button id="closeBtn" type="button">Cerrar</button></div>
+</section>
+
+<template id="prompt-new">mira mi repositorio
+
+github.com/samilososami/lambdaos
+
+y la web lambdaos.samilososami.com
+
+te explico
+
+Vale, la cosa es que quiero que utilizando motion graphics, skills de todo tipo, ¿vale? Crees un vídeo, ¿vale? Bueno, de hecho, crea varios vídeos, no sé, que crea unos entre 5 y 10, ¿vale? De diferentes tipos, ¿vale? El primero es crear un vídeo en 16:9 vertical, ¿vale? Lo típico para redes sociales, que explique qué es Lambda OS y todo el rollo. Puedes usar voces de Eleven Labs en español para explicarlo, o en inglés, si quiere, de hecho, explícalo en inglés mejor, que suena más natural y tal. Y tiene que estar guapísimo, ¿vale? Tienes que usar Remotion, Motion Graphics, Skills, de todo tipo, ¿vale? Luego otros vídeos que serían, por ejemplo, una boot animation, ¿vale? Para la boot screen del teléfono, para cuando inicia. Tiene que verse profesional, serio, guapo, tal. Otra animación que sea, por ejemplo, de Lambda, diferentes animaciones de Lamp, ¿vale? El asistente de IA ayudando y tal. Y luego tienes que crear otra animación que sea como el modo Lex, ¿vale? Que el modo Lex es como el Dex de Lambda OS, que es como para crear un escritorio virtual y transmitirlo mediante cable o de forma inalámbrica o lo que sea, ¿vale? Como la animación de transformación de móvil al escritorio virtual o algo así rollo, lo típico que se enciende una televisión y se abre y aparece el logo o cosas por el estilo, y crea un par de... Eso tendría que ser en horizontal, estaría guay, o algo de que pase como de vertical a horizontal, y un par de animaciones más, así. La longitud ya la verás tú. Para la animación está, por ejemplo, del Dex o del Boot Animation. Obviamente no tienes que usar Eleven Labs porque no hay que poner voces ni nada. Mete efectos de sonido y tal, supongo que quedarían bien, o por lo menos para la Boot Animation. Y mete un par de cosas más, la verdad. O sea, ponte a crear varias cosas, honestamente. Lo que tú veas que crees que puede quedar súper bien para el proyecto. Como verás, es un sistema operativo y tal, orientado a pentesting, entonces cúrratelo mucho, todas las animaciones, todas las cosas, y debes brindarme los .mp4 finales para que los vea yo. Revísalos, verifícalos, mira los espectrogramas, revisa las voces, etcétera, etcétera. Lo que creas conveniente para usar, ¿vale? Tienes que currártelo un montón, ¿vale? Es un proyecto bastante ambicioso, pero en GitHub tienes todo lo importante y en la web también. Todo lo relevante para ver todas las funciones, para explicar lo que integra, etcétera, etcétera. Debes añadir que es de código abierto, que está ahora mismo en desarrollo. Aún no... que para probarlo, si la gente quiere probarlo, debe esperar el rollo, no sé, en plan, que aún no, sigue en desarrollo y no está completado. Y poco más. Entonces ponte a currar y usa todas las skills que quieras, herramientas que quieras, instala lo que veas necesario, etcétera, etcétera.
+
+y respecto a claude creations, sea, sube los vídeos y tal al repositorio en una nueva carpeta. Y de hecho sí, cuando lo tengas, mejor haz una cosa. Cuando lo tengas, sube los vídeos a los repositorios, todo el código y tal. Y en Cloud Creations, ¿vale? En la página web, crea un nuevo, bueno, dentro del apartado de Lambda OS, ¿vale? Que ya hay varios vídeos de comparación. De hecho, unifica los dos vídeos que ya existen para crear como un nuevo proyecto dentro del Cloud Creations llamado Lambda OS, y ahí mete los dos vídeos que ya existen y todos los vídeos que vayas a crear tú, ¿vale?</template>
+<template id="prompt-promo">Vale, mira, te explico. Mira en mi repositorio de GitHub, ¿vale? Hay un repositorio llamado Lambda OS, ¿vale? Es básicamente un sistema operativo hecho para Samsung, bueno, para mí concretamente es para Samsung S10, ¿vale? El modelo. Y la idea es que es un sistema operativo completamente centrado en ciberseguridad, ¿vale? Es decir, que está hecho puramente para pentesting, ¿vale? Esto incluye pentesting de todo tipo, wifi, auditorías, OSINT, forense, de todo, ¿vale? Esa es la gracia, ¿ok? Y la idea es que el sistema operativo está como súper orientado a eso, ¿vale? Y también modifica el kernel, proporciona ruta al teléfono, le da de todo, ¿vale? Y la cosa es que también utiliza un modelo de IA que es el que estoy preparando, aún no está preparado del todo, pero se llamará LAMP con B. O sea, LAMP. Y la idea es que este modelo sea un modelo local que corre en el propio teléfono. Concretamente creo que era Gema de 2 billones de parámetros, ¿vale? El de Google. Y la cosa es que eso aún falta pulirlo, ¿vale? Pero la idea era como crear un sistema operativo full orientado a ciberseguridad, ¿vale? Que fuese estilo Watch Dogs 2, ¿vale? Es decir, como un sistema operativo rollo súper centrado en eso, ¿vale? Lo de, o sea, en hackear como con un par de clics, cosas así, súper autónomo todo, botón grande, interfaz bonita, minimalista, premium. Entonces quiero que le eches un ojo, ¿vale? Entonces te explico, lo que quiero que hagas es crear un vídeo de aproximadamente 15 segundos, bueno, no, mejor, que sean unos entre 30 y un minuto, ¿vale? O sea, entre 30 segundos y un minuto, explicando, o sea, con motion graphics, diseños, estilos y todo esto. ¿Sabes los típicos vídeos estilo tráiler, por decirlo así, de cosas guapísimas, rollo proyectos y cosas de estas? Pues quiero que sea eso, ¿vale? La idea es que entre esos 30 segundos y el minuto expliques en inglés, ¿vale? El idioma debe ser en inglés. Expliques Lambda OS, ¿vale? Es decir, que expliques de qué va, expliques que es para Samsung S10, todo con animaciones súper, súper, súper guapas, ¿vale? ¿A qué me refiero? Busca skills e instálalas de... O sea, busca skills de motion graphics, diseño, creación de vídeos y todo esto, e instálalas, ¿vale? La idea es esa, que crees como un vídeo súper guapo, súper movido, súper espectacular, manteniendo el tono minimalista del Lambda OS, ¿vale? Que es básicamente negros y blancos sin ser absolutos, ¿vale? Y que quede súper bonito. O sea, debes como incluso transiciones, debes mostrar, por ejemplo, una cosa que había pensado era como el modelo 3D del teléfono, concretamente el Samsung S10, y ver cómo pasa de ser un Samsung S10 a ser un sistema operativo nuevo, ¿vale? Y también mostrar un poco como... O sea, como mostrar el sistema operativo, pero desde... O sea, desde el móvil, ¿sabes? Es que no sé si me explico bien, pero por ejemplo, podrías empezar el vídeo como si fuese la booting screen del sistema operativo, ¿vale? Que sea súper bonito y tal, todo eso. Y después como que se convierta y se muestre el teléfono, el Samsung S10, como girado, ¿vale? Rollo con ángulo y tal, y que se vea como el sistema operativo, las cosas. Hay cosas que aún no están desarrolladas, invéntatelas, ¿vale? O sea, toma parte de las cosas que tenemos, pero añade cosas en caso de que no las tengamos, porque por ejemplo, tenemos Lambda Operator, que es como el centro de control, pero no tenemos como los módulos aún hechos y tal. Invéntatelos, ¿vale? O sea, mantén el diseño que tenemos y todo eso, pero como hay cosas sin acabar, pues ponte a crearlas. Y el vídeo debe ser en 16:9 vertical para redes sociales, ¿vale? Y debe tener efectos de sonido, música que le pegue y audio en inglés, ¿vale? Como estilo narrador. Utiliza Eleven Labs. Debe ser una voz masculina que joven, ¿vale? Que... Utiliza las taglines que ofrece Eleven Labs para que tenga como esos tonos chulos, ¿sabes? Como esa pronunciación, esa emoción al decir las cosas y todo eso, que sea profesional y esté guapísimo. Y que acabe como... O sea, que el vídeo acabe como con el eslogan, ¿vale? Que es The System for Hacking Systems, ¿vale? Y que muestre como el logo de Lambda OS y todo eso. Te dejo a ti todo, básicamente, ¿vale? Pero tiene que estar súper, súper guapo. Debe parecer una producción tochísima. Ponte a ello. Y cuando estés me proporcionas el .mp4 final.</template>
+<template id="prompt-trailer">Vale, mira, te explico. Mira en mi repositorio de GitHub, ¿vale? Hay un repositorio llamado Lambda OS, ¿vale? Es básicamente un sistema operativo hecho para Samsung, bueno, para mí concretamente es para Samsung S10, ¿vale? El modelo. Y la idea es que es un sistema operativo completamente centrado en ciberseguridad, ¿vale? Es decir, que está hecho puramente para pentesting, ¿vale? Esto incluye pentesting de todo tipo, wifi, auditorías, OSINT, forense, de todo, ¿vale? Esa es la gracia, ¿ok? Y la idea es que el sistema operativo está como súper orientado a eso, ¿vale? Y también modifica el kernel, proporciona ruta al teléfono, le da de todo, ¿vale? Y la cosa es que también utiliza un modelo de IA que es el que estoy preparando, aún no está preparado del todo, pero se llamará LAMP con B. O sea, LAMP. Y la idea es que este modelo sea un modelo local que corre en el propio teléfono. Concretamente creo que era Gema de 2 billones de parámetros, ¿vale? El de Google. Y la cosa es que eso aún falta pulirlo, ¿vale? Pero la idea era como crear un sistema operativo full orientado a ciberseguridad, ¿vale? Que fuese estilo Watch Dogs 2, ¿vale? Es decir, como un sistema operativo rollo súper centrado en eso, ¿vale? Lo de, o sea, en hackear como con un par de clics, cosas así, súper autónomo todo, botón grande, interfaz bonita, minimalista, premium. Entonces quiero que le eches un ojo, ¿vale? Entonces te explico, lo que quiero que hagas es crear un vídeo de aproximadamente 15 segundos, bueno, no, mejor, que sean unos entre 30 y un minuto, ¿vale? O sea, entre 30 segundos y un minuto, explicando, o sea, con motion graphics, diseños, estilos y todo esto. ¿Sabes los típicos vídeos estilo tráiler, por decirlo así, de cosas guapísimas, rollo proyectos y cosas de estas? Pues quiero que sea eso, ¿vale? La idea es que entre esos 30 segundos y el minuto expliques en inglés, ¿vale? El idioma debe ser en inglés. Expliques Lambda OS, ¿vale? Es decir, que expliques de qué va, expliques que es para Samsung S10, todo con animaciones súper, súper, súper guapas, ¿vale? ¿A qué me refiero? Busca skills e instálalas de... O sea, busca skills de motion graphics, diseño, creación de vídeos y todo esto, e instálalas, ¿vale? La idea es esa, que crees como un vídeo súper guapo, súper movido, súper espectacular, manteniendo el tono minimalista del Lambda OS, ¿vale? Que es básicamente negros y blancos sin ser absolutos, ¿vale? Y que quede súper bonito. O sea, debes como incluso transiciones, debes mostrar, por ejemplo, una cosa que había pensado era como el modelo 3D del teléfono, concretamente el Samsung S10, y ver cómo pasa de ser un Samsung S10 a ser un sistema operativo nuevo, ¿vale? Y también mostrar un poco como... O sea, como mostrar el sistema operativo, pero desde... O sea, desde el móvil, ¿sabes? Es que no sé si me explico bien, pero por ejemplo, podrías empezar el vídeo como si fuese la booting screen del sistema operativo, ¿vale? Que sea súper bonito y tal, todo eso. Y después como que se convierta y se muestre el teléfono, el Samsung S10, como girado, ¿vale? Rollo con ángulo y tal, y que se vea como el sistema operativo, las cosas. Hay cosas que aún no están desarrolladas, invéntatelas, ¿vale? O sea, toma parte de las cosas que tenemos, pero añade cosas en caso de que no las tengamos, porque por ejemplo, tenemos Lambda Operator, que es como el centro de control, pero no tenemos como los módulos aún hechos y tal. Invéntatelos, ¿vale? O sea, mantén el diseño que tenemos y todo eso, pero como hay cosas sin acabar, pues ponte a crearlas. Y el vídeo debe ser en 16:9 vertical para redes sociales, ¿vale? Y debe tener efectos de sonido, música que le pegue y audio en inglés, ¿vale? Como estilo narrador. Utiliza Eleven Labs. Debe ser una voz masculina que joven, ¿vale? Que... Utiliza las taglines que ofrece Eleven Labs para que tenga como esos tonos chulos, ¿sabes? Como esa pronunciación, esa emoción al decir las cosas y todo eso, que sea profesional y esté guapísimo. Y que acabe como... O sea, que el vídeo acabe como con el eslogan, ¿vale? Que es The System for Hacking Systems, ¿vale? Y que muestre como el logo de Lambda OS y todo eso. Te dejo a ti todo, básicamente, ¿vale? Pero tiene que estar súper, súper guapo. Debe parecer una producción tochísima. Ponte a ello. Y cuando estés me proporcionas el .mp4 final. no te dejes influenciar por otros archivos o proyectos similares o iguales que tenga aqui en el portatil. quiero que trabajes tu por tu cuenta para ver como te desarrollas</template>
+
+<script>
+(() => {
+'use strict';
+const V = [
+  {id:'explainer', n:'01', t:'Qué es LambdaOS', fmt:'9:16', ar:'9/16', dur:'1:05', src:'videos/lambdaos-explainer.mp4', poster:'img/poster-explainer.jpg', d:'Explicación con voz en inglés y subtítulos: el S10, el kernel, Operator, Core, Lamb y el estado del proyecto.', meta:[['Formato','1080 × 1920 · 30 fps'],['Audio','Voz y música de ElevenLabs, efectos sintetizados']], p:'new'},
+  {id:'boot', n:'02', t:'Animación de arranque', fmt:'19:9', ar:'1080/2280', dur:'0:12', src:'videos/lambdaos-boot-animation.mp4', poster:'img/poster-boot.jpg', d:'La λ se construye con sus guías, se rellena, espera en bucle mientras Android arranca y se une al wordmark.', meta:[['Formato','1080 × 2280 · 60 fps (zip a 1440 × 3040)'],['Audio','Sonido de marca sintetizado']], p:'new', zip:true},
+  {id:'lex', n:'03', t:'Modo Lex', fmt:'16:9', ar:'16/9', dur:'0:36', src:'videos/lambdaos-lex-mode.mp4', poster:'img/poster-lex.jpg', d:'Del móvil en vertical al escritorio: cable USB-C, el encuadre se abre a horizontal, el monitor se enciende en el drop y aparece el escritorio de LambdaOS.', meta:[['Formato','1920 × 1080 · 30 fps'],['Estado','Concepto del roadmap']], p:'new'},
+  {id:'lamb', n:'04', t:'Lamb, el asistente', fmt:'9:16', ar:'9/16', dur:'0:33', src:'videos/lambdaos-lamb.mp4', poster:'img/poster-lamb.jpg', d:'Lamb pide un plan, tú lo apruebas y lo ejecuta en el propio teléfono. Expresiones y la risa del archivo de diseño.', meta:[['Formato','1080 × 1920 · 30 fps'],['Estado','Concepto, investigación en pausa']], p:'new'},
+  {id:'operator', n:'05', t:'Operator: un toque', fmt:'9:16', ar:'9/16', dur:'0:22', src:'videos/lambdaos-operator.mp4', poster:'img/poster-operator.jpg', d:'Escanear, elegir objetivo autorizado, mantener para confirmar, capturar, verificar y guardar el recibo.', meta:[['Formato','1080 × 1920 · 30 fps'],['Base','Flujos reales de Operator 0.2.0']], p:'new'},
+  {id:'lambstates', n:'06', t:'Estados de Lamb', fmt:'1:1', ar:'1/1', dur:'0:08', src:'videos/lambdaos-lamb-states.mp4', poster:'img/poster-lambstates.jpg', d:'Bucle con los estados del asistente: en reposo, escuchando, pensando, trabajando y listo.', meta:[['Formato','1080 × 1080 · loop']], p:'new'},
+  {id:'sting', n:'07', t:'Sting del logo', fmt:'16:9', ar:'16/9', dur:'0:05', src:'videos/lambdaos-logo-sting.mp4', poster:'img/poster-sting.jpg', d:'Los dos trazos de la λ encajan con el sonido de marca y aparece el wordmark.', meta:[['Formato','1920 × 1080 · 60 fps'],['También','1080 × 1080']], p:'new', alt:'videos/lambdaos-logo-sting-square.mp4'},
+  {id:'stingsq', n:'08', t:'Sting del logo (1:1)', fmt:'1:1', ar:'1/1', dur:'0:05', src:'videos/lambdaos-logo-sting-square.mp4', poster:'img/poster-stingsq.jpg', d:'La misma pieza en cuadrado para publicaciones.', meta:[['Formato','1080 × 1080 · 60 fps']], p:'new'},
+  {id:'wallpaper', n:'09', t:'Fondo animado', fmt:'19:9', ar:'1080/2280', dur:'0:12', src:'videos/lambdaos-live-wallpaper.mp4', poster:'img/poster-wallpaper.jpg', d:'El fondo oscuro del sistema con un brillo que recorre el pliegue y la λ respirando. Bucle sin cortes.', meta:[['Formato','1080 × 2280 · 30 fps · sin audio']], p:'new'},
+  {id:'trailer', n:'10', t:'Trailer', fmt:'9:16', ar:'9/16', dur:'0:46', src:'videos/lambdaos-trailer.mp4', poster:'img/poster-trailer.jpg', d:'Trailer anterior: arranque, el S10 en 3D que se convierte en LambdaOS, módulos, Lamb y el eslogan.', meta:[['Formato','1080 × 1920 · 60 fps'],['Modelo','Claude Opus 5.5'],['Tiempo','26,6 min de render']], p:'trailer', old:true},
+  {id:'promo', n:'11', t:'Promo', fmt:'9:16', ar:'9/16', dur:'0:44', src:'videos/lambdaos-promo.mp4', poster:'img/poster-promo.jpg', d:'Primera promo: arranque, el S10 en 3D, Operator, Wi-Fi, módulos y Lamb, con narración en inglés.', meta:[['Formato','1080 × 1920 · 30 fps'],['Modelo','No indicado'],['Tiempo','≈ 23 min']], p:'promo', old:true},
+];
+const $ = (s, c = document) => c.querySelector(s);
+const sheet = $('#sheet');
+const arNum = a => { const [x, y] = a.split('/').map(Number); return x / y; };
+V.filter(v => v.id !== 'explainer').forEach(v => {
+  const b = document.createElement('button');
+  b.className = 'clip rv';
+  b.dataset.id = v.id; b.dataset.fmt = v.fmt;
+  b.style.setProperty('--ar', v.ar); b.style.setProperty('--arn', arNum(v.ar));
+  b.setAttribute('aria-label', 'Reproducir: ' + v.t);
+  b.innerHTML = `<div class="shot"><img src="${v.poster}" alt="" loading="lazy"><span class="fmt">${v.fmt === '19:9' ? 'S10 19:9' : v.fmt}</span><span class="dur">${v.dur}</span><span class="go"><span><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></span></div><div class="cap"><span class="n">${v.n}${v.old ? '<span class="tag-old">ANTERIOR</span>' : ''}</span><h3>${v.t}</h3><p>${v.d}</p></div>`;
+  sheet.appendChild(b);
+});
+
+/* filters */
+document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', String(x === btn)));
+  const f = btn.dataset.f;
+  sheet.querySelectorAll('.clip').forEach(c => { c.hidden = !(f === 'all' || c.dataset.fmt === f); });
+}));
+
+/* player */
+const player = $('#player'), pv = $('#pVideo'), pPrompt = $('#pPrompt'), pPromptBtn = $('#pPromptBtn');
+let lastFocus = null;
+function open(id, push = true) {
+  const v = V.find(x => x.id === id); if (!v) return;
+  lastFocus = document.activeElement;
+  $('#pN').textContent = v.n + ' · ' + (v.fmt === '19:9' ? 'S10 19:9' : v.fmt) + ' · ' + v.dur;
+  $('#pTitle').textContent = v.t;
+  $('#pDesc').textContent = v.d;
+  $('#pMeta').innerHTML = v.meta.map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join('') + (v.zip ? '<div><dt>Para el teléfono</dt><dd><a href="downloads/bootanimation.zip" download style="text-decoration:underline">bootanimation.zip</a></dd></div>' : '');
+  $('#pDl').href = v.src;
+  pPrompt.textContent = $('#prompt-' + v.p).content.textContent.trim();
+  pPrompt.classList.remove('show'); pPromptBtn.setAttribute('aria-expanded', 'false'); pPromptBtn.textContent = 'Ver el prompt';
+  pv.poster = v.poster; pv.src = v.src;
+  pv.loop = v.id === 'wallpaper' || v.id === 'lambstates';
+  player.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  pv.play().catch(() => {});
+  $('#pClose').focus();
+  if (push) history.replaceState(null, '', '#' + id);
+}
+function close() {
+  player.classList.remove('open'); pv.pause(); pv.removeAttribute('src'); pv.load();
+  document.body.style.overflow = '';
+  history.replaceState(null, '', location.pathname);
+  if (lastFocus) lastFocus.focus();
+}
+document.addEventListener('click', e => { const c = e.target.closest('[data-id]'); if (c) open(c.dataset.id); });
+$('#pClose').addEventListener('click', close);
+player.addEventListener('click', e => { if (e.target === player) close(); });
+pPromptBtn.addEventListener('click', () => { const s = pPrompt.classList.toggle('show'); pPromptBtn.setAttribute('aria-expanded', String(s)); pPromptBtn.textContent = s ? 'Ocultar el prompt' : 'Ver el prompt'; });
+
+/* project info */
+const infoBtn = $('#infoBtn');
+const setInfo = o => { document.body.classList.toggle('info-open', o); infoBtn.setAttribute('aria-expanded', String(o)); };
+infoBtn.addEventListener('click', () => setInfo(!document.body.classList.contains('info-open')));
+$('#closeBtn').addEventListener('click', () => setInfo(false));
+$('#scrim').addEventListener('click', () => setInfo(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (player.classList.contains('open')) close(); else setInfo(false); } });
+
+/* deep links: /claude/lambdaos/#trailer */
+const h = location.hash.slice(1); if (h && V.some(v => v.id === h)) open(h, false);
+
+/* reveal */
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), {rootMargin: '0px 0px -8% 0px'}) : null;
+document.querySelectorAll('.rv').forEach((el, i) => { if (io) { el.style.transitionDelay = (Math.min(i % 6, 5) * 60) + 'ms'; io.observe(el); } else el.classList.add('in'); });
+})();
+</script>
+</body>
+</html>

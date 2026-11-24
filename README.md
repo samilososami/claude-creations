@@ -18,8 +18,7 @@ Cada web lleva un botón **i** en la esquina superior derecha con el prompt exac
 | 02 | [α6700 en 3D](projects/sonya6700-3d) | Modelo 3D interactivo de la cámara, hecho con geometría procedural | Claude Fable 5.2 | 17 min | [/claude/sonya6700-3d](https://www.samilososami.com/claude/sonya6700-3d/) |
 | 03 | [GlassPhone](projects/glassphone) | Concepto de teléfono transparente: cristal con refracción real en WebGL y GlassOS, un sistema simulado con doce apps | Claude | 2 h 30 min | [/claude/glassphone](https://www.samilososami.com/claude/glassphone/) |
 | 04 | [Sony XM6 comparison](projects/sonyxm6comparison) | Lista de webs sobre los Sony WH-1000XM6, una por modelo: [Haiku 5.5](projects/sonyxm6comparison/haiku), [Sonnet 5.5](projects/sonyxm6comparison/sonnet), [Fable 5.2](projects/sonyxm6comparison/fable) y [Opus 5.5](projects/sonyxm6comparison/opus) | Haiku 5.5, Sonnet 5.5, Fable 5.2 y Opus 5.5 | | [/claude/sonyxm6comparison](https://www.samilososami.com/claude/sonyxm6comparison/) |
-| 05 | [lambdaOSpromo](projects/lambdaospromo) | Promo de 44 s del sistema de pentesting para Samsung S10, con narración en inglés y 3D | No indicado | 23 min | [/claude/lambdaospromo](https://www.samilososami.com/claude/lambdaospromo/) |
-| 06 | [Lambda OS trailer](projects/lambdaos-trailer) | Trailer de 46 s del sistema de pentesting para Samsung S10, en 3D, con narración en inglés. Sección Promos | Claude Opus 5.5 | 26 min (render) | [/claude/lambdaos-trailer](https://www.samilososami.com/claude/lambdaos-trailer/) |
+| 05 | [Lambda OS](projects/lambdaos) | Once vídeos de LambdaOS, el sistema de pentesting para el Galaxy S10: explicación con voz, animación de arranque (con su `bootanimation.zip`), modo Lex, Lamb, Operator, sting, fondo animado y las dos promos anteriores. Sección Promos | Claude Opus 5.5 (y la promo, sin modelo indicado) | Ver la página | [/claude/lambdaos](https://www.samilososami.com/claude/lambdaos/) |
 
 ## Estructura
 
@@ -32,6 +31,8 @@ claude-creations/
 │       ├── index.html
 │       ├── img/
 │       └── README.md
+├── video-source/         Código de los proyectos de vídeo (no se sirve como página)
+│   └── lambdaos/         Proyecto de Remotion de los vídeos de Lambda OS
 ├── vercel.json           Rutas: /claude/ → hub, /claude/<slug>/ → projects/<slug>/
 └── README.md
 ```
