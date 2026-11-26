@@ -4,7 +4,10 @@ import { Phone } from "../device/Phone";
 import { OperatorHome } from "../ui/Screens";
 import { C, F } from "../theme";
 import { DotGrid, Grain, Vignette } from "../fx/Fx";
-import { LambdaMark, Wordmark } from "../brand/Brand";
+import { Wordmark } from "../brand/Brand";
+import { Cable } from "lucide-react";
+import { Cursor, DesktopChrome, LambWin, NetWin, OperatorWin, TerminalWin } from "../lex/Desktop";
+import { Landscape, Touchpad } from "../social/LexExplainer";
 import { Lamb } from "../lamb/Lamb";
 
 /**
@@ -66,17 +69,36 @@ export const Cover: React.FC<{ id: CoverId }> = ({ id }) => {
         <Title t="Operator" s="One target. One tap." y={1225} />
       </Frame>
     );
+  // LEX: the real desktop on a monitor, the S10 lying on the desk with its cable
+  const S = { x: 90, y: 430, w: 900, h: 506 };
   return (
-    <Frame>
-      {/* monitor with the λ, phone underneath */}
-      <div style={{ position: "absolute", top: 440, left: 90, width: 900, height: 520, borderRadius: 18, background: "#0B0B0C", border: "2px solid #2a2c2e", boxShadow: "0 40px 120px rgba(0,0,0,0.8), 0 0 140px rgba(241,240,236,0.08)" }}>
-        <div style={{ position: "absolute", inset: 14, borderRadius: 6, background: "radial-gradient(circle at 50% 50%, #1a1b1c, #050505 70%)", display: "grid", placeItems: "center" }}>
-          <LambdaMark size={170} />
+    <Frame plain>
+      <div style={{ position: "absolute", left: 60, right: 60, top: 1022, height: 2, background: "linear-gradient(90deg, transparent, rgba(241,240,236,0.2), transparent)" }} />
+      <div style={{ position: "absolute", left: S.x - 14, top: S.y - 14, width: S.w + 28, height: S.h + 28, borderRadius: 20, background: "#0A0A0B", border: "2px solid #2a2d30", boxShadow: "0 50px 120px rgba(0,0,0,0.9)" }} />
+      <div style={{ position: "absolute", left: S.x, top: S.y, width: S.w, height: S.h, overflow: "hidden", borderRadius: 6 }}>
+        <div style={{ width: 1920, height: 1080, transform: `scale(${S.w / 1920})`, transformOrigin: "0 0" }}>
+          <DesktopChrome f={600} dockIn={1} activeApp={1}>
+            <OperatorWin f={600} p={1} start={0} />
+            <TerminalWin f={600} p={1} start={0} active />
+            <LambWin f={600} p={1} start={0} />
+            <NetWin f={600} p={1} start={0} />
+            <Cursor x={820} y={820} />
+          </DesktopChrome>
         </div>
       </div>
-      <div style={{ position: "absolute", top: 958, left: 540 - 40, width: 80, height: 70, background: "linear-gradient(90deg,#141516,#2a2c2e,#141516)" }} />
-      <div style={{ position: "absolute", top: 1024, left: 540 - 170, width: 340, height: 14, borderRadius: 7, background: "#232527" }} />
-      <Title t="LEX" s="Your S10, as a full desktop." y={1100} />
+      <div style={{ position: "absolute", left: 515, top: 950, width: 50, height: 60, background: "linear-gradient(90deg,#141516,#2b2e31,#141516)" }} />
+      <div style={{ position: "absolute", left: 370, top: 1008, width: 340, height: 14, borderRadius: 7, background: "#232527" }} />
+      <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
+        <path d="M 312 1080 C 420 1080, 430 1012, 522 1006" stroke="rgba(241,240,236,0.4)" strokeWidth={4} fill="none" />
+      </svg>
+      <div style={{ position: "absolute", left: 205 - 50, top: 1080 - 106 }}>
+        <Phone width={100} rz={-90} glare={0.4}>
+          <Landscape>
+            <Touchpad label="Connected" icon={<Cable size={260} strokeWidth={1.4} />} />
+          </Landscape>
+        </Phone>
+      </div>
+      <Title t="LEX" s="Your S10, as a full desktop." y={1150} />
     </Frame>
   );
 };

@@ -28,7 +28,7 @@ type Rect = { x: number; y: number; w: number; h: number };
 const lerpRect = (a: Rect, b: Rect, t: number): Rect => ({ x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), w: lerp(a.w, b.w, t), h: lerp(a.h, b.h, t) });
 
 /** Landscape content inside a portrait-authored Phone screen (phone rotated rz = -90). */
-const Landscape: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+export const Landscape: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div style={{ position: "absolute", left: 0, top: 0, width: 2280, height: 1080, transformOrigin: "0 0", transform: "translateX(1080px) rotate(90deg)", overflow: "hidden" }}>
     {children}
   </div>
@@ -64,7 +64,7 @@ const Desk: React.FC<{ f: number; op: number; term: number; lamb?: number; dock:
 );
 
 /** Phone touchpad UI (landscape). */
-const Touchpad: React.FC<{ label: string; icon: React.ReactNode }> = ({ label, icon }) => (
+export const Touchpad: React.FC<{ label: string; icon: React.ReactNode }> = ({ label, icon }) => (
   <AbsoluteFill style={{ background: "#0C0D0E", fontFamily: F.ui, color: C.ink }}>
     <div style={{ position: "absolute", inset: 60, borderRadius: 60, border: "4px solid rgba(241,240,236,0.14)" }} />
     <div style={{ position: "absolute", left: 160, top: 300, display: "flex", alignItems: "center", gap: 70 }}>
