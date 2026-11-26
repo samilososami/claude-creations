@@ -20,16 +20,17 @@ const Title: React.FC<{ t: string; s: string; y: number }> = ({ t, s, y }) => (
   </div>
 );
 
-const Frame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <AbsoluteFill style={{ background: "#070707" }}>
-    <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 44%, rgba(241,240,236,0.09) 0%, transparent 46%)" }} />
-    <DotGrid gap={32} opacity={0.1} mask="radial-gradient(ellipse 70% 45% at 50% 45%, #000 0%, transparent 75%)" />
+/** `plain`: pure black, no glow, dots, vignette or grain (like the explainer cover). */
+const Frame: React.FC<{ children: React.ReactNode; plain?: boolean }> = ({ children, plain }) => (
+  <AbsoluteFill style={{ background: plain ? "#000" : "#070707" }}>
+    {!plain && <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 44%, rgba(241,240,236,0.09) 0%, transparent 46%)" }} />}
+    {!plain && <DotGrid gap={32} opacity={0.1} mask="radial-gradient(ellipse 70% 45% at 50% 45%, #000 0%, transparent 75%)" />}
     {children}
     <div style={{ position: "absolute", bottom: 330, width: "100%", display: "flex", justifyContent: "center", opacity: 0.55 }}>
       <Wordmark width={260} color={C.mist} />
     </div>
-    <Vignette strength={0.5} />
-    <Grain opacity={0.05} />
+    {!plain && <Vignette strength={0.5} />}
+    {!plain && <Grain opacity={0.05} />}
   </AbsoluteFill>
 );
 
@@ -47,7 +48,7 @@ export const Cover: React.FC<{ id: CoverId }> = ({ id }) => {
     );
   if (id === "lamb")
     return (
-      <Frame>
+      <Frame plain>
         <div style={{ position: "absolute", top: 470, width: "100%", display: "flex", justifyContent: "center" }}>
           <Lamb size={620} face="main" />
         </div>
